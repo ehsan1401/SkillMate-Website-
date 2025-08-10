@@ -13,11 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Something Big",
-  description: "The Beginning of a Great Transformation",
-  icons: {
-    icon: '/favicon.png',
-  },
+  title: "My Something Website",
+  description: "I'm testing my NextJs and NestJS skill in this project",
 };
 
 export default function RootLayout({
