@@ -2,11 +2,13 @@ Title
 
 
 in Client side:
-Next Js installed
-Tailwind css installed
+Next Js version "15.4.6"
+TailwindCss version "^4"
 
 in Server side:
-Express installed
+Express Removed *
+NestJs version "^11.0.0"
+Jest version "^30.0.0"
 
 
 
