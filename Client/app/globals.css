@@ -1,1 +1,50 @@
 @import "tailwindcss";
+
+
+
+/* Persian Fonts */
+@font-face {
+  font-family: "Lalezar";
+  src:
+    url("/Fonts/Lalezar-Regular.ttf") format("truetype");
+}
+
+
+@font-face {
+  font-family: "Parand";
+  src:
+    url("/Fonts/Mj_Parand.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Vazir";
+  src:
+    url("/Fonts/Vazir.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Aban";
+  src:
+    url("/Fonts/Waban.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Homa";
+  src:
+    url("/Fonts/homa.ttf") format("truetype");
+}
+
+/* English Fonts */
+
+@font-face {
+  font-family: "Franklin";
+  src:
+    url("/Fonts/OPTIFranklin.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "scriptMtbold";
+  src:
+    url("/Fonts/scriptMtbold.ttf") format("truetype");
+}
+

@@ -1,85 +1,57 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
+import { DatabaseService } from 'src/database/database.service';
+import * as jwt from 'jsonwebtoken';
+import { CreateUser } from './dto/CreateUser.dto';
+
+
 
 @Injectable()
 export class UsersService {
-    private users = [
-        {
-            "id": 1,
-            "name": "Leanne Graham",
-            "email": "Sincere@april.biz",
-            "role": "INTERN",
+    constructor( private readonly databaseService : DatabaseService){}
+
+    async create(createUserDto: CreateUser) {
+
+
+
+      return this.databaseService.user.create({
+        data: {
+          ...createUserDto,
+          type: 'NORMAL',
+          profileImageUrl: '',
+          biography: '',
+          userToken: '',
+          lastLogin: new Date(),
         },
-        {
-            "id": 2,
-            "name": "Ervin Howell",
-            "email": "Shanna@melissa.tv",
-            "role": "INTERN",
-        },
-        {
-            "id": 3,
-            "name": "Clementine Bauch",
-            "email": "Nathan@yesenia.net",
-            "role": "ENGINEER",
-        },
-        {
-            "id": 4,
-            "name": "Patricia Lebsack",
-            "email": "Julianne.OConner@kory.org",
-            "role": "ENGINEER",
-        },
-        {
-            "id": 5,
-            "name": "Chelsey Dietrich",
-            "email": "Lucio_Hettinger@annie.ca",
-            "role": "ADMIN",
+      });
+    }
+
+    async login(email: string, passCode: string) {
+
+
+      const user = await this.databaseService.user.findUnique({
+        where: { email },
+      });
+
+      if (!user) {
+        return { success: false, message: 'User not found' };
+      }
+
+      if (user.passCode !== passCode) {
+        return { success: false, message: 'Incorrect password' };
+      }
+            const secret = process.env.JWT_SECRET;
+      if (!secret) throw new Error('JWT_SECRET is not defined in .env');
+
+      const payload = { email : email}
+      const token = jwt.sign(payload, secret, { expiresIn: '1h' });
+      await this.databaseService.user.update({
+        where : {email},
+        data : {
+          userToken : token
         }
-    ]
+      })
 
-    findAll(role?: 'INTERN' | 'ENGINEER' | 'ADMIN') {
-        if (role) {
-            const rolesArray = this.users.filter(user => user.role === role)
-            if(rolesArray.length === 0) throw new NotFoundException("User Role Not Found!")
-            return rolesArray
-        }
-        return this.users
+      return { success: true, message: 'Login successful' , token };
     }
-
-    findOne(id: number) {
-        const user = this.users.find(user => user.id === id)
-        if(!user) throw new  NotFoundException("User Dosen't Exist!")
-
-        return user
-    }
-
-    create(createUserDto: CreateUserDto) {
-        const usersByHighestId = [...this.users].sort((a, b) => b.id - a.id)
-        const newUser = {
-            id: usersByHighestId[0].id + 1,
-            ...createUserDto
-        }
-        this.users.push(newUser)
-        return newUser
-    }
-
-    update(id: number, updatedUserDto: UpdateUserDto) {
-        this.users = this.users.map(user => {
-            if (user.id === id) {
-                return { ...user, ...updatedUserDto }
-            }
-            return user
-        })
-
-        return this.findOne(id)
-    }
-
-    delete(id: number) {
-        const removedUser = this.findOne(id)
-
-        this.users = this.users.filter(user => user.id !== id)
-
-        return removedUser
-    }
-
 }
