@@ -1,12 +1,20 @@
 'use client';
-import { Metadata } from "next";
 import useSWR from "swr";
 import { Employeefetcher } from "./action";
 
 
+interface Employee { 
+    id: number ,
+    name : string,
+    email: string,
+    role : "INTERN"| "ENGINNER" | "ADMIN",
+    createdAt : Date,
+    updateAt : Date
+}
+
 export default function SignUp() {
 
-  const { data, error, isLoading } = useSWR<Employee[]>(
+  const { data } = useSWR<Employee[]>(
     `${process.env.NEXT_PUBLIC_API_URL}/employee`,
     Employeefetcher
   );

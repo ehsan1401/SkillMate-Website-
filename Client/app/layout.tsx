@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "My Something Website",
+  title: "SkillMate.team",
   description: "I'm testing my NextJs and NestJS skill in this project",
 };
 

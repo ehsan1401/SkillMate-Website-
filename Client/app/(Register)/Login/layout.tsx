@@ -3,10 +3,10 @@ import { Suspense } from "react";
 import Loading from "./loading";
 
 export const metadata: Metadata = {
-  title: "This is Login page"
+  title: "SkillMate - Login"
 };
 
-export default function LoginLayout({
+export default async function LoginLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
