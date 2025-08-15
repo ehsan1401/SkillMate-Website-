@@ -12,22 +12,25 @@ datasource db {
   provider  = "postgresql"
   url  	    = env("DATABASE_URL")
   // uncomment next line if you use Prisma <5.10
-  directUrl = env("DATABASE_URL_UNPOOLED")
+  // directUrl = env("DATABASE_URL_UNPOOLED")
 }
 
-model Employee{
-  id        Int      @id @default(autoincrement())
-  name      String  
-  email     String   @unique
-  role      Role
-  createdAt DateTime @default(now())
-  updateAt  DateTime @updatedAt
+model User {
+  id        Int     @id @default(autoincrement())
+  userName  String
+  email     String  @unique
+  type      UserType 
+  passCode  String  
+  profileImageUrl   String   
+  biography String 
+  userToken String
+  lastLogin DateTime
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
 }
 
-
-
-enum Role {
-  INTERN
-  ENGINEER
+enum UserType {
   ADMIN
+  PRO
+  NORMAL
 }
