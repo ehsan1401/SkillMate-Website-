@@ -10,6 +10,10 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, passCode: string) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) throw new UnauthorizedException('Email is not Valid!');
+
+
     const user = await this.databaseService.user.findUnique({
       where: { email },
     });
@@ -19,12 +23,12 @@ export class AuthService {
     if (user.passCode !== passCode) {
       throw new UnauthorizedException('Invalid password');
     }
-
     return user;
   }
 
   async login(user: any) {
     const payload = { username: user.username, sub: user.id };
+    
     return {
       access_token: this.jwtService.sign(payload),
     };
