@@ -14,7 +14,7 @@ export async function loginUser(formData: FormData) {
 
     if (!res.ok) {
       let errorMessage = 'Unknown error'
-      let errorStatus = res.status
+      const errorStatus = res.status
 
       try {
         const errorData = await res.json()
@@ -29,12 +29,21 @@ export async function loginUser(formData: FormData) {
 
     const data = await res.json()
     return { ok: true, status: res.status, data }
-  } catch (err: any) {
-    return {
-      ok: false,
-      status: 500,
-      message: err.message || 'Something went wrong',
-    }
+  }catch (err: unknown) {
+  let message = 'Something went wrong'
+
+  if (err instanceof Error) {
+    message = err.message
+  } else if (typeof err === 'string') {
+    message = err
   }
+
+  return {
+    ok: false,
+    status: 500,
+    message,
+  }
+}
+
   return { ok: false, status: 500, message: 'Unexpected error' }
 }

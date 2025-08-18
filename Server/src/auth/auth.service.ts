@@ -10,6 +10,10 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, passCode: string) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) throw new UnauthorizedException('Email is not Valid!');
+
+
     const user = await this.databaseService.user.findUnique({
       where: { email },
     });

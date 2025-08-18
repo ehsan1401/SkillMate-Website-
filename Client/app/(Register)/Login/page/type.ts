@@ -1,7 +1,7 @@
 
-export type LoginResult = {
-  ok: boolean
-  status: number
-  data?: any
-  message?: string
-}
+// export type LoginResult = {
+//   ok: boolean
+//   status: number
+//   data?: Object
+//   message?: string
+// }

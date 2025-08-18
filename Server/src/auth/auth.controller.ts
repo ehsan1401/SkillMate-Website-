@@ -9,7 +9,7 @@ export class AuthController {
   @Post('login')
   async login(
     @Body() body: { email: string; passCode: string },
-    @Res({ passthrough: true }) res: Response, // تایپ express.Response
+    @Res({ passthrough: true }) res: Response,
   ) {
     const user = await this.authService.validateUser(
       body.email,

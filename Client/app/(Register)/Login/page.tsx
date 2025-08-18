@@ -6,7 +6,8 @@ import { Button, Input } from "antd";
 import Image from "next/image";
 import { useState } from "react";
 import { loginUser } from "./page/action";
-import { LoginResult } from "./page/type";
+// import { LoginResult } from "./page/type";
+import { useRouter } from 'next/navigation'
 
 
 
@@ -14,10 +15,8 @@ export default function Login() {
 
    const [isHover, setIsHover] = useState(false);
    const [error , setError] = useState<string>('')
-   const [result , setResult] = useState<LoginResult | null>(null)
-
-
-
+  //  const [result , setResult] = useState<LoginResult | null>(null)
+   const router = useRouter();
 
   return (
     <section className="w-full h-screen flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat"
@@ -32,7 +31,8 @@ export default function Login() {
             return
           }
           if (res.ok) {
-            console.log('✅ Login success:', res.data)
+            // console.log('✅ Login success:', res.data)
+            router.push('/Route');
             
           } else {
             console.log(`❌ Error ${res.status}: ${res.message}`)

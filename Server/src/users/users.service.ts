@@ -10,10 +10,7 @@ import { CreateUser } from './dto/CreateUser.dto';
 export class UsersService {
     constructor( private readonly databaseService : DatabaseService){}
 
-    async create(createUserDto: CreateUser) {
-
-
-
+    async SignIn(createUserDto: CreateUser) {
       return this.databaseService.user.create({
         data: {
           ...createUserDto,
