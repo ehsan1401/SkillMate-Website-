@@ -19,12 +19,12 @@ export class AuthService {
     if (user.passCode !== passCode) {
       throw new UnauthorizedException('Invalid password');
     }
-
     return user;
   }
 
   async login(user: any) {
     const payload = { username: user.username, sub: user.id };
+    
     return {
       access_token: this.jwtService.sign(payload),
     };
