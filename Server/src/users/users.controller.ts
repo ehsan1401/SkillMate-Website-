@@ -9,8 +9,8 @@ export class UsersController {
 
 
     @Post()
-    SignIn(@Body() createUserDto: CreateUser) {
-      return this.usersService.SignIn(createUserDto);
+    create(@Body() createUserDto: CreateUser) {
+      return this.usersService.create(createUserDto);
     }
 
 }

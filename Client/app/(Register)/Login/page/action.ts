@@ -28,6 +28,7 @@ export async function loginUser(formData: FormData) {
     }
 
     const data = await res.json()
+    console.log('Payload from server:', data); // 👈 اینجا log payload
     return { ok: true, status: res.status, data }
   }catch (err: unknown) {
   let message = 'Something went wrong'
@@ -46,4 +47,28 @@ export async function loginUser(formData: FormData) {
 }
 
   return { ok: false, status: 500, message: 'Unexpected error' }
+}
+
+
+export async function fetchUserStatusLogin() {
+  try {
+    const res = await fetch('http://localhost:4000/auth/status', {
+      method: 'GET',
+      credentials: 'include',
+      cache: 'no-store',
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error('Error fetching status:', errorText);
+      return { loggedIn: false };
+    }
+
+    const data = await res.json();
+    console.log('User status payload:', data); // 👈 اینجا payload JWT log میشه
+    return data;
+  } catch (err) {
+    console.error('Error fetching status:', err);
+    return { loggedIn: false };
+  }
 }

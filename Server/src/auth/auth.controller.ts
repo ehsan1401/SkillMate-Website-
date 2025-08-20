@@ -20,23 +20,40 @@ export class AuthController {
 
     res.cookie('token', access_token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 1000 * 60 * 60 * 24,
+      // secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
+      secure: false,
+      path: '/', 
+      maxAge: 1000 * 60 * 60 * 24,
     });
 
-    return { message: 'Logged in successfully' };
+    return { token : access_token }
   }
 
 
   @Post('logout')
   logout(@Res({ passthrough: true }) res: Response) {
     res.clearCookie('token', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      httpOnly: true, 
+      // secure: process.env.NODE_ENV === 'production',
+      secure : false ,
       sameSite: 'lax',
     });
     return { message: 'Logged out successfully' };
+  }
+
+
+  @Get('status')
+  async status(@Req() req: Request) {
+    const token = req.cookies?.token;
+    if (!token) return { loggedIn: false };
+
+    try {
+      const payload = await this.authService.verifyToken(token);
+      return { loggedIn: true, payload };
+    } catch {
+      return { loggedIn: false };
+    }
   }
 
 }

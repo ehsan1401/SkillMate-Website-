@@ -5,7 +5,7 @@ import { MaterialSymbolsPerson } from "@/Icons/UserIcon";
 import { Button, Input } from "antd";
 import Image from "next/image";
 import { useState } from "react";
-import { loginUser } from "./page/action";
+import { fetchUserStatusLogin, loginUser } from "./page/action";
 // import { LoginResult } from "./page/type";
 import { useRouter } from 'next/navigation'
 
@@ -32,7 +32,9 @@ export default function Login() {
           }
           if (res.ok) {
             // console.log('✅ Login success:', res.data)
-            router.push('/Route');
+            const status = await fetchUserStatusLogin()
+            console.log('User payload after login:', status.payload)
+            router.push('/Dashboard');
             
           } else {
             console.log(`❌ Error ${res.status}: ${res.message}`)
