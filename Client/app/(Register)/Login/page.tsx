@@ -31,8 +31,12 @@ export default function Login() {
             return
           }
           if (res.ok) {
-            // console.log('✅ Login success:', res.data)
-            router.push('/Route');
+            const token = res.data ;
+            
+            if(token){
+            localStorage.setItem('Token', token.access_token);
+            router.push('/Dashboard');
+            }
             
           } else {
             console.log(`❌ Error ${res.status}: ${res.message}`)

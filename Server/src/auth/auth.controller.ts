@@ -1,42 +1,44 @@
-import { Controller, Post, Body, Res, Get, Req } from '@nestjs/common';
+import { Controller, Post, Body, Res, Get, Req, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import type { Response , Request } from 'express';
+import { JwtService } from '@nestjs/jwt';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly authService: AuthService,
+  ) {}
+
 
   @Post('login')
   async login(
     @Body() body: { email: string; passCode: string },
-    @Res({ passthrough: true }) res: Response,
+    @Req() req: Request,
   ) {
     const user = await this.authService.validateUser(
       body.email,
       body.passCode,
     );
+    const payload = user;
+    console.log(payload)
 
-    const { access_token } = await this.authService.login(user);
-
-    res.cookie('token', access_token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 1000 * 60 * 60 * 24,
-      sameSite: 'lax',
-    });
-
-    return { message: 'Logged in successfully' };
+    return {access_token: this.jwtService.sign(payload)};
   }
 
-
   @Post('logout')
-  logout(@Res({ passthrough: true }) res: Response) {
-    res.clearCookie('token', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+  logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+    return new Promise((resolve, reject) => {
+      req.session.destroy(err => {
+        if (err) {
+          console.error('Logout error:', err);
+          reject({ ok: false, message: 'Logout failed' });
+        } else {
+          res.clearCookie('connect.sid');
+          resolve({ ok: true, message: 'Logged out successfully' });
+        }
+      });
     });
-    return { message: 'Logged out successfully' };
   }
 
 }
