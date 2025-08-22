@@ -12,6 +12,8 @@ export default async function Home() {
     <>
       This is main page.
       <Button type="primary" href="/Login">Login page</Button>
+      <Button type="primary" href="/Dashboard">User Dashboard</Button>
+
     </>
   );
 }
