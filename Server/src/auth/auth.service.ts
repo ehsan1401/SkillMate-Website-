@@ -21,7 +21,7 @@ export class AuthService {
     if (!user) throw new UnauthorizedException('User not found');
 
     if (user.passCode !== passCode) {
-      throw new UnauthorizedException('Invalid password');
+      throw new UnauthorizedException('Invalid password')
     }
     return user;
   }
@@ -48,7 +48,7 @@ export class AuthService {
     try {
       return this.jwtService.verify(token);
     } catch {
-      throw new UnauthorizedException('Invalid token');
+      throw new UnauthorizedException('Invalid token')
     }
   }
 }

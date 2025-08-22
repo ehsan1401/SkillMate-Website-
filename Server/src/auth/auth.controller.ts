@@ -21,24 +21,9 @@ export class AuthController {
       body.passCode,
     );
     const payload = user;
-    console.log(payload)
 
     return {access_token: this.jwtService.sign(payload)};
   }
 
-  @Post('logout')
-  logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-    return new Promise((resolve, reject) => {
-      req.session.destroy(err => {
-        if (err) {
-          console.error('Logout error:', err);
-          reject({ ok: false, message: 'Logout failed' });
-        } else {
-          res.clearCookie('connect.sid');
-          resolve({ ok: true, message: 'Logged out successfully' });
-        }
-      });
-    });
-  }
 
 }
