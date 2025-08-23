@@ -5,12 +5,14 @@ import { GetUserInfoDashboard } from "./page/action";
 import useSWR from "swr";
 import { useEffect, useState } from "react";
 import { Button } from "antd";
+import AdminPanel from "./Role/AdminPanel";
+import UserPanel from "./Role/userPanel";
+import ProUserPanel from "./Role/ProUserPanel";
 
 export default function Dashboard() {
   const [errorFetch, setErrorFetch] = useState<string | null>(null);
   const [token, setToken] = useState<string | null>(null);
 
-  // فقط بعد از mount شدن کلاینت توکن رو از localStorage بخون
   useEffect(() => {
     const savedToken = localStorage.getItem("Token");
     setToken(savedToken);
@@ -33,11 +35,11 @@ export default function Dashboard() {
     <>
       {token ? (
         <>
-          <h1>User Dashboard</h1>
+          {
+            data?.type === "ADMIN" ? <AdminPanel/> : data?.type === "PRO" ? <ProUserPanel/>: <UserPanel/>
+          }
           <div>
-            <p>{data?.userName}</p>
-            <p>{data?.email}</p>
-            <p>{data?.type}</p>
+
             {errorFetch && (
               <p className="px-5 py-3 bg-red-600 cursor-pointer">{errorFetch}</p>
             )}
