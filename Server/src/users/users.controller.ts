@@ -25,7 +25,7 @@ export class UsersController {
 
     @Post()
     create(@Body() createUserDto: CreateUser) {
-      return this.usersService.create(createUserDto);0
+      return this.usersService.create(createUserDto);
     }
 
 
@@ -34,16 +34,16 @@ export class UsersController {
     getProtected(@Request() req:ExpressRequest) {
 
     const user = req.user as JwtUserPayload; 
-    return {
-      userName: user.userName,
-      email: user.email,
-      type: user.type,
-      profileImageUrl: user.profileImageUrl,
-      biography: user.biography,
-      lastLogin: user.lastLogin,
-      createAt: user.createAt,
-      updateAt: user.updateAt,
-    };
+      return {
+        userName: user.userName,
+        email: user.email,
+        type: user.type,
+        profileImageUrl: user.profileImageUrl,
+        biography: user.biography,
+        lastLogin: user.lastLogin,
+        createAt: user.createAt,
+        updateAt: user.updateAt,
+      };
     }
 
 
