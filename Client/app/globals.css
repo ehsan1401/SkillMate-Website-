@@ -48,3 +48,8 @@
     url("/Fonts/scriptMtbold.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Centaur";
+  src:
+    url("/Fonts/Centaur.ttf") format("truetype");
+}

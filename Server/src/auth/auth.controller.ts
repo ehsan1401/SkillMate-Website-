@@ -2,6 +2,7 @@ import { Controller, Post, Body, Res, Get, Req, UnauthorizedException } from '@n
 import { AuthService } from './auth.service';
 import type { Response , Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
+import { SignUpDto } from './dto/SignUp.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -24,6 +25,18 @@ export class AuthController {
 
     return {access_token: this.jwtService.sign(payload)};
   }
+
+
+  @Post('SignUp')
+  async SignUp(@Body() body: SignUpDto) {
+    return this.authService.SignUp(
+      body.userName,
+      body.email,
+      body.passCode,
+      body.RepassCode,
+    );
+}
+
 
 
 }
