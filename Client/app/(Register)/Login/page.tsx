@@ -122,8 +122,6 @@ export default function Login() {
               </p>
             </div>
           </form>
-
-          <Button type="primary" href="/">Main page</Button>
         </section>
       )}
     </>

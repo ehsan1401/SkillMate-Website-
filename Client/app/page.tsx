@@ -1,3 +1,4 @@
+import NavigationBar from "@/Components/naviagtion/NavigationBar";
 import { Button } from "antd";
 
 
@@ -9,11 +10,10 @@ export default async function Home() {
     
 
   return (
-    <>
-      This is main page.
-      <Button type="primary" href="/Login">Login page</Button>
-      <Button type="primary" href="/Dashboard">User Dashboard</Button>
+    <div>
 
-    </>
+
+
+    </div>
   );
 }

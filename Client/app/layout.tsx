@@ -4,6 +4,7 @@ import "./globals.css";
 import 'antd/dist/reset.css';
 import { Suspense } from "react";
 import Loading from "./Loading"
+import NavigationBar from "@/Components/naviagtion/NavigationBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,8 +31,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <main>
+        <main className="overflow-hidden">
           <Suspense fallback={<Loading/>}>
+            <NavigationBar />
             {children}
           </Suspense>
         </main>
