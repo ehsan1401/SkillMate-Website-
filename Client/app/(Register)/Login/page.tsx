@@ -63,7 +63,7 @@ export default function Login() {
 
               setLoading(false);
             }}
-            className="w-[30%] h-[60%] bg-neutral-50 overflow-hidden p-5 rounded-md"
+            className="w-[30%] h-[70%] bg-neutral-50 overflow-hidden p-5 rounded-md"
           >
             <div className="flex justify-center w-full h-1/5 items-center">
               <Image 
