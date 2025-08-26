@@ -23,9 +23,6 @@ export default function Login() {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return <AccessDenied type='Forbidden' Button={<Button variant="solid" color="volcano">Dashboard</Button>} ButtonHref="/Dashboard"/>;
-  }
 
   return (
     <>
