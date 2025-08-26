@@ -23,9 +23,6 @@ export default function Login() {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return <AccessDenied type='Forbidden' Button={<Button variant="solid" color="volcano">Dashboard</Button>} ButtonHref="/Dashboard"/>;
-  }
 
   return (
     <>
@@ -34,7 +31,7 @@ export default function Login() {
           <AccessDenied type='Forbidden' Button={<Button variant="solid" color="volcano">Dashboard</Button>} ButtonHref="Dashboard"/>
         </>
       ) : (
-        <section className="w-full h-screen flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat"
+        <section className="w-full h-[91.2vh] flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url("/wp2757874.gif")` }}
         >
           <form
@@ -66,7 +63,7 @@ export default function Login() {
 
               setLoading(false);
             }}
-            className="w-[30%] h-[60%] bg-neutral-50 overflow-hidden p-5 rounded-md"
+            className="w-[30%] h-[70%] bg-neutral-50 overflow-hidden p-5 rounded-md"
           >
             <div className="flex justify-center w-full h-1/5 items-center">
               <Image 
