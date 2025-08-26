@@ -31,7 +31,7 @@ export default function Login() {
           <AccessDenied type='Forbidden' Button={<Button variant="solid" color="volcano">Dashboard</Button>} ButtonHref="Dashboard"/>
         </>
       ) : (
-        <section className="w-full h-screen flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat"
+        <section className="w-full h-[91.2vh] flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url("/wp2757874.gif")` }}
         >
           <form

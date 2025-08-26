@@ -40,7 +40,7 @@ export default function SignUp() {
           </>
         ) : (    
         <section
-          className="w-full h-screen bg-cover bg-no-repeat bg-center flex justify-center items-center"
+          className="w-full h-[91.2vh] bg-cover bg-no-repeat bg-center flex justify-center items-center"
           style={{ backgroundImage: `url("/Background2.gif")` }}
         >
           <form

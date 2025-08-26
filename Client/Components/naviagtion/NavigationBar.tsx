@@ -1,6 +1,7 @@
 'use client';
 import { UserOutlined } from "@/Icons/UserOutlined";
-import { Avatar, Button } from "antd";
+import { logout } from "@/utils/logout";
+import { Avatar, Button, ConfigProvider } from "antd";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -33,6 +34,13 @@ export default function NavigationBar () {
 
     return(
         <nav className="w-full h-16 bg-neutral-800 flex">
+        <ConfigProvider
+            theme={{
+                token: {
+                fontFamily: "vazir"
+                },
+            }}
+        >
             <a href="/" className="flex px-10">
                 <img src="/images/TitleLessLogo.png" alt="TitleLessLogo" className="w-14" />
                 <h2 className="flex items-center h-full text-3xl text-blue-100" style={{fontFamily:"scriptMtbold"}}>
@@ -63,7 +71,14 @@ export default function NavigationBar () {
                 {
                     token  ? 
                         <div className="flex items-center gap-5">
-                            <Button type="primary" href="/Dashboard">Dashboard</Button>
+                            {
+                                firstSegment ===`/Dashboard` ? 
+                                    <Button variant="solid" color="danger" onClick={logout}>Logout</Button>
+                                :
+                                    <Button type="primary" href="/Dashboard">Dashboard</Button>
+                            }
+
+                            
                             <Avatar
                                 size={45} 
                                 icon={<UserOutlined />} 
@@ -80,7 +95,7 @@ export default function NavigationBar () {
                        </div>
                 }
             </div>
-
+        </ConfigProvider>
         </nav>
     )
 }

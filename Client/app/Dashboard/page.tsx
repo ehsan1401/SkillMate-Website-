@@ -44,12 +44,6 @@ export default function Dashboard() {
               <p className="px-5 py-3 bg-red-600 cursor-pointer">{errorFetch}</p>
             )}
           </div>
-          <button
-            className="px-5 py-3 bg-red-600 cursor-pointer"
-            onClick={logout}
-          >
-            Logout
-          </button>
         </>
       ) : (
         <AccessDenied type="Unauthorized" ButtonHref="/Login" Button={<Button variant="solid" color="volcano">Login Page</Button>}/>
