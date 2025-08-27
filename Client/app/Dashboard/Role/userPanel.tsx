@@ -61,21 +61,29 @@ export default function UserPanel(){
                         </div>
                         <span className="w-[80%] bg-neutral-800 h-1"></span>
                         <ul className="flex flex-col gap-7 w-full py-5 pt-18 items-start px-20 h-2/4">
-                            {
-                                NavigationItems.map((item)=>{
-                                    return(
-                                    <>
-                                        {
-                                            itemSelected === `${item.id}` ? 
-                                                <li className="text-neutral-950"><button className="flex gap-2 cursor-pointer">{item.icon}{item.label}</button></li>
-                                            :                                         
-                                                <li className="text-neutral-400 hover:text-neutral-950 transition-all duration-300"><button className="flex gap-2 cursor-pointer" onClick={()=>handleSelect(item.id)}>{item.icon}{item.label}</button></li>
-                                        }
-                                    </>
-                                    )
-                                })
-                            }
+                        {NavigationItems.map((item) => {
+                            const isSelected = itemSelected === item.id;
+                            return (
+                            <li
+                                key={item.id}
+                                className={
+                                isSelected
+                                    ? "text-neutral-950"
+                                    : "text-neutral-400 hover:text-neutral-950 transition-all duration-300"
+                                }
+                            >
+                                <button
+                                className="flex gap-2 cursor-pointer"
+                                onClick={() => !isSelected && handleSelect(item.id)}
+                                >
+                                {item.icon}
+                                {item.label}
+                                </button>
+                            </li>
+                            );
+                        })}
                         </ul>
+
                         <div className="w-full h-1/4 flex justify-center items-end p-4 -ml-2">
                         <button
                             className="
