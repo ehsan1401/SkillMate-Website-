@@ -3,18 +3,27 @@ import { UserOutlined } from "@/Icons/UserOutlined";
 import { Avatar } from "antd";
 import useSWR from "swr";
 import { GetUserInfoDashboard } from "../page/action";
-import { useEffect, useState } from "react";
+import { Component, useEffect, useState } from "react";
 import { LogoutIcon } from "@/Icons/LogoutIcon";
 import { logout } from "@/utils/logout";
-import { MaterialSymbolsPerson } from "@/Icons/UserIcon";
 import { IcOutlineErrorOutline } from "@/Icons/ErrorIcon";
 import { AlternateEmailRounded } from "@/Icons/AlternateEmailRounded";
 import { MaterialSymbolsLockOutline } from "@/Icons/PasswordIcon";
+import { MaterialSymbolsAccountBoxOutline } from "@/Icons/profileIcon";
+import { SiProjectsLine } from "@/Icons/ProjectsIcon";
+import { MaterialSymbolsNotificationsOutline } from "@/Icons/NotificationsIcon";
+import { MaterialSymbolsSettingsAccountBoxRounded } from "@/Icons/SettingIcon";
+import MyProfile from "../DrawerPages/MyProfile";
+import Projects from "../DrawerPages/Projects";
+import Notifications from "../DrawerPages/Notifications";
+import Settings from "../DrawerPages/Settings";
+import MainDashboard from "../DrawerPages/MainDashboard";
+import { MaterialSymbolsDashboardOutline } from "@/Icons/DashboardIcon";
 
 export default function UserPanel(){
     const [token, setToken] = useState<string | null>(null);
     const [mounted, setMounted] = useState(false); 
-    const [itemSelected , setItemSelected] = useState<string>('item1')         
+    const [itemSelected , setItemSelected] = useState<string>('item0')         
 
 
     useEffect(() => {
@@ -28,10 +37,11 @@ export default function UserPanel(){
     )
 
     const NavigationItems = [
-    { id: "item1", label: "Profile", icon: <MaterialSymbolsPerson /> },
-    { id: "item2", label: "Error", icon: <IcOutlineErrorOutline /> },
-    { id: "item3", label: "Email", icon: <AlternateEmailRounded /> },
-    { id: "item4", label: "Password", icon: <MaterialSymbolsLockOutline /> },
+    { id: "item0", label: "Dashboard", icon: <MaterialSymbolsDashboardOutline /> , Component : <MainDashboard/> },
+    { id: "item1", label: "My Profile", icon: <MaterialSymbolsAccountBoxOutline /> , Component : <MyProfile/> },
+    { id: "item2", label: "Projects", icon: <SiProjectsLine /> ,  Component : <Projects/>  },
+    { id: "item3", label: "Notifications", icon: <MaterialSymbolsNotificationsOutline /> ,  Component : <Notifications/>  },
+    { id: "item4", label: "Settings", icon: <MaterialSymbolsSettingsAccountBoxRounded /> , Component : <Settings/>  },
     ];
     const handleSelect = (e : string)=>{
         setItemSelected(e)
@@ -60,7 +70,7 @@ export default function UserPanel(){
                             <h6 className="text-sm">{data?.email}</h6>
                         </div>
                         <span className="w-[80%] bg-neutral-800 h-1"></span>
-                        <ul className="flex flex-col gap-7 w-full py-5 pt-18 items-start px-20 h-2/4">
+                        <ul className="flex flex-col gap-7 w-full py-5 pt-14 items-start px-20 h-2/4">
                         {NavigationItems.map((item) => {
                             const isSelected = itemSelected === item.id;
                             return (
@@ -111,6 +121,20 @@ export default function UserPanel(){
 
                     </aside>
                 </div>
+                <section className="w-4/5 h-full float-right pr-8 py-16">
+                    {
+                        NavigationItems.map((items)=>{
+                            if(itemSelected === items.id ) 
+                                return(
+                                    <div key={items.id} className="w-full h-full bg-neutral-100 p-3 rounded-3xl">
+                                        {
+                                            items.Component
+                                        }
+                                    </div>
+                                )
+                        })
+                    }
+                </section>
                 <div className="w-full h-1/6 bg-cover bg-top bg-no-repeat" style={{backgroundImage : `url('/images/HeaderDashboard.jpg')`}} ></div>
             </div>
         </section>
