@@ -46,8 +46,6 @@ export default function UserPanel(){
     const handleSelect = (e : string)=>{
         setItemSelected(e)
     }
-    console.log(itemSelected)
-
 
     return(
         <section className="w-full h-[91.2vh] bg-neutral-500 px-3 py-3">
@@ -121,7 +119,7 @@ export default function UserPanel(){
 
                     </aside>
                 </div>
-                <section className="w-4/5 h-full float-right pr-8 py-16">
+                <section className="w-4/5 h-full float-right pr-8 py-10">
                     {
                         NavigationItems.map((items)=>{
                             if(itemSelected === items.id ) 
