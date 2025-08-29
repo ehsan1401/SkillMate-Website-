@@ -22,4 +22,13 @@ export class UsersService {
         },
       });
     }
+
+    async updateAvatar(email: string, filename: string) {
+    return this.databaseService.user.update({
+      where: { email },
+      data: {
+        profileImageUrl: `/uploads/avatars/${filename}`,
+      },
+    });
+  }
 }
