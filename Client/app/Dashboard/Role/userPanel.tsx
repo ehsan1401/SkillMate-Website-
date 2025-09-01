@@ -19,6 +19,7 @@ import Notifications from "../DrawerPages/Notifications";
 import Settings from "../DrawerPages/Settings";
 import MainDashboard from "../DrawerPages/MainDashboard";
 import { MaterialSymbolsDashboardOutline } from "@/Icons/DashboardIcon";
+import UploadAvatar from "./components/UploadAvatar";
 
 export default function UserPanel(){
     const [token, setToken] = useState<string | null>(null);
@@ -35,6 +36,10 @@ export default function UserPanel(){
         token ? ["http://localhost:4000/users/protected", token] : null, 
         ([url, t]) => GetUserInfoDashboard(url, t) 
     )
+    const baseUrl = "http://localhost:4000";
+    const avatarUrl = data?.profileImageUrl
+        ? `${baseUrl}${data?.profileImageUrl}`
+        : "https://api.dicebear.com/7.x/miniavs/svg?seed=1";
 
     const NavigationItems = [
     { id: "item0", label: "Dashboard", icon: <MaterialSymbolsDashboardOutline /> , Component : <MainDashboard/> },
@@ -53,11 +58,8 @@ export default function UserPanel(){
                 <div className="absolute w-1/5 h-full p-5">
                     <aside className="bg-neutral-100 w-full h-full rounded-4xl flex flex-col items-center py-5">
                         <div className="w-full text-center h-1/4">
-                            <Avatar
-                                size={90} 
-                                style={{ backgroundColor: '#87d068' }}
-                                src="https://api.dicebear.com/7.x/miniavs/svg?seed=1"
-                            />
+                            <UploadAvatar avatarUrl={data?.profileImageUrl ? `http://localhost:4000${data.profileImageUrl}` : `https://api.dicebear.com/7.x/miniavs/svg?seed=1`} />
+
                         </div>
                         <div className="w-full pt-10 text-center h-1/4">
                             <h1 className="text-2xl" style={{ fontFamily: "Franklin" }}>
