@@ -31,11 +31,6 @@ export class AuthService {
     userName: user.userName,
     email: user.email,
     type: user.type,
-    profileImageUrl: user.profileImageUrl,
-    biography: user.biography,
-    lastLogin: user.lastLogin,
-    createAt: user.createAt,
-    updateAt: user.updateAt,
   };
     
     return {

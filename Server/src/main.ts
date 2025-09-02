@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { join } from 'path';
 import cookieParser from 'cookie-parser';
-import session from 'express-session';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
@@ -18,7 +17,11 @@ async function bootstrap() {
 
   app.useStaticAssets(join(__dirname, '..', 'uploads'), {
     prefix: '/uploads/',
+    setHeaders: (res, path) => {
+      res.setHeader('Cache-Control', 'no-cache');
+    },
   });
+
 
   
 
