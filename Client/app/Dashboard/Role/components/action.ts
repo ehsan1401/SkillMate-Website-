@@ -1,4 +1,4 @@
-// app/actions/uploadAvatar.ts
+
 'use server';
 
 export async function uploadAvatar(file: File, token: string) {
@@ -8,7 +8,7 @@ export async function uploadAvatar(file: File, token: string) {
   const response = await fetch('http://localhost:4000/users/upload-avatar', {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${token}`, // اینجا اضافه میشه
+      Authorization: `Bearer ${token}`,
     },
     body: formData,
   });

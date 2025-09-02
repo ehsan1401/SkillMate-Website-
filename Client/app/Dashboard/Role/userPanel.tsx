@@ -1,14 +1,9 @@
 'use client';
-import { UserOutlined } from "@/Icons/UserOutlined";
-import { Avatar } from "antd";
 import useSWR from "swr";
 import { GetUserInfoDashboard } from "../page/action";
-import { Component, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { LogoutIcon } from "@/Icons/LogoutIcon";
 import { logout } from "@/utils/logout";
-import { IcOutlineErrorOutline } from "@/Icons/ErrorIcon";
-import { AlternateEmailRounded } from "@/Icons/AlternateEmailRounded";
-import { MaterialSymbolsLockOutline } from "@/Icons/PasswordIcon";
 import { MaterialSymbolsAccountBoxOutline } from "@/Icons/profileIcon";
 import { SiProjectsLine } from "@/Icons/ProjectsIcon";
 import { MaterialSymbolsNotificationsOutline } from "@/Icons/NotificationsIcon";
@@ -36,10 +31,6 @@ export default function UserPanel(){
         token ? ["http://localhost:4000/users/protected", token] : null, 
         ([url, t]) => GetUserInfoDashboard(url, t) 
     )
-    const baseUrl = "http://localhost:4000";
-    const avatarUrl = data?.profileImageUrl
-        ? `${baseUrl}${data?.profileImageUrl}`
-        : "https://api.dicebear.com/7.x/miniavs/svg?seed=1";
 
     const NavigationItems = [
     { id: "item0", label: "Dashboard", icon: <MaterialSymbolsDashboardOutline /> , Component : <MainDashboard/> },

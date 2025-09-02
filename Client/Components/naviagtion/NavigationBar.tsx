@@ -5,19 +5,26 @@ import { Avatar, Button, ConfigProvider } from "antd";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import useSWR from "swr";
+import { GetUserInfoNavigationBar } from "./action";
+import { API } from "@/utils/Api";
 
 
 export default function NavigationBar () {
 
     const [token, setToken] = useState<string | null>(null);
-    const [mounted, setMounted] = useState(false); 
     const [itemSelected, setitemSelected] = useState<string>(''); 
     const pathname = usePathname();
     const firstSegment = "/" + pathname.split("/")[1];
+    const AltAvatar = "https://api.dicebear.com/7.x/miniavs/svg?seed=1"
+
+    const {data , error} = useSWR(    
+        token ? [API.user.info, token] : null, 
+        ([url, t]) => GetUserInfoNavigationBar(url, t) 
+    )
 
     useEffect(() => {
         setToken(localStorage.getItem('Token'));
-        setMounted(true);
         if(firstSegment === "/"){
             setitemSelected("/Home");
         }else{
@@ -83,7 +90,7 @@ export default function NavigationBar () {
                                 size={45} 
                                 icon={<UserOutlined />} 
                                 style={{ backgroundColor: '#87d068' }}
-                                src="https://api.dicebear.com/7.x/miniavs/svg?seed=1"
+                                src={data?.profileImageUrl ? `http://localhost:4000${data.profileImageUrl}` : AltAvatar}
                             />
                             
                         </div> 

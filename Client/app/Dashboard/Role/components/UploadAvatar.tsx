@@ -1,4 +1,4 @@
-// components/UploadAvatar.tsx
+
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
@@ -14,9 +14,11 @@ export default function UploadAvatar({ avatarUrl }: UploadAvatarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [url, setUrl] = useState(avatarUrl);
-    useEffect(() => {
+
+  useEffect(() => {
     setUrl(avatarUrl);
-    }, [avatarUrl]);
+  }, [avatarUrl]);
+
   const handleClick = () => {
     inputRef.current?.click();
   };
@@ -29,10 +31,16 @@ export default function UploadAvatar({ avatarUrl }: UploadAvatarProps) {
 
     try {
       setLoading(true);
-      const res = await uploadAvatar(e.target.files[0], token);
-      console.log('Upload success:', res);
 
-      setUrl(`http://localhost:4000${res.profileImageUrl}`);
+      await uploadAvatar(e.target.files[0], token);
+      
+      const updatedUser = await fetch('http://localhost:4000/users/protected', {
+        headers: { Authorization: `Bearer ${token}` },
+      }).then((r) => r.json());
+      
+
+      setUrl(`http://localhost:4000${updatedUser.profileImageUrl}?t=${Date.now()}`);
+
       alert('Avatar uploaded successfully!');
     } catch (err) {
       console.error(err);
@@ -44,7 +52,6 @@ export default function UploadAvatar({ avatarUrl }: UploadAvatarProps) {
 
   return (
     <div className="relative w-fit mx-auto text-center group">
-      {/* Avatar */}
       <Avatar
         size={90}
         src={url}
@@ -62,6 +69,7 @@ export default function UploadAvatar({ avatarUrl }: UploadAvatarProps) {
           <CameraOutlined style={{ color: 'white', fontSize: '20px' }} />
         )}
       </div>
+
       <input
         ref={inputRef}
         type="file"
