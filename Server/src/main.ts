@@ -1,11 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import cookieParser = require('cookie-parser');
-import session from 'express-session';
-
+import { join } from 'path';
+import cookieParser from 'cookie-parser';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.enableCors({
     origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
@@ -13,7 +14,19 @@ async function bootstrap() {
     credentials: true,
   });
 
+
+  app.useStaticAssets(join(__dirname, '..', 'uploads'), {
+    prefix: '/uploads/',
+    setHeaders: (res, path) => {
+      res.setHeader('Cache-Control', 'no-cache');
+    },
+  });
+
+
+  
+
   app.use(cookieParser());
+
   await app.listen(process.env.PORT ?? 4000);
 }
 bootstrap();

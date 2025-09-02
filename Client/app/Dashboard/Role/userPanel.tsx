@@ -1,14 +1,9 @@
 'use client';
-import { UserOutlined } from "@/Icons/UserOutlined";
-import { Avatar } from "antd";
 import useSWR from "swr";
 import { GetUserInfoDashboard } from "../page/action";
-import { Component, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { LogoutIcon } from "@/Icons/LogoutIcon";
 import { logout } from "@/utils/logout";
-import { IcOutlineErrorOutline } from "@/Icons/ErrorIcon";
-import { AlternateEmailRounded } from "@/Icons/AlternateEmailRounded";
-import { MaterialSymbolsLockOutline } from "@/Icons/PasswordIcon";
 import { MaterialSymbolsAccountBoxOutline } from "@/Icons/profileIcon";
 import { SiProjectsLine } from "@/Icons/ProjectsIcon";
 import { MaterialSymbolsNotificationsOutline } from "@/Icons/NotificationsIcon";
@@ -19,6 +14,7 @@ import Notifications from "../DrawerPages/Notifications";
 import Settings from "../DrawerPages/Settings";
 import MainDashboard from "../DrawerPages/MainDashboard";
 import { MaterialSymbolsDashboardOutline } from "@/Icons/DashboardIcon";
+import UploadAvatar from "./components/UploadAvatar";
 
 export default function UserPanel(){
     const [token, setToken] = useState<string | null>(null);
@@ -46,8 +42,6 @@ export default function UserPanel(){
     const handleSelect = (e : string)=>{
         setItemSelected(e)
     }
-    console.log(itemSelected)
-
 
     return(
         <section className="w-full h-[91.2vh] bg-neutral-500 px-3 py-3">
@@ -55,11 +49,8 @@ export default function UserPanel(){
                 <div className="absolute w-1/5 h-full p-5">
                     <aside className="bg-neutral-100 w-full h-full rounded-4xl flex flex-col items-center py-5">
                         <div className="w-full text-center h-1/4">
-                            <Avatar
-                                size={90} 
-                                style={{ backgroundColor: '#87d068' }}
-                                src="https://api.dicebear.com/7.x/miniavs/svg?seed=1"
-                            />
+                            <UploadAvatar avatarUrl={data?.profileImageUrl ? `http://localhost:4000${data.profileImageUrl}` : `https://api.dicebear.com/7.x/miniavs/svg?seed=1`} />
+
                         </div>
                         <div className="w-full pt-10 text-center h-1/4">
                             <h1 className="text-2xl" style={{ fontFamily: "Franklin" }}>
@@ -121,7 +112,7 @@ export default function UserPanel(){
 
                     </aside>
                 </div>
-                <section className="w-4/5 h-full float-right pr-8 py-16">
+                <section className="w-4/5 h-full float-right pr-8 py-10">
                     {
                         NavigationItems.map((items)=>{
                             if(itemSelected === items.id ) 
