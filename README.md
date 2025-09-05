@@ -9,7 +9,8 @@ in Server side:
 Express Removed *
 NestJs version "^11.0.0"
 Jest version "^30.0.0"
-Prisma version "^6.14.0"
+Prisma Removed 
+pSQl version 16
 
 
 
