@@ -31,6 +31,7 @@ export default function UserPanel(){
         token ? ["http://localhost:4000/users/protected", token] : null, 
         ([url, t]) => GetUserInfoDashboard(url, t) 
     )
+    console.log(data?.profileImageUrl)
 
     const NavigationItems = [
     { id: "item0", label: "Dashboard", icon: <MaterialSymbolsDashboardOutline /> , Component : <MainDashboard/> },

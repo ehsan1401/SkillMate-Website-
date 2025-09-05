@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
-import * as jwt from 'jsonwebtoken';
 import { CreateUser } from './dto/CreateUser.dto';
 import { unlink } from 'fs';
 import { join } from 'path';
@@ -11,45 +9,44 @@ export class UsersService {
   constructor(private readonly databaseService: DatabaseService) {}
 
   async create(createUserDto: CreateUser) {
-    return this.databaseService.user.create({
-      data: {
-        ...createUserDto,
-        type: 'NORMAL',
-        profileImageUrl: '',
-        biography: '',
-        userToken: '',
-        lastLogin: new Date(),
-      },
-    });
+    const pool = this.databaseService.getPool();
+
+    const query = `
+      INSERT INTO users ("userName", "email", "passCode", "type", "profileImageUrl", "biography", "userToken", "lastLogin", "createAt", "updateAt")
+      VALUES ($1, $2, $3, 'NORMAL', '', '', '', NOW(), NOW(), NOW())
+      RETURNING *;
+    `;
+    const values = [createUserDto.userName, createUserDto.email, createUserDto.passCode];
+    const result = await pool.query(query, values);
+
+    return result.rows[0];
   }
 
   async updateAvatar(email: string, filename: string) {
+    const pool = this.databaseService.getPool();
 
-    const user = await this.databaseService.user.findUnique({ where: { email } });
+    const userResult = await pool.query(`SELECT * FROM users WHERE email = $1`, [email]);
+    const user = userResult.rows[0];
     if (!user) throw new Error('User not found');
 
-
     if (user.profileImageUrl) {
-      const oldPath = join(__dirname, '..', '..', user.profileImageUrl);
+      const oldPath = join(process.cwd(), user.profileImageUrl);
       unlink(oldPath, (err) => {
         if (err) console.error('Failed to delete old avatar:', err);
       });
     }
 
+    const updateResult = await pool.query(
+      `UPDATE users SET "profileImageUrl" = $1, "updateAt" = NOW() WHERE email = $2 RETURNING *`,
+      [`/uploads/avatars/${filename}`, email],
+    );
 
-    const updatedUser = await this.databaseService.user.update({
-      where: { email },
-      data: {
-        profileImageUrl: `/uploads/avatars/${filename}`,
-      },
-    });
-
-    return updatedUser;
+    return updateResult.rows[0];
   }
 
   async findByEmail(email: string) {
-    return this.databaseService.user.findUnique({
-      where: { email },
-    });
+    const pool = this.databaseService.getPool();
+    const result = await pool.query(`SELECT * FROM users WHERE email = $1`, [email]);
+    return result.rows[0];
   }
 }
