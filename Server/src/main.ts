@@ -1,3 +1,5 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { join } from 'path';
@@ -15,15 +17,10 @@ async function bootstrap() {
   });
 
 
-  app.useStaticAssets(join(__dirname, '..', 'uploads'), {
+  app.useStaticAssets(join(process.cwd(), 'uploads'), {
     prefix: '/uploads/',
-    setHeaders: (res, path) => {
-      res.setHeader('Cache-Control', 'no-cache');
-    },
   });
 
-
-  
 
   app.use(cookieParser());
 
