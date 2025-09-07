@@ -24,7 +24,7 @@ export default function NavigationBar () {
     )
 
     useEffect(() => {
-        setToken(localStorage.getItem('Token'));
+        setToken(sessionStorage.getItem('Token'));
         if(firstSegment === "/"){
             setitemSelected("/Home");
         }else{
@@ -40,7 +40,7 @@ export default function NavigationBar () {
 
 
     return(
-        <nav className="w-full h-16 bg-neutral-800 flex">
+        <nav className="w-full h-16 bg-neutral-800 flex fixed z-50">
         <ConfigProvider
             theme={{
                 token: {

@@ -23,7 +23,7 @@ export default function UserPanel(){
 
 
     useEffect(() => {
-        setToken(localStorage.getItem('Token'));
+        setToken(sessionStorage.getItem('Token'));
         setMounted(true);
     }, []);
 

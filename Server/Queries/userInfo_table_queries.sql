@@ -1,0 +1,14 @@
+
+-- CREATE TABLE userInfo (
+--     id SERIAL PRIMARY KEY,
+--     userId INT NOT NULL,
+--     favorite JSONB,
+--     phone VARCHAR(20),
+--     age INT,
+--     createdAt TIMESTAMP DEFAULT NOW(),
+--     updatedAt TIMESTAMP DEFAULT NOW(),
+--     CONSTRAINT fk_user
+--         FOREIGN KEY(userId) 
+--         REFERENCES users(id)
+--         ON DELETE CASCADE
+-- );
