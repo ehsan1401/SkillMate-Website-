@@ -14,7 +14,7 @@ export default function Dashboard() {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const savedToken = localStorage.getItem("Token");
+    const savedToken = sessionStorage.getItem("Token");
     setToken(savedToken);
   }, []);
 

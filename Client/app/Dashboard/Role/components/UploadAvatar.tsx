@@ -26,7 +26,7 @@ export default function UploadAvatar({ avatarUrl }: UploadAvatarProps) {
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.[0]) return;
 
-    const token = localStorage.getItem('Token');
+    const token = sessionStorage.getItem('Token');
     if (!token) return alert('Please login first');
 
     try {

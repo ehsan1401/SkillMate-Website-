@@ -24,7 +24,7 @@ export default function NavigationBar () {
     )
 
     useEffect(() => {
-        setToken(localStorage.getItem('Token'));
+        setToken(sessionStorage.getItem('Token'));
         if(firstSegment === "/"){
             setitemSelected("/Home");
         }else{
