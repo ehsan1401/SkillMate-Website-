@@ -45,48 +45,58 @@ export default function UserPanel(){
     }
 
     return(
-        <section className="w-full h-screen bg-neutral-500 pt-20 p-5">
-            <div className="w-full h-full bg-neutral-200 rounded-4xl overflow-hidden relative">
-                <div className="absolute w-1/5 h-full p-5">
-                    <aside className="bg-neutral-100 w-full h-full rounded-4xl flex flex-col items-center py-5">
-                        <div className="w-full text-center h-1/4">
-                            <UploadAvatar avatarUrl={data?.profileImageUrl ? `http://localhost:4000${data.profileImageUrl}` : `https://api.dicebear.com/7.x/miniavs/svg?seed=1`} />
-
+        <section className="w-full h-screen bg-neutral-500 lg:pt-20 pt-16 lg:p-5">
+            <div className="w-full h-full bg-neutral-200 lg:rounded-4xl lg:overflow-hidden relative overflow-y-scroll pb-5 lg:pb-0">
+                <div className="lg:absolute lg:w-1/5 w-full h-52 lg:h-full p-5">
+                    <aside className="bg-neutral-100 w-full h-full rounded-4xl flex flex-col items-center lg:py-5">
+                        <div className="flex flex-row lg:flex-col items-end w-full h-48 lg:h-full py-3 lg:p-0 justify-center lg:justify-start">
+                            <div className="text-center h-full lg:h-1/4 w-1/3 lg:w-full">
+                                <UploadAvatar avatarUrl={data?.profileImageUrl ? `http://localhost:4000${data.profileImageUrl}` : `https://api.dicebear.com/7.x/miniavs/svg?seed=1`} />
+                            </div>
+                            <div className="w-1/2 h-full lg:w-full lg:pt-14 text-center lg:h-1/4 flex flex-col items-start lg:items-center pt-3">
+                                <h1 className="text-2xl" style={{ fontFamily: "Franklin" }}>
+                                {data?.userName?.length > 15 
+                                    ? data.userName.slice(0, 15) + "..." 
+                                    : data?.userName}
+                                </h1>
+                                <h6 className="text-sm">{data?.email}</h6>
+                            </div>
                         </div>
-                        <div className="w-full pt-10 text-center h-1/4">
-                            <h1 className="text-2xl" style={{ fontFamily: "Franklin" }}>
-                            {data?.userName?.length > 15 
-                                ? data.userName.slice(0, 15) + "..." 
-                                : data?.userName}
-                            </h1>
-                            <h6 className="text-sm">{data?.email}</h6>
-                        </div>
-                        <span className="w-[80%] bg-neutral-800 h-1"></span>
-                        <ul className="flex flex-col gap-7 w-full py-5 pt-14 items-start px-20 h-2/4">
-                        {NavigationItems.map((item) => {
-                            const isSelected = itemSelected === item.id;
-                            return (
-                            <li
-                                key={item.id}
-                                className={
-                                isSelected
-                                    ? "text-neutral-950"
-                                    : "text-neutral-400 hover:text-neutral-950 transition-all duration-300"
-                                }
-                            >
-                                <button
-                                className="flex gap-2 cursor-pointer"
-                                onClick={() => !isSelected && handleSelect(item.id)}
+                        <span className="w-[80%] bg-neutral-800 h-1 hidden lg:block"></span>
+                        <div className=" py-5 lg:pt-10 h-2/4">
+                            <ul className="flex lg:flex-col gap-7 w-fullitems-center justify-center scale-125 lg:scale-100">
+                            {NavigationItems.map((item) => {
+                                const isSelected = itemSelected === item.id;
+                                return (
+                                <li
+                                    key={item.id}
+                                    className={
+                                    isSelected
+                                        ? "text-neutral-950"
+                                        : "text-neutral-400 hover:text-neutral-950 transition-all duration-300"
+                                    }
                                 >
-                                {item.icon}
-                                {item.label}
-                                </button>
-                            </li>
-                            );
-                        })}
-                        </ul>
+                                    <button
+                                    className="flex gap-2 cursor-pointer lg:hidden"
+                                    onClick={() => !isSelected && handleSelect(item.id)}
+                                    >
+                                        {item.icon}
+                                    </button>
 
-                        <div className="w-full h-1/4 flex justify-center items-end p-4 -ml-2">
+                                    <button
+                                    className="gap-2 cursor-pointer hidden lg:flex"
+                                    onClick={() => !isSelected && handleSelect(item.id)}
+                                    >
+                                    {item.icon}
+                                    {item.label}
+                                    </button>
+                                </li>
+                                );
+                            })}
+                            </ul>
+                        </div>
+
+                        <div className="w-full h-1/4 justify-center items-end p-4 -ml-2 hidden lg:flex">
                         <button
                             className="
                             flex items-center gap-2
@@ -113,7 +123,7 @@ export default function UserPanel(){
 
                     </aside>
                 </div>
-                <section className="w-4/5 h-full float-right pr-8 py-10">
+                <section className="lg:w-4/5 w-full h-full lg:float-right lg:pr-8 lg:py-10 px-5">
                     {
                         NavigationItems.map((items)=>{
                             if(itemSelected === items.id ) 
@@ -127,7 +137,7 @@ export default function UserPanel(){
                         })
                     }
                 </section>
-                <div className="w-full h-1/6 bg-cover bg-top bg-no-repeat" style={{backgroundImage : `url('/images/HeaderDashboard.jpg')`}} ></div>
+                <div className="w-full h-1/6 bg-cover bg-top bg-no-repeat hidden lg:block" style={{backgroundImage : `url('/images/HeaderDashboard.jpg')`}} ></div>
             </div>
         </section>
     )
