@@ -11,6 +11,7 @@
   "dependencies": {
     "@next/font": "^14.2.15",
     "antd": "^5.27.0",
+    "framer-motion": "^12.23.12",
     "js-cookie": "^3.0.5",
     "next": "^15.4.2-canary.56",
     "react": "19.1.0",

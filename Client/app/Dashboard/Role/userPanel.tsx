@@ -45,7 +45,7 @@ export default function UserPanel(){
     }
 
     return(
-        <section className="w-full h-[91.2vh] bg-neutral-500 px-3 py-3">
+        <section className="w-full h-screen bg-neutral-500 pt-20 p-5">
             <div className="w-full h-full bg-neutral-200 rounded-4xl overflow-hidden relative">
                 <div className="absolute w-1/5 h-full p-5">
                     <aside className="bg-neutral-100 w-full h-full rounded-4xl flex flex-col items-center py-5">
