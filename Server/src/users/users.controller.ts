@@ -23,7 +23,6 @@ interface JwtUserPayload {
   email: string;
   type: string;
   profileImageUrl: string;
-  biography: string;
   lastLogin: Date;
   createAt: Date;
   updateAt: Date;
@@ -78,7 +77,6 @@ async getProtected(@Request() req: ExpressRequest) {
     email: user.email,
     type: user.type,
     profileImageUrl: user.profileImageUrl,
-    biography: user.biography,
     lastLogin: user.lastLogin,
     createAt: user.createAt,
     updateAt: user.updateAt,
