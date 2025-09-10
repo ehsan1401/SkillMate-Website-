@@ -40,7 +40,7 @@ export default function SignUp() {
           </>
         ) : (    
         <section
-          className="w-full h-[91.2vh] bg-cover bg-no-repeat bg-center flex justify-center items-center"
+          className={`w-full h-screen bg-cover bg-no-repeat bg-center flex justify-center items-center ${!errorShow && `pt-20`}`}
           style={{ backgroundImage: `url("/Background2.gif")` }}
         >
           <form
@@ -97,7 +97,7 @@ export default function SignUp() {
                   <div className="flex flex-col">
                   {
                     errorShow && 
-                    <p className="text-red-600 flex justify-center gap-2 ">
+                    <p className="text-red-600 flex justify-center gap-2 text-sm">
                       <IcOutlineErrorOutline className="scale-110" />
                       {errorShow}
                     </p>

@@ -67,8 +67,8 @@ export class AuthService {
 
 
     const result = await this.databaseService.query(
-      `INSERT INTO users ("userName", "email", "passCode", "type", "profileImageUrl", "biography", "lastLogin", "createAt", "updateAt", "userToken")
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+      `INSERT INTO users ("userName", "email", "passCode", "type", "profileImageUrl", "lastLogin", "createAt", "updateAt")
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
        RETURNING *`,
       [
         userName,
@@ -76,11 +76,9 @@ export class AuthService {
         passCode,
         'NORMAL',
         '',
-        '',
         new Date(),
         new Date(),
         new Date(),
-        '',
       ],
     );
     const newUser = result.rows[0];
@@ -90,7 +88,6 @@ export class AuthService {
       email: newUser.email,
       type: newUser.type,
       profileImageUrl: newUser.profileImageUrl,
-      biography: newUser.biography,
       lastLogin: newUser.lastLogin,
       createAt: newUser.createAt,
       updateAt: newUser.updateAt,
