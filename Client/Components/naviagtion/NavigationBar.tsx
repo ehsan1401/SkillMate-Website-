@@ -48,13 +48,16 @@ export default function NavigationBar () {
                 },
             }}
         >
-            <a href="/" className="flex px-10">
+            <a href="/" className="px-10 hidden lg:flex">
                 <img src="/images/TitleLessLogo.png" alt="TitleLessLogo" className="w-14" />
                 <h2 className="flex items-center h-full text-3xl text-blue-100" style={{fontFamily:"scriptMtbold"}}>
                     SkillMate
                 </h2>
             </a>
-            <ul className="flex gap-8 justify-center items-center h-full px-10 flex-1">
+            <ul className="flex gap-8 justify-center items-center h-full lg:px-10 flex-1">
+                <a href="/" className="lg:px-10 lg:hidden">
+                    <img src="/images/TitleLessLogo.png" alt="TitleLessLogo" className="w-14 h-14" />
+                </a>
                 {NavigationItems.map((item) => {
                 const href = `/${item}`;
                 const isActive = href === itemSelected;
@@ -64,7 +67,7 @@ export default function NavigationBar () {
                         href={href}
                         className={
                         isActive
-                            ? "bg-white p-3 rounded-4xl text-black"
+                            ? "bg-white p-3 rounded-4xl text-black lg:scale-100 scale-75"
                             : "text-white"
                         }
                     >
@@ -74,7 +77,7 @@ export default function NavigationBar () {
                 );
                 })}
             </ul>
-            <div className="float-right flex items-center py-2 px-10">
+            <div className="float-right items-center py-2 px-10 lg:flex hidden">
                 {
                     token  ? 
                         <div className="flex items-center gap-5">
