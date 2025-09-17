@@ -72,9 +72,9 @@ export default function SignUp() {
 
               setLoading(false);
             }}
-            className="w-[30%] h-[80%] bg-neutral-50 overflow-hidden p-5 rounded-md"
+            className="lg:w-[30%] md:w-[50%] h-[80%] bg-neutral-50 overflow-hidden p-5 rounded-md"
           >
-                <div className="flex justify-center w-full h-1/5 items-center">
+                <div className="flex justify-center w-full h-1/5 items-center scale-75 md:scale-90 lg:scale-100">
                   <Image 
                     src="/Images/TitleLessLogo.png" 
                     alt="TitleLessLogo"
@@ -113,7 +113,7 @@ export default function SignUp() {
                       </span>
                     </button>
                   </div>
-                  <p className="text-sm flex gap-2 justify-center items-center">
+                  <p className="text-sm flex gap-2 justify-center items-center scale-75 md:scale-90 lg:scale-100">
                   Are you already a member?
                   <Button
                     type={isHover ? "primary" : "default"}

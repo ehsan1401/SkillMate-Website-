@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import './globals.css';
 import 'antd/dist/reset.css';
-import { Suspense } from "react";
+import { Suspense} from "react";
 import Loading from "./Loading"
 import NavigationBar from "@/Components/naviagtion/NavigationBar";
+import { ThemeProvider } from "next-themes";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,17 +27,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased transition-colors duration-500`}
       >
-        <main className="overflow-hidden">
-          <Suspense fallback={<Loading/>}>
-            <NavigationBar />
-            {children}
-          </Suspense>
-        </main>
+          <main className="overflow-hidden">
+            <Suspense fallback={<Loading/>}>
+              <NavigationBar />
+              {children}
+            </Suspense>
+          </main>
       </body>
     </html>
   );

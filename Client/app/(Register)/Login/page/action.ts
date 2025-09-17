@@ -28,7 +28,7 @@ export async function loginUser(formData: FormData) {
     }
 
     const data = await res.json()
-    // console.log('Payload from server:', data);
+
     return { ok: true, status: res.status, data }
   }catch (err: unknown) {
   let message = 'Something went wrong'
