@@ -1,6 +1,10 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-
+* {
+  @apply transition-colors duration-500;
+}
 
 /* Persian Fonts */
 @font-face {
@@ -52,4 +56,10 @@
   font-family: "Centaur";
   src:
     url("/Fonts/Centaur.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "TwCenMt";
+  src:
+    url("/Fonts/TwCenMt.ttf") format("truetype");
 }

@@ -1,5 +1,6 @@
 "use client";
 import Wellcome from "@/Components/Home/Wellcome";
+import Footer from "@/Components/naviagtion/footer";
 import { MaterialSymbolsDashboardOutline } from "@/Icons/DashboardIcon";
 import { LoginIcon } from "@/Icons/LoginIcon";
 import { FloatButton } from "antd";
@@ -10,12 +11,9 @@ export default function Home() {
     useEffect(() => {
         setToken(sessionStorage.getItem('Token'));
     }, [ token]);
-    console.log(token)
   return (
     <div className="w-full h-full">
       <Wellcome/>
-      <div className="w-full h-screen bg-neutral-800">
-      </div>
       <div className="lg:hidden">
         {
           token ? 
@@ -28,7 +26,9 @@ export default function Home() {
             </a>
 
         }
+        
       </div>
+      <Footer/>
     </div>  
   );
 }

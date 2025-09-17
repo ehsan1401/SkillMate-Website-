@@ -36,11 +36,9 @@ export default function NavigationBar () {
         "Dashboard" , "Login" , "SignUp" , "Route"
     ]
 
-    console.log(itemSelected)
-
 
     return(
-        <nav className="w-full h-16 bg-neutral-800 flex fixed z-50">
+        <nav className="w-full h-16 bg-neutral-200 dark:bg-neutral-800 flex fixed z-50">
         <ConfigProvider
             theme={{
                 token: {
@@ -49,14 +47,17 @@ export default function NavigationBar () {
             }}
         >
             <a href="/" className="px-10 hidden lg:flex">
-                <img src="/images/TitleLessLogo.png" alt="TitleLessLogo" className="w-14" />
-                <h2 className="flex items-center h-full text-3xl text-blue-100" style={{fontFamily:"scriptMtbold"}}>
+                <img src="/images/TitleLessLogo.png" alt="TitleLessLogo" className="w-14 dark:hidden" />
+                <img src="/images/LightTitleLessLogo.png" alt="TitleLessLogo" className="w-14 dark:block hidden" />
+                <h2 className="flex items-center h-full text-3xl text-[#2b80da] dark:text-white" style={{fontFamily:"scriptMtbold"}}>
                     SkillMate
                 </h2>
             </a>
             <ul className="flex gap-8 justify-center items-center h-full lg:px-10 flex-1">
                 <a href="/" className="lg:px-10 lg:hidden">
-                    <img src="/images/TitleLessLogo.png" alt="TitleLessLogo" className="w-14 h-14" />
+                    <img src="/images/LightTitleLessLogo.png" alt="TitleLessLogo" className="w-14 h-14 dark:block hidden" />
+                    <img src="/images/TitleLessLogo.png" alt="TitleLessLogo" className="w-14 h-14 dark:hidden" />
+
                 </a>
                 {NavigationItems.map((item) => {
                 const href = `/${item}`;
@@ -67,8 +68,8 @@ export default function NavigationBar () {
                         href={href}
                         className={
                         isActive
-                            ? "bg-white p-3 rounded-4xl text-black lg:scale-100 scale-75"
-                            : "text-white"
+                            ? "dark:bg-white bg-neutral-700 p-3 rounded-3xl text-white lg:scale-100 scale-75"
+                            : "dark:text-white text-neutral-900"
                         }
                     >
                         {item}
@@ -98,7 +99,7 @@ export default function NavigationBar () {
                             
                         </div> 
                     : 
-                       <div className="flex items-center gap-3 text-white">
+                       <div className="flex items-center gap-3 dark:text-white ">
                             <Button type="primary" href="/Login">Login</Button>
                             /
                             <Button type="primary" href="/SignUp">SignUp</Button>
