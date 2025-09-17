@@ -3,7 +3,7 @@ Title
 
 in Client side:
 Next Js version "15.4.6"
-TailwindCss version "^4"
+TailwindCss version "^3.4.17"
 
 in Server side:
 Express Removed *
