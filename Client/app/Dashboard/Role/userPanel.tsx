@@ -45,9 +45,9 @@ export default function UserPanel(){
 
     return(
         <section className="w-full h-screen bg-neutral-500 lg:pt-20 pt-16 lg:p-5">
-            <div className="w-full h-full bg-neutral-200 lg:rounded-4xl lg:overflow-hidden relative overflow-y-scroll pb-5 lg:pb-0">
+            <div className="w-full h-full bg-neutral-200 lg:rounded-3xl lg:overflow-hidden relative overflow-y-scroll pb-5 lg:pb-0">
                 <div className="lg:absolute lg:w-1/5 w-full h-52 lg:h-full p-5">
-                    <aside className="bg-neutral-100 w-full h-full rounded-4xl flex flex-col items-center lg:py-5">
+                    <aside className="bg-neutral-100 w-full h-full rounded-3xl flex flex-col items-center lg:py-5">
                         <div className="flex flex-row lg:flex-col items-end w-full h-48 lg:h-full py-3 lg:p-0 justify-center lg:justify-start">
                             <div className="text-center h-full lg:h-1/4 w-1/3 lg:w-full">
                                 <UploadAvatar avatarUrl={data?.profileImageUrl ? `http://localhost:4000${data.profileImageUrl}` : `https://api.dicebear.com/7.x/miniavs/svg?seed=1`} />
@@ -100,7 +100,7 @@ export default function UserPanel(){
                             className="
                             flex items-center gap-2
                             text-neutral-500 font-medium
-                            hover:text-red-500
+                            hover:text-neutral-950
                             relative group
                             transition-colors duration-300
                             cursor-pointer
