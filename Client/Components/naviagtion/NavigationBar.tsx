@@ -49,7 +49,8 @@ export default function NavigationBar () {
             <a href="/" className="px-10 hidden lg:flex">
                 <img src="/images/TitleLessLogo.png" alt="TitleLessLogo" className="w-14 dark:hidden" />
                 <img src="/images/LightTitleLessLogo.png" alt="TitleLessLogo" className="w-14 dark:block hidden" />
-                <h2 className="flex items-center h-full text-3xl text-[#2b80da] dark:text-white" style={{fontFamily:"scriptMtbold"}}>
+                <h2 className="flex items-center h-full text-3xl text-[#2b80da] dark:bg-gradient-to-tr dark:from-neutral-100 dark:via-blue-300 dark:to-blue-500 
+                            bg-clip-text dark:text-transparent" style={{fontFamily:"scriptMtbold"}}>
                     SkillMate
                 </h2>
             </a>
@@ -68,7 +69,7 @@ export default function NavigationBar () {
                         href={href}
                         className={
                         isActive
-                            ? "dark:bg-white bg-neutral-700 p-3 rounded-3xl text-white lg:scale-100 scale-75"
+                            ? "dark:bg-white bg-neutral-700 p-3 rounded-3xl dark:text-black text-white lg:scale-100 scale-75"
                             : "dark:text-white text-neutral-900"
                         }
                     >
