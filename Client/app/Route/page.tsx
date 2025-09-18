@@ -1,3 +1,4 @@
+import LoadingSpinner from "@/Components/LoadingSpinner";
 
 
 
@@ -5,7 +6,7 @@
 export default function Something() {
   return (
     <>
-      Wellcome bitch. 
+      <LoadingSpinner Text="Please wait for Loading..."/>
     </>
   );
 }

@@ -72,7 +72,7 @@ export default function SignUp() {
 
               setLoading(false);
             }}
-            className="lg:w-[30%] md:w-[50%] h-[80%] bg-neutral-50 overflow-hidden p-5 rounded-md"
+            className="lg:w-[30%] md:w-[50%] w-[80%] h-[80%] bg-neutral-50 dark:bg-neutral-700 overflow-hidden p-5 rounded-md"
           >
                 <div className="flex justify-center w-full h-1/5 items-center scale-75 md:scale-90 lg:scale-100">
                   <Image 
@@ -80,12 +80,20 @@ export default function SignUp() {
                     alt="TitleLessLogo"
                     width={80}
                     height={80}
+                    className="dark:hidden"
                   />
-                  <h2 className="flex text-5xl pt-5 text-blue-950" style={{fontFamily:"scriptMtbold"}}>
+                  <Image 
+                    src="/Images/LightTitleLessLogo.png" 
+                    alt="TitleLessLogo"
+                    width={80}
+                    height={80}
+                    className="dark:block hidden"
+                  />
+                  <h2 className="flex text-5xl pt-5 text-[#2b80da] dark:text-neutral-50" style={{fontFamily:"scriptMtbold"}}>
                     SkillMate
                   </h2>
                 </div>
-                <p className="text-center text-lg text-neutral-700" style={{fontFamily:"Centaur"}}>
+                <p className="text-center text-lg text-neutral-700 dark:text-neutral-100" style={{fontFamily:"Centaur"}}>
                   Wellcome to our Website.
                 </p>
 
@@ -113,7 +121,7 @@ export default function SignUp() {
                       </span>
                     </button>
                   </div>
-                  <p className="text-sm flex gap-2 justify-center items-center scale-75 md:scale-90 lg:scale-100">
+                  <p className="text-sm flex gap-2 justify-center items-center scale-75 md:scale-90 lg:scale-100 text-neutral-950 dark:text-neutral-100">
                   Are you already a member?
                   <Button
                     type={isHover ? "primary" : "default"}

@@ -20,12 +20,15 @@ export default function UserPanel(){
     const [token, setToken] = useState<string | null>(null);
     const [mounted, setMounted] = useState(false); 
     const [itemSelected , setItemSelected] = useState<string>('item0')         
-
+    const [isDark , setIsDark] = useState<string | null>();
+    
 
     useEffect(() => {
         setToken(sessionStorage.getItem('Token'));
         setMounted(true);
+        setIsDark(localStorage.getItem('theme'));
     }, []);
+    console.log(isDark)
 
     const {data , error} = useSWR(    
         token ? ["http://localhost:4000/users/protected", token] : null, 
@@ -44,24 +47,24 @@ export default function UserPanel(){
     }
 
     return(
-        <section className="w-full h-screen bg-neutral-500 lg:pt-20 pt-16 lg:p-5">
-            <div className="w-full h-full bg-neutral-200 lg:rounded-3xl lg:overflow-hidden relative overflow-y-scroll pb-5 lg:pb-0">
+        <section className="w-full h-screen bg-neutral-500 dark:bg-neutral-700 lg:pt-20 pt-16 lg:p-5">
+            <div className="w-full h-full bg-neutral-200 dark:bg-neutral-800 lg:rounded-3xl lg:overflow-hidden relative overflow-y-scroll pb-5 lg:pb-0">
                 <div className="lg:absolute lg:w-1/5 w-full h-52 lg:h-full p-5">
-                    <aside className="bg-neutral-100 w-full h-full rounded-3xl flex flex-col items-center lg:py-5">
+                    <aside className="bg-neutral-100 dark:bg-neutral-600 w-full h-full rounded-3xl flex flex-col items-center lg:py-5">
                         <div className="flex flex-row lg:flex-col items-end w-full h-48 lg:h-full py-3 lg:p-0 justify-center lg:justify-start">
                             <div className="text-center h-full lg:h-1/4 w-1/3 lg:w-full">
                                 <UploadAvatar avatarUrl={data?.profileImageUrl ? `http://localhost:4000${data.profileImageUrl}` : `https://api.dicebear.com/7.x/miniavs/svg?seed=1`} />
                             </div>
                             <div className="w-1/2 h-full lg:w-full lg:pt-14 text-center lg:h-1/4 flex flex-col items-start lg:items-center pt-3">
-                                <h1 className="text-2xl" style={{ fontFamily: "Franklin" }}>
+                                <h1 className="text-2xl text-neutral-950 dark:text-neutral-100" style={{ fontFamily: "Franklin" }}>
                                 {data?.userName?.length > 15 
                                     ? data.userName.slice(0, 15) + "..." 
                                     : data?.userName}
                                 </h1>
-                                <h6 className="text-sm">{data?.email}</h6>
+                                <h6 className="text-sm text-neutral-950 dark:text-neutral-100">{data?.email}</h6>
                             </div>
                         </div>
-                        <span className="w-[80%] bg-neutral-800 h-1 hidden lg:block"></span>
+                        <span className="w-[80%] bg-neutral-800 dark:bg-neutral-50 h-1 hidden lg:block"></span>
                         <div className=" py-5 lg:pt-10 h-2/4">
                             <ul className="flex lg:flex-col gap-7 w-fullitems-center justify-center scale-125 lg:scale-100">
                             {NavigationItems.map((item) => {
@@ -71,8 +74,8 @@ export default function UserPanel(){
                                     key={item.id}
                                     className={
                                     isSelected
-                                        ? "text-neutral-950"
-                                        : "text-neutral-400 hover:text-neutral-950 transition-all duration-300"
+                                        ? "text-neutral-950 dark:text-neutral-50"
+                                        : "text-neutral-400 dark:text-neutral-500 dark:hover:text-neutral-50 hover:text-neutral-950 transition-all duration-300"
                                     }
                                 >
                                     <button
@@ -101,6 +104,9 @@ export default function UserPanel(){
                             flex items-center gap-2
                             text-neutral-500 font-medium
                             hover:text-neutral-950
+
+                            dark:text-neutral-950
+                            dark:hover:text-neutral-200
                             relative group
                             transition-colors duration-300
                             cursor-pointer
@@ -112,7 +118,7 @@ export default function UserPanel(){
                             Logout
                             <span
                                 className="
-                                absolute -left-7 -bottom-1 w-0 h-0.5 bg-neutral-900
+                                absolute -left-7 -bottom-1 w-0 h-0.5 bg-neutral-900 dark:bg-neutral-200
                                 group-hover:w-[170%] transition-all duration-300
                                 "
                             />
@@ -127,7 +133,7 @@ export default function UserPanel(){
                         NavigationItems.map((items)=>{
                             if(itemSelected === items.id ) 
                                 return(
-                                    <div key={items.id} className="w-full h-full bg-neutral-100 p-3 rounded-3xl">
+                                    <div key={items.id} className="w-full h-full bg-neutral-100 dark:bg-neutral-600 p-3 rounded-3xl">
                                         {
                                             items.Component
                                         }
@@ -136,7 +142,18 @@ export default function UserPanel(){
                         })
                     }
                 </section>
-                <div className="w-full h-1/6 bg-cover bg-top bg-no-repeat hidden lg:block" style={{backgroundImage : `url('/images/HeaderDashboard.jpg')`}} ></div>
+
+                <div 
+                    className="w-full h-1/6 bg-cover bg-top bg-no-repeat hidden dark:hidden lg:block" 
+                    style={{backgroundImage : `url('/images/HeaderDashboard.jpg')`}} 
+                ></div>
+
+                <div 
+                    className="w-full h-1/6 bg-cover bg-top bg-no-repeat hidden dark:lg:block" 
+                    style={{backgroundImage : `url('/images/DarkHeaderDashboard.jpg')`}} 
+                ></div>
+
+
             </div>
         </section>
     )

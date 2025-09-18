@@ -7,7 +7,7 @@ import DarkModeToggle from "../elements/DarkModeToggle";
 export default function Footer() {
     const FirstItems = ["About us" , "Home" , "Terms and Conditions"];
     const SecondItems = [ "Privacy Policy", "Contact us", "DataBse"];
-    const ThirdItems = ["Jobs" , "Docs" ];
+    const ThirdItems = ["Jobs" , "Docs" , "Home" ];
 
 
   return (
@@ -77,7 +77,7 @@ export default function Footer() {
                 <ul className="flex justify-center lg:items-start items-center flex-col gap-4 h-full" style={{fontFamily:"vazir"}}>
                     
                     {
-                        SecondItems.map((item)=>{
+                        ThirdItems.map((item)=>{
                             return(
                                 <a href="" className="relative group text-base" key={item}>
                                     <li className="after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-black dark:after:bg-white after:transition-all after:duration-300 group-hover:after:w-full dark:text-white">

@@ -63,16 +63,24 @@ export default function Login() {
 
               setLoading(false);
             }}
-            className="lg:w-[30%] md:w-[45%] w-[80%] lg:h-[75%] md:h-[70%] h-[70%] bg-neutral-50 overflow-hidden p-5 rounded-md"
+            className="lg:w-[30%] md:w-[45%] w-[80%] lg:h-[75%] md:h-[70%] h-[70%] bg-neutral-50 dark:bg-neutral-700 overflow-hidden p-5 rounded-md"
           >
             <div className="flex justify-center w-full h-1/5 items-center">
+              <Image 
+                src="/Images/LightTitleLessLogo.png" 
+                alt="TitleLessLogo"
+                width={80}
+                height={80}
+                className="dark:block hidden"
+              />
               <Image 
                 src="/Images/TitleLessLogo.png" 
                 alt="TitleLessLogo"
                 width={80}
                 height={80}
+                className="dark:hidden"
               />
-              <h2 className="flex text-5xl pt-5 text-blue-950" style={{fontFamily:"scriptMtbold"}}>
+              <h2 className="flex text-5xl pt-5 text-[#2b80da] dark:text-neutral-50" style={{fontFamily:"scriptMtbold"}}>
                 SkillMate
               </h2>
             </div>
@@ -81,7 +89,7 @@ export default function Login() {
               <Input placeholder="   Email address" name="email" prefix={<MaterialSymbolsPerson className="scale-150 mx-2" />} />
               <div className="flex flex-col gap-2">
                 <Input placeholder="   Password" type="password" name="passCode" className="px-5" prefix={<MaterialSymbolsLockOutline className="scale-150 mx-2" />} />
-                <a href="#" className="px-3 py-2 text-xs text-left hover:text-blue-500 transition-all duration-200">
+                <a href="#" className="px-3 py-2 text-xs text-left hover:text-blue-500 dark:text-neutral-50 dark:hover:text-neutral-400 transition-all duration-200">
                   Did you forget your password?
                 </a>
               </div>
@@ -105,7 +113,7 @@ export default function Login() {
                   </p>
                 )}
               </div>
-              <p className="text-sm flex gap-2 justify-center items-center">
+              <p className="text-sm flex gap-2 justify-center items-center text-neutral-900 dark:text-neutral-50">
                 Dont have an Account yet?
                 <Button
                   type={isHover ? "primary" : "default"}
