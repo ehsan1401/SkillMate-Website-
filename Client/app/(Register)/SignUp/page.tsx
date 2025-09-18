@@ -131,6 +131,7 @@ export default function SignUp() {
                     className="text-base hover:text-blue-500 transition-all duration-200"
                   >
                     <span style={{fontFamily:"Vazir"}} className="pt-1">Login</span>
+                    
                   </Button>
                 </p>
                 </div>
