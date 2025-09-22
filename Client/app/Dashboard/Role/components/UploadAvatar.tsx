@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Avatar } from 'antd';
 import { CameraOutlined } from '@ant-design/icons';
 import { uploadAvatar } from './action';
+import { useAlert } from '@/Components/elements/Alert/AlertContext';
 
 interface UploadAvatarProps {
   avatarUrl: string;
@@ -14,6 +15,8 @@ export default function UploadAvatar({ avatarUrl }: UploadAvatarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [url, setUrl] = useState(avatarUrl);
+  const { showAlert } = useAlert();
+
 
   useEffect(() => {
     setUrl(avatarUrl);
@@ -27,7 +30,8 @@ export default function UploadAvatar({ avatarUrl }: UploadAvatarProps) {
     if (!e.target.files?.[0]) return;
 
     const token = sessionStorage.getItem('Token');
-    if (!token) return alert('Please login first');
+    if (!token) return showAlert("Please login first", "error");
+    
 
     try {
       setLoading(true);
@@ -41,10 +45,10 @@ export default function UploadAvatar({ avatarUrl }: UploadAvatarProps) {
 
       setUrl(`http://localhost:4000${updatedUser.profileImageUrl}?t=${Date.now()}`);
 
-      alert('Avatar uploaded successfully!');
+      showAlert("Avatar uploaded successfully!", "success")
     } catch (err) {
       console.error(err);
-      alert('Upload failed');
+      showAlert("Avatar Upload failed!", "error")
     } finally {
       setLoading(false);
     }

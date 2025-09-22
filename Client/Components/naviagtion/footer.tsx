@@ -6,7 +6,7 @@ import DarkModeToggle from "../elements/DarkModeToggle";
 
 export default function Footer() {
     const FirstItems = ["About us" , "Home" , "Terms and Conditions"];
-    const SecondItems = [ "Privacy Policy", "Contact us", "DataBse"];
+    const SecondItems = [ "Privacy Policy", "Contact us", "Database"];
     const ThirdItems = ["Jobs" , "Docs" , "Home" ];
 
 
