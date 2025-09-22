@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import "@ant-design/compatible";
 import { Geist, Geist_Mono } from "next/font/google";
 import './globals.css';
 import 'antd/dist/reset.css';
 import { Suspense} from "react";
 import Loading from "./Loading"
 import NavigationBar from "@/Components/naviagtion/NavigationBar";
-import { ThemeProvider } from "next-themes";
+import { AlertProvider } from "@/Components/elements/Alert/AlertContext";
+import CustomAlert from "@/Components/elements/Alert/CustomAlert";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,12 +35,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased transition-colors duration-500`}
       >
+        <AlertProvider>
           <main className="overflow-hidden">
             <Suspense fallback={<Loading/>}>
               <NavigationBar />
               {children}
             </Suspense>
           </main>
+          <CustomAlert />
+        </AlertProvider>
       </body>
     </html>
   );
