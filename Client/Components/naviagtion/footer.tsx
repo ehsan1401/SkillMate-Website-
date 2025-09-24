@@ -3,6 +3,7 @@ import { FacebookTag } from "@/Icons/socials/FacebookTag";
 import { Linkedin } from "@/Icons/socials/Linkedin";
 import { TelegramCircle } from "@/Icons/socials/TelegramCircle";
 import DarkModeToggle from "../elements/DarkModeToggle";
+import Image from "next/image";
 
 export default function Footer() {
     const FirstItems = ["About us" , "Home" , "Terms and Conditions"];
@@ -14,14 +15,11 @@ export default function Footer() {
     <footer className="w-full lg:h-64 bg-gradient-to-tr from-neutral-50 to-neutral-400 dark:from-neutral-500 dark:to-neutral-900 flex flex-col-reverse lg:flex-row">
         <div className="lg:w-2/5 w-full h-full flex justify-center lg:items-start items-center flex-col lg:py-10">
             <div className="px-10 flex h-1/2 items-center">
-                <img src="/images/TitleLessLogo.png" alt="TitleLessLogo" className="w-20 h-20 dark:hidden" />
-                <img src="/images/LightTitleLessLogo.png" alt="TitleLessLogo" className="w-20 h-20 dark:block hidden" />
+                <Image src="/images/TitleLessLogo.png" alt="TitleLessLogo" className="dark:hidden" width={80} height={80} />
+                <Image src="/images/LightTitleLessLogo.png" alt="TitleLessLogo" className="dark:block hidden" width={80} height={80} />
 
                 <h2
-                className="flex items-center h-full text-5xl pt-5 
-                            dark:bg-gradient-to-tr dark:from-neutral-100 dark:via-blue-300 dark:to-blue-500 
-                            bg-clip-text dark:text-transparent
-                            text-[#2b80da]"
+                className="flex items-center h-full text-5xl pt-5 dark:bg-gradient-to-tr dark:from-neutral-100 dark:via-blue-300 dark:to-blue-500 bg-clip-text dark:text-transparent text-[#2b80da]"
                 style={{ fontFamily: "scriptMtbold" }}
                 >
                 SkillMate
@@ -101,10 +99,10 @@ export default function Footer() {
             <div className="w-full h-1/2 flex flex-col justify-center items-center gap-2 lg:py-10 pb-3">
                 <h1 className="text-3xl font-bold dark:text-white" style={{fontFamily:"TwCenMt"}}>Contact us!</h1>
                 <ul className="flex gap-3 scale-150">
-                    <a href="" className="hover:scale-125 transition-all duration-200 dark:text-pink-300 hover:dark:text-pink-700 text-blue-400 hover:text-blue-800"><li><FacebookTag/></li></a>
-                    <a href="" className="hover:scale-125 transition-all duration-200 dark:text-pink-300 hover:dark:text-pink-700 text-blue-400 hover:text-blue-800"><li><TelegramCircle/></li></a>
-                    <a href="" className="hover:scale-125 transition-all duration-200 dark:text-pink-300 hover:dark:text-pink-700 text-blue-400 hover:text-blue-800"><li><Linkedin/></li></a>
-                    <a href="" className="hover:scale-125 transition-all duration-200 dark:text-pink-300 hover:dark:text-pink-700 text-blue-400 hover:text-blue-800"><li><BiInstagram/></li></a>
+                    <li><a href="" className="hover:scale-125 transition-all duration-200 dark:text-pink-300 hover:dark:text-pink-700 text-blue-400 hover:text-blue-800"><FacebookTag/></a></li>
+                    <li><a href="" className="hover:scale-125 transition-all duration-200 dark:text-pink-300 hover:dark:text-pink-700 text-blue-400 hover:text-blue-800"><TelegramCircle/></a></li>
+                    <li><a href="" className="hover:scale-125 transition-all duration-200 dark:text-pink-300 hover:dark:text-pink-700 text-blue-400 hover:text-blue-800"><Linkedin/></a></li>
+                    <li><a href="" className="hover:scale-125 transition-all duration-200 dark:text-pink-300 hover:dark:text-pink-700 text-blue-400 hover:text-blue-800"><BiInstagram/></a></li>
                 </ul>
                 <span className="text-center dark:text-white lg:block hidden" style={{fontFamily:"Centaur"}}>&copy; 2025 Skillmate. All rights reserved.</span>
             </div>

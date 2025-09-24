@@ -18,13 +18,11 @@ export default function SignUp() {
   const [loading, setLoading] = useState<boolean>(false);
   const [isHover, setIsHover] = useState<boolean>(false);
   const [errorShow, seterrorShow] = useState<string>('');
-  const [token, setToken] = useState<string | null>(null);
-  const [mounted, setMounted] = useState(false);          
+  const [token, setToken] = useState<string | null>(null);        
   const router = useRouter();
 
   useEffect(() => {
     setToken(sessionStorage.getItem('Token'));
-    setMounted(true);
   }, []);
 
   // if (!mounted) {

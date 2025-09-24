@@ -15,12 +15,11 @@ export default function Login() {
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [token, setToken] = useState<string | null>(null);
-  const [mounted, setMounted] = useState(false);          
+        
   const router = useRouter();
 
   useEffect(() => {
     setToken(sessionStorage.getItem('Token'));
-    setMounted(true);
   }, []);
 
 

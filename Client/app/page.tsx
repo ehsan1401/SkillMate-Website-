@@ -5,12 +5,9 @@ import Footer from "@/Components/naviagtion/footer";
 import { MaterialSymbolsDashboardOutline } from "@/Icons/DashboardIcon";
 import { LoginIcon } from "@/Icons/LoginIcon";
 import { FloatButton } from "antd";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-    
-
-
     const [token, setToken] = useState<string | null>(null);
     useEffect(() => {
         setToken(sessionStorage.getItem('Token'));

@@ -18,14 +18,12 @@ import UploadAvatar from "./components/UploadAvatar";
 
 export default function UserPanel(){
     const [token, setToken] = useState<string | null>(null);
-    const [mounted, setMounted] = useState(false); 
     const [itemSelected , setItemSelected] = useState<string>('item0')         
     const [isDark , setIsDark] = useState<string | null>();
     
 
     useEffect(() => {
         setToken(sessionStorage.getItem('Token'));
-        setMounted(true);
         setIsDark(localStorage.getItem('theme'));
     }, []);
     console.log(isDark)
@@ -34,6 +32,7 @@ export default function UserPanel(){
         token ? ["http://localhost:4000/users/protected", token] : null, 
         ([url, t]) => GetUserInfoDashboard(url, t) 
     )
+    console.log(error)
 
     const NavigationItems = [
     { id: "item0", label: "Dashboard", icon: <MaterialSymbolsDashboardOutline /> , Component : <MainDashboard/> },

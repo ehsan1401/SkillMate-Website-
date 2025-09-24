@@ -20,7 +20,7 @@ export default function IButton(
             }}
         >
             <Button type='primary' variant='solid' color={color} block={isBlock} 
-            onClick={()=>{ address ? router.push(`${address}`) : null}}
+            onClick={() => address && router.push(address)}
             >
             {Text}
             </Button>
