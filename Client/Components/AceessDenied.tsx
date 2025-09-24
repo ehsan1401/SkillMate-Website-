@@ -1,4 +1,3 @@
-import { Button } from "antd"
 
 type AccessDeniedProps = {
   type: 'Block' | 'Unauthorized' | 'Forbidden',

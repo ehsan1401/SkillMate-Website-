@@ -1,6 +1,5 @@
 'use client';
 import AccessDenied from "@/Components/AceessDenied";
-import { logout } from "@/utils/logout";
 import { GetUserInfoDashboard } from "./page/action";
 import useSWR from "swr";
 import { useEffect, useState } from "react";

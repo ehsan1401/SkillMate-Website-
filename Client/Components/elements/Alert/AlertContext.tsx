@@ -2,6 +2,14 @@
 
 import { createContext, useContext, useState, ReactNode } from "react";
 
+type AlertType = "success" | "info" | "warning" | "error";
+
+interface AlertState {
+  message: string;
+  type: AlertType;
+  visible: boolean;
+}
+
 export interface AlertContextType {
   showAlert: (message: string, type?: AlertType) => void;
   hideAlert: () => void;
@@ -31,7 +39,6 @@ export const AlertProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   );
 };
 
-// Custom hook برای استفاده راحت
 export const useAlert = (): AlertContextType => {
   const ctx = useContext(AlertContext);
   if (!ctx) throw new Error("useAlert باید داخل AlertProvider استفاده شود.");

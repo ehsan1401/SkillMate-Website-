@@ -30,14 +30,10 @@ useEffect(() => {
   return (
     <button
       onClick={toggleDark}
-      className="relative flex items-center w-14 h-8 rounded-full transition-colors duration-500 
-                 bg-gray-300 dark:bg-gray-700"
+      className="relative flex items-center w-14 h-8 rounded-full transition-colors duration-500 bg-gray-300 dark:bg-gray-700"
     >
       <span
-        className={`absolute left-1 top-1 w-6 h-6 rounded-full bg-white shadow-md 
-                    transform transition-transform duration-500 ${
-                      dark ? "translate-x-6 rotate-180" : "translate-x-0"
-                    }`}
+        className={`absolute left-1 top-1 w-6 h-6 rounded-full bg-white shadow-md transform transition-transform duration-500 ${dark ? "translate-x-6 rotate-180" : "translate-x-0"}`}
       >
         {dark ? (
           <Moon className="w-4 h-4 text-gray-700 m-1" />

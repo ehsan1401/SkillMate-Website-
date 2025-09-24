@@ -8,11 +8,12 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { GetUserInfoNavigationBar } from "./action";
 import { API } from "@/utils/Api";
+import Image from "next/image";
 
 
 export default function NavigationBar () {
-
-    const [token, setToken] = useState<string | null>(null);
+    
+    const [token, setToken] = useState<string | null | undefined>(undefined);
     const [itemSelected, setitemSelected] = useState<string>(''); 
     const pathname = usePathname();
     const firstSegment = "/" + pathname.split("/")[1];
@@ -22,15 +23,18 @@ export default function NavigationBar () {
         token ? [API.user.info, token] : null, 
         ([url, t]) => GetUserInfoNavigationBar(url, t) 
     )
+    console.log(error)
 
     useEffect(() => {
-        setToken(sessionStorage.getItem('Token'));
+        if (typeof window !== "undefined") {
+            setToken(sessionStorage.getItem('Token'));
+        }
         if(firstSegment === "/"){
             setitemSelected("/Home");
         }else{
             setitemSelected(firstSegment);
         }
-    }, [pathname , token]);
+    }, [pathname , token , firstSegment]);
 
     const NavigationItems = [
         "Dashboard" , "Login" , "SignUp" , "Route"
@@ -46,20 +50,19 @@ export default function NavigationBar () {
                 },
             }}
         >
-            <a href="/" className="px-10 hidden lg:flex">
-                <img src="/images/TitleLessLogo.png" alt="TitleLessLogo" className="w-14 dark:hidden" />
-                <img src="/images/LightTitleLessLogo.png" alt="TitleLessLogo" className="w-14 dark:block hidden" />
-                <h2 className="flex items-center h-full text-3xl text-[#2b80da] dark:bg-gradient-to-tr dark:from-neutral-100 dark:via-blue-300 dark:to-blue-500 
-                            bg-clip-text dark:text-transparent" style={{fontFamily:"scriptMtbold"}}>
+            <Link href="/" className="px-10 hidden lg:flex">
+                <Image src="/Images/TitleLessLogo.png" alt="TitleLessLogo" className="w-14 dark:hidden" width={60} height={60}/>
+                <Image src="/Images/LightTitleLessLogo.png" alt="TitleLessLogo" className="w-14 dark:block hidden" width={60} height={60}/>
+                <h2 className="flex items-center h-full text-3xl text-[#2b80da] dark:bg-gradient-to-tr dark:from-neutral-100 dark:via-blue-300 dark:to-blue-500 bg-clip-text dark:text-transparent" style={{fontFamily:"scriptMtbold"}}>
                     SkillMate
                 </h2>
-            </a>
+            </Link>
             <ul className="flex gap-8 justify-center items-center h-full lg:px-10 flex-1">
-                <a href="/" className="lg:px-10 lg:hidden">
-                    <img src="/images/LightTitleLessLogo.png" alt="TitleLessLogo" className="w-14 h-14 dark:block hidden" />
-                    <img src="/images/TitleLessLogo.png" alt="TitleLessLogo" className="w-14 h-14 dark:hidden" />
+                <Link href="/" className="lg:px-10 lg:hidden">
+                    <Image src="/Images/LightTitleLessLogo.png" alt="TitleLessLogo" className="w-14 h-14 dark:block hidden" width={60} height={60}/>
+                    <Image src="/Images/TitleLessLogo.png" alt="TitleLessLogo" className="w-14 h-14 dark:hidden" width={60} height={60}/>
 
-                </a>
+                </Link>
                 {NavigationItems.map((item) => {
                 const href = `/${item}`;
                 const isActive = href === itemSelected;
@@ -79,32 +82,35 @@ export default function NavigationBar () {
                 );
                 })}
             </ul>
+            
             <div className="float-right items-center py-2 px-10 lg:flex hidden">
                 {
-                    token  ? 
-                        <div className="flex items-center gap-5">
-                            {
-                                firstSegment ===`/Dashboard` ? 
-                                    <Button variant="solid" color="danger" onClick={logout}>Logout</Button>
-                                :
-                                    <Button type="primary" href="/Dashboard">Dashboard</Button>
-                            }
+                    token === undefined ? null : ( 
+                        token  ? 
+                            <div className="flex items-center gap-5">
+                                {
+                                    firstSegment ===`/Dashboard` ? 
+                                        <Button variant="solid" color="danger" onClick={logout}>Logout</Button>
+                                    :
+                                        <Button type="primary" href="/Dashboard">Dashboard</Button>
+                                }
 
-                            
-                            <Avatar
-                                size={45} 
-                                icon={<UserOutlined />} 
-                                style={{ backgroundColor: '#87d068' }}
-                                src={data?.profileImageUrl ? `http://localhost:4000${data.profileImageUrl}` : AltAvatar}
-                            />
-                            
-                        </div> 
-                    : 
-                       <div className="flex items-center gap-3 dark:text-white ">
-                            <Button type="primary" href="/Login">Login</Button>
-                            /
-                            <Button type="primary" href="/SignUp">SignUp</Button>
-                       </div>
+                                
+                                <Avatar
+                                    size={45} 
+                                    icon={<UserOutlined />} 
+                                    style={{ backgroundColor: '#87d068' }}
+                                    src={data?.profileImageUrl ? `http://localhost:4000${data.profileImageUrl}` : AltAvatar}
+                                />
+                                
+                            </div> 
+                        : 
+                        <div className="flex items-center gap-3 dark:text-white ">
+                                <Button type="primary" href="/Login">Login</Button>
+                                /
+                                <Button type="primary" href="/SignUp">SignUp</Button>
+                        </div>
+                    )
                 }
             </div>
         </ConfigProvider>
