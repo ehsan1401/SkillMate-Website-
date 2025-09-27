@@ -1,7 +1,6 @@
--- ایجاد enum برای UserType
+
 CREATE TYPE user_type AS ENUM ('ADMIN', 'PRO', 'NORMAL');
 
--- ایجاد جدول users
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     "userName" VARCHAR(255) NOT NULL,
@@ -14,7 +13,6 @@ CREATE TABLE users (
     "updateAt" TIMESTAMP DEFAULT NOW()
 );
 
--- Trigger برای بروزرسانی خودکار updateAt
 CREATE OR REPLACE FUNCTION update_updateAt_column()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -33,3 +31,10 @@ INSERT INTO users ("userName", "email", "type", "passCode", "profileImageUrl", "
 VALUES
 ('ehsan', 'ehsan.good1382@gmail.com', 'ADMIN', 'Armin@123456', Null, NOW()),
 ('sara', 'sara@example.com', 'NORMAL', 'abcdef', Null, NOW());
+
+
+
+
+-- INSERT INTO users ("userName", "email", "type", "passCode", "profileImageUrl", "lastLogin")
+-- VALUES
+-- ('Aliiiii', 'Ali11232@gmail.com', 'NORMAL', 'Armin@123456', Null, NOW())
