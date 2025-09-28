@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { CreateUserInfoDto } from './dto/create-user-info.dto';
+import { UpdateUserInfoDto } from './dto/update-user-info.dto';
 
 
 @Injectable()
@@ -39,4 +40,69 @@ export class UserInfoService {
   
       return result.rows[0];
     }
+
+    async InfoExist(userID : number) {
+      const pool = this.databaseService.getPool();
+
+      const userCheck = await pool.query(
+        `SELECT id FROM userInfo WHERE id = $1`,
+        [userID]
+      );
+
+      if (userCheck.rowCount === 0) {
+        return false ;
+      }
+      return true ;
+    }
+    async GetInfo(userID : number) {
+      const pool = this.databaseService.getPool();
+      const exists = await this.InfoExist(userID);
+      if (!exists) {
+        throw new BadRequestException(`UserInfo with id ${userID} does not exist`);
+      }
+      const result = await pool.query(
+        `SELECT * FROM userInfo WHERE userId = $1`,
+        [userID]
+      );
+
+      return result.rows[0];
+    }
+
+    async update(userID: number, updateDto: Partial<UpdateUserInfoDto>) {
+      const pool = this.databaseService.getPool();
+      const exists = await this.InfoExist(userID);
+      if (!exists) throw new BadRequestException(`UserInfo with id ${userID} does not exist`);
+
+      const fields: string[] = [];
+      const values: any[] = [];
+      let index = 1;
+
+      for (const key of Object.keys(updateDto)) {
+        let value: any = updateDto[key as keyof UpdateUserInfoDto];
+        if (value !== undefined) {
+         
+          if (['social','skills','learning_skills','resume','favorite'].includes(key)) {
+            value = JSON.stringify(value);
+          }
+          fields.push(`"${key.toLowerCase()}" = $${index++}`);
+          values.push(value);
+        }
+      }
+
+      // همیشه updatedAt رو آپدیت کن
+      fields.push(`"updatedAt" = NOW()`);
+
+      const query = `
+        UPDATE userInfo
+        SET ${fields.join(', ')}
+        WHERE "userid" = $${index}
+        RETURNING *;
+      `;
+      values.push(userID);
+
+      const result = await pool.query(query, values);
+      return result.rows[0];
+    }
+
+
 }
