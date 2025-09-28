@@ -73,6 +73,7 @@ export class UsersController {
     }
 
     return {
+      id: user.id,
       userName: user.userName,
       email: user.email,
       type: user.type,

@@ -7,9 +7,12 @@ export const API = {
     register: `${BACKEND_BASE_URL}/auth/register`,
   },
   user : {
-    info : `${BACKEND_BASE_URL}/users/protected`
+    info : `${BACKEND_BASE_URL}/users/protected`,
+    Upload_avatar : `${BACKEND_BASE_URL}/users/upload-avatar`,
+    getUserInfo: (id?: number) => `${BACKEND_BASE_URL}/user-info/${id}`,
   }
 };
 
 
 // http://localhost:4000/ users/protected
+//http://localhost:4000/users/upload-avatar

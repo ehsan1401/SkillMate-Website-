@@ -35,7 +35,7 @@ export default function Dashboard() {
       {token ? (
         <>
           {
-            data?.type === "ADMIN" ? <AdminPanel/> : data?.type === "PRO" ? <ProUserPanel/>: <UserPanel/>
+            data?.type === "ADMIN" ? <AdminPanel/> : data?.type === "PRO" ? <ProUserPanel/>: <UserPanel Token={token}/>
           }
           <div>
 

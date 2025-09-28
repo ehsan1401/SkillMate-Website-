@@ -6,12 +6,13 @@ import { Avatar } from 'antd';
 import { CameraOutlined } from '@ant-design/icons';
 import { uploadAvatar } from './action';
 import { useAlert } from '@/Components/elements/Alert/AlertContext';
+import { API } from '@/utils/Api';
 
 interface UploadAvatarProps {
   avatarUrl: string;
 }
 
-export default function UploadAvatar({ avatarUrl }: UploadAvatarProps) {
+export default function UploadAvatar({ avatarUrl , size }: { avatarUrl : string , size : number}) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [url, setUrl] = useState(avatarUrl);
@@ -38,7 +39,7 @@ export default function UploadAvatar({ avatarUrl }: UploadAvatarProps) {
 
       await uploadAvatar(e.target.files[0], token);
       
-      const updatedUser = await fetch('http://localhost:4000/users/protected', {
+      const updatedUser = await fetch(API.user.info, {
         headers: { Authorization: `Bearer ${token}` },
       }).then((r) => r.json());
       
@@ -57,7 +58,7 @@ export default function UploadAvatar({ avatarUrl }: UploadAvatarProps) {
   return (
     <div className="relative w-fit mx-auto text-center group">
       <Avatar
-        size={90}
+        size={size}
         src={url}
         onClick={handleClick}
         className="cursor-pointer transition-all duration-300 group-hover:opacity-70"

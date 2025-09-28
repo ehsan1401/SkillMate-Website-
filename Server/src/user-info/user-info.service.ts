@@ -45,7 +45,7 @@ export class UserInfoService {
       const pool = this.databaseService.getPool();
 
       const userCheck = await pool.query(
-        `SELECT id FROM userInfo WHERE id = $1`,
+        `SELECT id FROM userInfo WHERE userid = $1`,
         [userID]
       );
 
@@ -61,7 +61,7 @@ export class UserInfoService {
         throw new BadRequestException(`UserInfo with id ${userID} does not exist`);
       }
       const result = await pool.query(
-        `SELECT * FROM userInfo WHERE userId = $1`,
+        `SELECT phone, age, bio, social, skills, learning_skills, resume, favorite FROM userInfo WHERE userid = $1`,
         [userID]
       );
 
