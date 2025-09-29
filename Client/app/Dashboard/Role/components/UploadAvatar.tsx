@@ -12,7 +12,7 @@ interface UploadAvatarProps {
   avatarUrl: string;
 }
 
-export default function UploadAvatar({ avatarUrl , size }: { avatarUrl : string , size : number}) {
+export default function UploadAvatar({ avatarUrl , size , border }: { avatarUrl : string , size : number , border? : string}) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [url, setUrl] = useState(avatarUrl);
@@ -56,12 +56,12 @@ export default function UploadAvatar({ avatarUrl , size }: { avatarUrl : string 
   };
 
   return (
-    <div className="relative w-fit mx-auto text-center group">
+    <div className={`relative w-fit mx-auto text-center group ${border ? ` ${border}` : ``}`}>
       <Avatar
         size={size}
         src={url}
         onClick={handleClick}
-        className="cursor-pointer transition-all duration-300 group-hover:opacity-70"
+        className="cursor-pointer transition-all duration-300"
       />
 
       <div
