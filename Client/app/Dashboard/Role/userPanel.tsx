@@ -30,11 +30,12 @@ export default function UserPanel({Token}:{Token : string}){
         Token ? ["http://localhost:4000/users/protected", Token] : null, 
         ([url, t]) => GetUserInfoDashboard(url, t) 
     )
+    console.log(data)
     console.log(error)
 
     const NavigationItems = [
     { id: "item0", label: "Dashboard", icon: <MaterialSymbolsDashboardOutline /> , Component : <MainDashboard/> },
-    { id: "item1", label: "My Profile", icon: <MaterialSymbolsAccountBoxOutline /> , Component : <MyProfile Token={Token} id={data?.id} AvatarUrl={data?.profileImageUrl}/> },
+    { id: "item1", label: "My Profile", icon: <MaterialSymbolsAccountBoxOutline /> , Component : <MyProfile Token={Token} id={data?.id} user={data}/> },
     { id: "item2", label: "Projects", icon: <SiProjectsLine /> ,  Component : <Projects/>  },
     { id: "item3", label: "Notifications", icon: <MaterialSymbolsNotificationsOutline /> ,  Component : <Notifications/>  },
     { id: "item4", label: "Settings", icon: <MaterialSymbolsSettingsAccountBoxRounded /> , Component : <Settings/>  },
@@ -125,7 +126,7 @@ export default function UserPanel({Token}:{Token : string}){
 
                     </aside>
                 </div>
-                <section className="lg:w-4/5 w-full h-full lg:float-right lg:pr-8 lg:py-10 px-5">
+                <section className="lg:w-4/5 w-full lg:h-full h-auto lg:float-right lg:pr-8 lg:py-10 px-5">
                     {
                         NavigationItems.map((items)=>{
                             if(itemSelected === items.id ) 

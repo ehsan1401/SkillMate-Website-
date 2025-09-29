@@ -37,3 +37,12 @@ CREATE TABLE userInfo (
         REFERENCES users(id)
         ON DELETE CASCADE
 );
+
+
+ALTER TABLE userInfo
+ALTER COLUMN phone TYPE VARCHAR(13);
+
+
+ALTER TABLE userInfo
+DROP CONSTRAINT userinfo_phone_check;
+
