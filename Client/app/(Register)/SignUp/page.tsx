@@ -103,7 +103,7 @@ export default function SignUp() {
                   <div className="flex flex-col">
                   {
                     errorShow && 
-                    <p className="text-red-600 flex justify-center gap-2 text-sm">
+                    <p className="text-red-600 flex justify-center gap-2 text-xs">
                       <IcOutlineErrorOutline className="scale-110" />
                       {errorShow}
                     </p>

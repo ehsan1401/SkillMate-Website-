@@ -9,6 +9,7 @@ import NavigationBar from "@/Components/naviagtion/NavigationBar";
 import { AlertProvider } from "@/Components/elements/Alert/AlertContext";
 import CustomAlert from "@/Components/elements/Alert/CustomAlert";
 import ThemeProvider from "@/Components/provider/ThemeProvider";
+import { ModalProvider } from "@/Components/context/ModalContext/ModalContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased transition-colors duration-500`}
       >
         <ThemeProvider>
+        <ModalProvider>
         <AlertProvider>  
           <main className="overflow-hidden">
             <Suspense fallback={<Loading/>}>
@@ -46,6 +48,7 @@ export default function RootLayout({
           </main>
           <CustomAlert />
         </AlertProvider>
+        </ModalProvider>
         </ThemeProvider>
       </body>
     </html>
