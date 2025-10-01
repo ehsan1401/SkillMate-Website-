@@ -1,15 +1,6 @@
 "use client";
 
-import { useModal } from "@/Components/context/ModalContext/ModalContext";
-import { Button } from "antd";
-
 export default function Notifications() {
-  const { showModal } = useModal();
-
-    const handleSubmit = () => {
-    const isValid = false;
-    return isValid;
-    };
 
 
   return (
@@ -19,22 +10,6 @@ export default function Notifications() {
             style={{fontFamily:"scriptMtbold"}}> 
             Notifications 
         </h1>
-        <Button
-            type="primary"
-            onClick={() =>
-                showModal(
-                <div>
-                    <p>Are you sure?</p>
-                </div>,
-                "Confirmation",
-                handleSubmit,
-                "❌ Erooooooooooooooooooooooooor",
-                1200
-                )
-            }
-        >
-            نمایش مودال
-        </Button>
     </div>
   );
 }

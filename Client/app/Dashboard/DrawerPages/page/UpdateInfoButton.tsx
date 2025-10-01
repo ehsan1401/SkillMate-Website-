@@ -1,3 +1,4 @@
+"use Client";
 import { useModal } from "@/Components/context/ModalContext/ModalContext";
 import { EditeIcon } from "@/Icons/EditeIcon";
 import { Tooltip } from "antd";
