@@ -14,10 +14,12 @@ import { BiInstagram } from "@/Icons/socials/BiInstagram";
 import { FacebookTag } from "@/Icons/socials/FacebookTag";
 import { div, span } from "framer-motion/client";
 import { EditeIcon } from "@/Icons/EditeIcon";
+import { useModal } from "@/Components/context/ModalContext/ModalContext";
+import UpdateInfoButton from "./page/UpdateInfoButton";
 
 export default function MyProfile({Token , id , user}:{Token : string , id : number , user : UserType}){
     const { showAlert } = useAlert();
-    const searchItem = "Linkedin";
+
     const SocialIcons: Record<string, JSX.Element> = {
         LinkedIn: <Linkedin />,
         GitHub: <MdiGithub />,
@@ -75,11 +77,7 @@ console.log(data)
                 </div>
                 {
                     data &&
-                    <button className="absolute right-10 lg:right-24 top-20 text-2xl hover:scale-125 transition-all duration-200">
-                        <Tooltip title="Edite Your profile" placement="left">
-                            <EditeIcon/>
-                        </Tooltip>
-                    </button>
+                    <UpdateInfoButton/>
                 }
                 <div className="w-full h-auto bg-neutral-300 dark:bg-neutral-800 rounded-2xl px-5 lg:pt-8 lg:pb-10 pt-24 pb-4 flex flex-col justify-center items-center">
 
