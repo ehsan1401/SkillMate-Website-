@@ -1,15 +1,20 @@
 
 
 
+export type SocialItem = {
+  name: string;
+  url: string;
+};
+
 export type UserInfo = {
-  age: number;
+  dateofbirth: number;
   bio: string;
   favorite: object;
-  learning_skills : Array<string>;
-  phone : string;
-  resume : object;
-  skills : Array<string>;
-  social: Array<object>;
+  learning_skills: string[];
+  phone: string;
+  resume: object;
+  skills: string[];
+  social: SocialItem[]; 
 };
 
 
@@ -26,7 +31,4 @@ export type UserType = {
   userName : string ; 
 }
 
-export type SocialItem = {
-  url: string;
-  name: string;
-};
+export type UpdateUserState = { ok?: boolean; status?: number; message: string; data?: any };

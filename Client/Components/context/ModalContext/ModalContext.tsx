@@ -19,19 +19,20 @@ export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [modalContent, setModalContent] = useState<ReactNode>(null);
   const [modalTitle, setModalTitle] = useState<string>("");
   const [modalWidth, setModalWidth] = useState<number | string>(520);
+  const [modalFooter, setModalFooter] = useState<ReactNode | null>(undefined);
   const [onOkHandler, setOnOkHandler] = useState<
     (() => boolean | Promise<boolean>) | undefined
   >();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [customErrorMessage, setCustomErrorMessage] = useState<string | null>(null);
 
-  // نمایش مودال با امکان تعیین متن خطای دلخواه
   const showModal = (
     content: ReactNode,
     title?: string,
     onOk?: () => boolean | Promise<boolean>,
     errorMessageOnFail?: string,
-    width?: number | string
+    width?: number | string,
+    footer?: (helpers: { hideModal: () => void; handleOk: () => void }) => ReactNode
   ) => {
     setModalContent(content);
     setModalTitle(title || "");
@@ -40,6 +41,12 @@ export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setErrorMessage(null);
     setIsVisible(true);
     setModalWidth(width || 520);
+
+    if (footer) {
+      setModalFooter(footer({ hideModal, handleOk }));
+    } else {
+      setModalFooter(undefined); // use default AntD buttons
+    }
   };
 
   const hideModal = () => {
@@ -49,6 +56,7 @@ export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setOnOkHandler(undefined);
     setErrorMessage(null);
     setCustomErrorMessage(null);
+    setModalFooter(undefined);
   };
 
   const handleOk = async () => {
@@ -56,12 +64,12 @@ export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
       try {
         const result = await onOkHandler();
         if (result) {
-          hideModal(); // تابع true برگردوند → مودال بسته میشه
+          hideModal();
         } else {
-          setErrorMessage(customErrorMessage); // نمایش خطای دلخواه
+          setErrorMessage(customErrorMessage);
         }
       } catch (err) {
-        setErrorMessage("❌ خطای داخلی رخ داد");
+        setErrorMessage("❌Internal Error!!");
       }
     } else {
       hideModal();
@@ -77,8 +85,9 @@ export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
         open={isVisible}
         onCancel={hideModal}
         onOk={handleOk}
-        destroyOnHidden
+        destroyOnHidden   
         width={modalWidth}
+        footer={modalFooter}
       >
         {modalContent}
         {errorMessage && (

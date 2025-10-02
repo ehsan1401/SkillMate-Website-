@@ -6,7 +6,8 @@ export type ModalContextType = {
     title?: string,
     onOk?: () => boolean | Promise<boolean>,
     errorMessageOnFail?: string,
-    width?:number
+    width?: number,
+    footer?: (helpers: { hideModal: () => void; handleOk: () => void }) => ReactNode
   ) => void;
   hideModal: () => void;
 };
