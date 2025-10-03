@@ -1,9 +1,9 @@
 "use client";
 import { useModal } from "@/Components/context/ModalContext/ModalContext";
 import { EditeIcon } from "@/Icons/EditeIcon";
-import { Button, DatePicker, Input, Select, Tooltip } from "antd";
+import { Button, DatePicker, Input, Select, Tag, Tooltip } from "antd";
 import { updateUser } from "./action";
-import { JSX, startTransition, useActionState } from "react";
+import { JSX, startTransition, useActionState, useEffect } from "react";
 import { UserInfo, UserType } from "./type";
 import { Linkedin } from "@/Icons/socials/Linkedin";
 import { MdiGithub } from "@/Icons/socials/GitHub";
@@ -12,6 +12,8 @@ import { BiInstagram } from "@/Icons/socials/BiInstagram";
 import { FacebookTag } from "@/Icons/socials/FacebookTag";
 import { useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
+import { useAlert } from "@/Components/elements/Alert/AlertContext";
+import { IcOutlineErrorOutline } from "@/Icons/ErrorIcon";
 
 
 const handleSubmit = () => true;
@@ -49,6 +51,9 @@ export default function UpdateInfoButton({ user, userInfo }: { user: UserType; u
 }
 
 export function ProfileForm({ user, userInfo }: { user: UserType; userInfo: UserInfo | null }) {
+
+    const { showAlert } = useAlert();
+    const { TextArea } = Input;
     const [state, formAction] = useActionState(updateUser, { message: "" });
 
     const [socials, setSocials] = useState<{ name: string; url: string }[]>(userInfo?.social as any[] || []);
@@ -62,47 +67,102 @@ export function ProfileForm({ user, userInfo }: { user: UserType; userInfo: User
 
     const [bio, setBio] = useState(userInfo?.bio || "");
 
+    const [skills, setSkills] = useState<string[]>(
+      Array.from(new Set(userInfo?.skills || []))
+    );
+
+    const [inputValue, setInputValue] = useState("");
 
 
 
+    const [learningSkills, setLearningSkills] = useState<string[]>(
+      Array.from(new Set(userInfo?.learning_skills || []))
+    );
+    const [learningInput, setLearningInput] = useState("");
+
+
+    const handleAddSkill = () => {
+      const newSkill = inputValue.trim();
+      if (!newSkill) return;
+
+      const exists = skills.some(
+        (skill) => skill.toLowerCase() === newSkill.toLowerCase()
+      );
+
+      if (exists) {
+        showAlert("This skill has already been added.", "warning");
+        return;
+      }
+
+      setSkills([...skills, newSkill]);
+      setInputValue("");
+    };
+
+    const handleCloseSkill = (removedSkill: string) => {
+      setSkills(skills.filter((skill) => skill !== removedSkill));
+    };
+
+
+    const handleAddLearningSkill = () => {
+    const newSkill = learningInput.trim();
+      if (!newSkill) return;
+
+      const exists = learningSkills.some(
+        (skill) => skill.toLowerCase() === newSkill.toLowerCase()
+      );
+
+      if (exists) {
+        showAlert("This learning skill has already been added.", "warning");
+        return;
+      }
+
+      setLearningSkills([...learningSkills, newSkill]);
+      setLearningInput("");
+    };
+
+    const handleCloseLearningSkill = (removedSkill: string) => {
+      setLearningSkills(learningSkills.filter((skill) => skill !== removedSkill));
+    };
 
     const allOptions = [
-    { value: "LinkedIn", label: <span className="flex items-center gap-2"><Linkedin /> LinkedIn</span> },
-    { value: "GitHub", label: <span className="flex items-center gap-2"><MdiGithub /> GitHub</span> },
-    { value: "Telegram", label: <span className="flex items-center gap-2"><TelegramCircle /> Telegram</span> },
-    { value: "Instagram", label: <span className="flex items-center gap-2"><BiInstagram /> Instagram</span> },
-    { value: "Facebook", label: <span className="flex items-center gap-2"><FacebookTag /> Facebook</span> },
+      { value: "LinkedIn", label: <span className="flex items-center gap-2"><Linkedin /> LinkedIn</span> },
+      { value: "GitHub", label: <span className="flex items-center gap-2"><MdiGithub /> GitHub</span> },
+      { value: "Telegram", label: <span className="flex items-center gap-2"><TelegramCircle /> Telegram</span> },
+      { value: "Instagram", label: <span className="flex items-center gap-2"><BiInstagram /> Instagram</span> },
+      { value: "Facebook", label: <span className="flex items-center gap-2"><FacebookTag /> Facebook</span> },
     ];
 
     const socialIcons: Record<string, JSX.Element> = {
-    LinkedIn: <Linkedin />,
-    GitHub: <MdiGithub />,
-    Telegram: <TelegramCircle />,
-    Instagram: <BiInstagram />,
-    Facebook: <FacebookTag />,
+      LinkedIn: <Linkedin />,
+      GitHub: <MdiGithub />,
+      Telegram: <TelegramCircle />,
+      Instagram: <BiInstagram />,
+      Facebook: <FacebookTag />,
     };
 
-    // Filter options to exclude already added socials
     const filteredOptions = allOptions.filter(
-    (opt) => !socials.some((s) => s.name === opt.value)
+      (opt) => !socials.some((s) => s.name === opt.value)
     );
 
     const addSocial = () => {
     if (!currentName || !currentUrl) return;
 
-    // prevent duplicate
     if (socials.some((s) => s.name === currentName)) return;
 
-    setSocials([...socials, { name: currentName, url: currentUrl }]);
-    setCurrentName("");
-    setCurrentUrl("");
+      setSocials([...socials, { name: currentName, url: currentUrl }]);
+      setCurrentName("");
+      setCurrentUrl("");
     };
 
     const removeSocial = (index: number) => {
     setSocials(socials.filter((_, i) => i !== index));
     };
 
-
+    useEffect(() => {
+      if (state.status === 200) {
+        showAlert("Your Information successfully Updated!", "success");
+      }
+    }, [state.status]);
 
   return (
     <form 
@@ -110,12 +170,12 @@ export function ProfileForm({ user, userInfo }: { user: UserType; userInfo: User
             e.preventDefault();
             const formData = new FormData(e.currentTarget as HTMLFormElement);
 
-            // Append current socials state
-            formData.set("social", JSON.stringify(socials)); // use set() to replace any existing
+            formData.set("social", JSON.stringify(socials));
 
             startTransition(() => {
             formAction(formData);
             });
+
         }}
         className="flex flex-col items-center pb-5 w-[95%]"
     >
@@ -145,7 +205,6 @@ export function ProfileForm({ user, userInfo }: { user: UserType; userInfo: User
           <label className="font-bold mt-1">Date Of Birth:</label>
             <DatePicker
                 name="dateofbirth"
-                style={{ width: "50%" }}
                 value={dateofbirth}
                 onChange={(date) => setDateofbirth(date)}
             />
@@ -171,37 +230,128 @@ export function ProfileForm({ user, userInfo }: { user: UserType; userInfo: User
             style={{ width: "50%" }}
           />
 
-          <Button type="default" onClick={addSocial}>
+          <Button type="default" variant="solid" color="geekblue" onClick={addSocial}>
             Add
           </Button>
         </span>
 
         <div className="mt-2 flex flex-col lg:flex-row gap-2 w-full flex-wrap">
           {socials.map((s, i) => (
-            <div key={i} className="flex justify-between items-center gap-2 border rounded p-1 md:w-[45%]">
+            <div key={i} className="flex justify-between items-center gap-2 border border-neutral-300 dark:border-neutral-700 rounded p-1 md:w-[45%]">
               <span className="flex items-center gap-2 px-5">
-                <span className="text-lg">{socialIcons[s.name] || null} </span>{s.url}
+                <span className="text-xl text-blue-600">{socialIcons[s.name] || null} </span>{s.url}
               </span>
-              <Button size="small" danger onClick={() => removeSocial(i)}>
+              <Button size="small" variant="solid" color="danger" danger onClick={() => removeSocial(i)}>
                 Remove
               </Button>
             </div>
           ))}
         </div>
+
+
+        <div className="flex flex-col gap-3 pb-4">
+          <span className="flex gap-3">
+            <label className="font-bold mt-1">Skills:</label>
+            <Input
+              placeholder="Skill"
+              style={{ width: "76%" }}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onPressEnter={(e) => {
+                e.preventDefault();
+                handleAddSkill();
+              }}
+            />
+            <Button type="default" variant="solid" color="geekblue" onClick={handleAddSkill}>
+              Add
+            </Button>
+          </span>
+
+          <div className="flex flex-wrap gap-2">
+            {skills.map((skill) => (
+              <Tag
+                key={skill}
+                closable
+                onClose={() => handleCloseSkill(skill)}
+              >
+                {skill}
+              </Tag>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3 pb-4">
+          <span className="flex gap-3">
+            <label className="font-bold mt-1">Learning Skills:</label>
+            <Input
+              placeholder="Learning Skill"
+              style={{ width: "70%" }}
+              value={learningInput}
+              onChange={(e) => setLearningInput(e.target.value)}
+              onPressEnter={(e) => {
+                e.preventDefault();
+                handleAddLearningSkill();
+              }}
+            />
+            <Button type="default" variant="solid" color="geekblue" onClick={handleAddLearningSkill}>
+              Add
+            </Button>
+          </span>
+
+          <div className="flex flex-wrap gap-2">
+            {learningSkills.map((skill) => (
+              <Tag
+                key={skill}
+                closable
+                onClose={() => handleCloseLearningSkill(skill)}
+              >
+                {skill}
+              </Tag>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex gap-3 flex-col md:flex-row">
+          <label className="font-bold mt-1">Biography:</label>
+          <TextArea
+            rows={6}
+            placeholder="Biography"
+            name="bio"
+            value={bio}
+            style={{ width: "80%" }}
+            onChange={(e)=>setBio(e.target.value)}
+          />
+        </div>
+
       </div>
+
+        <input
+          key={JSON.stringify(skills)}
+          type="hidden"
+          name="skills"
+          value={JSON.stringify(skills)}
+        />
         <input
             key={JSON.stringify(socials)}
             type="hidden"
             name="social"
             value={JSON.stringify(socials)}
         />
+        <input
+          key={JSON.stringify(learningSkills)}
+          type="hidden"
+          name="learning_skills"
+          value={JSON.stringify(learningSkills)}
+        />
         <input type="hidden" name="id" value={user.id} />
       <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
         Update
       </Button>
+      <span className="flex text-orange-500 py-2">
+        <span className="pt-1"><IcOutlineErrorOutline/></span>
+        <span>Make sure you press the update button to save the information. </span>
+      </span>
 
-      {/* {state.message && <p className="mt-2">{state.message}</p>}
-      <pre className="mt-2">{JSON.stringify(socials, null, 2)}</pre> */}
     </form>
   );
 }

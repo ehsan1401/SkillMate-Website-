@@ -13,7 +13,7 @@ export default function MainDashboard(){
                         this is some notifications goes here
                 </span>
             </div>
-            <div className="w-full lg:h-[90%] h-[80%] bg-lime-600 mt-8 lg:mt-0">
+            <div className="w-full lg:h-[90%] h-[80%] mt-8 lg:mt-0">
             </div>
         </div>
     )

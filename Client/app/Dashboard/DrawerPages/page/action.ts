@@ -3,6 +3,7 @@
 import { API } from "@/utils/Api";
 import { promises } from "dns";
 import { UpdateUserState } from "./type";
+import { logout } from "@/utils/logout";
 
 export async function GetUserInfo(token: string , id : number) {
   const response = await fetch(API.user.getUserInfo(id), {
@@ -12,7 +13,10 @@ export async function GetUserInfo(token: string , id : number) {
     }
   });
 
-  if (!response.ok) throw new Error(`Error in Getting User Info: ${response.statusText}`);
+  if (!response.ok) {
+    logout()
+    throw new Error(`Error in Getting User Info: ${response.statusText}`)
+  };
   return response.json();
 }
 
@@ -22,10 +26,35 @@ export async function updateUser(
   prevState: any,
   formData: FormData
 ): Promise<UpdateUserState> {
+
   const phone = formData.get("phone");
+  const bio = formData.get("bio");
+
   const dateOfBirth = formData.get("dateofbirth");
 
-  // Get socials as JSON and parse it
+  const skillsRaw = formData.get("skills");
+  let skills: string[] = [];
+  if (skillsRaw) {
+    try {
+      skills = JSON.parse(skillsRaw as string);
+      if (!Array.isArray(skills)) skills = [];
+    } catch {
+      skills = (skillsRaw as string).split(",").map(s => s.trim());
+    }
+  }
+
+
+  const LearningSkillsRaw = formData.get("learning_skills");
+  let learning_skills: string[] = [];
+  if (LearningSkillsRaw) {
+    try {
+      learning_skills = JSON.parse(LearningSkillsRaw as string);
+      if (!Array.isArray(learning_skills)) learning_skills = [];
+    } catch {
+      learning_skills = (LearningSkillsRaw as string).split(",").map(s => s.trim());
+    }
+  }
+
   const socialsJson = formData.get("social") as string | null;
   const social = socialsJson ? JSON.parse(socialsJson) : [];
   const id = formData.get("id");
@@ -38,7 +67,7 @@ export async function updateUser(
     const res = await fetch(API.user.UpdateUserInfo(Number(id)), {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ phone, dateOfBirth, social }),
+      body: JSON.stringify({ phone, dateOfBirth, social, skills , learning_skills , bio }),
       cache: "no-store",
     });
 
@@ -67,6 +96,7 @@ export async function updateUser(
     return { ok: false, status: 500, message };
   }
 }
+
 
 
 

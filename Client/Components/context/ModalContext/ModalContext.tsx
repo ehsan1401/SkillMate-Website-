@@ -1,7 +1,7 @@
 "use client";
 
-import { createContext, FC, ReactNode, useContext, useState } from "react";
-import { Modal, Typography } from "antd";
+import { createContext, FC, ReactNode, useContext, useEffect, useState } from "react";
+import { ConfigProvider, Modal, theme, Typography } from "antd";
 import { ModalContextType } from "./type";
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -45,7 +45,7 @@ export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
     if (footer) {
       setModalFooter(footer({ hideModal, handleOk }));
     } else {
-      setModalFooter(undefined); // use default AntD buttons
+      setModalFooter(undefined);
     }
   };
 
@@ -76,26 +76,50 @@ export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
     }
   };
 
-  return (
-    <ModalContext.Provider value={{ showModal, hideModal }}>
-      {children}
 
-      <Modal
-        title={modalTitle}
-        open={isVisible}
-        onCancel={hideModal}
-        onOk={handleOk}
-        destroyOnHidden   
-        width={modalWidth}
-        footer={modalFooter}
-      >
-        {modalContent}
-        {errorMessage && (
-          <Typography.Text type="danger" style={{ display: "block", marginTop: 10 }}>
-            {errorMessage}
-          </Typography.Text>
-        )}
-      </Modal>
-    </ModalContext.Provider>
+  const { darkAlgorithm, defaultAlgorithm } = theme;
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+ 
+    setIsDark(document.documentElement.classList.contains("dark"));
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <ConfigProvider
+      theme={{
+        algorithm : isDark ? darkAlgorithm : defaultAlgorithm
+      }}
+    >
+      <ModalContext.Provider value={{ showModal, hideModal }}>
+        {children}
+        <Modal
+          title={modalTitle}
+          open={isVisible}
+          onCancel={hideModal}
+          onOk={handleOk}
+          destroyOnHidden
+          width={modalWidth}
+          footer={modalFooter}
+        >
+          {modalContent}
+          {errorMessage && (
+            <Typography.Text className="block mt-2 text-red-400">
+              {errorMessage}
+            </Typography.Text>
+          )}
+        </Modal>
+      </ModalContext.Provider>
+    </ConfigProvider>
   );
 };
