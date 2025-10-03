@@ -46,3 +46,11 @@ ALTER COLUMN phone TYPE VARCHAR(13);
 ALTER TABLE userInfo
 DROP CONSTRAINT userinfo_phone_check;
 
+
+ALTER TABLE userInfo
+ALTER COLUMN age TYPE VARCHAR;
+
+
+ALTER TABLE userInfo
+RENAME COLUMN age TO DateOfBirth;
+

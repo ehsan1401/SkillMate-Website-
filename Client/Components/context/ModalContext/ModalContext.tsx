@@ -1,7 +1,7 @@
 "use client";
 
-import { createContext, FC, ReactNode, useContext, useState } from "react";
-import { Modal, Typography } from "antd";
+import { createContext, FC, ReactNode, useContext, useEffect, useState } from "react";
+import { ConfigProvider, Modal, theme, Typography } from "antd";
 import { ModalContextType } from "./type";
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -19,19 +19,20 @@ export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [modalContent, setModalContent] = useState<ReactNode>(null);
   const [modalTitle, setModalTitle] = useState<string>("");
   const [modalWidth, setModalWidth] = useState<number | string>(520);
+  const [modalFooter, setModalFooter] = useState<ReactNode | null>(undefined);
   const [onOkHandler, setOnOkHandler] = useState<
     (() => boolean | Promise<boolean>) | undefined
   >();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [customErrorMessage, setCustomErrorMessage] = useState<string | null>(null);
 
-  // نمایش مودال با امکان تعیین متن خطای دلخواه
   const showModal = (
     content: ReactNode,
     title?: string,
     onOk?: () => boolean | Promise<boolean>,
     errorMessageOnFail?: string,
-    width?: number | string
+    width?: number | string,
+    footer?: (helpers: { hideModal: () => void; handleOk: () => void }) => ReactNode
   ) => {
     setModalContent(content);
     setModalTitle(title || "");
@@ -40,6 +41,12 @@ export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setErrorMessage(null);
     setIsVisible(true);
     setModalWidth(width || 520);
+
+    if (footer) {
+      setModalFooter(footer({ hideModal, handleOk }));
+    } else {
+      setModalFooter(undefined);
+    }
   };
 
   const hideModal = () => {
@@ -49,6 +56,7 @@ export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setOnOkHandler(undefined);
     setErrorMessage(null);
     setCustomErrorMessage(null);
+    setModalFooter(undefined);
   };
 
   const handleOk = async () => {
@@ -56,37 +64,62 @@ export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
       try {
         const result = await onOkHandler();
         if (result) {
-          hideModal(); // تابع true برگردوند → مودال بسته میشه
+          hideModal();
         } else {
-          setErrorMessage(customErrorMessage); // نمایش خطای دلخواه
+          setErrorMessage(customErrorMessage);
         }
       } catch (err) {
-        setErrorMessage("❌ خطای داخلی رخ داد");
+        setErrorMessage("❌Internal Error!!");
       }
     } else {
       hideModal();
     }
   };
 
-  return (
-    <ModalContext.Provider value={{ showModal, hideModal }}>
-      {children}
 
-      <Modal
-        title={modalTitle}
-        open={isVisible}
-        onCancel={hideModal}
-        onOk={handleOk}
-        destroyOnHidden
-        width={modalWidth}
-      >
-        {modalContent}
-        {errorMessage && (
-          <Typography.Text type="danger" style={{ display: "block", marginTop: 10 }}>
-            {errorMessage}
-          </Typography.Text>
-        )}
-      </Modal>
-    </ModalContext.Provider>
+  const { darkAlgorithm, defaultAlgorithm } = theme;
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+ 
+    setIsDark(document.documentElement.classList.contains("dark"));
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <ConfigProvider
+      theme={{
+        algorithm : isDark ? darkAlgorithm : defaultAlgorithm
+      }}
+    >
+      <ModalContext.Provider value={{ showModal, hideModal }}>
+        {children}
+        <Modal
+          title={modalTitle}
+          open={isVisible}
+          onCancel={hideModal}
+          onOk={handleOk}
+          destroyOnHidden
+          width={modalWidth}
+          footer={modalFooter}
+        >
+          {modalContent}
+          {errorMessage && (
+            <Typography.Text className="block mt-2 text-red-400">
+              {errorMessage}
+            </Typography.Text>
+          )}
+        </Modal>
+      </ModalContext.Provider>
+    </ConfigProvider>
   );
 };

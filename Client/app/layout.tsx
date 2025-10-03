@@ -38,17 +38,17 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased transition-colors duration-500`}
       >
         <ThemeProvider>
-        <ModalProvider>
         <AlertProvider>  
+        <ModalProvider>
           <main className="overflow-hidden">
             <Suspense fallback={<Loading/>}>
               <NavigationBar />
               {children}
             </Suspense>
           </main>
-          <CustomAlert />
-        </AlertProvider>
         </ModalProvider>
+         <CustomAlert />
+        </AlertProvider>
         </ThemeProvider>
       </body>
     </html>

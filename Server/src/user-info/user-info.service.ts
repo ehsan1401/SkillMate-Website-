@@ -61,7 +61,7 @@ export class UserInfoService {
         throw new BadRequestException(`UserInfo with id ${userID} does not exist`);
       }
       const result = await pool.query(
-        `SELECT phone, age, bio, social, skills, learning_skills, resume, favorite FROM userInfo WHERE userid = $1`,
+        `SELECT phone, dateofbirth, bio, social, skills, learning_skills, resume, favorite FROM userInfo WHERE userid = $1`,
         [userID]
       );
 

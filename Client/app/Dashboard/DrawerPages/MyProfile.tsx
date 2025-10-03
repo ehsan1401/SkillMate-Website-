@@ -40,7 +40,6 @@ export default function MyProfile({Token , id , user}:{Token : string , id : num
         showAlert("Error in fetching User info!!!", "error");
     }
     }, [error]);
-console.log(data)
     
     return(
         <section className="p-5 w-full lg:h-full h-[200%] select-none relative lg:overflow-y-scroll">
@@ -77,7 +76,7 @@ console.log(data)
                 </div>
                 {
                     data &&
-                    <UpdateInfoButton/>
+                    <UpdateInfoButton user={user} userInfo={data ? data : null}/>
                 }
                 <div className="w-full h-auto bg-neutral-300 dark:bg-neutral-800 rounded-2xl px-5 lg:pt-8 lg:pb-10 pt-24 pb-4 flex flex-col justify-center items-center">
 
