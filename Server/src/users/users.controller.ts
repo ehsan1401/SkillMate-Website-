@@ -8,6 +8,7 @@ import {
   UploadedFile,
   UseInterceptors,
   NotFoundException,
+  Patch,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUser } from './dto/CreateUser.dto';
@@ -15,7 +16,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import type { Request as ExpressRequest } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { extname } from 'path';
+import path, { extname } from 'path';
 
 interface JwtUserPayload {
   userName: string;
@@ -77,5 +78,11 @@ export class UsersController {
       createAt: user.createAt,
       updateAt: user.updateAt,
     };
+  }
+
+
+  @Patch('update-Username')
+  updateUsername(@Body() body: { email: string , newUsername: string }) {
+    return this.usersService.updateUsername(body);
   }
 }

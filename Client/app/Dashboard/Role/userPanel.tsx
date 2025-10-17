@@ -30,15 +30,13 @@ export default function UserPanel({Token}:{Token : string}){
         Token ? ["http://localhost:4000/users/protected", Token] : null, 
         ([url, t]) => GetUserInfoDashboard(url, t) 
     )
-    console.log(data)
-    console.log(error)
 
     const NavigationItems = [
     { id: "item0", label: "Dashboard", icon: <MaterialSymbolsDashboardOutline /> , Component : <MainDashboard/> },
     { id: "item1", label: "My Profile", icon: <MaterialSymbolsAccountBoxOutline /> , Component : <MyProfile Token={Token} id={data?.id} user={data}/> },
     { id: "item2", label: "Projects", icon: <SiProjectsLine /> ,  Component : <Projects/>  },
     { id: "item3", label: "Notifications", icon: <MaterialSymbolsNotificationsOutline /> ,  Component : <Notifications/>  },
-    { id: "item4", label: "Settings", icon: <MaterialSymbolsSettingsAccountBoxRounded /> , Component : <Settings/>  },
+    { id: "item4", label: "Settings", icon: <MaterialSymbolsSettingsAccountBoxRounded /> , Component : <Settings  user={data} />  },
     ];
     const handleSelect = (e : string)=>{
         setItemSelected(e)

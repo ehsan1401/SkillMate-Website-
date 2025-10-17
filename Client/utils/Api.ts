@@ -10,7 +10,8 @@ export const API = {
     info : `${BACKEND_BASE_URL}/users/protected`,
     Upload_avatar : `${BACKEND_BASE_URL}/users/upload-avatar`,
     getUserInfo: (id?: number) => `${BACKEND_BASE_URL}/user-info/${id}`,
-    UpdateUserInfo : (id?: number) => `${BACKEND_BASE_URL}/user-info/InfoUpdate/${id}`
+    UpdateUserInfo : (id?: number) => `${BACKEND_BASE_URL}/user-info/InfoUpdate/${id}`,
+    updateUsername : () => `${BACKEND_BASE_URL}/users/update-Username`
   }
 };
 

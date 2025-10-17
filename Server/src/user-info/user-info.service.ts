@@ -42,8 +42,11 @@ export class UserInfoService {
   }
 
   async InfoExist(userID: number) {
-    const pool = this.databaseService.getPool();
+    if (isNaN(userID)) {
+      throw new BadRequestException(`Invalid user ID: ${userID}`);
+    }
 
+    const pool = this.databaseService.getPool();
     const userCheck = await pool.query(
       `SELECT id FROM userInfo WHERE userid = $1`,
       [userID],
@@ -53,7 +56,10 @@ export class UserInfoService {
       return false;
     }
     return true;
+
   }
+
+
   async GetInfo(userID: number) {
     const pool = this.databaseService.getPool();
     const exists = await this.InfoExist(userID);

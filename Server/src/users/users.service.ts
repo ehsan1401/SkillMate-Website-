@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { CreateUser } from './dto/CreateUser.dto';
 import { unlink } from 'fs';
@@ -58,4 +58,29 @@ export class UsersService {
     ]);
     return result.rows[0];
   }
+
+  async updateUsername(body: { email: string; newUsername: string }) {
+    const pool = this.databaseService.getPool();
+
+    const userCheck = await pool.query(`SELECT * FROM users WHERE email = $1`, [
+      body.email,
+    ]);
+    if (userCheck.rowCount === 0) {
+      throw new BadRequestException(
+          `User with email: ${body.email} does not exist`,
+      );
+    }
+
+    const result = await pool.query(
+      `UPDATE users
+      SET "userName" = $1, "updateAt" = NOW()
+      WHERE email = $2
+      RETURNING *`,
+      [body.newUsername, body.email]
+    );
+
+    return result.rows[0];
+  }
+
+
 }
