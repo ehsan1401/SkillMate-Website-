@@ -21,13 +21,13 @@ export class UserInfoController {
   }
 
   @Get(':id')
-  GetInfo(@Param('id') id: string) {
-    return this.userInfoService.GetInfo(Number(id));
+  GetInfo(@Param('id', ParseIntPipe) id: number) {
+    return this.userInfoService.GetInfo(id);
   }
 
   @Get('userInfoExist/:id')
-  InfoExist(@Param('id') id: string) {
-    return this.userInfoService.InfoExist(Number(id));
+  InfoExist(@Param('id', ParseIntPipe) id: number) {
+    return this.userInfoService.InfoExist(id);
   }
 
   @Patch('InfoUpdate/:id')
@@ -37,4 +37,5 @@ export class UserInfoController {
   ) {
     return this.userInfoService.update(userid, updateDto);
   }
+
 }
