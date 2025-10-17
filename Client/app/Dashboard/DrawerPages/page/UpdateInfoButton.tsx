@@ -4,7 +4,7 @@ import { EditeIcon } from "@/Icons/EditeIcon";
 import { Button, DatePicker, Input, Select, Tag, Tooltip } from "antd";
 import { updateUser } from "./action";
 import { JSX, startTransition, useActionState, useEffect } from "react";
-import { UserInfo, UserType } from "./type";
+import { SocialItem, UserInfo, UserType } from "./type";
 import { Linkedin } from "@/Icons/socials/Linkedin";
 import { MdiGithub } from "@/Icons/socials/GitHub";
 import { TelegramCircle } from "@/Icons/socials/TelegramCircle";
@@ -18,7 +18,7 @@ import { IcOutlineErrorOutline } from "@/Icons/ErrorIcon";
 
 const handleSubmit = () => true;
 
-export default function UpdateInfoButton({ user, userInfo }: { user: UserType; userInfo: UserInfo | null }) {
+export default function UpdateInfoButton({ user, userInfo, onUpdated}: { user: UserType; userInfo: UserInfo | null; onUpdated : ()=>void }) {
   const { showModal } = useModal();
 
   return (
@@ -28,7 +28,7 @@ export default function UpdateInfoButton({ user, userInfo }: { user: UserType; u
         onClick={() =>
           showModal(
             <div className="flex justify-center items-center">
-              <ProfileForm user={user} userInfo={userInfo} />
+              <ProfileForm user={user} userInfo={userInfo} onUpdated={onUpdated} />
             </div>,
             "Update Profile Information",
             handleSubmit,
@@ -50,13 +50,23 @@ export default function UpdateInfoButton({ user, userInfo }: { user: UserType; u
   );
 }
 
-export function ProfileForm({ user, userInfo }: { user: UserType; userInfo: UserInfo | null }) {
+export function ProfileForm({
+  user,
+  userInfo,
+  onUpdated,
+}: {
+  user: UserType;
+  userInfo: UserInfo | null;
+  onUpdated?: () => void;
+}) {
+
+
 
     const { showAlert } = useAlert();
     const { TextArea } = Input;
     const [state, formAction] = useActionState(updateUser, { message: "" });
 
-    const [socials, setSocials] = useState<{ name: string; url: string }[]>(userInfo?.social as any[] || []);
+    const [socials, setSocials] = useState<{ name: string; url: string }[]>(userInfo?.social as SocialItem[] || []);
     const [currentName, setCurrentName] = useState("");
     const [currentUrl, setCurrentUrl] = useState("");
 
@@ -160,9 +170,10 @@ export function ProfileForm({ user, userInfo }: { user: UserType; userInfo: User
 
     useEffect(() => {
       if (state.status === 200) {
+        onUpdated?.() ;
         showAlert("Your Information successfully Updated!", "success");
       }
-    }, [state.status]);
+    }, [state.status , showAlert]);
 
   return (
     <form 
@@ -183,6 +194,10 @@ export function ProfileForm({ user, userInfo }: { user: UserType; userInfo: User
       <h1 className="text-2xl" style={{ fontFamily: "Lalezar" }}>
         {user?.userName}
       </h1>
+      <span className="flex text-orange-500 py-2">
+        <span className="pt-1"><IcOutlineErrorOutline/></span>
+        <span>Make sure you press the update button to save the information. </span>
+      </span>
 
       <div className="w-full h-auto py-5 px-10 flex flex-col gap-5">
         <span className="flex flex-col lg:flex-row gap-3 items-center">
@@ -347,10 +362,7 @@ export function ProfileForm({ user, userInfo }: { user: UserType; userInfo: User
       <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
         Update
       </Button>
-      <span className="flex text-orange-500 py-2">
-        <span className="pt-1"><IcOutlineErrorOutline/></span>
-        <span>Make sure you press the update button to save the information. </span>
-      </span>
+
 
     </form>
   );

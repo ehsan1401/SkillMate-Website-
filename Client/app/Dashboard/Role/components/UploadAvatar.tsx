@@ -8,10 +8,6 @@ import { uploadAvatar } from './action';
 import { useAlert } from '@/Components/elements/Alert/AlertContext';
 import { API } from '@/utils/Api';
 
-interface UploadAvatarProps {
-  avatarUrl: string;
-}
-
 export default function UploadAvatar({ avatarUrl , size , border }: { avatarUrl : string , size : number , border? : string}) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);

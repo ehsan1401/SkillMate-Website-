@@ -16,7 +16,11 @@ export class UsersService {
       VALUES ($1, $2, $3, 'NORMAL', '', NOW(), NOW(), NOW())
       RETURNING *;
     `;
-    const values = [createUserDto.userName, createUserDto.email, createUserDto.passCode];
+    const values = [
+      createUserDto.userName,
+      createUserDto.email,
+      createUserDto.passCode,
+    ];
     const result = await pool.query(query, values);
 
     return result.rows[0];
@@ -25,7 +29,10 @@ export class UsersService {
   async updateAvatar(email: string, filename: string) {
     const pool = this.databaseService.getPool();
 
-    const userResult = await pool.query(`SELECT * FROM users WHERE email = $1`, [email]);
+    const userResult = await pool.query(
+      `SELECT * FROM users WHERE email = $1`,
+      [email],
+    );
     const user = userResult.rows[0];
     if (!user) throw new Error('User not found');
 
@@ -46,7 +53,9 @@ export class UsersService {
 
   async findByEmail(email: string) {
     const pool = this.databaseService.getPool();
-    const result = await pool.query(`SELECT * FROM users WHERE email = $1`, [email]);
+    const result = await pool.query(`SELECT * FROM users WHERE email = $1`, [
+      email,
+    ]);
     return result.rows[0];
   }
 }

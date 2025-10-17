@@ -1,16 +1,15 @@
 import { IsEmail, IsString } from 'class-validator';
 
 export class SignUpDto {
+  @IsString()
+  userName: string;
 
-    @IsString()
-    userName :string
+  @IsEmail()
+  email: string;
 
-    @IsEmail()
-    email: string;
+  @IsString()
+  passCode: string;
 
-    @IsString()
-    passCode: string;
-
-    @IsString()
-    RepassCode: string;
+  @IsString()
+  RepassCode: string;
 }

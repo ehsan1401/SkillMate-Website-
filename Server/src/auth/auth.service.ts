@@ -1,4 +1,9 @@
-import { BadRequestException, ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { DatabaseService } from 'src/database/database.service';
 
@@ -6,12 +11,13 @@ import { DatabaseService } from 'src/database/database.service';
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly databaseService: DatabaseService
+    private readonly databaseService: DatabaseService,
   ) {}
 
   async validateUser(email: string, passCode: string) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) throw new UnauthorizedException('Email is not Valid!');
+    if (!emailRegex.test(email))
+      throw new UnauthorizedException('Email is not Valid!');
 
     const result = await this.databaseService.query(
       'SELECT * FROM users WHERE email = $1 LIMIT 1',
@@ -20,8 +26,9 @@ export class AuthService {
     const user = result.rows[0];
 
     if (!user) throw new UnauthorizedException('User not found');
-    if (user.passCode !== passCode) throw new UnauthorizedException('Invalid password');
-    
+    if (user.passCode !== passCode)
+      throw new UnauthorizedException('Invalid password');
+
     return user;
   }
 
@@ -45,26 +52,36 @@ export class AuthService {
     }
   }
 
-  async SignUp(userName: string, email: string, passCode: string, RepassCode: string) {
-    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  async SignUp(
+    userName: string,
+    email: string,
+    passCode: string,
+    RepassCode: string,
+  ) {
+    const strongPasswordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailRegex.test(email)) throw new BadRequestException('Email is not valid!');
+    if (!emailRegex.test(email))
+      throw new BadRequestException('Email is not valid!');
 
     // بررسی وجود یوزر
     const existing = await this.databaseService.query(
       'SELECT * FROM users WHERE email = $1 LIMIT 1',
       [email],
     );
-    if (existing.rows.length > 0) throw new ConflictException('User already exists!');
+    if (existing.rows.length > 0)
+      throw new ConflictException('User already exists!');
 
-    if (passCode !== RepassCode) throw new BadRequestException('Password and repeat password do not match!');
+    if (passCode !== RepassCode)
+      throw new BadRequestException(
+        'Password and repeat password do not match!',
+      );
     if (!strongPasswordRegex.test(passCode)) {
       throw new BadRequestException(
-        'Password is too weak! It must contain at least 8 characters, including uppercase, lowercase, number, and special character.'
+        'Password is too weak! It must contain at least 8 characters, including uppercase, lowercase, number, and special character.',
       );
     }
-
 
     const result = await this.databaseService.query(
       `INSERT INTO users ("userName", "email", "passCode", "type", "profileImageUrl", "lastLogin", "createAt", "updateAt")

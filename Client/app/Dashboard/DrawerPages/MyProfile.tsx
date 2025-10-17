@@ -1,20 +1,15 @@
 import useSWR from "swr";
 import { GetUserInfo } from "./page/action";
-import { API } from "@/utils/Api";
 import { useAlert } from "@/Components/elements/Alert/AlertContext";
 import { JSX, useEffect } from "react";
 import UploadAvatar from "../Role/components/UploadAvatar";
-import { SocialItem, UserInfo, UserType } from "./page/type";
+import { SocialItem, UserType } from "./page/type";
 import { Linkedin } from "@/Icons/socials/Linkedin";
 import { MdiGithub } from "@/Icons/socials/GitHub";
-import { url } from "inspector";
 import { Button, Tag, Tooltip } from "antd";
 import { TelegramCircle } from "@/Icons/socials/TelegramCircle";
 import { BiInstagram } from "@/Icons/socials/BiInstagram";
 import { FacebookTag } from "@/Icons/socials/FacebookTag";
-import { div, span } from "framer-motion/client";
-import { EditeIcon } from "@/Icons/EditeIcon";
-import { useModal } from "@/Components/context/ModalContext/ModalContext";
 import UpdateInfoButton from "./page/UpdateInfoButton";
 
 export default function MyProfile({Token , id , user}:{Token : string , id : number , user : UserType}){
@@ -27,11 +22,11 @@ export default function MyProfile({Token , id , user}:{Token : string , id : num
         Instagram : <BiInstagram/> ,
         Facebook : <FacebookTag/>
     };
-    var index = 1 ;
+    let index = 1 ;
     const tagLabel = [
         "magenta", "red", "volcano", "orange", "gold","lime", "green","cyan", "blue", "geekblue", "purple"
     ] 
-    const { data, error } = useSWR(
+    const { data, error , mutate} = useSWR(
         Token ? `user-${id}` : null,
         () => GetUserInfo(Token, id)
     );
@@ -39,7 +34,7 @@ export default function MyProfile({Token , id , user}:{Token : string , id : num
     if (data && error) {
         showAlert("Error in fetching User info!!!", "error");
     }
-    }, [error]);
+    }, [error, data]);
     
     return(
         <section className="p-5 w-full lg:h-full h-[200%] select-none relative lg:overflow-y-scroll">
@@ -76,7 +71,7 @@ export default function MyProfile({Token , id , user}:{Token : string , id : num
                 </div>
                 {
                     data &&
-                    <UpdateInfoButton user={user} userInfo={data ? data : null}/>
+                    <UpdateInfoButton user={user} userInfo={data ? data : null} onUpdated={() => mutate()}/>
                 }
                 <div className="w-full h-auto bg-neutral-300 dark:bg-neutral-800 rounded-2xl px-5 lg:pt-8 lg:pb-10 pt-24 pb-4 flex flex-col justify-center items-center">
 

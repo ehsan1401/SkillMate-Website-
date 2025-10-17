@@ -31,4 +31,4 @@ export type UserType = {
   userName : string ; 
 }
 
-export type UpdateUserState = { ok?: boolean; status?: number; message: string; data?: any };
+export type UpdateUserState = { ok?: boolean; status?: number; message: string; data?: object };
