@@ -8,7 +8,7 @@ import Image from "next/image";
 export default function Footer() {
     const FirstItems = ["About us" , "Home" , "Terms and Conditions"];
     const SecondItems = [ "Privacy Policy", "Contact us", "Database"];
-    const ThirdItems = ["Jobs" , "Docs" , "Home" ];
+    const ThirdItems = [{key : "Clock" , value : "/Tools/Clock"} , {key : "Jobs" , value : "#"} , {key : "Home" , value : "/"} ];
 
 
   return (
@@ -77,9 +77,9 @@ export default function Footer() {
                     {
                         ThirdItems.map((item)=>{
                             return(
-                                <a href="" className="relative group text-base" key={item}>
+                                <a href={item.value} className="relative group text-base" key={item.key}>
                                     <li className="after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-black dark:after:bg-white after:transition-all after:duration-300 group-hover:after:w-full dark:text-white">
-                                        {item}
+                                        {item.key}
                                     </li>
                                 </a>
                             )
