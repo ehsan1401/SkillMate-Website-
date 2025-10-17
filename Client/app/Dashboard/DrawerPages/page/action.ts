@@ -3,8 +3,14 @@
 import { API } from "@/utils/Api";
 import { UpdateUserState } from "./type";
 import { logout } from "@/utils/logout";
+import { fetcher } from '@/utils/fetcher';
+
+
 
 export async function GetUserInfo(token: string , id : number) {
+  if (!id) {
+    throw new Error("Missing user id");
+  }
   const response = await fetch(API.user.getUserInfo(id), {
     method: 'GET',
     headers: {
@@ -15,8 +21,26 @@ export async function GetUserInfo(token: string , id : number) {
   if (!response.ok) {
     logout()
     throw new Error(`Error in Getting User Info: ${response.statusText}`)
+
   };
   return response.json();
+}
+
+
+
+
+export async function updateUsername(email: string, newUsername: string) {
+  console.log(email);
+  console.log(newUsername);
+  try {
+    const result = await fetcher(API.user.updateUsername(), {
+      method: 'PATCH',
+      body: { email, newUsername },
+    });
+    console.log('Updated user:', result);
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 

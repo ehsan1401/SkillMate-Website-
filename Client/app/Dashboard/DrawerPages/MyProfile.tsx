@@ -11,6 +11,7 @@ import { TelegramCircle } from "@/Icons/socials/TelegramCircle";
 import { BiInstagram } from "@/Icons/socials/BiInstagram";
 import { FacebookTag } from "@/Icons/socials/FacebookTag";
 import UpdateInfoButton from "./page/UpdateInfoButton";
+import { logout } from "@/utils/logout";
 
 export default function MyProfile({Token , id , user}:{Token : string , id : number , user : UserType}){
     const { showAlert } = useAlert();
@@ -22,20 +23,36 @@ export default function MyProfile({Token , id , user}:{Token : string , id : num
         Instagram : <BiInstagram/> ,
         Facebook : <FacebookTag/>
     };
+
     let index = 1 ;
     const tagLabel = [
         "magenta", "red", "volcano", "orange", "gold","lime", "green","cyan", "blue", "geekblue", "purple"
     ] 
+
+    const key = Token && id && !isNaN(id) ? `user-${id}` : null;
     const { data, error , mutate} = useSWR(
-        Token ? `user-${id}` : null,
+        key,
         () => GetUserInfo(Token, id)
     );
+
     useEffect(() => {
-    if (data && error) {
-        showAlert("Error in fetching User info!!!", "error");
-    }
-    }, [error, data]);
-    
+        if (error) {
+            showAlert("Error fetching user info. Logging out...", "error");
+            logout();
+        }
+    }, [error, showAlert]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (!Token || !id || isNaN(id)) {
+                showAlert("Session expired. Logging out...", "warning");
+                logout();
+            }
+        }, 5 * 60 * 1000);
+
+        return () => clearInterval(interval);
+    }, [Token, id, showAlert]);
+
     return(
         <section className="p-5 w-full lg:h-full h-[200%] select-none relative lg:overflow-y-scroll">
             <h1 className="text-5xl text-neutral-950 dark:text-neutral-50 lg:sticky top-4" style={{fontFamily:"scriptMtbold"}}> 
