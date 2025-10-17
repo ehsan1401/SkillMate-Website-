@@ -1,7 +1,6 @@
 'use server';
 
 import { API } from "@/utils/Api";
-import { promises } from "dns";
 import { UpdateUserState } from "./type";
 import { logout } from "@/utils/logout";
 
@@ -23,7 +22,7 @@ export async function GetUserInfo(token: string , id : number) {
 
 
 export async function updateUser(
-  prevState: any,
+  prevState: unknown,
   formData: FormData
 ): Promise<UpdateUserState> {
 

@@ -69,6 +69,7 @@ export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
           setErrorMessage(customErrorMessage);
         }
       } catch (err) {
+        console.log(err)
         setErrorMessage("❌Internal Error!!");
       }
     } else {

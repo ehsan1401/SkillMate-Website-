@@ -17,7 +17,6 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 
-
 interface JwtUserPayload {
   userName: string;
   email: string;
@@ -28,12 +27,9 @@ interface JwtUserPayload {
   updateAt: Date;
 }
 
-
 @Controller('users')
 export class UsersController {
-
   constructor(private readonly usersService: UsersService) {}
-
 
   @Post()
   create(@Body() createUserDto: CreateUser) {
@@ -49,19 +45,18 @@ export class UsersController {
         filename: (req, file, callback) => {
           const uniqueSuffix =
             Date.now() + '-' + Math.round(Math.random() * 1e9);
-          callback(
-            null,
-            `${uniqueSuffix}${extname(file.originalname)}`,
-          );
+          callback(null, `${uniqueSuffix}${extname(file.originalname)}`);
         },
       }),
     }),
   )
-  async uploadAvatar(@UploadedFile() file: Express.Multer.File, @Request() req: ExpressRequest) {
+  async uploadAvatar(
+    @UploadedFile() file: Express.Multer.File,
+    @Request() req: ExpressRequest,
+  ) {
     const user = req.user as JwtUserPayload;
     return this.usersService.updateAvatar(user.email, file.filename);
   }
-
 
   @Get('protected')
   @UseGuards(JwtAuthGuard)

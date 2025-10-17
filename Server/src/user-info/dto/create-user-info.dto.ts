@@ -1,14 +1,14 @@
-import { Type } from "class-transformer";
-import {  
-  IsInt, 
-  IsPhoneNumber, 
-  IsPositive, 
-  IsString, 
-  IsArray, 
-  ValidateNested, 
-  IsUrl, 
-  IsOptional 
-} from "class-validator";
+import { Type } from 'class-transformer';
+import {
+  IsInt,
+  IsPhoneNumber,
+  IsPositive,
+  IsString,
+  IsArray,
+  ValidateNested,
+  IsUrl,
+  IsOptional,
+} from 'class-validator';
 
 export class SocialDto {
   @IsString()
@@ -61,5 +61,5 @@ export class CreateUserInfoDto {
   resume: ResumeDto;
 
   @IsOptional()
-  favorite: object; 
+  favorite: object;
 }

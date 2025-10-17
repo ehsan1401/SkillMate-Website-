@@ -1,6 +1,14 @@
-import { Controller, Post, Body, Res, Get, Req, UnauthorizedException } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Res,
+  Get,
+  Req,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import type { Response , Request } from 'express';
+import type { Response, Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
 import { SignUpDto } from './dto/SignUp.dto';
 
@@ -11,21 +19,16 @@ export class AuthController {
     private readonly authService: AuthService,
   ) {}
 
-
   @Post('login')
   async login(
     @Body() body: { email: string; passCode: string },
     @Req() req: Request,
   ) {
-    const user = await this.authService.validateUser(
-      body.email,
-      body.passCode,
-    );
+    const user = await this.authService.validateUser(body.email, body.passCode);
     const payload = user;
 
-    return {access_token: this.jwtService.sign(payload)};
+    return { access_token: this.jwtService.sign(payload) };
   }
-
 
   @Post('SignUp')
   async SignUp(@Body() body: SignUpDto) {
@@ -35,8 +38,5 @@ export class AuthController {
       body.passCode,
       body.RepassCode,
     );
-}
-
-
-
+  }
 }
