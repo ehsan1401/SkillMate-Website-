@@ -4,23 +4,30 @@ import { MaterialSymbolsLockOutline } from "@/Icons/PasswordIcon";
 import { MaterialSymbolsPerson } from "@/Icons/UserIcon";
 import { Button, Input } from "antd";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { ReactEventHandler, useEffect, useState } from "react";
 import { loginUser } from "./page/action";
 import { useRouter } from 'next/navigation';
 import AccessDenied from "@/Components/AceessDenied";
 import { LoadingIcon } from "@/Icons/LoadingIcon";
+import { MdiEye } from "@/Icons/VisibleEye";
+import { MdiEyeOff } from "@/Icons/NotVisibleEye";
 
 export default function Login() {
   const [isHover, setIsHover] = useState(false);
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [token, setToken] = useState<string | null>(null);
-        
+  const [passChecker, setPassChecker] = useState<boolean>(true);
   const router = useRouter();
 
   useEffect(() => {
     setToken(sessionStorage.getItem('Token'));
   }, []);
+
+    const passwordVisibleChange = (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      setPassChecker((prev) => !prev);
+    };
 
 
   return (
@@ -86,8 +93,11 @@ export default function Login() {
 
             <div className="w-full h-3/5 p-4 flex flex-col gap-5 justify-center" style={{fontFamily:"Vazir"}}>
               <Input placeholder="   Email address" name="email" prefix={<MaterialSymbolsPerson className="scale-150 mx-2" />} />
-              <div className="flex flex-col gap-2">
-                <Input placeholder="   Password" type="password" name="passCode" className="px-5" prefix={<MaterialSymbolsLockOutline className="scale-150 mx-2" />} />
+              <div className="flex flex-col gap-2 relative">
+                <button onClick={passwordVisibleChange} className="text-xl absolute right-3 top-2 z-30">
+                  {passChecker ? <MdiEye /> : <MdiEyeOff />}
+                </button>
+                <Input placeholder="   Password" type={passChecker ? `password` : `text`} name="passCode" className="px-5" prefix={<MaterialSymbolsLockOutline className="scale-150 mx-2" />} />
                 <a href="#" className="px-3 py-2 text-xs text-left hover:text-blue-500 dark:text-neutral-50 dark:hover:text-neutral-400 transition-all duration-200">
                   Did you forget your password?
                 </a>
