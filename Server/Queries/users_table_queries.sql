@@ -33,6 +33,10 @@ VALUES
 ('sara', 'sara@example.com', 'NORMAL', 'abcdef', Null, NOW());
 
 
+ALTER TABLE users ADD COLUMN isActive BOOLEAN DEFAULT true;
+
+
+ALTER TABLE users DROP COLUMN isActive 
 
 
 -- INSERT INTO users ("userName", "email", "type", "passCode", "profileImageUrl", "lastLogin")

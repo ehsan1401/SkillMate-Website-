@@ -2,7 +2,7 @@ import useSWR from "swr";
 import { GetUserInfo } from "./page/action";
 import { useAlert } from "@/Components/elements/Alert/AlertContext";
 import { JSX, useEffect } from "react";
-import UploadAvatar from "../Role/components/UploadAvatar";
+import UploadAvatar from "../components/UploadAvatar";
 import { SocialItem, UserType } from "./page/type";
 import { Linkedin } from "@/Icons/socials/Linkedin";
 import { MdiGithub } from "@/Icons/socials/GitHub";
@@ -12,6 +12,7 @@ import { BiInstagram } from "@/Icons/socials/BiInstagram";
 import { FacebookTag } from "@/Icons/socials/FacebookTag";
 import UpdateInfoButton from "./page/UpdateInfoButton";
 import { logout } from "@/utils/logout";
+import CreateInfoButton from "./page/CreateInfoButton";
 
 export default function MyProfile({Token , id , user}:{Token : string , id : number , user : UserType}){
     const { showAlert } = useAlert();
@@ -35,12 +36,6 @@ export default function MyProfile({Token , id , user}:{Token : string , id : num
         () => GetUserInfo(Token, id)
     );
 
-    useEffect(() => {
-        if (error) {
-            showAlert("Error fetching user info. Logging out...", "error");
-            logout();
-        }
-    }, [error, showAlert]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -133,9 +128,7 @@ export default function MyProfile({Token , id , user}:{Token : string , id : num
                     {
                         !data && 
                         <div className="p-5">
-                            <Button type="primary" variant="solid" color="lime">
-                                Create your Profile
-                            </Button>
+                            <CreateInfoButton user={user} userInfo={data ? data : null} onUpdated={() => mutate()}/>
                         </div>
                     }
                 </div>

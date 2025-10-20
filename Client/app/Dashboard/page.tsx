@@ -1,6 +1,6 @@
 'use client';
 import AccessDenied from "@/Components/AceessDenied";
-import { GetUserInfoDashboard } from "./page/action";
+import { GetUserInfoDashboard } from "./Role/(userPanelPages)/page/action";
 import useSWR from "swr";
 import { useEffect, useState } from "react";
 import { Button } from "antd";
