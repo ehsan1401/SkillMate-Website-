@@ -1,6 +1,6 @@
 'use client';
 import useSWR from "swr";
-import { GetUserInfoDashboard } from "../page/action";
+import { GetUserInfoDashboard } from "./(userPanelPages)/page/action";
 import { useEffect, useState } from "react";
 import { LogoutIcon } from "@/Icons/LogoutIcon";
 import { logout } from "@/utils/logout";
@@ -8,13 +8,13 @@ import { MaterialSymbolsAccountBoxOutline } from "@/Icons/profileIcon";
 import { SiProjectsLine } from "@/Icons/ProjectsIcon";
 import { MaterialSymbolsNotificationsOutline } from "@/Icons/NotificationsIcon";
 import { MaterialSymbolsSettingsAccountBoxRounded } from "@/Icons/SettingIcon";
-import MyProfile from "../DrawerPages/MyProfile";
-import Projects from "../DrawerPages/Projects";
-import Notifications from "../DrawerPages/Notifications";
-import Settings from "../DrawerPages/Settings";
-import MainDashboard from "../DrawerPages/MainDashboard";
+import MyProfile from "./(userPanelPages)/DrawerPages/MyProfile";
+import Projects from "./(userPanelPages)/DrawerPages/Projects";
+import Notifications from "./(userPanelPages)/DrawerPages/Notifications";
+import Settings from "./(userPanelPages)/DrawerPages/Settings";
+import MainDashboard from "./(userPanelPages)/DrawerPages/MainDashboard";
 import { MaterialSymbolsDashboardOutline } from "@/Icons/DashboardIcon";
-import UploadAvatar from "./components/UploadAvatar";
+import UploadAvatar from "./(userPanelPages)/components/UploadAvatar";
 
 export default function UserPanel({Token}:{Token : string}){
     const [itemSelected , setItemSelected] = useState<string>('item0')         
