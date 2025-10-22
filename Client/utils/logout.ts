@@ -5,9 +5,9 @@
 export function logout() {
   if (typeof window === "undefined") return;
 
-  const Token = sessionStorage.getItem("Token");
+  const Token = localStorage.getItem("Token");
   if (Token) {
-    sessionStorage.removeItem("Token");
+    localStorage.removeItem("Token");
     window.location.reload();
     window.location.href = "/Login";
   }
