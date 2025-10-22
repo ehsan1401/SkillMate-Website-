@@ -40,7 +40,7 @@ export default function CreateInfoButton({ user, userInfo, onUpdated }: { user: 
         )
       }
     >
-      <Button type="primary">Create Your Profile</Button>
+      <div className="bg-blue-500 px-3 py-2 rounded-md text-white hover:bg-blue-600 transition-all duration-300">Create Your Profile</div>
     </button>
   );
 }
@@ -126,7 +126,6 @@ export function ProfileForm({
 
   const removeSocial = (index: number) => setSocials(socials.filter((_, i) => i !== index));
 
-  // ✅ Only call onUpdated on client
   useEffect(() => {
     if (state.status === 200) {
       onUpdated?.();
@@ -166,7 +165,6 @@ export function ProfileForm({
       </span>
 
       <div className="w-full h-auto py-5 px-10 flex flex-col gap-5">
-        {/* Phone and Date */}
         <span className="flex flex-col lg:flex-row gap-3 items-center">
           <label className="font-bold mt-1">Phone Number:</label>
           <Space.Compact>
@@ -187,7 +185,6 @@ export function ProfileForm({
           <DatePicker name="dateofbirth" value={dateofbirth} onChange={date => setDateofbirth(date)} />
         </span>
 
-        {/* Socials */}
         <span className="flex flex-col lg:flex-row gap-3 items-center">
           <label className="font-bold mt-1">Social Media:</label>
           <Select
@@ -219,7 +216,6 @@ export function ProfileForm({
           ))}
         </div>
 
-        {/* Skills */}
         <div className="flex flex-col gap-3 pb-4">
           <span className="flex gap-3">
             <label className="font-bold mt-1">Skills:</label>
@@ -240,7 +236,6 @@ export function ProfileForm({
           </div>
         </div>
 
-        {/* Learning Skills */}
         <div className="flex flex-col gap-3 pb-4">
           <span className="flex gap-3">
             <label className="font-bold mt-1">Learning Skills:</label>
@@ -261,7 +256,6 @@ export function ProfileForm({
           </div>
         </div>
 
-        {/* Bio */}
         <div className="flex gap-3 flex-col md:flex-row">
           <label className="font-bold mt-1">Biography:</label>
           <TextArea rows={6} placeholder="Biography" name="bio" value={bio} style={{ width: "80%" }} onChange={e => setBio(e.target.value)} />

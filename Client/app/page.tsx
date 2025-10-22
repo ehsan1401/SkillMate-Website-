@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 export default function Home() {
     const [token, setToken] = useState<string | null>(null);
     useEffect(() => {
-        setToken(sessionStorage.getItem('Token'));
+        setToken(localStorage.getItem('Token'));
     }, [ token]);
   return (
     <div className="w-full h-full">

@@ -21,7 +21,7 @@ export class UserInfoService {
     }
 
     const query = `
-        INSERT INTO userInfo ("userid", "phone", "age", "bio", "social", "skills", "learning_skills", "resume", "favorite", "createdAt", "updatedAt")
+        INSERT INTO userInfo ("userid", "phone", "dateofbirth", "bio", "social", "skills", "learning_skills", "resume", "favorite", "createdAt", "updatedAt")
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NOW(), NOW())
         RETURNING *;
       `;
@@ -107,7 +107,6 @@ export class UserInfoService {
       }
     }
 
-    // همیشه updatedAt رو آپدیت کن
     fields.push(`"updatedAt" = NOW()`);
 
     const query = `
