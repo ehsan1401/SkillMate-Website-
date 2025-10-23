@@ -7,6 +7,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { DatabaseService } from 'src/database/database.service';
 
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -34,7 +35,7 @@ export class AuthService {
 
   async login(user: any) {
     const payload = {
-      userName: user.userName, // دقت کن به نام ستون‌ها
+      userName: user.userName,
       email: user.email,
       type: user.type,
     };
@@ -65,7 +66,6 @@ export class AuthService {
     if (!emailRegex.test(email))
       throw new BadRequestException('Email is not valid!');
 
-    // بررسی وجود یوزر
     const existing = await this.databaseService.query(
       'SELECT * FROM users WHERE email = $1 LIMIT 1',
       [email],
@@ -114,4 +114,15 @@ export class AuthService {
       access_token: this.jwtService.sign(payload),
     };
   }
+
+
+
+  
+
+
 }
+
+
+
+
+

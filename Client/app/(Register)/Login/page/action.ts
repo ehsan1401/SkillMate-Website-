@@ -1,15 +1,18 @@
-'use server'
+'use client';
+
+import { API } from "@/utils/Api"
 
 export async function loginUser(formData: FormData) {
   const email = formData.get('email')
   const passCode = formData.get('passCode')
 
   try {
-    const res = await fetch('http://localhost:4000/auth/login', {
+    const res = await fetch(API.auth.login, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, passCode }),
       cache: 'no-store',
+      credentials: 'include',
     })
 
     if (!res.ok) {
