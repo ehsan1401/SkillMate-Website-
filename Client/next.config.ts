@@ -1,12 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-    experimental: {
-      reactCompiler: true,
-      globalNotFound: true,
-      serverActions: {
-        bodySizeLimit: '20mb',
-      },
+  experimental: {
+    reactCompiler: true,
+    globalNotFound: true,
+    serverActions: {
+      bodySizeLimit: '20mb',
+    },
   },
   webpack: (config) => {
     config.resolve.alias = {
@@ -14,6 +14,15 @@ const nextConfig: NextConfig = {
       "react-compat": require.resolve("@ant-design/compatible"),
     };
     return config;
+  },
+
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:4000/:path*',
+      },
+    ];
   },
 };
 

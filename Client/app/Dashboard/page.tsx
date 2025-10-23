@@ -7,18 +7,19 @@ import { Button } from "antd";
 import AdminPanel from "./Role/AdminPanel";
 import UserPanel from "./Role/userPanel";
 import ProUserPanel from "./Role/ProUserPanel";
+import { API } from "@/utils/Api";
 
 export default function Dashboard() {
   const [errorFetch, setErrorFetch] = useState<string | null>(null);
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const savedToken = localStorage.getItem("Token");
+    const savedToken = sessionStorage.getItem("Token");
     setToken(savedToken);
   }, []);
 
   const { data, error } = useSWR(
-    token ? ["http://localhost:4000/users/protected", token] : null,
+    token ? [API.user.info, token] : null,
     ([url, token]) => GetUserInfoDashboard(url, token)
   );
 

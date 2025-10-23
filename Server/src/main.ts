@@ -19,7 +19,7 @@ async function bootstrap() {
     prefix: '/uploads/',
   });
 
-  app.use(cookieParser());
+  app.use(cookieParser(process.env.JWT_SECRET));
 
   await app.listen(process.env.PORT ?? 4000);
 }

@@ -1,3 +1,5 @@
+import { API } from "@/utils/Api"
+
 export async function SignUpUser(formData: FormData) {
   const email = formData.get('email')
   const userName = formData.get('userName')
@@ -5,7 +7,7 @@ export async function SignUpUser(formData: FormData) {
   const RepassCode = formData.get('RepassCode')
 
   try {
-    const res = await fetch('http://localhost:4000/auth/SignUp', {
+    const res = await fetch(API.auth.register, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, passCode , userName , RepassCode}),
