@@ -15,6 +15,7 @@ import Settings from "./(userPanelPages)/DrawerPages/Settings";
 import MainDashboard from "./(userPanelPages)/DrawerPages/MainDashboard";
 import { MaterialSymbolsDashboardOutline } from "@/Icons/DashboardIcon";
 import UploadAvatar from "./(userPanelPages)/components/UploadAvatar";
+import { API } from "@/utils/Api";
 
 export default function UserPanel({Token}:{Token : string}){
     const [itemSelected , setItemSelected] = useState<string>('item0')         
@@ -27,7 +28,7 @@ export default function UserPanel({Token}:{Token : string}){
     console.log(isDark)
 
     const {data , error} = useSWR(    
-        Token ? ["http://localhost:4000/users/protected", Token] : null, 
+        Token ? [API.user.info, Token] : null, 
         ([url, t]) => GetUserInfoDashboard(url, t) 
     )
 

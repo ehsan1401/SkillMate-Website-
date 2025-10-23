@@ -21,7 +21,7 @@ export default function Login() {
   const router = useRouter();
 
   useEffect(() => {
-    setToken(localStorage.getItem('Token'));
+    setToken(sessionStorage.getItem('Token'));
   }, []);
 
     const passwordVisibleChange = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -59,7 +59,7 @@ export default function Login() {
               if (res.ok) {
                 const token = res.data;
                 if (token) {
-                  localStorage.setItem('Token', token.access_token);
+                  sessionStorage.setItem('Token', token.access_token);
                   setToken(token.access_token); 
                   router.push('/Dashboard');
                 }
