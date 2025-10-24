@@ -9,19 +9,45 @@ import UserPanel from "./Role/userPanel";
 import ProUserPanel from "./Role/ProUserPanel";
 import { API } from "@/utils/Api";
 
+
+
 export default function Dashboard() {
   const [errorFetch, setErrorFetch] = useState<string | null>(null);
   const [token, setToken] = useState<string | null>(null);
 
-  useEffect(() => {
-    const savedToken = sessionStorage.getItem("Token");
-    setToken(savedToken);
-  }, []);
 
-  const { data, error } = useSWR(
-    token ? [API.user.info, token] : null,
-    ([url, token]) => GetUserInfoDashboard(url, token)
-  );
+  const [loading, setLoading] = useState(false)
+  const [data, setData] = useState<any>(null)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true)
+      setError(null)
+      setData(null)
+
+      try {
+        const res = await fetch(API.user.info, {
+          method: 'GET',
+          credentials: 'include',
+        })
+
+        if (!res.ok) {
+          throw new Error('Unauthorized or request failed')
+        }
+
+        const result = await res.json()
+        setData(result)
+        setToken("isLogin")
+      } catch (err: any) {
+        setError(err.message || 'Something went wrong')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
 
   useEffect(() => {
     if (error) setErrorFetch(error);
@@ -36,7 +62,7 @@ export default function Dashboard() {
       {token ? (
         <>
           {
-            data?.type === "ADMIN" ? <AdminPanel/> : data?.type === "PRO" ? <ProUserPanel/>: <UserPanel Token={token}/>
+            data?.type === "ADMIN" ? <AdminPanel/> : data?.type === "PRO" ? <ProUserPanel/>: <UserPanel userData={data}/>
           }
           <div>
 

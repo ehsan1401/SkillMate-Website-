@@ -5,10 +5,9 @@ import { Avatar, Button, ConfigProvider } from "antd";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import useSWR from "swr";
-import { GetUserInfoNavigationBar } from "./action";
 import { API } from "@/utils/Api";
 import Image from "next/image";
+import { UserType } from "@/app/Dashboard/Role/(userPanelPages)/DrawerPages/page/type";
 
 
 export default function NavigationBar () {
@@ -18,12 +17,33 @@ export default function NavigationBar () {
     const pathname = usePathname();
     const firstSegment = "/" + pathname.split("/")[1];
     const AltAvatar = "https://api.dicebear.com/7.x/miniavs/svg?seed=1"
+    const [data, setData] = useState<UserType | undefined>(undefined)
 
-    const {data , error} = useSWR(    
-        token ? [API.user.info, token] : null, 
-        ([url, t]) => GetUserInfoNavigationBar(url, t) 
-    )
-    console.log(error)
+  useEffect(() => {
+    const fetchData = async () => {
+
+      setData(undefined)
+
+      try {
+        const res = await fetch(API.user.info, {
+          method: 'GET',
+          credentials: 'include',
+        })
+
+        if (!res.ok) {
+          throw new Error('Unauthorized or request failed')
+        }
+
+        const result = await res.json()
+        setData(result)
+        setToken("isLogin")
+      } catch (err: any) {
+        console.log(err.message || 'Something went wrong')
+      }
+    }
+
+    fetchData()
+  }, [])
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -100,7 +120,7 @@ export default function NavigationBar () {
                                     size={45} 
                                     icon={<UserOutlined />} 
                                     style={{ backgroundColor: '#87d068' }}
-                                    src={data?.profileImageUrl ? `http://localhost:4000${data.profileImageUrl}` : AltAvatar}
+                                    src={data?.profileImageUrl ? `${API.base.backend}${data.profileImageUrl}` : AltAvatar}
                                 />
                                 
                             </div> 

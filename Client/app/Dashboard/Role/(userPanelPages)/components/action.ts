@@ -1,5 +1,5 @@
 
-'use server';
+'use client';
 
 import { API } from "@/utils/Api";
 
@@ -9,9 +9,7 @@ export async function uploadAvatar(file: File, token: string) {
 
   const response = await fetch(API.user.Upload_avatar, {
     method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    credentials: 'include',
     body: formData,
   });
 

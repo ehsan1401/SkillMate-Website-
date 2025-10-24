@@ -1,38 +1,58 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
+import { API } from '@/utils/Api'
+import { useState } from 'react'
 
-export default function TestCookiePage() {
-  const [result, setResult] = useState('');
+export default function ProtectedDataButton() {
+  const [loading, setLoading] = useState(false)
+  const [data, setData] = useState<any>(null)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSetCookie = async () => {
+  const getProtectedData = async () => {
+    setLoading(true)
+    setError(null)
+    setData(null)
+
     try {
-      const res = await fetch('/api/auth/set-cookie', {
+      const res = await fetch(API.user.info, {
         method: 'GET',
-        credentials: 'include', 
-      });
+        credentials: 'include',
+      })
 
-      const data = await res.json();
-      setResult(data.message);
-    } catch (error) {
-      console.error(error);
-      setResult('Error setting cookie');
+      if (!res.ok) {
+        throw new Error('Unauthorized or request failed')
+      }
+
+      const result = await res.json()
+      setData(result)
+    } catch (err: any) {
+      setError(err.message || 'Something went wrong')
+    } finally {
+      setLoading(false)
     }
-  };
-
-  const handleCheckCookie = () => {
-    const cookies = document.cookie;
-    alert(`Current cookies: ${cookies || 'No cookies found'}`);
-  };
+  }
 
   return (
-    <div style={{ padding: 20 }} className='mt-72'>
-      <h1>Cookie Test</h1>
-      <button onClick={handleSetCookie}>Set Cookie</button>
-      <button onClick={handleCheckCookie} style={{ marginLeft: 10 }}>
-        Check Cookie
+    <div className="flex flex-col items-center justify-center p-6 gap-4 mt-20">
+      <button
+        onClick={getProtectedData}
+        disabled={loading}
+        className="px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:opacity-50 transition"
+      >
+        {loading ? 'Loading...' : 'Get Protected Data'}
       </button>
-      <p>{result}</p>
+
+      {error && (
+        <div className="text-red-500 font-medium">
+          ❌ {error}
+        </div>
+      )}
+
+      {data && (
+        <pre className="bg-gray-900 text-green-400 p-4 rounded-xl text-sm max-w-lg overflow-x-auto">
+          {JSON.stringify(data, null, 2)}
+        </pre>
+      )}
     </div>
-  );
+  )
 }

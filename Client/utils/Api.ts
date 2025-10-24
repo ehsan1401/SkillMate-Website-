@@ -1,7 +1,11 @@
+
 const BACKEND_BASE_URL = process.env.NEXT_PUBLIC_BASE_BACKEND_URL ;
 
 
 export const API = {
+  base:{
+    backend : `${BACKEND_BASE_URL}`
+  },
   auth: {
     login: `${BACKEND_BASE_URL}/auth/login`,
     register: `${BACKEND_BASE_URL}/auth/SignUp`,

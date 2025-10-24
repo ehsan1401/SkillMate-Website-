@@ -39,6 +39,12 @@ export class AuthController {
       body.RepassCode,
     );
   }
+  
+  @Get('debug-cookies')
+  debugCookies(@Req() req: Request) {
+    console.log('🍪 Cookies received on server:', req.cookies);
+    return { cookies: req.cookies };
+  }
 
 
   @Post('login')
@@ -56,10 +62,10 @@ export class AuthController {
     const payload = user;
 
     const token = this.jwtService.sign(payload);
-    console.log("TOKEN CREATED : " , token)
-    response.cookie('access_token', token, {
+      response.cookie('access_token', token, {
+      domain: 'myapp.test',
       httpOnly: true,
-      secure: true,
+      secure: false,
       sameSite: 'lax',
       path: '/',
       maxAge: 1000 * 60 * 60,

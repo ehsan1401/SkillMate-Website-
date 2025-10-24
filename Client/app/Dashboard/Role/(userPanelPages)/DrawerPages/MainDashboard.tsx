@@ -1,3 +1,4 @@
+import ProtectedDataButton from "@/app/Route/page";
 import { MaterialSymbolsNotificationsOutline } from "@/Icons/NotificationsIcon";
 
 export default function MainDashboard(){
@@ -14,6 +15,7 @@ export default function MainDashboard(){
                 </span>
             </div>
             <div className="w-full lg:h-[90%] h-[80%] mt-8 lg:mt-0">
+                <ProtectedDataButton/>
             </div>
         </div>
     )

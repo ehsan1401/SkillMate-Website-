@@ -36,8 +36,10 @@ export default function UploadAvatar({ avatarUrl , size , border }: { avatarUrl 
       await uploadAvatar(e.target.files[0], token);
       
       const updatedUser = await fetch(API.user.info, {
-        headers: { Authorization: `Bearer ${token}` },
-      }).then((r) => r.json());
+        method: 'GET',
+        credentials: 'include',
+      }).then(r => r.json());
+
       
 
       setUrl(`http://localhost:4000${updatedUser.profileImageUrl}?t=${Date.now()}`);
