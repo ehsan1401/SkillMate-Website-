@@ -16,14 +16,15 @@ const nextConfig: NextConfig = {
     return config;
   },
 
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'http://localhost:4000/:path*',
-      },
-    ];
-  },
+// async rewrites() {
+//     return [
+//       {
+//         source: '/api/:path*',
+//         destination: 'http://localhost:4000/:path*', // proxy به backend
+//       },
+//     ]
+//   },
 };
 
 export default nextConfig;
+

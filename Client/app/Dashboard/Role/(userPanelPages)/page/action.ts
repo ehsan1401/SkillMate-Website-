@@ -1,11 +1,9 @@
 'use server'
 
-export async function GetUserInfoDashboard(url: string, token: string) {
+export async function GetUserInfoDashboard(url: string) {
   const res = await fetch(url, {
     method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    credentials: 'include',
   });
 
   if (!res.ok) {

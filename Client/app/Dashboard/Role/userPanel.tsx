@@ -16,8 +16,9 @@ import MainDashboard from "./(userPanelPages)/DrawerPages/MainDashboard";
 import { MaterialSymbolsDashboardOutline } from "@/Icons/DashboardIcon";
 import UploadAvatar from "./(userPanelPages)/components/UploadAvatar";
 import { API } from "@/utils/Api";
+import { UserType } from "./(userPanelPages)/DrawerPages/page/type";
 
-export default function UserPanel({Token}:{Token : string}){
+export default function UserPanel({userData}:{userData : UserType}){
     const [itemSelected , setItemSelected] = useState<string>('item0')         
     const [isDark , setIsDark] = useState<string | null>();
     
@@ -27,17 +28,14 @@ export default function UserPanel({Token}:{Token : string}){
     }, []);
     console.log(isDark)
 
-    const {data , error} = useSWR(    
-        Token ? [API.user.info, Token] : null, 
-        ([url, t]) => GetUserInfoDashboard(url, t) 
-    )
+    console.log("userPanel user Data: " , userData)
 
     const NavigationItems = [
     { id: "item0", label: "Dashboard", icon: <MaterialSymbolsDashboardOutline /> , Component : <MainDashboard/> },
-    { id: "item1", label: "My Profile", icon: <MaterialSymbolsAccountBoxOutline /> , Component : <MyProfile Token={Token} id={data?.id} user={data}/> },
+    // { id: "item1", label: "My Profile", icon: <MaterialSymbolsAccountBoxOutline /> , Component : <MyProfile userData={Token} id={data?.id} user={data}/> },
     { id: "item2", label: "Projects", icon: <SiProjectsLine /> ,  Component : <Projects/>  },
     { id: "item3", label: "Notifications", icon: <MaterialSymbolsNotificationsOutline /> ,  Component : <Notifications/>  },
-    { id: "item4", label: "Settings", icon: <MaterialSymbolsSettingsAccountBoxRounded /> , Component : <Settings  user={data} />  },
+    { id: "item4", label: "Settings", icon: <MaterialSymbolsSettingsAccountBoxRounded /> , Component : <Settings  user={userData} />  },
     ];
     const handleSelect = (e : string)=>{
         setItemSelected(e)
@@ -50,15 +48,15 @@ export default function UserPanel({Token}:{Token : string}){
                     <aside className="bg-neutral-100 dark:bg-neutral-600 w-full h-full rounded-3xl flex flex-col items-center lg:py-5">
                         <div className="flex flex-row lg:flex-col items-end w-full h-48 lg:h-full py-3 lg:p-0 justify-center lg:justify-start">
                             <div className="text-center h-full lg:h-1/4 w-1/3 lg:w-full">
-                                <UploadAvatar size={90} avatarUrl={data?.profileImageUrl ? `http://localhost:4000${data.profileImageUrl}` : `https://api.dicebear.com/7.x/miniavs/svg?seed=1`} />
+                                <UploadAvatar size={90} avatarUrl={userData?.profileImageUrl ? `${API.base.backend}${userData.profileImageUrl}` : `https://api.dicebear.com/7.x/miniavs/svg?seed=1`} />
                             </div>
                             <div className="w-1/2 h-full lg:w-full lg:pt-14 text-center lg:h-1/4 flex flex-col items-start lg:items-center pt-3">
                                 <h1 className="text-2xl text-neutral-950 dark:text-neutral-100" style={{ fontFamily: "Franklin" }}>
-                                {data?.userName?.length > 15 
-                                    ? data.userName.slice(0, 15) + "..." 
-                                    : data?.userName}
+                                {userData?.userName?.length > 15 
+                                    ? userData.userName.slice(0, 15) + "..." 
+                                    : userData?.userName}
                                 </h1>
-                                <h6 className="text-sm text-neutral-950 dark:text-neutral-100">{data?.email}</h6>
+                                <h6 className="text-sm text-neutral-950 dark:text-neutral-100">{userData?.email}</h6>
                             </div>
                         </div>
                         <span className="w-[80%] bg-neutral-800 dark:bg-neutral-50 h-1 hidden lg:block"></span>
