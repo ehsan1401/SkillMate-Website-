@@ -28,11 +28,9 @@ export default function UserPanel({userData}:{userData : UserType}){
     }, []);
     console.log(isDark)
 
-    console.log("userPanel user Data: " , userData)
-
     const NavigationItems = [
     { id: "item0", label: "Dashboard", icon: <MaterialSymbolsDashboardOutline /> , Component : <MainDashboard/> },
-    // { id: "item1", label: "My Profile", icon: <MaterialSymbolsAccountBoxOutline /> , Component : <MyProfile userData={Token} id={data?.id} user={data}/> },
+    { id: "item1", label: "My Profile", icon: <MaterialSymbolsAccountBoxOutline /> , Component : <MyProfile userInfo={userData}/> },
     { id: "item2", label: "Projects", icon: <SiProjectsLine /> ,  Component : <Projects/>  },
     { id: "item3", label: "Notifications", icon: <MaterialSymbolsNotificationsOutline /> ,  Component : <Notifications/>  },
     { id: "item4", label: "Settings", icon: <MaterialSymbolsSettingsAccountBoxRounded /> , Component : <Settings  user={userData} />  },

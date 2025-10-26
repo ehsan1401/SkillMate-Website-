@@ -23,11 +23,6 @@ export default function Settings({ user }: { user: UserType }) {
             className="w-full h-[85%] overflow-y-scroll flex flex-col py-5 px-3"
             style={{ fontFamily: "vazir" }}
         >
-            <div className="h-auto relative">
-                <p className="text-neutral-800 dark:text-neutral-200 py-1 md:pl-8 pl-3 text-xl font-bold">
-                    Change Username
-                </p>
-            </div>
             <Blackline/>
 
             <div className="h-auto relative">
