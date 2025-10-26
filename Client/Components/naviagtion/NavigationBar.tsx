@@ -35,6 +35,7 @@ export default function NavigationBar () {
         }
 
         const result = await res.json()
+        console.log(result)
         setData(result)
         setToken("isLogin")
       } catch (err: any) {

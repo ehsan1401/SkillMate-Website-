@@ -28,14 +28,11 @@ export async function GetUserInfo(token: string , id : number) {
 
 
 export async function updateUsername(email: string, newUsername: string) {
-  console.log(email);
-  console.log(newUsername);
   try {
     const result = await fetcher(API.user.updateUsername(), {
       method: 'PATCH',
       body: { email, newUsername },
     });
-    console.log('Updated user:', result);
   } catch (err) {
     console.error(err);
   }
