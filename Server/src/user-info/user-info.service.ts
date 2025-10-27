@@ -14,6 +14,15 @@ export class UserInfoService {
       createUserInfoDto.userid,
     ]);
 
+    const CheckInfoExist = await pool.query(`SELECT id FROM userinfo WHERE userid = $1`, [
+      createUserInfoDto.userid,
+    ]);
+    if ((CheckInfoExist.rowCount ?? 0) > 0) {
+      throw new BadRequestException(
+        `User info already exist!`,
+      );
+    }
+
     if (userCheck.rowCount === 0) {
       throw new BadRequestException(
         `User with id ${createUserInfoDto.userid} does not exist`,

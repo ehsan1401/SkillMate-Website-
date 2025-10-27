@@ -2,7 +2,7 @@
 import { useModal } from "@/Components/context/ModalContext/ModalContext";
 import { EditeIcon } from "@/Icons/EditeIcon";
 import { Button, DatePicker, Input, Select, Space, Tag, Tooltip } from "antd";
-import { updateUser } from "./action";
+import { CreateUser, updateUser } from "./action";
 import { JSX, startTransition, useActionState, useEffect } from "react";
 import { SocialItem, UserInfo, UserType } from "./type";
 import { Linkedin } from "@/Icons/socials/Linkedin";
@@ -56,7 +56,7 @@ export function ProfileForm({
 }) {
   const { showAlert } = useAlert();
   const { TextArea } = Input;
-  const [state, formAction] = useActionState(updateUser, { message: "" });
+  const [state, formAction] = useActionState(CreateUser, { message: "" });
 
   const [socials, setSocials] = useState<{ name: string; url: string }[]>(userInfo?.social as SocialItem[] || []);
   const [currentName, setCurrentName] = useState("");
@@ -127,10 +127,12 @@ export function ProfileForm({
   const removeSocial = (index: number) => setSocials(socials.filter((_, i) => i !== index));
 
   useEffect(() => {
-    if (state.status === 200) {
+    if (state.status === 200 || state.status === 201) {
       onUpdated?.();
-      showAlert("Your Information successfully Updated!", "success");
-    }
+      showAlert("Your Information successfully Created!", "success");
+    }else{{
+      showAlert("Sorry! There are some errors!", "error");
+    }}
   }, [state.status, showAlert, onUpdated]);
 
   return (
@@ -139,18 +141,10 @@ export function ProfileForm({
         e.preventDefault();
         const formData = new FormData(e.currentTarget as HTMLFormElement);
 
-        // Ensure numeric ID is valid
-        if (typeof user.id === "number" && !isNaN(user.id)) {
-          formData.set("id", user.id.toString());
-        } else {
-          showAlert("Invalid user ID", "error");
-          return;
-        }
-
         formData.set("social", JSON.stringify(socials));
         formData.set("skills", JSON.stringify(skills));
         formData.set("learning_skills", JSON.stringify(learningSkills));
-
+        formData.set("id", user.id.toString());
         startTransition(() => {
           formAction(formData);
         });
@@ -158,7 +152,7 @@ export function ProfileForm({
       className="flex flex-col items-center pb-5 w-[95%]"
     >
       <h1 className="text-2xl" style={{ fontFamily: "Lalezar" }}>{user?.userName}</h1>
-      <Button type="primary" htmlType="submit" style={{ width: "90%" }}>Update</Button>
+      <Button type="primary" htmlType="submit" style={{ width: "90%" }}>Create</Button>
       <span className="flex text-orange-500 py-2">
         <span className="pt-1"><IcOutlineErrorOutline /></span>
         <span>Make sure you press the update button to save the information.</span>

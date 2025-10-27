@@ -1,7 +1,5 @@
 'use client';
 
-import { API } from "@/utils/Api";
-
 
 export async function GetUserInfo(url : string) {
 

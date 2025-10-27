@@ -24,3 +24,7 @@ async function bootstrap() {
   await app.listen(process.env.PORT ?? 4000);
 }
 bootstrap();
+
+
+// maire token
+// mlsn.cfe8b2599382fb1c5f14c9137fd548989be9fac98a96e09291a4a7872e389764
