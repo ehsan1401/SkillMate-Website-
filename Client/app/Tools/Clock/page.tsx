@@ -62,7 +62,7 @@ export default function ClockFullScreen() {
       {/* 🔻 Bottom Control Bar */}
       <div
         className={`absolute bottom-0 bg-neutral-600 hover:opacity-100 opacity-25 h-12 z-[110] transition-all duration-300 ease-in-out ${
-          expanded ? "w-[30%] rounded-2xl" : "w-12 rounded-full overflow-hidden"
+          expanded ? "lg:w-[30%] md:w-[50%] w-full rounded-2xl" : "w-12 rounded-full overflow-hidden"
         }`}
       >
         {/* 🎵 Music Play/Pause */}

@@ -64,7 +64,7 @@ export default function MyProfile({userInfo}:{userInfo : UserType}){
                 </div>
                 <div className="absolute p-5 gap-2 flex flex-col text-xl text-neutral-800 dark:text-neutral-100">
                     {
-                        UserInformation?.social.map((item : SocialItem)  => {
+                        UserInformation?.social?.map((item : SocialItem)  => {
                             const Icon = SocialIcons[item.name] || null;
                             return (
                                 <Tooltip title={item.url} placement="right" key={item.name}>
@@ -101,7 +101,7 @@ export default function MyProfile({userInfo}:{userInfo : UserType}){
                             </p>
                             <span className="text-neutral-800 dark:text-neutral-100">My skills are </span>
                             <div className=" flex flex-wrap justify-center items-center">
-                                {UserInformation?.skills.map((item : string)=>{
+                                {UserInformation?.skills?.map((item : string)=>{
                                     index = index +1 
                                     return(
                                         <span key={index} className="py-3">
@@ -114,7 +114,7 @@ export default function MyProfile({userInfo}:{userInfo : UserType}){
                                 <p className="text-neutral-800 dark:text-neutral-100 my-3">My developing Skills are </p>
                                 <div className=" flex flex-wrap justify-center items-center">
 
-                                    {UserInformation?.learning_skills.map((item : string)=>{
+                                    {UserInformation?.learning_skills?.map((item : string)=>{
                                         index = index +1 
                                         return(
                                             <span key={index} className="">

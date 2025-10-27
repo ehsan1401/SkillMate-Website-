@@ -6,23 +6,23 @@ import { fetcher } from '@/utils/fetcher';
 
 
 
-export async function GetUserInfo(token: string , id : number) {
-  if (!id) {
-    throw new Error("Missing user id");
-  }
-  const response = await fetch(API.user.getUserInfo(id), {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    }
-  });
+// export async function GetUserInfo(token: string , id : number) {
+//   if (!id) {
+//     throw new Error("Missing user id");
+//   }
+//   const response = await fetch(API.user.getUserInfo(id), {
+//     method: 'GET',
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     }
+//   });
 
-  if (!response.ok) {
-    throw new Error(`Error in Getting User Info: ${response.statusText}`)
+//   if (!response.ok) {
+//     throw new Error(`Error in Getting User Info: ${response.statusText}`)
 
-  };
-  return response.json();
-}
+//   };
+//   return response.json();
+// }
 
 
 
@@ -151,24 +151,22 @@ export async function CreateUser(
 
   const socialsJson = formData.get("social") as string | null;
   const social = socialsJson ? JSON.parse(socialsJson) : [];
-  const id = formData.get("id");
+  const userid = formData.get("id");
 
-  if (!id) {
-    return { ok: false, status: 400, message: "Missing user id" };
-  }
-
+  console.log(JSON.stringify({userid ,  phone, dateOfBirth, social, skills , learning_skills , bio }))
   try {
-    const res = await fetch(API.user.UpdateUserInfo(Number(id)), {
+    const res = await fetch(API.user.createUserInfo(), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ phone, dateOfBirth, social, skills , learning_skills , bio }),
+      body: JSON.stringify({userid , phone, dateOfBirth, social, skills , learning_skills , bio }),
       cache: "no-store",
     });
+    console.log(res.status)
+
 
     if (!res.ok) {
       let errorMessage = "Unknown error";
       const errorStatus = res.status;
-
       try {
         const errorData = await res.json();
         errorMessage =

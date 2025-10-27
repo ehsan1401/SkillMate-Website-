@@ -19,17 +19,6 @@ export class AuthController {
     private readonly authService: AuthService,
   ) {}
 
-  // @Post('login')
-  // async login(
-  //   @Body() body: { email: string; passCode: string },
-  //   @Req() req: Request,
-  // ) {
-  //   const user = await this.authService.validateUser(body.email, body.passCode);
-  //   const payload = user;
-
-  //   return { access_token: this.jwtService.sign(payload) };
-  // }
-
   @Post('SignUp')
   async SignUp(@Body() body: SignUpDto) {
     return this.authService.SignUp(
@@ -39,13 +28,6 @@ export class AuthController {
       body.RepassCode,
     );
   }
-  
-  @Get('debug-cookies')
-  debugCookies(@Req() req: Request) {
-    console.log('🍪 Cookies received on server:', req.cookies);
-    return { cookies: req.cookies };
-  }
-
 
   @Post('login')
   async login(
@@ -71,43 +53,6 @@ export class AuthController {
       maxAge: 1000 * 60 * 60,
     });
     return { message: 'Login successful' };
-  }
-
-
-@Get('set-cookie')
-setCookie(@Res({ passthrough: true }) response: Response) {
-  const data = {
-    name: 'ehsan',
-    age: '22',
-    job: 'student',
-  };
-
-  response.cookie('Something', JSON.stringify(data), {
-    // domain: 'myapp.test',
-    path: '/',
-    httpOnly: true,
-    sameSite: 'lax',
-    secure: true,
-    maxAge: 1000 * 60 * 60,
-  });
-  return { message: 'Cookie has been set!' };
-}
-
-  
-  // @Get('SetCookie')
-  // findAllC(@Res({ passthrough: true }) response: Response) {
-  //   const data = {
-  //     "name" : "ehsan",
-  //     "age" : "22",
-  //     "job" : "student"
-  //   }
-  //   response.cookie('Something', JSON.stringify(data))
-
-  // }
-
-  @Get("show")
-  findAll(@Req() request: Request) {
-    console.log(request.cookies);
   }
   
 }
