@@ -1,12 +1,9 @@
-import { useModal } from "@/Components/context/ModalContext/ModalContext";
 import { UserType } from "./page/type";
-import { useState } from "react";
 import { useAlert } from "@/Components/elements/Alert/AlertContext";
 import UpdateUsername from "./settingPages/updateUsername";
 import DarkModeToggle from "@/Components/elements/DarkModeToggle";
 import { LightIcon } from "@/Icons/LightIcon";
 import Blackline from "@/Components/elements/blackline";
-import Clock from "@/Components/elements/Clock";
 
 export default function Settings({ user }: { user: UserType }) {
   const { showAlert } = useAlert();
@@ -23,8 +20,6 @@ export default function Settings({ user }: { user: UserType }) {
             className="w-full h-[85%] overflow-y-scroll flex flex-col py-5 lg:px-3 px-0"
             style={{ fontFamily: "vazir" }}
         >
-            <Blackline/>
-
             <div className="h-auto relative">
                 <p className="text-neutral-800 dark:text-neutral-200 pt-3 pl-3 lg:text-xl text-sm font-bold flex">
                     <span className="pt-[3px] px-2 text-3xl text-yellow-400" ><LightIcon/></span>
@@ -34,12 +29,12 @@ export default function Settings({ user }: { user: UserType }) {
                     <DarkModeToggle />
                 </span>
             </div>
-            <Blackline/>
+            <Blackline size={1}/>
 
             <div className="">
                 <UpdateUsername user={user} />
             </div>
-            <Blackline size={3}/>
+            <Blackline size={1}/>
             <div className="h-auto relative">
  
             </div>

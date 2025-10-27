@@ -1,12 +1,8 @@
 "use client";
 
-import { useActionState } from "react";
-import { TestFunction } from "../page/action";
 
 export default function Notifications() {
 
-  const [state , formAction , isPending] = useActionState(TestFunction , null)
-  console.log(state)
   return (
     <div className="p-5 w-full h-full select-none"> 
         <h1 
@@ -15,13 +11,6 @@ export default function Notifications() {
             Notifications 
         </h1>
 
-
-
-        <form action={formAction}>
-          <input type="text" name="name" />
-          <button type="submit"> Confirmation</button>
-          {isPending ? "Loading..." : state}
-        </form>
     </div>
   );
 }

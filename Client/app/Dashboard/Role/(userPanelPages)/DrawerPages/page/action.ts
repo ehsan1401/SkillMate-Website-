@@ -6,27 +6,6 @@ import { fetcher } from '@/utils/fetcher';
 
 
 
-// export async function GetUserInfo(token: string , id : number) {
-//   if (!id) {
-//     throw new Error("Missing user id");
-//   }
-//   const response = await fetch(API.user.getUserInfo(id), {
-//     method: 'GET',
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     }
-//   });
-
-//   if (!response.ok) {
-//     throw new Error(`Error in Getting User Info: ${response.statusText}`)
-
-//   };
-//   return response.json();
-// }
-
-
-
-
 export async function updateUsername(email: string, newUsername: string) {
   try {
     const result = await fetcher(API.user.updateUsername(), {
@@ -152,8 +131,6 @@ export async function CreateUser(
   const socialsJson = formData.get("social") as string | null;
   const social = socialsJson ? JSON.parse(socialsJson) : [];
   const userid = formData.get("id");
-
-  console.log(JSON.stringify({userid ,  phone, dateOfBirth, social, skills , learning_skills , bio }))
   try {
     const res = await fetch(API.user.createUserInfo(), {
       method: "POST",
@@ -161,8 +138,6 @@ export async function CreateUser(
       body: JSON.stringify({userid , phone, dateOfBirth, social, skills , learning_skills , bio }),
       cache: "no-store",
     });
-    console.log(res.status)
-
 
     if (!res.ok) {
       let errorMessage = "Unknown error";

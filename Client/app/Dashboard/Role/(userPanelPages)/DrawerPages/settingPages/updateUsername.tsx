@@ -19,7 +19,7 @@ function ChangeUsernameModal({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    const onlyLetters = /^[a-zA-Z]*$/;
+    const onlyLetters = /^[a-zA-Z_-]*$/;
     if (onlyLetters.test(value)) setUsername(value);
   };
 
