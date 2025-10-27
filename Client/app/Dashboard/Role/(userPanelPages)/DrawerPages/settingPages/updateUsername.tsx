@@ -74,11 +74,11 @@ export default function UpdateUsername({ user }: { user: UserType }) {
   return (
     <div className="w-full h-[100%]">
         <div className="h-auto relative">
-          <p className="text-neutral-800 dark:text-neutral-200 pt-4 pl-3 text-xl font-bold flex">
+          <p className="text-neutral-800 dark:text-neutral-200 pt-4 pl-3 lg:text-xl text-sm font-bold flex">
             <span className="pt-[3px] px-2 text-3xl text-neutral-700 dark:text-neutral-200" ><MaterialSymbolsPerson/></span>
             <span className="pt-[7px]">Change Username</span>
           </p>
-          <span className="absolute top-4 right-3">
+          <span className="absolute top-4 right-3 lg:scale-100 scale-75">
             <button
               className="px-3 py-2 text-neutral-100 rounded-md bg-blue-500 hover:bg-blue-600 hover:scale-105 transition-all duration-150"
               onClick={() =>

@@ -26,7 +26,7 @@ export default function Footer() {
                 </h2>
 
             </div>
-            <div className="pb-5 lg:pl-14 lg:pr-5 px-5 text-center lg:text-left dark:text-white flex flex-col gap-2" style={{fontFamily:"vazir"}}> 
+            <div className="pb-5 lg:pl-14 lg:pr-5 px-12 text-center lg:text-left dark:text-white flex flex-col gap-2" style={{fontFamily:"vazir"}}> 
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia velit provident porro earum iste rerum deserunt suscipit? 
                 <br /><span className="text-center dark:text-white lg:hidden " style={{fontFamily:"Centaur"}}>&copy; 2025 Skillmate. All rights reserved.</span>
             </div>

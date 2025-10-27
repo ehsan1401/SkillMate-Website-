@@ -78,7 +78,7 @@ export default function NavigationBar () {
                     SkillMate
                 </h2>
             </Link>
-            <ul className="flex gap-8 justify-center items-center h-full lg:px-10 flex-1">
+            <ul className="flex gap-3 lg:gap-8 justify-center items-center h-full lg:px-10 flex-1">
                 <Link href="/" className="lg:px-10 lg:hidden">
                     <Image src="/Images/LightTitleLessLogo.png" alt="TitleLessLogo" className="w-14 h-14 dark:block hidden" width={60} height={60}/>
                     <Image src="/Images/TitleLessLogo.png" alt="TitleLessLogo" className="w-14 h-14 dark:hidden" width={60} height={60}/>
@@ -88,12 +88,12 @@ export default function NavigationBar () {
                 const href = `/${item}`;
                 const isActive = href === itemSelected;
                 return (
-                    <li key={item}>
+                    <li key={item} className="text-sm lg:text-base">
                     <Link
                         href={href}
                         className={
                         isActive
-                            ? "dark:bg-white bg-neutral-700 p-3 rounded-3xl dark:text-black text-white lg:scale-100 scale-75"
+                            ? "dark:bg-white bg-neutral-700 lg:p-3 px-3 py-2 lg:py-3  rounded-3xl dark:text-black text-white "
                             : "dark:text-white text-neutral-900"
                         }
                     >

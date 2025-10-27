@@ -15,11 +15,10 @@ import { API } from "@/utils/Api";
 import useSWR from "swr";
 import { GetUserInfo } from "./page/clientAction";
 import { div } from "framer-motion/client";
+import { IcOutlineErrorOutline } from "@/Icons/ErrorIcon";
 
 export default function MyProfile({userInfo}:{userInfo : UserType}){
     const { showAlert } = useAlert();
-    //   const [data, setData] = useState<any>(null)
-    //   const [error, setError] = useState<string | null>(null)
 
     const SocialIcons: Record<string, JSX.Element> = {
         LinkedIn: <Linkedin />,
@@ -37,7 +36,7 @@ export default function MyProfile({userInfo}:{userInfo : UserType}){
     const {data : items , error , mutate} = useSWR(API.user.getUserInfo(userInfo.id) , GetUserInfo);
     console.log(items?.data)
 
-    const UserInformation = items?.data ;
+    const UserInformation : UserInfo = items?.data ;
 
     if(error){
         return(
@@ -50,8 +49,8 @@ export default function MyProfile({userInfo}:{userInfo : UserType}){
     }
 
     return(
-        <section className="p-5 w-full lg:h-full h-[200%] select-none relative lg:overflow-y-scroll">
-            <h1 className="text-5xl text-neutral-950 dark:text-neutral-50 lg:sticky top-4" style={{fontFamily:"scriptMtbold"}}> 
+        <section className="lg:p-5 p-0 w-full lg:h-full h-[200%] select-none relative lg:overflow-y-scroll">
+            <h1 className="text-5xl text-neutral-950 dark:text-neutral-50 lg:sticky top-4 p-5 lg:p-0" style={{fontFamily:"scriptMtbold"}}> 
                 My Profile
             </h1>
             <div className="w-full h-[100%] relative -top-5 lg:-top-10 px-3 lg:px-16 pt-14 pb-8 text-center ">
@@ -91,38 +90,58 @@ export default function MyProfile({userInfo}:{userInfo : UserType}){
                     <div className="flex flex-col justify-center items-center w-full h-[50%] lg:pt-16">
                         <h1 className="text-4xl text-neutral-800 dark:text-neutral-100 font-bold " style={{fontFamily:"vazir"}}>{userInfo?.userName}</h1>
                         <span className="text-neutral-500 dark:text-neutral-200 -mt-5 text-sm">{userInfo?.email}</span>
-                        {UserInformation && <span className="py-1 text-neutral-500 dark:text-neutral-200">+{UserInformation?.phone}</span>}
+                        { UserInformation && UserInformation?.phone ? <span className="py-1 text-neutral-500 dark:text-neutral-200">+{UserInformation?.phone}</span> : <span className="py-1 text-red-800 dark:text-red-300 text-xs flex gap-1"><IcOutlineErrorOutline className="mt-[2px]"/>Mobile phone number not entered.</span>}
                     </div>
                     {
                         UserInformation &&
                         <div className="w-full h-[50%] py-5 lg:py-0 px-5">
                             <p className="text-neutral-800 dark:text-neutral-100 text-sm py-4">
-                                <span>{UserInformation?.bio}</span>
+                                {UserInformation.bio && UserInformation.bio !== ''  ? 
+                                    <span>{UserInformation?.bio}</span>
+                                :
+                                    <span className="text-xs text-red-800 dark:text-red-300 ">
+                                        This user hasn’t written anything about themselves yet, <br /> but they surely have an interesting story 😉
+                                    </span>    
+                                }
                             </p>
                             <span className="text-neutral-800 dark:text-neutral-100">My skills are </span>
-                            <div className=" flex flex-wrap justify-center items-center">
-                                {UserInformation?.skills?.map((item : string)=>{
-                                    index = index +1 
-                                    return(
-                                        <span key={index} className="py-3">
-                                            <Tag color={tagLabel[Math.floor(Math.random() * tagLabel.length)]}>{item}</Tag>
-                                        </span>
-                                    )
-                                })}
-                            </div>
+                            {
+                                UserInformation.skills && UserInformation.skills.length !== 0 ? 
+                                    <div className=" flex flex-wrap justify-center items-center">
+                                        {UserInformation?.skills?.map((item : string)=>{
+                                            index = index +1 
+                                            return(
+                                                <span key={index} className="py-3">
+                                                    <Tag color={tagLabel[Math.floor(Math.random() * tagLabel.length)]}>{item}</Tag>
+                                                </span>
+                                            )
+                                        })}
+                                    </div>
+                                :
+                                    <div className=" py-2 flex flex-wrap justify-center items-center text-xs text-red-800 dark:text-red-300">
+                                        I don't have any skills right now.
+                                    </div>
+                            }
                             <div> 
                                 <p className="text-neutral-800 dark:text-neutral-100 my-3">My developing Skills are </p>
-                                <div className=" flex flex-wrap justify-center items-center">
+                                {
+                                    UserInformation.learning_skills && UserInformation.learning_skills.length !== 0 ? 
+                                        <div className=" flex flex-wrap justify-center items-center">
 
-                                    {UserInformation?.learning_skills?.map((item : string)=>{
-                                        index = index +1 
-                                        return(
-                                            <span key={index} className="">
-                                                <Tag color={tagLabel[Math.floor(Math.random() * tagLabel.length)]}>{item}</Tag>
-                                            </span>
-                                        )
-                                    })}
-                                </div>
+                                            {UserInformation.learning_skills.map((item : string)=>{
+                                                index = index +1 
+                                                return(
+                                                    <span key={index} className="">
+                                                        <Tag color={tagLabel[Math.floor(Math.random() * tagLabel.length)]}>{item}</Tag>
+                                                    </span>
+                                                )
+                                            })}
+                                        </div>
+                                    :
+                                        <div className=" flex flex-wrap justify-center items-center text-xs text-red-800 dark:text-red-300">
+                                            I don't plan on learning anything new right now.
+                                        </div>
+                                }
                             </div>
                         </div>  
                     }

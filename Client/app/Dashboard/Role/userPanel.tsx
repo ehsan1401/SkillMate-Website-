@@ -126,7 +126,7 @@ export default function UserPanel({userData}:{userData : UserType}){
                         NavigationItems.map((items)=>{
                             if(itemSelected === items.id ) 
                                 return(
-                                    <div key={items.id} className="w-full h-full bg-neutral-100 dark:bg-neutral-600 p-3 rounded-3xl">
+                                    <div key={items.id} className="w-full h-full bg-neutral-100 dark:bg-neutral-600 lg:p-3 py-3 px-0 rounded-3xl">
                                         {
                                             items.Component
                                         }
