@@ -4,7 +4,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Avatar } from 'antd';
 import { CameraOutlined } from '@ant-design/icons';
-import { uploadAvatar } from './action';
+import { uploadAvatar } from './clientAction';
 import { useAlert } from '@/Components/elements/Alert/AlertContext';
 import { API } from '@/utils/Api';
 

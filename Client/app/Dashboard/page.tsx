@@ -1,12 +1,12 @@
 'use client';
 import AccessDenied from "@/Components/AceessDenied";
-import { GetUserInfoDashboard } from "./Role/(userPanelPages)/page/action";
+import { GetUserInfoDashboard } from "./(Role)/(userPanelPages)/page/action";
 import useSWR from "swr";
 import { useEffect, useState } from "react";
 import { Button } from "antd";
-import AdminPanel from "./Role/AdminPanel";
-import UserPanel from "./Role/userPanel";
-import ProUserPanel from "./Role/ProUserPanel";
+import AdminPanel from "./(Role)/AdminPanel";
+import UserPanel from "./(Role)/userPanel";
+import ProUserPanel from "./(Role)/ProUserPanel";
 import { API } from "@/utils/Api";
 
 

@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { API } from "@/utils/Api";
 import Image from "next/image";
-import { UserType } from "@/app/Dashboard/Role/(userPanelPages)/DrawerPages/page/type";
+import { UserType } from "@/app/Dashboard/(Role)/(userPanelPages)/DrawerPages/page/type";
 
 
 export default function NavigationBar () {
@@ -35,7 +35,6 @@ export default function NavigationBar () {
         }
 
         const result = await res.json()
-        console.log(result)
         setData(result)
         setToken("isLogin")
       } catch (err: any) {

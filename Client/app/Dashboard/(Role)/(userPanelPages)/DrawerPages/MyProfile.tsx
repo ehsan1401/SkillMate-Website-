@@ -1,7 +1,7 @@
 
 import { useAlert } from "@/Components/elements/Alert/AlertContext";
 import { JSX, useEffect, useState } from "react";
-import UploadAvatar from "../components/UploadAvatar";
+import UploadAvatar from "../page/UploadAvatar";
 import { SocialItem, UserInfo, UserType } from "./page/type";
 import { Linkedin } from "@/Icons/socials/Linkedin";
 import { MdiGithub } from "@/Icons/socials/GitHub";
