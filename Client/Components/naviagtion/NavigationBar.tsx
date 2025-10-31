@@ -7,54 +7,24 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { API } from "@/utils/Api";
 import Image from "next/image";
-import { UserType } from "@/app/Dashboard/(Role)/(userPanelPages)/DrawerPages/page/type";
+import { useUser } from "../context/UserContext/UserContext";
 
 
 export default function NavigationBar () {
     
-    const [token, setToken] = useState<string | null | undefined>(undefined);
     const [itemSelected, setitemSelected] = useState<string>(''); 
     const pathname = usePathname();
     const firstSegment = "/" + pathname.split("/")[1];
     const AltAvatar = "https://api.dicebear.com/7.x/miniavs/svg?seed=1"
-    const [data, setData] = useState<UserType | undefined>(undefined)
-
-  useEffect(() => {
-    const fetchData = async () => {
-
-      setData(undefined)
-
-      try {
-        const res = await fetch(API.user.info, {
-          method: 'GET',
-          credentials: 'include',
-        })
-
-        if (!res.ok) {
-          throw new Error('Unauthorized or request failed')
-        }
-
-        const result = await res.json()
-        setData(result)
-        setToken("isLogin")
-      } catch (err: any) {
-        console.log(err.message || 'Something went wrong')
-      }
-    }
-
-    fetchData()
-  }, [])
+    const { user , refreshUser } = useUser();
 
     useEffect(() => {
-        if (typeof window !== "undefined") {
-            setToken(sessionStorage.getItem('Token'));
-        }
         if(firstSegment === "/"){
             setitemSelected("/Home");
         }else{
             setitemSelected(firstSegment);
         }
-    }, [pathname , token , firstSegment]);
+    }, [pathname , firstSegment]);
 
     const NavigationItems = [
         "Dashboard" , "Login" , "SignUp" , "Route"
@@ -105,8 +75,7 @@ export default function NavigationBar () {
             
             <div className="float-right items-center py-2 px-10 lg:flex hidden">
                 {
-                    token === undefined ? null : ( 
-                        token  ? 
+                        user  ? 
                             <div className="flex items-center gap-5">
                                 {
                                     firstSegment ===`/Dashboard` ? 
@@ -120,7 +89,7 @@ export default function NavigationBar () {
                                     size={45} 
                                     icon={<UserOutlined />} 
                                     style={{ backgroundColor: '#87d068' }}
-                                    src={data?.profileImageUrl ? `${API.base.backend}${data.profileImageUrl}` : AltAvatar}
+                                    src={user?.profileImageUrl ? `${API.base.backend}${user.profileImageUrl}` : AltAvatar}
                                 />
                                 
                             </div> 
@@ -130,7 +99,6 @@ export default function NavigationBar () {
                                 /
                                 <Button type="primary" href="/SignUp">SignUp</Button>
                         </div>
-                    )
                 }
             </div>
         </ConfigProvider>

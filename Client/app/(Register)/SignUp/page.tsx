@@ -14,21 +14,19 @@ import { AlternateEmailRounded } from "@/Icons/AlternateEmailRounded";
 import AccessDenied from "@/Components/AceessDenied";
 import { MdiEyeOff } from "@/Icons/NotVisibleEye";
 import { MdiEye } from "@/Icons/VisibleEye";
+import { useUser } from "@/Components/context/UserContext/UserContext";
 
 export default function SignUp() {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [isHover, setIsHover] = useState<boolean>(false);
   const [errorShow, seterrorShow] = useState<string>('');
-  const [token, setToken] = useState<string | null>(null);
   const [passChecker, setPassChecker] = useState<boolean>(true);
   const [rePassChecker, setRePassChecker] = useState<boolean>(true);
+  const { user , refreshUser } = useUser();
 
   const router = useRouter();
 
-  useEffect(() => {
-    setToken(sessionStorage.getItem('Token'));
-  }, []);
 
   const passwordVisibleChange = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -39,14 +37,10 @@ export default function SignUp() {
     e.preventDefault();
     setRePassChecker((prev) => !prev);
   };
-  // if (!mounted) {
-  //   return <AccessDenied type='Forbidden' Button={<Button variant="solid" color="volcano">Dashboard</Button>} ButtonHref="/Dashboard"/>;
-  // }
-
   return (
     <>
       {
-        token ? (
+        user ? (
           <>
             <AccessDenied type='Forbidden' Button={<Button variant="solid" color="volcano">Dashboard</Button>} ButtonHref="Dashboard"/>
           </>
@@ -72,12 +66,8 @@ export default function SignUp() {
               }
 
               if (res.ok) {
-                const token = res.data;
-                if (token) {
-                  sessionStorage.setItem('Token', token.access_token);
-                  setToken(token.access_token); 
+                  await refreshUser();
                   router.push('/Dashboard');
-                }
               } else {
                 seterrorShow(res.message || 'SignUp failed');
               }

@@ -1,68 +1,35 @@
 'use client';
 import AccessDenied from "@/Components/AceessDenied";
-import { GetUserInfoDashboard } from "./(Role)/(userPanelPages)/page/action";
-import useSWR from "swr";
 import { useEffect, useState } from "react";
 import { Button } from "antd";
 import AdminPanel from "./(Role)/AdminPanel";
 import UserPanel from "./(Role)/userPanel";
 import ProUserPanel from "./(Role)/ProUserPanel";
-import { API } from "@/utils/Api";
+import { useUser } from "@/Components/context/UserContext/UserContext";
 
 
 
 export default function Dashboard() {
+  const { user } = useUser();
   const [errorFetch, setErrorFetch] = useState<string | null>(null);
-  const [token, setToken] = useState<string | null>(null);
-
-
   const [loading, setLoading] = useState(false)
-  const [data, setData] = useState<any>(null)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true)
-      setError(null)
-      setData(null)
-
-      try {
-        const res = await fetch(API.user.info, {
-          method: 'GET',
-          credentials: 'include',
-        })
-
-        if (!res.ok) {
-          throw new Error('Unauthorized or request failed')
-        }
-
-        const result = await res.json()
-        setData(result)
-        setToken("isLogin")
-      } catch (err: any) {
-        setError(err.message || 'Something went wrong')
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchData()
-  }, [])
 
   useEffect(() => {
     if (error) setErrorFetch(error);
   }, [error]);
 
-  if (token === null) {
+  if (user === null) {
     return <AccessDenied type="Unauthorized" ButtonHref="/Login" Button={<Button variant="solid" color="volcano">Login Page</Button>}/>;
   }
 
   return (
     <>
-      {token ? (
+      {user ? (
         <>
           {
-            data?.type === "ADMIN" ? <AdminPanel/> : data?.type === "PRO" ? <ProUserPanel/>: <UserPanel userData={data}/>
+            user?.type === "ADMIN" ? <AdminPanel/> : user?.type === "PRO" ? <ProUserPanel/>: <UserPanel userData={user}/>
           }
           <div>
 
