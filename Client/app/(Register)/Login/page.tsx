@@ -12,6 +12,7 @@ import { LoadingIcon } from "@/Icons/LoadingIcon";
 import { MdiEye } from "@/Icons/VisibleEye";
 import { MdiEyeOff } from "@/Icons/NotVisibleEye";
 import { useUser } from "@/Components/context/UserContext/UserContext";
+import { Routes } from "@/utils/theRoutes";
 
 export default function Login() {
   const [isHover, setIsHover] = useState(false);
@@ -56,7 +57,7 @@ export default function Login() {
               }
 
               await refreshUser();
-              router.push('/Dashboard');
+              router.push(Routes.Dashboard.main);
               setLoading(false);
 
 
@@ -121,7 +122,7 @@ export default function Login() {
                   type={isHover ? "primary" : "default"}
                   onMouseEnter={() => setIsHover(true)}
                   onMouseLeave={() => setIsHover(false)}
-                  href="/SignUp"
+                  href={Routes.auth.signup}
                   className="text-base hover:text-blue-500 transition-all duration-200"
                 >
                   <span style={{fontFamily:"Vazir"}} className="pt-1">Sign Up</span>

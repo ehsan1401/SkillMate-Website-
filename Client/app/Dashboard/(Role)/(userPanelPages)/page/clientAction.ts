@@ -3,7 +3,7 @@
 
 import { API } from "@/utils/Api";
 
-export async function uploadAvatar(file: File, token: string) {
+export async function uploadAvatar(file: File) {
   const formData = new FormData();
   formData.append('file', file);
 

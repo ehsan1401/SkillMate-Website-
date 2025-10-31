@@ -15,6 +15,7 @@ import AccessDenied from "@/Components/AceessDenied";
 import { MdiEyeOff } from "@/Icons/NotVisibleEye";
 import { MdiEye } from "@/Icons/VisibleEye";
 import { useUser } from "@/Components/context/UserContext/UserContext";
+import { Routes } from "@/utils/theRoutes";
 
 export default function SignUp() {
 
@@ -67,7 +68,7 @@ export default function SignUp() {
 
               if (res.ok) {
                   await refreshUser();
-                  router.push('/Dashboard');
+                  router.push(Routes.Dashboard.main);
               } else {
                 seterrorShow(res.message || 'SignUp failed');
               }
@@ -135,7 +136,7 @@ export default function SignUp() {
                     type={isHover ? "primary" : "default"}
                     onMouseEnter={() => setIsHover(true)}
                     onMouseLeave={() => setIsHover(false)}
-                    href="/Login"
+                    href={Routes.auth.Login}
                     className="text-base hover:text-blue-500 transition-all duration-200"
                   >
                     <span style={{fontFamily:"Vazir"}} className="pt-1">Login</span>

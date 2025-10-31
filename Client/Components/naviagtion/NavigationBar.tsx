@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { API } from "@/utils/Api";
 import Image from "next/image";
 import { useUser } from "../context/UserContext/UserContext";
+import { Routes } from "@/utils/theRoutes";
 
 
 export default function NavigationBar () {
@@ -78,10 +79,10 @@ export default function NavigationBar () {
                         user  ? 
                             <div className="flex items-center gap-5">
                                 {
-                                    firstSegment ===`/Dashboard` ? 
+                                    firstSegment === Routes.Dashboard.main ? 
                                         <Button variant="solid" color="danger" onClick={logout}>Logout</Button>
                                     :
-                                        <Button type="primary" href="/Dashboard">Dashboard</Button>
+                                        <Button type="primary" href={Routes.Dashboard.main}>Dashboard</Button>
                                 }
 
                                 
@@ -95,9 +96,9 @@ export default function NavigationBar () {
                             </div> 
                         : 
                         <div className="flex items-center gap-3 dark:text-white ">
-                                <Button type="primary" href="/Login">Login</Button>
+                                <Button type="primary" href={Routes.auth.Login}>Login</Button>
                                 /
-                                <Button type="primary" href="/SignUp">SignUp</Button>
+                                <Button type="primary" href={Routes.auth.signup}>SignUp</Button>
                         </div>
                 }
             </div>

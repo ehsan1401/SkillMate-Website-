@@ -1,6 +1,7 @@
 'use client';
 
 import { API } from "./Api";
+import { Routes } from "./theRoutes";
 
 
 export async function logout() {
@@ -13,6 +14,6 @@ export async function logout() {
   console.log(response.status)
   if(response.ok){
     window.location.reload()
-    window.location.href = "/Login"
+    window.location.href = Routes.auth.Login
   }
 }
