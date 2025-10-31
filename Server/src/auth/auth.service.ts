@@ -34,12 +34,16 @@ export class AuthService {
   }
 
   async login(user: any) {
+
+    await this.databaseService.query(
+      `UPDATE users SET "lastLogin" = NOW() WHERE id = $1`,
+      [user.id]
+    );
     const payload = {
       userName: user.userName,
       email: user.email,
       type: user.type,
     };
-
     return {
       access_token: this.jwtService.sign(payload),
     };
@@ -114,10 +118,6 @@ export class AuthService {
       access_token: this.jwtService.sign(payload),
     };
   }
-
-
-
-  
 
 
 }
