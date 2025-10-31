@@ -1,14 +1,18 @@
+'use client';
+
+import { API } from "./Api";
 
 
+export async function logout() {
 
-
-export function logout() {
-  if (typeof window === "undefined") return;
-
-  const Token = sessionStorage.getItem("Token");
-  if (Token) {
-    sessionStorage.removeItem("Token");
-    window.location.reload();
-    window.location.href = "/Login";
+  
+  const response = await fetch(API.auth.logout, {
+    method: 'POST',
+    credentials: 'include',
+  });
+  console.log(response.status)
+  if(response.ok){
+    window.location.reload()
+    window.location.href = "/Login"
   }
 }

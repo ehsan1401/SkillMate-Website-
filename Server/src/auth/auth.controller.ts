@@ -54,5 +54,16 @@ export class AuthController {
     });
     return { message: 'Login successful' };
   }
+
+  @Post('Logout')
+  async Logout(
+    @Res({passthrough : true}) response : Response 
+  ){
+    response.clearCookie('access_token' , {
+      domain: 'myapp.test',
+      path: '/',
+    })
+    return { message : "Logout Successful" }
+  }
   
 }
