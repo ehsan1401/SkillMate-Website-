@@ -63,3 +63,9 @@
   src:
     url("/Fonts/TwCenMt.ttf") format("truetype");
 }
+
+@font-face {
+  font-family: "Gothic";
+  src:
+    url("/Fonts/Century_Gothic.ttf") format("truetype");
+}

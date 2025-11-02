@@ -58,10 +58,6 @@ export default function Login() {
 
               await refreshUser();
               router.push(Routes.Dashboard.main);
-              setLoading(false);
-
-
-              setLoading(false);
             }}
             className="lg:w-[30%] md:w-[45%] w-[80%] lg:h-[75%] md:h-[70%] h-[70%] bg-neutral-50 dark:bg-neutral-700 overflow-hidden p-5 rounded-md"
           >

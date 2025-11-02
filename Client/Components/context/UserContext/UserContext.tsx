@@ -2,25 +2,20 @@
 
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { API } from "@/utils/Api";
-import { UserType, UserContextType } from "./types";
+import { UserType, UserContextType, UserInfo } from "./types";
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export function UserProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserType | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [userInfo, setUserInfo] = useState<UserInfo | undefined>(undefined);
 
   const refreshUser = async () => {
-    setLoading(true);
-    setError(null);
-
     try {
       const res = await fetch(API.user.info, {
         method: "GET",
         credentials: "include",
       });
-
       if (!res.ok) {
         if (res.status === 401) {
           setUser(null);
@@ -28,22 +23,47 @@ export function UserProvider({ children }: { children: ReactNode }) {
         }
         throw new Error(`Request failed: ${res.status}`);
       }
-
       const data = await res.json();
       setUser(data);
     } catch (err: any) {
       setUser(null);
-      setError(err.message || "Something went wrong");
-    } finally {
-      setLoading(false);
+    }
+  };
+
+  const refreshUserInfo = async () => {
+    try {
+      const res = await fetch(API.user.getUserInfo(user?.id), {
+        method: "GET",
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        if (res.status === 401) {
+          setUserInfo(undefined);
+          throw new Error("Unauthorized");
+        }
+        throw new Error(`Request failed: ${res.status}`);
+      }
+
+      const data = await res.json();
+      setUserInfo(data);
+    } catch (err: any) {
+      setUserInfo(undefined);
     }
   };
   useEffect(() => {
     refreshUser();
   }, []);
 
+  useEffect(() => {
+    if (user?.id) {
+      refreshUserInfo();
+    }
+  }, [user]);
+
+
   return (
-    <UserContext.Provider value={{ user, error, loading, refreshUser }}>
+    <UserContext.Provider value={{ user, userInfo , refreshUser , refreshUserInfo}}>
       {children}
     </UserContext.Provider>
   );

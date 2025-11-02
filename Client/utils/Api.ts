@@ -18,6 +18,9 @@ export const API = {
     getUserInfo: (id?: number) => `${BACKEND_BASE_URL}/user-info/${id}`,
     UpdateUserInfo : (id?: number) => `${BACKEND_BASE_URL}/user-info/InfoUpdate/${id}`,
     updateUsername : () => `${BACKEND_BASE_URL}/users/update-Username`
+  },
+  actions: {
+    FavoritePeople : `${BACKEND_BASE_URL}/user-action/GetFavoriteUsers`
   }
 };
 
