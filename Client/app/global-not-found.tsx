@@ -2,7 +2,6 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import type { Metadata } from 'next'
-import NavigationBar from '@/Components/naviagtion/NavigationBar'
 import Image from 'next/image'
 import IButton from '@/Components/elements/IButton'
 import { FluentAnimalPawPrint24Regular } from '@/Icons/FluentAnimalPawPrint24Regular'
@@ -18,7 +17,6 @@ export default function GlobalNotFound() {
   return (
     <html lang="en" className={inter.className}>
       <body>
-        <NavigationBar/>
         <div className='bg-blue-400 h-screen flex lg:flex-row flex-col-reverse pt-16 p-10'>
           <div className='lg:w-1/2 w-full lg:h-full h-1/2 flex justify-center items-center flex-col'> 
             <div className='flex flex-col justify-center items-center' style={{fontFamily:"Centaur"}}>

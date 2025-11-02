@@ -10,6 +10,7 @@ import { AlertProvider } from "@/Components/elements/Alert/AlertContext";
 import CustomAlert from "@/Components/elements/Alert/CustomAlert";
 import ThemeProvider from "@/Components/provider/ThemeProvider";
 import { ModalProvider } from "@/Components/context/ModalContext/ModalContext";
+import { UserProvider } from "@/Components/context/UserContext/UserContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased transition-colors duration-500`}
       >
+        <UserProvider>
         <ThemeProvider>
         <AlertProvider>  
         <ModalProvider>
@@ -50,6 +52,7 @@ export default function RootLayout({
          <CustomAlert />
         </AlertProvider>
         </ThemeProvider>
+        </UserProvider>
       </body>
     </html>
   );

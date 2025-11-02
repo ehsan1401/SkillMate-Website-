@@ -14,7 +14,7 @@ import Notifications from "./(userPanelPages)/DrawerPages/Notifications";
 import Settings from "./(userPanelPages)/DrawerPages/Settings";
 import MainDashboard from "./(userPanelPages)/DrawerPages/MainDashboard";
 import { MaterialSymbolsDashboardOutline } from "@/Icons/DashboardIcon";
-import UploadAvatar from "./(userPanelPages)/components/UploadAvatar";
+import UploadAvatar from "./(userPanelPages)/page/UploadAvatar";
 import { API } from "@/utils/Api";
 import { UserType } from "./(userPanelPages)/DrawerPages/page/type";
 

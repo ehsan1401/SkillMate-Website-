@@ -4,25 +4,24 @@ import { MaterialSymbolsLockOutline } from "@/Icons/PasswordIcon";
 import { MaterialSymbolsPerson } from "@/Icons/UserIcon";
 import { Button, Input } from "antd";
 import Image from "next/image";
-import { ReactEventHandler, useEffect, useState } from "react";
+import { useState } from "react";
 import { loginUser } from "./page/action";
 import { useRouter } from 'next/navigation';
 import AccessDenied from "@/Components/AceessDenied";
 import { LoadingIcon } from "@/Icons/LoadingIcon";
 import { MdiEye } from "@/Icons/VisibleEye";
 import { MdiEyeOff } from "@/Icons/NotVisibleEye";
+import { useUser } from "@/Components/context/UserContext/UserContext";
+import { Routes } from "@/utils/theRoutes";
 
 export default function Login() {
   const [isHover, setIsHover] = useState(false);
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
-  const [token, setToken] = useState<string | null>(null);
   const [passChecker, setPassChecker] = useState<boolean>(true);
   const router = useRouter();
+  const { refreshUser , user } = useUser();
 
-  useEffect(() => {
-    setToken(sessionStorage.getItem('Token'));
-  }, []);
 
     const passwordVisibleChange = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
@@ -32,7 +31,7 @@ export default function Login() {
 
   return (
     <>
-      {token ? (
+      {user ? (
         <>
           <AccessDenied type='Forbidden' Button={<Button variant="solid" color="volcano">Dashboard</Button>} ButtonHref="Dashboard"/>
         </>
@@ -47,25 +46,20 @@ export default function Login() {
 
               const formData = new FormData(e.currentTarget);
               const res = await loginUser(formData);
-
+              console.log(res.status)
+              console.log(res.data)
               setError('');
 
-              if (!res) {
-                setError('Error communicating with the server.');
+              if (!res.ok) {
+                setError(res.message || 'Login failed');
                 setLoading(false);
                 return;
               }
 
-              if (res.ok) {
-                const token = res.data;
-                if (token) {
-                  sessionStorage.setItem('Token', token.access_token);
-                  setToken(token.access_token); 
-                  router.push('/Dashboard');
-                }
-              } else {
-                setError(res.message || 'Login failed');
-              }
+              await refreshUser();
+              router.push(Routes.Dashboard.main);
+              setLoading(false);
+
 
               setLoading(false);
             }}
@@ -128,7 +122,7 @@ export default function Login() {
                   type={isHover ? "primary" : "default"}
                   onMouseEnter={() => setIsHover(true)}
                   onMouseLeave={() => setIsHover(false)}
-                  href="/SignUp"
+                  href={Routes.auth.signup}
                   className="text-base hover:text-blue-500 transition-all duration-200"
                 >
                   <span style={{fontFamily:"Vazir"}} className="pt-1">Sign Up</span>

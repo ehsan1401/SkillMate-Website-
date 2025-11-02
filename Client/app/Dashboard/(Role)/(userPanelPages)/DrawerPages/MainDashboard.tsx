@@ -1,10 +1,12 @@
 import ProtectedDataButton from "@/app/Route/page";
 import { MaterialSymbolsNotificationsOutline } from "@/Icons/NotificationsIcon";
+import { Routes } from "@/utils/theRoutes";
+import { Button } from "antd";
 
 export default function MainDashboard(){
 
     return(
-        <div className="p-5 w-full h-full select-none">
+        <div className="p-5 w-full h-full select-none overflow-y-scroll">
             <div className="w-full flex flex-col lg:flex-row gap-0 h-16">
                 <h1 className="text-5xl text-neutral-950 dark:text-neutral-50 lg:w-1/3 w-full h-full" style={{fontFamily:"scriptMtbold"}}> 
                     Dashboard
@@ -16,6 +18,7 @@ export default function MainDashboard(){
             </div>
             <div className="w-full lg:h-[90%] h-[80%] mt-8 lg:mt-0">
                 <ProtectedDataButton/>
+                <Button type='primary' href={Routes.Dashboard.favorite}> Favorite </Button>
             </div>
         </div>
     )

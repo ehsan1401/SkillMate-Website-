@@ -19,7 +19,9 @@ export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [modalContent, setModalContent] = useState<ReactNode>(null);
   const [modalTitle, setModalTitle] = useState<string>("");
   const [modalWidth, setModalWidth] = useState<number | string>(520);
+  const [topSpace, setTopSpace] = useState<number | undefined>(20);
   const [modalFooter, setModalFooter] = useState<ReactNode | null>(undefined);
+  
   const [onOkHandler, setOnOkHandler] = useState<
     (() => boolean | Promise<boolean>) | undefined
   >();
@@ -32,6 +34,7 @@ export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
     onOk?: () => boolean | Promise<boolean>,
     errorMessageOnFail?: string,
     width?: number | string,
+    top?: number ,
     footer?: (helpers: { hideModal: () => void; handleOk: () => void }) => ReactNode
   ) => {
     setModalContent(content);
@@ -41,6 +44,8 @@ export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setErrorMessage(null);
     setIsVisible(true);
     setModalWidth(width || 520);
+    setTopSpace(top || 20);
+
 
     if (footer) {
       setModalFooter(footer({ hideModal, handleOk }));
@@ -57,6 +62,8 @@ export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setErrorMessage(null);
     setCustomErrorMessage(null);
     setModalFooter(undefined);
+    setTopSpace(undefined);
+
   };
 
   const handleOk = async () => {
@@ -111,6 +118,7 @@ export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
           onOk={handleOk}
           destroyOnHidden
           width={modalWidth}
+          style={{ top : topSpace}}
           footer={modalFooter}
         >
           {modalContent}

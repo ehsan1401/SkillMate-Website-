@@ -6,7 +6,6 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
   private pool: Pool;
 
   constructor() {
-    // اطمینان حاصل کن که متغیرهای محیطی درست هستن
     this.pool = new Pool({
       user: process.env.DB_USER || 'postgres',
       host: process.env.DB_HOST || 'localhost',
@@ -31,12 +30,6 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
     console.log('🛑 PostgreSQL connection closed');
   }
 
-  /**
-   * اجرای query دلخواه
-   * @param text SQL query
-   * @param params آرایه مقادیر برای $1, $2, ...
-   * @returns QueryResult<any>
-   */
   async query(text: string, params?: any[]): Promise<QueryResult<any>> {
     try {
       const result = await this.pool.query(text, params);

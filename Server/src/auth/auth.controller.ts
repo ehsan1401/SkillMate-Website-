@@ -3,7 +3,6 @@ import {
   Post,
   Body,
   Res,
-  Get,
   Req,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -40,11 +39,9 @@ export class AuthController {
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }
+    const { access_token } = await this.authService.login(user);
 
-    const payload = user;
-
-    const token = this.jwtService.sign(payload);
-      response.cookie('access_token', token, {
+    response.cookie('access_token', access_token, {
       domain: 'myapp.test',
       httpOnly: true,
       secure: false,
@@ -52,7 +49,20 @@ export class AuthController {
       path: '/',
       maxAge: 1000 * 60 * 60,
     });
+
     return { message: 'Login successful' };
+  }
+
+
+  @Post('Logout')
+  async Logout(
+    @Res({passthrough : true}) response : Response 
+  ){
+    response.clearCookie('access_token' , {
+      domain: 'myapp.test',
+      path: '/',
+    })
+    return { message : "Logout Successful" }
   }
   
 }

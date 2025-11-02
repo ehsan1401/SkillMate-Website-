@@ -1,8 +1,8 @@
 "use client";
 import { useModal } from "@/Components/context/ModalContext/ModalContext";
 import { EditeIcon } from "@/Icons/EditeIcon";
-import { Button, DatePicker, Input, Select, Tag, Tooltip } from "antd";
-import { updateUser } from "./action";
+import { Button, DatePicker, Input, Select, Space, Tag, Tooltip } from "antd";
+import { CreateUser, updateUser } from "./action";
 import { JSX, startTransition, useActionState, useEffect } from "react";
 import { SocialItem, UserInfo, UserType } from "./type";
 import { Linkedin } from "@/Icons/socials/Linkedin";
@@ -17,21 +17,22 @@ import { IcOutlineErrorOutline } from "@/Icons/ErrorIcon";
 
 const handleSubmit = () => true;
 
-export default function UpdateInfoButton({ user, userInfo, onUpdated }: { user: UserType; userInfo: UserInfo | null; onUpdated?: () => void }) {
+export default function CreateInfoButton({ user, userInfo, onUpdated }: { user: UserType; userInfo: UserInfo | null; onUpdated?: () => void }) {
   const { showModal } = useModal();
 
   return (
     <button
-      className="absolute right-10 lg:right-24 top-20 text-2xl hover:scale-125 transition-all duration-200 text-neutral-800 dark:text-neutral-100"
+      className=""
       onClick={() =>
         showModal(
           <div className="flex justify-center items-center">
             <ProfileForm user={user} userInfo={userInfo} onUpdated={onUpdated} />
           </div>,
-          "Update Profile Information",
+          "Create Profile",
           handleSubmit,
           "❌ Error!",
           1200,
+          10,
           ({ hideModal }) => [
             <Button key="cancel" onClick={hideModal} type="default">
               Cancel
@@ -40,9 +41,7 @@ export default function UpdateInfoButton({ user, userInfo, onUpdated }: { user: 
         )
       }
     >
-      <Tooltip title="Edit Your profile" placement="left">
-        <EditeIcon />
-      </Tooltip>
+      <div className="bg-blue-500 px-3 py-2 rounded-md text-white hover:bg-blue-600 transition-all duration-300">Create Your Profile</div>
     </button>
   );
 }
@@ -58,7 +57,7 @@ export function ProfileForm({
 }) {
   const { showAlert } = useAlert();
   const { TextArea } = Input;
-  const [state, formAction] = useActionState(updateUser, { message: "" });
+  const [state, formAction] = useActionState(CreateUser, { message: "" });
 
   const [socials, setSocials] = useState<{ name: string; url: string }[]>(userInfo?.social as SocialItem[] || []);
   const [currentName, setCurrentName] = useState("");
@@ -128,11 +127,14 @@ export function ProfileForm({
 
   const removeSocial = (index: number) => setSocials(socials.filter((_, i) => i !== index));
 
-  // ✅ Only call onUpdated on client
   useEffect(() => {
-    if (state.status === 200) {
+    if (state.status === 200 || state.status === 201) {
       onUpdated?.();
-      showAlert("Your Information successfully Updated!", "success");
+      showAlert("Your Information successfully Created!", "success");
+    }
+    if (!state.ok && state.message !== "") {
+      console.log(state)
+      showAlert("Sorry! There are some errors!", "error");
     }
   }, [state.status, showAlert, onUpdated]);
 
@@ -142,18 +144,10 @@ export function ProfileForm({
         e.preventDefault();
         const formData = new FormData(e.currentTarget as HTMLFormElement);
 
-        // Ensure numeric ID is valid
-        if (typeof user.id === "number" && !isNaN(user.id)) {
-          formData.set("id", user.id.toString());
-        } else {
-          showAlert("Invalid user ID", "error");
-          return;
-        }
-
         formData.set("social", JSON.stringify(socials));
         formData.set("skills", JSON.stringify(skills));
         formData.set("learning_skills", JSON.stringify(learningSkills));
-
+        formData.set("id", user.id.toString());
         startTransition(() => {
           formAction(formData);
         });
@@ -161,33 +155,31 @@ export function ProfileForm({
       className="flex flex-col items-center pb-5 w-[95%]"
     >
       <h1 className="text-2xl" style={{ fontFamily: "Lalezar" }}>{user?.userName}</h1>
-      <Button type="primary" htmlType="submit" style={{ width: "90%" }}>Update</Button>
       <span className="flex text-orange-500 py-2">
         <span className="pt-1"><IcOutlineErrorOutline /></span>
-        <span>Make sure you press the update button to save the information.</span>
+        <span>Make sure you press the Create button to save the information.</span>
       </span>
-
       <div className="w-full h-auto py-5 px-10 flex flex-col gap-5">
-        {/* Phone and Date */}
         <span className="flex flex-col lg:flex-row gap-3 items-center">
           <label className="font-bold mt-1">Phone Number:</label>
-          <Input
-            placeholder="Phone Number"
-            name="phone"
-            prefix="+"
-            value={phone || ""}
-            style={{ width: "50%" }}
-            onChange={e => {
-              const val = e.target.value;
-              if (/^\d{0,12}$/.test(val)) setPhone(val);
-            }}
-          />
+          <Space.Compact>
+            <Input style={{ width: '20%' }} value="+98" disabled />
+            <Input 
+              style={{ width: '100%' }} 
+              value={phone || ""} 
+              onChange={e => {
+                const val = e.target.value;
+                if (/^\d{0,12}$/.test(val)) setPhone(val);
+              }} 
+              placeholder="Phone Number"
+              name="phone"
+            />
+          </Space.Compact>
 
           <label className="font-bold mt-1">Date Of Birth:</label>
           <DatePicker name="dateofbirth" value={dateofbirth} onChange={date => setDateofbirth(date)} />
         </span>
 
-        {/* Socials */}
         <span className="flex flex-col lg:flex-row gap-3 items-center">
           <label className="font-bold mt-1">Social Media:</label>
           <Select
@@ -219,7 +211,6 @@ export function ProfileForm({
           ))}
         </div>
 
-        {/* Skills */}
         <div className="flex flex-col gap-3 pb-4">
           <span className="flex gap-3">
             <label className="font-bold mt-1">Skills:</label>
@@ -240,7 +231,6 @@ export function ProfileForm({
           </div>
         </div>
 
-        {/* Learning Skills */}
         <div className="flex flex-col gap-3 pb-4">
           <span className="flex gap-3">
             <label className="font-bold mt-1">Learning Skills:</label>
@@ -261,10 +251,12 @@ export function ProfileForm({
           </div>
         </div>
 
-        {/* Bio */}
         <div className="flex gap-3 flex-col md:flex-row">
           <label className="font-bold mt-1">Biography:</label>
           <TextArea rows={6} placeholder="Biography" name="bio" value={bio} style={{ width: "80%" }} onChange={e => setBio(e.target.value)} />
+        </div>
+        <div className="w-full flex flex-col items-center  ">
+          <Button type="primary" htmlType="submit" style={{ width: "97%" }}>Create</Button>
         </div>
       </div>
     </form>

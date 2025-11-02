@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
-import { Suspense } from "react";
-import Loading from "../Loading";
+
+
+import { Metadata } from "next";
+import DashboardClientLayout from "./layout.client";
 
 export const metadata: Metadata = {
   title: "SkillMate - Dashboard"
@@ -12,10 +13,8 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <Suspense fallback={<Loading/>}>
-        <section>
-            {children}
-        </section>
-      </Suspense>
+    <DashboardClientLayout>
+      {children}
+    </DashboardClientLayout>
   );
 }
