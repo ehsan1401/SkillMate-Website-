@@ -20,7 +20,9 @@ export const API = {
     updateUsername : () => `${BACKEND_BASE_URL}/users/update-Username`
   },
   actions: {
-    FavoritePeople : `${BACKEND_BASE_URL}/user-action/GetFavoriteUsers`
+    FavoritePeople : `${BACKEND_BASE_URL}/user-action/GetFavoriteUsers`,
+    DeleteFavoritePeople : `${BACKEND_BASE_URL}/user-action/RemoveFavoriteUser`
+
   }
 };
 

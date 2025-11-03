@@ -15,7 +15,7 @@ export default function favorite(){
     function RenderComponent() {
         switch(showComp){
             case "people":
-                return <FavoritePeople listofid={userInfo!.favorite.People}/>
+                return <FavoritePeople listofid={userInfo!.favorite.People} user={user!} userInfo={userInfo!}/>
                 
             case "Projects" :
                 return <FavoriteProjects/>
