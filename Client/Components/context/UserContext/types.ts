@@ -9,10 +9,30 @@ export type UserType = {
   userName : string ; 
 }
 
+export type SocialItem = {
+  name: string;
+  url: string;
+};
+
+export type FavoriteType = {
+  People: number[];
+  Projects: number[];
+};
+
+export type UserInfo = {
+  dateofbirth: number;
+  bio: string;
+  favorite: FavoriteType;
+  learning_skills: string[];
+  phone: string;
+  resume: object;
+  skills: string[];
+  social: SocialItem[]; 
+};
 
 export type UserContextType = {
   user: UserType | null;
-  error: string | null;
-  loading: boolean;
+  userInfo?: UserInfo | undefined;
   refreshUser: () => Promise<void>;
+  refreshUserInfo? : ()=> Promise<void>
 };

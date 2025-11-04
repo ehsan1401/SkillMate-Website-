@@ -1,13 +1,13 @@
-// utils/fetcher.ts
 export async function fetcher<T>(
   url: string,
   options?: {
     method?: 'GET' | 'POST' | 'PATCH' | 'DELETE';
     body?: any;
     headers?: Record<string, string>;
+    credentials?: RequestCredentials;
   }
-): Promise<T> {
-  const { method = 'GET', body, headers = {} } = options || {};
+): Promise<{ data: T; status: number }> {
+  const { method = 'GET', body, headers = {}, credentials } = options || {};
 
   const res = await fetch(url, {
     method,
@@ -16,12 +16,14 @@ export async function fetcher<T>(
       ...headers,
     },
     body: body ? JSON.stringify(body) : undefined,
+    credentials,
   });
 
+  const data = await res.json();
+
   if (!res.ok) {
-    const errorText = await res.text();
-    throw new Error(`HTTP ${res.status}: ${errorText}`);
+    throw new Error(`HTTP ${res.status}`);
   }
 
-  return res.json();
+  return { data, status: res.status };
 }

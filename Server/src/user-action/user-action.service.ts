@@ -1,4 +1,4 @@
-import { Get, Injectable } from '@nestjs/common';
+import { BadRequestException, Get, Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 
 
@@ -17,7 +17,7 @@ export class UserActionService {
       );
 
       const user = await pool.query(
-        `SELECT "userName", "email", "type", "profileImageUrl" FROM users WHERE id = $1`,
+        `SELECT "id", "userName", "email", "type", "profileImageUrl" FROM users WHERE id = $1`,
         [id]
       );
 
@@ -30,4 +30,46 @@ export class UserActionService {
     return usersInfo;
   }
 
+async DeletefavoriteUsers(UserId: number, DeleteUserID: number) {
+    const pool = this.databaseService.getPool();
+
+    const result = await pool.query(
+      'SELECT favorite FROM userinfo WHERE userid = $1',
+      [UserId]
+    );
+
+    if (result.rows.length === 0) {
+      throw new BadRequestException(
+        `User Not founded!`,
+      );
+    }
+
+    let favorite = result.rows[0].favorite;
+
+    if (typeof favorite === 'string') {
+      favorite = JSON.parse(favorite);
+    }
+
+    if (favorite.People && Array.isArray(favorite.People)) {
+      favorite.People = favorite.People.filter(
+        (id: number) => id !== DeleteUserID
+      );
+    }
+
+    if (favorite.People.length === 0) {
+      delete favorite.People;
+    }
+
+    await pool.query('UPDATE userinfo SET favorite = $1 WHERE userid = $2', [
+      JSON.stringify(favorite),
+      UserId,
+    ]);
+
+    return {
+      message: 'Favorite user removed successfully',
+      updatedFavorite: favorite,
+    };
+  }
+
 }
+

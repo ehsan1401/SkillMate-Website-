@@ -10,4 +10,9 @@ export class UserActionController {
     return this.userActionService.favoriteUsers(UsersId)
   }
 
+  @Delete('RemoveFavoriteUser')
+  DeleteFavoriteUser(@Body() body:{ UserId : number , DeleteUserID : number}){
+    return this.userActionService.DeletefavoriteUsers(body.UserId , body.DeleteUserID)
+  }
+
 }
