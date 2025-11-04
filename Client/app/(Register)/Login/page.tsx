@@ -12,7 +12,7 @@ import { LoadingIcon } from "@/Icons/LoadingIcon";
 import { MdiEye } from "@/Icons/VisibleEye";
 import { MdiEyeOff } from "@/Icons/NotVisibleEye";
 import { useUser } from "@/Components/context/UserContext/UserContext";
-import { Routes } from "@/utils/theRoutes";
+import { theRoutes } from "@/utils/theRoutes";
 
 export default function Login() {
   const [isHover, setIsHover] = useState(false);
@@ -36,7 +36,7 @@ export default function Login() {
           <AccessDenied type='Forbidden' Button={<Button variant="solid" color="volcano">Dashboard</Button>} ButtonHref="Dashboard"/>
         </>
       ) : (
-        <section className="w-full h-screen pt-20 flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat"
+        <section className="w-full h-screen pt-20 flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat relative"
           style={{ backgroundImage: `url("/wp2757874.gif")` }}
         >
           <form
@@ -57,7 +57,7 @@ export default function Login() {
               }
 
               await refreshUser();
-              router.push(Routes.Dashboard.main);
+              router.push(theRoutes.Dashboard.main);
             }}
             className="lg:w-[30%] md:w-[45%] w-[80%] lg:h-[75%] md:h-[70%] h-[70%] bg-neutral-50 dark:bg-neutral-700 overflow-hidden p-5 rounded-md"
           >
@@ -101,6 +101,7 @@ export default function Login() {
                   {loading ? <LoadingIcon className="text-neutral-50 m-auto" /> : 'Login'}
                 </span>
               </button>
+              
             </div>
 
             <div className="w-full h-1/5 text-center flex flex-col justify-center items-center">
@@ -118,7 +119,7 @@ export default function Login() {
                   type={isHover ? "primary" : "default"}
                   onMouseEnter={() => setIsHover(true)}
                   onMouseLeave={() => setIsHover(false)}
-                  href={Routes.auth.signup}
+                  href={theRoutes.auth.signup}
                   className="text-base hover:text-blue-500 transition-all duration-200"
                 >
                   <span style={{fontFamily:"Vazir"}} className="pt-1">Sign Up</span>
@@ -126,6 +127,7 @@ export default function Login() {
               </p>
             </div>
           </form>
+          
         </section>
       )}
     </>

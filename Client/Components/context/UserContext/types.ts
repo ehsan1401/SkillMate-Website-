@@ -35,4 +35,5 @@ export type UserContextType = {
   userInfo?: UserInfo | undefined;
   refreshUser: () => Promise<void>;
   refreshUserInfo? : ()=> Promise<void>
+  logout: () => void;
 };

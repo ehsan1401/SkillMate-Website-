@@ -1,6 +1,7 @@
 import ProtectedDataButton from "@/app/Route/page";
+import { IonHeartCircleOutline } from "@/Icons/FavoriteCircle";
 import { MaterialSymbolsNotificationsOutline } from "@/Icons/NotificationsIcon";
-import { Routes } from "@/utils/theRoutes";
+import { theRoutes } from "@/utils/theRoutes";
 import { Button } from "antd";
 
 export default function MainDashboard(){
@@ -16,9 +17,16 @@ export default function MainDashboard(){
                         this is some notifications goes here
                 </span>
             </div>
-            <div className="w-full lg:h-[90%] h-[80%] mt-8 lg:mt-0">
-                <ProtectedDataButton/>
-                <Button type='primary' href={Routes.Dashboard.favorite}> Favorite </Button>
+            <div className="w-full lg:h-[86%] h-[80%] mt-8 lg:mt-0 flex">
+                <div className=" w-4/5 h-full"></div>
+                <aside className="w-1/5 h-full text-center py-3">
+                    <a href={theRoutes.Dashboard.favorite}>
+                        <button className="flex-col justify-center items-center px-5 py-3 w-auto rounded-md hover:rounded-3xl border-[3px] border-solid border-neutral-600 transition-all duration-300">
+                            <IonHeartCircleOutline className="text-5xl text-neutral-700 w-[60px]"/>
+                            <h6 className="" style={{fontFamily:'TwCenMt'}}>Favorite</h6>
+                        </button>
+                    </a>
+                </aside>
             </div>
         </div>
     )

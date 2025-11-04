@@ -4,7 +4,7 @@ import Loading from "../Loading";
 import { useUser } from "@/Components/context/UserContext/UserContext";
 import AccessDenied from "@/Components/AceessDenied";
 import { Button } from "antd";
-import { Routes } from "@/utils/theRoutes";
+import { theRoutes } from "@/utils/theRoutes";
 
 
 export default function DashboardClientLayout({
@@ -20,7 +20,7 @@ export default function DashboardClientLayout({
                     {children}
                 </section>
             :
-                <AccessDenied type="Unauthorized" ButtonHref={Routes.auth.Login} Button={<Button variant="solid" color="volcano">Login Page</Button>}/>
+                <AccessDenied type="Unauthorized" ButtonHref={theRoutes.auth.Login} Button={<Button variant="solid" color="volcano">Login Page</Button>}/>
             }
         </Suspense>
     );

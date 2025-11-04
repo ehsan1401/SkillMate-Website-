@@ -27,6 +27,7 @@ export default function FavoritePeople(
         () => fetcher(listofid)
     );
 
+
     const RandomBio : string[] = [
         'Too busy shipping features to write a bio' ,
         'No bio yet, just pure mystery🔥',

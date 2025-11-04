@@ -39,6 +39,10 @@ ALTER TABLE users ADD COLUMN isActive BOOLEAN DEFAULT true;
 ALTER TABLE users DROP COLUMN isActive 
 
 
+ALTER TABLE users ADD COLUMN RefreshToke TEXT;
+
+
+
 -- INSERT INTO users ("userName", "email", "type", "passCode", "profileImageUrl", "lastLogin")
 -- VALUES
 -- ('Aliiiii', 'Ali11232@gmail.com', 'NORMAL', 'Armin@123456', Null, NOW())

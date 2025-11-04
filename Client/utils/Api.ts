@@ -9,7 +9,9 @@ export const API = {
   auth: {
     login: `${BACKEND_BASE_URL}/auth/login`,
     register: `${BACKEND_BASE_URL}/auth/SignUp`,
-    logout : `${BACKEND_BASE_URL}/auth/Logout`
+    logout : `${BACKEND_BASE_URL}/auth/Logout`,
+    Refresh : `${BACKEND_BASE_URL}/auth/refresh-token`
+
   },
   user : {
     info : `${BACKEND_BASE_URL}/users/protected`,

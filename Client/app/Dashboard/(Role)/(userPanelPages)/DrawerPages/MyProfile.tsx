@@ -34,8 +34,6 @@ export default function MyProfile({userInfo}:{userInfo : UserType}){
     ];
 
     const {data : items , error , mutate} = useSWR(API.user.getUserInfo(userInfo.id) , GetUserInfo);
-    console.log(items?.data)
-
     const UserInformation : UserInfo = items?.data ;
 
     if(error){
