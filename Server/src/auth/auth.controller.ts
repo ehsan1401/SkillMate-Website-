@@ -43,18 +43,13 @@ export class AuthController {
     const { access_token } = await this.authService.login(user);
     const { refresh_token } = await this.authService.refreshToken(user);
 
-
-
-  console.log('ACCESS TOKEN PAYLOAD:', this.jwtService.decode(access_token));
-
     response.cookie('access_token', access_token, {
       domain: 'myapp.test',
       httpOnly: true,
       secure: false,
       sameSite: 'lax',
       path: '/',
-      // maxAge: 1000 * 60 * 60,
-      maxAge: 1000 * 5 * 5,
+      maxAge: 1000 * 60 * 60,
 
     });
 

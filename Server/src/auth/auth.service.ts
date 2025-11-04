@@ -106,7 +106,6 @@ export class AuthService {
         'SELECT "refreshtoke" FROM users WHERE "refreshtoke" = $1 LIMIT 1',
         [token]
       );
-      console.log(result)
 
     if (!result.rowCount || result.rowCount < 1) {
       throw new UnauthorizedException('Refresh token is invalid or revoked');
@@ -127,8 +126,7 @@ export class AuthService {
     };
 
     return this.jwtService.sign(payload, {
-      secret: process.env.JWT_SECRET,
-      expiresIn: '15m',
+      secret: process.env.JWT_SECRET
     });
   }
 
