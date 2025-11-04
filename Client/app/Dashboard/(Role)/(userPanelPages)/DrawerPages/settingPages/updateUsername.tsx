@@ -9,11 +9,9 @@ import { MaterialSymbolsPerson } from "@/Icons/UserIcon";
 function ChangeUsernameModal({
   initialUsername,
   onConfirm,
-  onCancel,
 }: {
   initialUsername?: string;
   onConfirm: (username: string) => void;
-  onCancel: () => void;
 }) {
   const [username, setUsername] = useState(initialUsername || "");
 
@@ -85,13 +83,13 @@ export default function UpdateUsername({ user }: { user: UserType }) {
                 showModal(
                   <ChangeUsernameModal
                     initialUsername={newUsername}
-                    onCancel={() => console.log("Modal closed")}
                     onConfirm={(username) => handleOk(username)}
                   />,
                   `Change Your Username - ${user.userName || ""}`,
                     undefined,
                     undefined,
                     700,
+                    200,
                     ({ hideModal }) => [
                         <button 
                             key="cancel" 

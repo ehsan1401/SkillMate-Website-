@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState, useCallback } from "react";
 import { API } from "@/utils/Api";
 import { UserType, UserContextType, UserInfo } from "./types";
 import { RefreshUser } from "@/app/Dashboard/pages/clientAction";
@@ -11,7 +11,14 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserType | null>(null);
   const [userInfo, setUserInfo] = useState<UserInfo | undefined>(undefined);
 
-  const refreshUser = async (): Promise<void> => {
+  const logout = useCallback(() => {
+    setUser(null);
+    setUserInfo(undefined);
+    fetch(API.auth.logout, { method: "POST", credentials: "include" })
+      .catch(err => console.error("Logout failed:", err));
+  }, []);
+
+  const refreshUser = useCallback(async (): Promise<void> => {
     try {
       const res = await fetch(API.user.info, { method: "GET", credentials: "include" });
 
@@ -39,9 +46,9 @@ export function UserProvider({ children }: { children: ReactNode }) {
       console.error(err);
       logout();
     }
-  };
+  }, [logout]);
 
-  const refreshUserInfo = async (): Promise<void> => {
+  const refreshUserInfo = useCallback(async (): Promise<void> => {
     if (!user?.id) return;
 
     try {
@@ -55,22 +62,15 @@ export function UserProvider({ children }: { children: ReactNode }) {
     } catch {
       setUserInfo(undefined);
     }
-  };
-
-  const logout = () => {
-    setUser(null);
-    setUserInfo(undefined);
-    fetch(API.auth.logout, { method: "POST", credentials: "include" })
-      .catch(err => console.error("Logout failed:", err));
-  };
+  }, [user?.id, logout]);
 
   useEffect(() => {
     refreshUser();
-  }, []);
+  }, [refreshUser]);
 
   useEffect(() => {
     refreshUserInfo();
-  }, [user]);
+  }, [refreshUserInfo]);
 
   return (
     <UserContext.Provider value={{ user, userInfo, refreshUser, refreshUserInfo, logout }}>

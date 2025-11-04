@@ -190,14 +190,11 @@ export class AuthService {
       userName: newUser.userName,
       email: newUser.email,
       type: newUser.type,
-      profileImageUrl: newUser.profileImageUrl,
-      lastLogin: newUser.lastLogin,
-      createAt: newUser.createAt,
-      updateAt: newUser.updateAt,
     };
 
     return {
       access_token: this.jwtService.sign(payload),
+      newUser
     };
   }
 

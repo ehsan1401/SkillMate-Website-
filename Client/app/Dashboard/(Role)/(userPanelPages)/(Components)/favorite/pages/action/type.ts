@@ -43,7 +43,7 @@ export type UserInfo = {
 
 
 export type RemoveFavoritePeopleButtonProps = {
-  User: UserType;
+  user: UserType;
   DeleteUserID: number;
   listofid : number[]
 }

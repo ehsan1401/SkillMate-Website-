@@ -20,13 +20,41 @@ export class AuthController {
   ) {}
 
   @Post('SignUp')
-  async SignUp(@Body() body: SignUpDto) {
-    return this.authService.SignUp(
+  async SignUp(
+    @Body() body: SignUpDto,
+    @Res({ passthrough: true }) response: Response,
+    @Req() request: Request
+  
+  ) {
+
+    const {access_token , newUser} = await this.authService.SignUp(
       body.userName,
       body.email,
       body.passCode,
       body.RepassCode,
     );
+    const { refresh_token } = await this.authService.refreshToken(newUser);
+
+    response.cookie('access_token', access_token, {
+      domain: 'myapp.test',
+      httpOnly: true,
+      secure: false,
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 1000 * 60 * 60,
+
+    });
+
+    response.cookie('refresh_token', refresh_token, {
+      domain: 'myapp.test',
+      httpOnly: true,
+      secure: false,
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    return { message: 'SignUp successful' };
   }
 
   @Post('login')

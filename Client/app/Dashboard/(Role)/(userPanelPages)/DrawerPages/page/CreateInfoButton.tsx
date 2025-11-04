@@ -1,8 +1,7 @@
 "use client";
 import { useModal } from "@/Components/context/ModalContext/ModalContext";
-import { EditeIcon } from "@/Icons/EditeIcon";
-import { Button, DatePicker, Input, Select, Space, Tag, Tooltip } from "antd";
-import { CreateUser, updateUser } from "./action";
+import { Button, DatePicker, Input, Select, Space, Tag } from "antd";
+import { CreateUser } from "./action";
 import { JSX, startTransition, useActionState, useEffect } from "react";
 import { SocialItem, UserInfo, UserType } from "./type";
 import { Linkedin } from "@/Icons/socials/Linkedin";
@@ -136,7 +135,7 @@ export function ProfileForm({
       console.log(state)
       showAlert("Sorry! There are some errors!", "error");
     }
-  }, [state.status, showAlert, onUpdated]);
+  }, [state.status, showAlert, onUpdated , state]);
 
   return (
     <form

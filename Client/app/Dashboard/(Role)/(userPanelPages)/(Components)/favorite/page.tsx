@@ -9,13 +9,13 @@ import FavoritePeople from "./pages/FavoritePeople";
 
 
 
-export default function favorite(){
+export default function Favorite(){
     const { user , userInfo } = useUser();
     const [showComp , setShowComp] = useState<string>("people")
     function RenderComponent() {
         switch(showComp){
             case "people":
-                return <FavoritePeople listofid={userInfo!.favorite.People} user={user!} userInfo={userInfo!}/>
+                return <FavoritePeople listofid={userInfo!.favorite.People} user={user!}/>
                 
             case "Projects" :
                 return <FavoriteProjects/>

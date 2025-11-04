@@ -1,30 +1,29 @@
 import { useModal } from "@/Components/context/ModalContext/ModalContext";
 import { StreamlineDelete1Solid } from "@/Icons/RemoveIcon";
 import { Button, Tooltip } from "antd";
-import { favorite, RemoveFavoritePeopleButtonProps } from "../action/type";
+import { RemoveFavoritePeopleButtonProps, User } from "../action/type";
 import { IcOutlineErrorOutline } from "@/Icons/ErrorIcon";
-import { DeleteFavoritePeople, GetFavoritePeople } from "../action/clientAction";
+import { DeleteFavoritePeople } from "../action/clientAction";
 import { API } from "@/utils/Api";
-import { useState } from "react";
 import { useAlert } from "@/Components/elements/Alert/AlertContext";
 import { useSWRConfig } from 'swr';
 
 
 
-export default function RemoveFavoritePeopleButton( { User , DeleteUserID , listofid } : RemoveFavoritePeopleButtonProps){
+export default function RemoveFavoritePeopleButton( { user , DeleteUserID , listofid } : RemoveFavoritePeopleButtonProps){
     const { showModal } = useModal();
     const { showAlert } = useAlert();
     const handleSubmits = () => true ;
     const { mutate: globalMutate } = useSWRConfig();
 
     const handleSubmit = async () => {
-        console.log("Deleting user ID:", DeleteUserID, "for user:", User.id);
-        const res = await DeleteFavoritePeople(User.id , DeleteUserID , API.actions.DeleteFavoritePeople)
+        console.log("Deleting user ID:", DeleteUserID, "for user:", user.id);
+        const res = await DeleteFavoritePeople(user.id , DeleteUserID , API.actions.DeleteFavoritePeople)
         console.log(res.updatedFavorite.People)
         console.log(listofid)
         await globalMutate(
         [`favoritePeople-${listofid.join(',')}`, listofid],
-        (prev: any) => prev?.filter((p: any) => p.id !== DeleteUserID),
+        (prev: User[] | undefined) => prev?.filter((p: User) => p.id !== DeleteUserID),
         false
         );
 
@@ -50,7 +49,12 @@ export default function RemoveFavoritePeopleButton( { User , DeleteUserID , list
             <Button key="cancel" onClick={hideModal} type="default">
                 Cancel
             </Button>,
-            <Button key="ok" onClick={()=>{ hideModal() , handleSubmit() }} variant="solid" color="red">
+            <Button key="ok" 
+              onClick={()=>{
+                hideModal();
+                handleSubmit();
+              }}
+              variant="solid" color="red">
                 Remove
             </Button>,
             ]

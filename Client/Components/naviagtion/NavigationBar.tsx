@@ -17,7 +17,7 @@ export default function NavigationBar () {
     const pathname = usePathname();
     const firstSegment = "/" + pathname.split("/")[1];
     const AltAvatar = "https://api.dicebear.com/7.x/miniavs/svg?seed=1"
-    const { user , refreshUser } = useUser();
+    const { user } = useUser();
 
     useEffect(() => {
         if(firstSegment === "/"){

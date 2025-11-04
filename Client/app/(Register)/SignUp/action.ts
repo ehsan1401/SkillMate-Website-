@@ -1,3 +1,4 @@
+'use client';
 import { API } from "@/utils/Api"
 
 export async function SignUpUser(formData: FormData) {
@@ -12,6 +13,7 @@ export async function SignUpUser(formData: FormData) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, passCode , userName , RepassCode}),
       cache: 'no-store',
+      credentials: 'include'
     })
 
     if (!res.ok) {
