@@ -11,6 +11,7 @@ import CustomAlert from "@/Components/elements/Alert/CustomAlert";
 import ThemeProvider from "@/Components/provider/ThemeProvider";
 import { ModalProvider } from "@/Components/context/ModalContext/ModalContext";
 import { UserProvider } from "@/Components/context/UserContext/UserContext";
+import { CheapDataProvider } from "@/Components/context/CheapData/CheapDataContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,12 +43,14 @@ export default function RootLayout({
         <ThemeProvider>
         <AlertProvider>  
         <ModalProvider>
+        <CheapDataProvider>
           <main className="overflow-hidden">
             <Suspense fallback={<Loading/>}>
               <NavigationBar />
               {children}
             </Suspense>
           </main>
+        </CheapDataProvider>
         </ModalProvider>
          <CustomAlert />
         </AlertProvider>

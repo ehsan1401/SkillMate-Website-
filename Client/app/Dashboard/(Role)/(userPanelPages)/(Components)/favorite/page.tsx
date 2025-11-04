@@ -51,11 +51,11 @@ export default function Favorite(){
                                 </div>
                                 <div className="buttons h-full w-2/6 flex justify-center items-centers gap-5 p-4">
                                     <button 
-                                        className={`border-2 border-solid px-8 ${showComp === "people" ? `border-neutral-950`:`border-neutral-400`} `}
+                                        className={`border-2 border-solid px-8 text-neutral-800 dark:text-neutral-200 ${showComp === "people" ? `border-neutral-950 dark:border-pink-400 dark:bg-pink-400`:`border-neutral-400`} `}
                                         onClick={()=>{setShowComp("people")}}
                                     >People</button>
                                     <button 
-                                        className={`border-2 border-solid px-8 ${showComp === "Projects" ? `border-neutral-950`:`border-neutral-400`} `} 
+                                        className={`border-2 border-solid px-8 text-neutral-800 dark:text-neutral-200 ${showComp === "Projects" ? `border-neutral-950 dark:border-pink-400 dark:bg-pink-400`:`border-neutral-400`} `} 
                                         onClick={()=>{setShowComp("Projects")}}
 
                                     >Projects</button>
