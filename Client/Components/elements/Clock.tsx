@@ -22,11 +22,12 @@ export default function Clock() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [showColon]);
 
   return (
     <div className="flex scale-150 justify-center items-center h-screen bg-white dark:bg-black transition-colors duration-500 select-none">
-      <div className="relative px-6 py-3 rounded-xl text-4xl font-mono shadow-lg border
+        <div
+          className={`relative px-6 py-3 rounded-xl text-4xl font-mono shadow-lg border
                       text-gray-900 dark:text-cyan-300
                       border-gray-300 dark:border-cyan-500
                       bg-gradient-to-br from-gray-100 to-white dark:from-gray-900 dark:to-gray-800
@@ -34,7 +35,8 @@ export default function Clock() {
                       animate-pulse hover:scale-105 transition-transform duration-300 ease-in-out
                       before:absolute before:inset-0 before:rounded-xl before:border-2 before:border-transparent
                       before:bg-gradient-to-r before:from-purple-500 before:via-pink-500 before:to-blue-500
-                      before:blur-sm before:opacity-30 before:animate-gradient-x">
+                      before:blur-sm before:opacity-30 before:animate-gradient-x`}
+        >
         <span className="drop-shadow-md">{time}</span>
         <span className="ml-2 text-base font-bold animate-flicker">{amPm}</span>
       </div>

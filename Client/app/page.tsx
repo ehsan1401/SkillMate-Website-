@@ -5,7 +5,7 @@ import Wellcome from "@/Components/Home/Wellcome";
 import Footer from "@/Components/naviagtion/footer";
 import { MaterialSymbolsDashboardOutline } from "@/Icons/DashboardIcon";
 import { LoginIcon } from "@/Icons/LoginIcon";
-import { Routes } from "@/utils/theRoutes";
+import { theRoutes } from "@/utils/theRoutes";
 import { FloatButton } from "antd";
 
 export default function Home() {
@@ -16,11 +16,11 @@ export default function Home() {
       <div className="lg:hidden">
         {
           user ? 
-            <a href={Routes.Dashboard.main}>
+            <a href={theRoutes.Dashboard.main}>
               <FloatButton icon={<MaterialSymbolsDashboardOutline />} type="default" style={{ insetInlineEnd: 24 }} tooltip={'Dashboard'} />
             </a>
           :
-            <a href={Routes.auth.Login}>
+            <a href={theRoutes.auth.Login}>
               <FloatButton icon={<LoginIcon />} type="default" style={{ insetInlineEnd: 24 }} tooltip={'Login'} />
             </a>
 

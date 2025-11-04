@@ -1,6 +1,4 @@
 'use client';
-import useSWR from "swr";
-import { GetUserInfoDashboard } from "./(userPanelPages)/page/action";
 import { useEffect, useState } from "react";
 import { LogoutIcon } from "@/Icons/LogoutIcon";
 import { logout } from "@/utils/logout";

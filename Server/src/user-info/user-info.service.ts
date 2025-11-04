@@ -43,7 +43,10 @@ export class UserInfoService {
       JSON.stringify(createUserInfoDto.skills),
       JSON.stringify(createUserInfoDto.learning_skills),
       JSON.stringify(createUserInfoDto.resume),
-      JSON.stringify(createUserInfoDto.favorite),
+      JSON.stringify({
+        "People": [],
+        "Projects": []
+      }),
     ];
     const result = await pool.query(query, values);
 

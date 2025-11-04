@@ -12,6 +12,7 @@ export async function updateUsername(email: string, newUsername: string) {
       method: 'PATCH',
       body: { email, newUsername },
     });
+    return result ;
   } catch (err) {
     console.error(err);
   }

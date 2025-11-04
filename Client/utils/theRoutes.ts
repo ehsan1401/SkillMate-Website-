@@ -1,7 +1,7 @@
 
 
 
-export const Routes = {
+export const theRoutes = {
     auth: {
         Login : '/Login',
         signup: '/SignUp'

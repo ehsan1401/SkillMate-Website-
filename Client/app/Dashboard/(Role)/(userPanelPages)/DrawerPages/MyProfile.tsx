@@ -1,6 +1,5 @@
 
-import { useAlert } from "@/Components/elements/Alert/AlertContext";
-import { JSX, useEffect, useState } from "react";
+import { JSX } from "react";
 import UploadAvatar from "../page/UploadAvatar";
 import { SocialItem, UserInfo, UserType } from "./page/type";
 import { Linkedin } from "@/Icons/socials/Linkedin";
@@ -14,11 +13,9 @@ import CreateInfoButton from "./page/CreateInfoButton";
 import { API } from "@/utils/Api";
 import useSWR from "swr";
 import { GetUserInfo } from "./page/clientAction";
-import { div } from "framer-motion/client";
 import { IcOutlineErrorOutline } from "@/Icons/ErrorIcon";
 
 export default function MyProfile({userInfo}:{userInfo : UserType}){
-    const { showAlert } = useAlert();
 
     const SocialIcons: Record<string, JSX.Element> = {
         LinkedIn: <Linkedin />,
@@ -34,8 +31,6 @@ export default function MyProfile({userInfo}:{userInfo : UserType}){
     ];
 
     const {data : items , error , mutate} = useSWR(API.user.getUserInfo(userInfo.id) , GetUserInfo);
-    console.log(items?.data)
-
     const UserInformation : UserInfo = items?.data ;
 
     if(error){
@@ -100,7 +95,7 @@ export default function MyProfile({userInfo}:{userInfo : UserType}){
                                     <span>{UserInformation?.bio}</span>
                                 :
                                     <span className="text-xs text-red-800 dark:text-red-300 ">
-                                        This user hasn’t written anything about themselves yet, <br /> but they surely have an interesting story 😉
+                                        This user hasn&apos;t written anything about themselves yet, <br /> but they surely have an interesting story 😉
                                     </span>    
                                 }
                             </p>
@@ -119,7 +114,7 @@ export default function MyProfile({userInfo}:{userInfo : UserType}){
                                     </div>
                                 :
                                     <div className=" py-2 flex flex-wrap justify-center items-center text-xs text-red-800 dark:text-red-300">
-                                        I don't have any skills right now.
+                                        I don&apos;t have any skills right now.
                                     </div>
                             }
                             <div> 
@@ -139,7 +134,7 @@ export default function MyProfile({userInfo}:{userInfo : UserType}){
                                         </div>
                                     :
                                         <div className=" flex flex-wrap justify-center items-center text-xs text-red-800 dark:text-red-300">
-                                            I don't plan on learning anything new right now.
+                                            I don&apos;t plan on learning anything new right now.
                                         </div>
                                 }
                             </div>

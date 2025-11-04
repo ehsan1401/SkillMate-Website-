@@ -9,11 +9,20 @@ const CustomAlert: React.FC = () => {
 
   if (!alert.visible) return null;
 
+  const typeMap: Record<string, "success" | "info" | "warning" | "error"> = {
+  success: "success",
+  warning: "warning",
+  Error: "error",
+  Info: "info",
+  Loading: "info",
+  Question: "info",
+};
+
   return (
     <div className="fixed bottom-10 right-10 z-50 w-80">
       <Alert
         message={alert.message}
-        type={alert.type}
+        type={typeMap[alert.type]}
         showIcon
         closable
         onClose={hideAlert}

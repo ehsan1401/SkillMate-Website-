@@ -1,12 +1,10 @@
 import { UserType } from "./page/type";
-import { useAlert } from "@/Components/elements/Alert/AlertContext";
 import UpdateUsername from "./settingPages/updateUsername";
 import DarkModeToggle from "@/Components/elements/DarkModeToggle";
 import { LightIcon } from "@/Icons/LightIcon";
 import Blackline from "@/Components/elements/blackline";
 
 export default function Settings({ user }: { user: UserType }) {
-  const { showAlert } = useAlert();
 
   return (
     <div className="lg:p-5 p-0 w-full h-[100%] select-none">

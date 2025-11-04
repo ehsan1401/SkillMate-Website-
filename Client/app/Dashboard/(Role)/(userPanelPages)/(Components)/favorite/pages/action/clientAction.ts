@@ -1,9 +1,4 @@
 'use client';
-import { fetcher } from "@/utils/fetcher";
-import { User } from "./type";
-
-
-
 
 export async function GetFavoritePeople(listofid : number[] , url : string){
 

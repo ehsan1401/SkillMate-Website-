@@ -1,31 +1,32 @@
 "use client";
 
+import { AlertType, Notifications } from "@/Types/Notifications";
 import { createContext, useContext, useState, ReactNode } from "react";
 
-type AlertType = "success" | "info" | "warning" | "error";
+// type AlertType = "success" | "info" | "warning" | "error";
 
-interface AlertState {
-  message: string;
-  type: AlertType;
-  visible: boolean;
-}
+// interface AlertState {
+//   message: string;
+//   type: AlertType;
+//   visible: boolean;
+// }
 
 export interface AlertContextType {
   showAlert: (message: string, type?: AlertType) => void;
   hideAlert: () => void;
-  alert: AlertState;
+  alert: Notifications;
 }
 
 const AlertContext = createContext<AlertContextType | undefined>(undefined);
 
 export const AlertProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [alert, setAlert] = useState<AlertState>({
+  const [alert, setAlert] = useState<Notifications>({
     message: "",
-    type: "info",
+    type: "Info",
     visible: false,
   });
 
-  const showAlert = (message: string, type: AlertType = "info") => {
+  const showAlert = (message: string, type: AlertType = "Info") => {
     setAlert({ message, type, visible: true });
     setTimeout(() => setAlert((a) => ({ ...a, visible: false })), 3000);
   };
