@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import Clock from "@/Components/elements/Clock";
 import { LetsIconsExpandRightDouble } from "@/Icons/expandToRight";
 import { LetsIconsExpandLeftDouble } from "@/Icons/expandToLeft";
-import DarkModeToggle from "@/Components/elements/DarkModeToggle";
+import DarkModeToggle from "@/Components/elements/Toggles/DarkModeToggle";
 import { IcBaselineHome } from "@/Icons/HomeIcon";
 import { Play, Pause, Maximize, Minimize } from "lucide-react";
 

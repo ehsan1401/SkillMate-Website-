@@ -2,7 +2,7 @@ import { BiInstagram } from "@/Icons/socials/BiInstagram";
 import { FacebookTag } from "@/Icons/socials/FacebookTag";
 import { Linkedin } from "@/Icons/socials/Linkedin";
 import { TelegramCircle } from "@/Icons/socials/TelegramCircle";
-import DarkModeToggle from "../elements/DarkModeToggle";
+import DarkModeToggle from "../elements/Toggles/DarkModeToggle";
 import Image from "next/image";
 
 export default function Footer() {

@@ -1,6 +1,9 @@
 
 
 export type CheapData = {
-  favoritePeople: number;
-  setFavoritePeople: React.Dispatch<React.SetStateAction<number>>;
+  panelType: panelType
+  setPanelType: React.Dispatch<React.SetStateAction<panelType>>
 }
+
+
+export type panelType = "Creator" | "Collaborator" ;

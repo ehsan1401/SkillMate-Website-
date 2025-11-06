@@ -1,15 +1,15 @@
 'use client';
 import { createContext, ReactNode, useContext, useState } from "react";
-import { CheapData } from "./type";
+import { CheapData, panelType } from "./type";
 
 
 const CheapDataContext = createContext<CheapData | undefined>(undefined)
 export function CheapDataProvider({children} : {children : ReactNode}){
-    const [favoritePeople , setFavoritePeople] = useState<number>(0)
+    const [panelType, setPanelType] = useState<panelType>('Collaborator'); 
 
     return(
 
-        <CheapDataContext.Provider value={{favoritePeople , setFavoritePeople }}>
+        <CheapDataContext.Provider value={{panelType , setPanelType  }}>
             {children}
         </CheapDataContext.Provider>
 

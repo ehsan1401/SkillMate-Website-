@@ -1,6 +1,6 @@
 import { UserType } from "./page/type";
 import UpdateUsername from "./settingPages/updateUsername";
-import DarkModeToggle from "@/Components/elements/DarkModeToggle";
+import DarkModeToggle from "@/Components/elements/Toggles/DarkModeToggle";
 import { LightIcon } from "@/Icons/LightIcon";
 import Blackline from "@/Components/elements/blackline";
 
