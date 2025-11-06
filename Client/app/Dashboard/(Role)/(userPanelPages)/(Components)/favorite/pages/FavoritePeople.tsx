@@ -9,10 +9,8 @@ import Link from "next/link";
 import RemoveFavoritePeopleButton from "./Components/RemoveFavoritePeopleButton";
 import { UserType } from "@/Components/context/UserContext/types";
 import useSWR from 'swr';
-import { BackArrow } from "@/Icons/BackArrow";
 import EmptyFavorite from "@/Icons/Vector/EmptyFavorite";
-import { useCheapData } from "@/Components/context/CheapData/CheapDataContext";
-import { useEffect } from "react";
+
 
 const fetcher = async (listofid: number[]) => {
   if (!listofid || listofid.length === 0) return [];
@@ -23,16 +21,14 @@ export default function FavoritePeople(
     {listofid , user} : {listofid : number[] , user: UserType }
  ){
 
-    const {setFavoritePeople} = useCheapData()
+
     const { data, error, isLoading } = useSWR(
         listofid?.length ? [`favoritePeople-${listofid.join(',')}`, listofid] : null,
         () => fetcher(listofid)
     );
     if(error) console.log(error)
         console.log("data: " , data?.length)
-    useEffect(()=>{
-        if(data) setFavoritePeople(data?.length)
-    } , [data])
+
 
 
     const RandomBio : string[] = [

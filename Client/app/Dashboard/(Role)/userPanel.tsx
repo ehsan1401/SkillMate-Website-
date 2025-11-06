@@ -19,8 +19,9 @@ import { UserType } from "./(userPanelPages)/DrawerPages/page/type";
 export default function UserPanel({userData}:{userData : UserType}){
     const [itemSelected , setItemSelected] = useState<string>('item0')         
     const [isDark , setIsDark] = useState<string | null>();
+    const [Ptype , setPtype] = useState<string | null>(localStorage.getItem("Ptype"))
     
-
+    console.log(Ptype)
     useEffect(() => {
         setIsDark(localStorage.getItem('theme'));
     }, []);

@@ -9,11 +9,15 @@ import { API } from "@/utils/Api";
 import Image from "next/image";
 import { useUser } from "../context/UserContext/UserContext";
 import { theRoutes } from "@/utils/theRoutes";
+import DashboardTypeToggle from "../elements/Toggles/DashboardTypeToggle";
+import { useDashboardType } from "../provider/PanelTypeProvider";
 
 
 export default function NavigationBar () {
     
     const [itemSelected, setitemSelected] = useState<string>(''); 
+    const { panelType, togglePanelType } = useDashboardType();
+
     const pathname = usePathname();
     const firstSegment = "/" + pathname.split("/")[1];
     const AltAvatar = "https://api.dicebear.com/7.x/miniavs/svg?seed=1"
@@ -41,14 +45,14 @@ export default function NavigationBar () {
                 },
             }}
         >
-            <Link href="/" className="px-10 hidden lg:flex">
+            <Link href="/" className="px-10 hidden lg:flex w-2/12">
                 <Image src="/Images/TitleLessLogo.png" alt="TitleLessLogo" className="w-14 dark:hidden" width={60} height={60}/>
                 <Image src="/Images/LightTitleLessLogo.png" alt="TitleLessLogo" className="w-14 dark:block hidden" width={60} height={60}/>
                 <h2 className="flex items-center h-full text-3xl text-[#2b80da] dark:bg-gradient-to-tr dark:from-neutral-100 dark:via-blue-300 dark:to-blue-500 bg-clip-text dark:text-transparent" style={{fontFamily:"scriptMtbold"}}>
                     SkillMate
                 </h2>
             </Link>
-            <ul className="flex gap-3 lg:gap-8 justify-center items-center h-full lg:px-10 flex-1">
+            <ul className="flex gap-3 lg:gap-8 justify-center items-center h-full lg:px-10 flex-1 w-7/12">
                 <Link href="/" className="lg:px-10 lg:hidden">
                     <Image src="/Images/LightTitleLessLogo.png" alt="TitleLessLogo" className="w-14 h-14 dark:block hidden" width={60} height={60}/>
                     <Image src="/Images/TitleLessLogo.png" alt="TitleLessLogo" className="w-14 h-14 dark:hidden" width={60} height={60}/>
@@ -74,13 +78,24 @@ export default function NavigationBar () {
                 })}
             </ul>
             
-            <div className="float-right items-center py-2 px-10 lg:flex hidden">
+            <div className="float-right items-center py-2 px-10 lg:flex hidden w-3/12">
                 {
                         user  ? 
-                            <div className="flex items-center gap-5">
+                            <div className="flex items-center justify-center gap-5 w-full">
                                 {
                                     firstSegment === theRoutes.Dashboard.main ? 
-                                        <Button variant="solid" color="danger" onClick={logout}>Logout</Button>
+                                        <>
+                                            <Button
+                                                type="primary"
+                                                style={{
+                                                    backgroundColor: panelType === "Collaborator" ? "#fa541c" : "#2f54eb",
+                                                }}
+                                                onClick={togglePanelType}
+                                                >
+                                                {panelType}
+                                            </Button>
+                                            <Button variant="solid" color="danger" onClick={logout}>Logout</Button>
+                                        </>
                                     :
                                         <Button type="primary" href={theRoutes.Dashboard.main}>Dashboard</Button>
                                 }
@@ -95,7 +110,7 @@ export default function NavigationBar () {
                                 
                             </div> 
                         : 
-                        <div className="flex items-center gap-3 dark:text-white ">
+                        <div className="flex justify-center items-center gap-3 dark:text-white w-full ">
                                 <Button type="primary" href={theRoutes.auth.Login}>Login</Button>
                                 /
                                 <Button type="primary" href={theRoutes.auth.signup}>SignUp</Button>
