@@ -11,7 +11,7 @@ export default function CollaboratorPanel(){
     
     return(
         <div className="w-full lg:h-[86%] h-[80%] mt-8 lg:mt-0 flex md:flex-row flex-col-reverse">
-            {/* <div className=" md:w-4/5 w-full h-full pt-10 pb-3 flex flex-col gap-2 ">
+            <div className=" md:w-4/5 w-full h-full pt-10 pb-3 flex flex-col gap-2 ">
                 <div className="w-full h-1/4 border-[3px] border-solid border-neutral-600 dark:border-neutral-100 rounded-2xl"></div>
                 <div className="w-full h-3/4 border-[3px] border-solid border-neutral-600 dark:border-neutral-100 rounded-2xl"></div>
             </div>
@@ -40,7 +40,7 @@ export default function CollaboratorPanel(){
                     </button>
                 </a>
                 </Badge>
-            </aside> */}
+            </aside>
         </div>
     )
 }
