@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { LogoutIcon } from "@/Icons/LogoutIcon";
 import { logout } from "@/utils/logout";
 import { MaterialSymbolsAccountBoxOutline } from "@/Icons/profileIcon";
@@ -14,10 +14,19 @@ import MainDashboard from "./(userPanelPages)/DrawerPages/MainDashboard";
 import { MaterialSymbolsDashboardOutline } from "@/Icons/DashboardIcon";
 import UploadAvatar from "./(userPanelPages)/page/UploadAvatar";
 import { API } from "@/utils/Api";
-import { UserType } from "./(userPanelPages)/DrawerPages/page/type";
+import { UserType } from "./(userPanelPages)/DrawerPages/MyProfilePages/type";
+import { useChangePanelItem } from "@/Components/context/PanelItem/PanelItemsProvider";
+
+type selectedItem = 'item0'|'item1'|'item2'|'item3'|'item4' ;
+type NavigationItem = {
+    id: selectedItem,
+    label: string, 
+    icon: ReactNode , 
+    Component : ReactNode
+}
 
 export default function UserPanel({userData}:{userData : UserType}){
-    const [itemSelected , setItemSelected] = useState<string>('item0')         
+    const {selectedItem , TogglePanelItem} = useChangePanelItem();
     const [isDark , setIsDark] = useState<string | null>();
     const [Ptype , setPtype] = useState<string | null>(localStorage.getItem("Ptype"))
     
@@ -25,17 +34,16 @@ export default function UserPanel({userData}:{userData : UserType}){
     useEffect(() => {
         setIsDark(localStorage.getItem('theme'));
     }, []);
-    console.log(isDark)
 
-    const NavigationItems = [
+    const NavigationItems : NavigationItem[] = [
     { id: "item0", label: "Dashboard", icon: <MaterialSymbolsDashboardOutline /> , Component : <MainDashboard/> },
     { id: "item1", label: "My Profile", icon: <MaterialSymbolsAccountBoxOutline /> , Component : <MyProfile userInfo={userData}/> },
     { id: "item2", label: "Projects", icon: <SiProjectsLine /> ,  Component : <Projects/>  },
     { id: "item3", label: "Notifications", icon: <MaterialSymbolsNotificationsOutline /> ,  Component : <Notifications/>  },
     { id: "item4", label: "Settings", icon: <MaterialSymbolsSettingsAccountBoxRounded /> , Component : <Settings  user={userData} />  },
     ];
-    const handleSelect = (e : string)=>{
-        setItemSelected(e)
+    const handleSelect = (e : selectedItem)=>{
+        TogglePanelItem(e)
     }
 
     return(
@@ -60,7 +68,7 @@ export default function UserPanel({userData}:{userData : UserType}){
                         <div className=" py-5 lg:pt-10 h-2/4">
                             <ul className="flex lg:flex-col gap-7 w-fullitems-center justify-center scale-125 lg:scale-100">
                             {NavigationItems.map((item) => {
-                                const isSelected = itemSelected === item.id;
+                                const isSelected = selectedItem === item.id;
                                 return (
                                 <li
                                     key={item.id}
@@ -123,7 +131,7 @@ export default function UserPanel({userData}:{userData : UserType}){
                 <section className="lg:w-4/5 w-full lg:h-full h-auto lg:float-right lg:pr-8 lg:py-10 px-5">
                     {
                         NavigationItems.map((items)=>{
-                            if(itemSelected === items.id ) 
+                            if(selectedItem === items.id ) 
                                 return(
                                     <div key={items.id} className="w-full h-full bg-neutral-100 dark:bg-neutral-600 lg:p-3 py-3 px-0 rounded-3xl">
                                         {

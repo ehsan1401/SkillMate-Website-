@@ -7,17 +7,34 @@ import { Badge, Tooltip } from "antd";
 import Link from "next/link";
 import { ReactNode } from "react";
 import MainDashboardChart from "./MainDashboardChart";
-import { SymbolsAdd } from "@/Icons/sda";
+import { SymbolsAdd } from "@/Icons/SymbolsAdd";
+import { useChangePanelItem } from "@/Components/context/PanelItem/PanelItemsProvider";
+import { MaterialSymbolsNotificationsOutline } from "@/Icons/NotificationsIcon";
 
-type horizentalBoxItem = {name : string | ReactNode , route : string , Icon? : ReactNode , animateClasses? : string , count? : number}
-export default function CreatorPanel(){
+
+type horizentalBoxItem = {name : string , route : string , Icon? : ReactNode , animateClasses? : string , count? : number , fn? : ()=>void }
+
+export default function CreatorPanel(){    
+
     const { userInfo } = useUser();       
+    const {TogglePanelItem} = useChangePanelItem();
+    
+
     const horizentalBoxItems : horizentalBoxItem[]  = [
         {
             name : 'Favorite' ,
             route : theRoutes.Dashboard.favorite,
             Icon : <IonHeartCircleOutline className="text-4xl"/> ,
-            animateClasses : `hover:scale-125 transition-all duration-200`
+            animateClasses : `hover:scale-125 transition-all duration-200`,
+            count : userInfo?.favorite.People.length
+        },
+        {
+            name : 'Notifications' ,
+            route : '#',
+            Icon : <MaterialSymbolsNotificationsOutline className="text-4xl"/> ,
+            animateClasses : `hover:scale-125 transition-all duration-200`,
+            count : 0,
+            fn : ()=>{TogglePanelItem('item3')}
         }
     ]
     const TopChartBoxesItems : horizentalBoxItem[]  = [
@@ -60,15 +77,15 @@ export default function CreatorPanel(){
                             {
                             TopChartBoxesItems.map((item)=>{
                             return(
-                            <Badge count={item.count} color="magenta">
-                                <a href={item.route} className="">
+                            <Badge count={item.count ? item.count : 0} color="magenta" key={item.name}>
+                                <Link href={item.route} className="">
                                     <button className="flex justify-center items-center md:px-3 md:py-1 px-1 py-2 rounded-md hover:rounded-3xl border-[3px] border-solid border-neutral-600 dark:border-neutral-100 transition-all duration-300 w-40 gap-2">
                                         <span>
                                             {item.Icon}
                                         </span>
                                         <h6 className="text-neutral-700 dark:text-neutral-100 md:text-lg mt-[7px]" style={{fontFamily:'TwCenMt'}}>{item.name}</h6>
                                     </button>
-                                </a>
+                                </Link>
                             </Badge>
                             )
                             })
@@ -103,13 +120,23 @@ export default function CreatorPanel(){
 
             </div>
             <div className="w-full h-[20%] p-3">
-                <aside className="w-full h-full border-[3px] border-solid border-neutral-600 dark:border-neutral-100 rounded-xl flex ">
+                <aside className="w-full h-full border-[3px] border-solid border-neutral-600 dark:border-neutral-100 rounded-xl flex gap-5 px-10 ">
                     {horizentalBoxItems.map((item)=>{
                         return(
-                        <Tooltip title={item.name}>
-                            <Link href={item.route} className={`px-3 text-neutral-600 dark:text-neutral-100 flex justify-center items-center ${item.animateClasses}`}>
-                                {item.Icon}
-                            </Link>
+                        <Tooltip title={item.name} key={item.name}>
+                            <Badge count={item.count ? item.count : 0} color="blue" key={item.name}>
+                                {
+                                    item.fn ? 
+                                        <button onClick={item.fn} className={`px-3 text-neutral-600 dark:text-neutral-100 flex justify-center items-center py-2 ${item.animateClasses}`}>
+                                            {item.Icon}
+                                        </button>
+                                    :
+
+                                        <Link href={item.route} className={`px-3 text-neutral-600 dark:text-neutral-100 flex justify-center items-center py-2 ${item.animateClasses}`}>
+                                            {item.Icon}
+                                        </Link>
+                                }
+                            </Badge>
                         </Tooltip>
                         )
                     })}

@@ -1,18 +1,18 @@
 
 import { JSX } from "react";
 import UploadAvatar from "../page/UploadAvatar";
-import { SocialItem, UserInfo, UserType } from "./page/type";
+import { SocialItem, UserInfo, UserType } from "./MyProfilePages/type";
 import { Linkedin } from "@/Icons/socials/Linkedin";
 import { MdiGithub } from "@/Icons/socials/GitHub";
 import { Tag, Tooltip } from "antd";
 import { TelegramCircle } from "@/Icons/socials/TelegramCircle";
 import { BiInstagram } from "@/Icons/socials/BiInstagram";
 import { FacebookTag } from "@/Icons/socials/FacebookTag";
-import UpdateInfoButton from "./page/UpdateInfoButton";
-import CreateInfoButton from "./page/CreateInfoButton";
+import UpdateInfoButton from "./MyProfilePages/UpdateInfoButton";
+import CreateInfoButton from "./MyProfilePages/CreateInfoButton";
 import { API } from "@/utils/Api";
 import useSWR from "swr";
-import { GetUserInfo } from "./page/clientAction";
+import { GetUserInfo } from "./MyProfilePages/clientAction";
 import { IcOutlineErrorOutline } from "@/Icons/ErrorIcon";
 
 export default function MyProfile({userInfo}:{userInfo : UserType}){

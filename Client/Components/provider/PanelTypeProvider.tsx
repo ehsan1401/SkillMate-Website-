@@ -1,6 +1,5 @@
 "use client";
 
-import { LightIcon } from "@/Icons/LightIcon";
 import { MaterialSymbolsNotificationsOutline } from "@/Icons/NotificationsIcon";
 import { ConfigProvider, notification } from "antd";
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
@@ -73,7 +72,6 @@ export function DashboardTypeProvider({ children }: { children: ReactNode }) {
   );
 }
 
-// ✅ Custom Hook
 export function useDashboardType() {
   const context = useContext(DashboardTypeContext);
   if (!context) {
