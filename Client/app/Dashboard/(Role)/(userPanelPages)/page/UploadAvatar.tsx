@@ -28,7 +28,7 @@ export default function UploadAvatar({ avatarUrl , size , border }: { avatarUrl 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.[0]) return;
 
-    if (!user) return showAlert("Please login first", "error");
+    if (!user) return showAlert("Please login first", "Error");
     
 
     try {
@@ -48,7 +48,7 @@ export default function UploadAvatar({ avatarUrl , size , border }: { avatarUrl 
       showAlert("Avatar uploaded successfully!", "success")
     } catch (err) {
       console.error(err);
-      showAlert("Avatar Upload failed!", "error")
+      showAlert("Avatar Upload failed!", "Error")
     } finally {
       setLoading(false);
     }

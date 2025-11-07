@@ -3,14 +3,6 @@
 import { AlertType, Notifications } from "@/Types/Notifications";
 import { createContext, useContext, useState, ReactNode } from "react";
 
-// type AlertType = "success" | "info" | "warning" | "error";
-
-// interface AlertState {
-//   message: string;
-//   type: AlertType;
-//   visible: boolean;
-// }
-
 export interface AlertContextType {
   showAlert: (message: string, type?: AlertType) => void;
   hideAlert: () => void;

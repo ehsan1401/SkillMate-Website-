@@ -1,10 +1,9 @@
 import { useModal } from "@/Components/context/ModalContext/ModalContext";
-
 import { useState } from "react";
 import { useAlert } from "@/Components/elements/Alert/AlertContext";
-import { updateUsername } from "../page/action";
-import { UserType } from "../page/type";
+import { UserType } from "../MyProfilePages/type";
 import { MaterialSymbolsPerson } from "@/Icons/UserIcon";
+import { updateUsername } from "./action";
 
 function ChangeUsernameModal({
   initialUsername,
@@ -54,7 +53,7 @@ export default function UpdateUsername({ user }: { user: UserType }) {
 
   const handleOk = async (username: string) => {
     if (username.length < 3) {
-      showAlert("Username must be at least 3 characters long.", "error");
+      showAlert("Username must be at least 3 characters long.", "Error");
       return;
     }
 
@@ -65,7 +64,7 @@ export default function UpdateUsername({ user }: { user: UserType }) {
       console.log("Updated user:", updatedUser);
     } catch (err) {
       console.error(err);
-      showAlert("Failed to update username. Try again.", "error");
+      showAlert("Failed to update username. Try again.", "Error");
     }
   };
 

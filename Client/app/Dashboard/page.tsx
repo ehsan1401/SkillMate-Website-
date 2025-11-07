@@ -3,6 +3,7 @@ import AdminPanel from "./(Role)/AdminPanel";
 import UserPanel from "./(Role)/userPanel";
 import ProUserPanel from "./(Role)/ProUserPanel";
 import { useUser } from "@/Components/context/UserContext/UserContext";
+import { PanelItemsProvider } from "@/Components/context/PanelItem/PanelItemsProvider";
 
 export default function Dashboard() {
   const { user } = useUser();
@@ -17,7 +18,7 @@ export default function Dashboard() {
       PanelComponent = <ProUserPanel />;
       break;
     default:
-      PanelComponent = <UserPanel userData={user!} />;
+      PanelComponent = <PanelItemsProvider><UserPanel userData={user!} /></PanelItemsProvider>;
   }
 
   return (

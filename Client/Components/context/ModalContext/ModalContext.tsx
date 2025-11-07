@@ -63,7 +63,6 @@ export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setCustomErrorMessage(null);
     setModalFooter(undefined);
     setTopSpace(undefined);
-
   };
 
   const handleOk = async () => {
