@@ -27,8 +27,6 @@ export default function FavoritePeople(
         () => fetcher(listofid)
     );
     if(error) console.log(error)
-        console.log("data: " , data?.length)
-
 
 
     const RandomBio : string[] = [

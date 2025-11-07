@@ -30,7 +30,6 @@ export default function UserPanel({userData}:{userData : UserType}){
     const [isDark , setIsDark] = useState<string | null>();
     const [Ptype , setPtype] = useState<string | null>(localStorage.getItem("Ptype"))
     
-    console.log(Ptype)
     useEffect(() => {
         setIsDark(localStorage.getItem('theme'));
     }, []);
