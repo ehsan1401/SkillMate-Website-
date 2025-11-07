@@ -157,7 +157,7 @@ export class AuthService {
       [email],
     );
     if (existing.rows.length > 0)
-      throw new ConflictException('User already exists!');
+      throw new ConflictException('This email is already in use!');
 
     if (passCode !== RepassCode)
       throw new BadRequestException(

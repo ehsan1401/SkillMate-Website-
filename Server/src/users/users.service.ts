@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { CreateUser } from './dto/CreateUser.dto';
 import { unlink } from 'fs';
@@ -80,6 +80,21 @@ export class UsersService {
     );
 
     return result.rows[0];
+  }
+
+  async AddOneInspection(userId : number){
+    const pool = this.databaseService.getPool();
+    const CheckUser = await pool.query(`SELECT id FROM users WHERE id=$1` , [userId])
+    if (CheckUser.rowCount === 0) {
+      throw new BadRequestException(`User with id ${userId} dosent Exist!`);
+    }
+    const userVisit = await pool.query(
+      `UPDATE users SET "inspection" = "inspection" + 1 , "updateAt" = "updateAt" WHERE id=$1` , [userId]
+    )
+    if(userVisit.rowCount === 0){
+      throw new InternalServerErrorException(`There is an Error! Please Try again!`);
+    }
+    // return "inspections plus By 1 !" ;
   }
 
 

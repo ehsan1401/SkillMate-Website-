@@ -30,7 +30,6 @@ export default function UserPanel({userData}:{userData : UserType}){
     const [isDark , setIsDark] = useState<string | null>();
     const [Ptype , setPtype] = useState<string | null>(localStorage.getItem("Ptype"))
     
-    console.log(Ptype)
     useEffect(() => {
         setIsDark(localStorage.getItem('theme'));
     }, []);
@@ -58,7 +57,7 @@ export default function UserPanel({userData}:{userData : UserType}){
                             <div className="w-1/2 h-full lg:w-full lg:pt-14 text-center lg:h-1/4 flex flex-col items-start lg:items-center pt-3">
                                 <h1 className="text-2xl text-neutral-950 dark:text-neutral-100" style={{ fontFamily: "Franklin" }}>
                                 {userData?.userName?.length > 15 
-                                    ? userData.userName.slice(0, 15) + "..." 
+                                    ? userData.userName.slice(0, 15) + "..."  
                                     : userData?.userName}
                                 </h1>
                                 <h6 className="text-sm text-neutral-950 dark:text-neutral-100">{userData?.email}</h6>
@@ -128,7 +127,7 @@ export default function UserPanel({userData}:{userData : UserType}){
 
                     </aside>
                 </div>
-                <section className="lg:w-4/5 w-full lg:h-full h-auto lg:float-right lg:pr-8 lg:py-10 px-5">
+                <section className="lg:w-4/5 w-full lg:h-full h-auto lg:float-right lg:pr-8 lg:py-5 px-0">
                     {
                         NavigationItems.map((items)=>{
                             if(selectedItem === items.id ) 
