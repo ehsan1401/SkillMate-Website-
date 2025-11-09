@@ -52,4 +52,5 @@ This project is **currently under active development...**
 
 
 Created by **Ehsan Jangjo**  
-Feel free to reach out on [GitHub]([#](https://github.com/ehsan1401)) or [LinkedIn]([#](https://www.linkedin.com/in/ehsan-jangjoo/)) for collaboration opportunities.
+- [💼 LinkedIn](https://www.linkedin.com/in/ehsan-jangjoo/)  
+- [💻 GitHub](https://github.com/ehsan1401)
