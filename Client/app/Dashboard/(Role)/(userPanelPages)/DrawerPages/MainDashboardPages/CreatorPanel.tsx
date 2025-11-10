@@ -81,7 +81,7 @@ export default function CreatorPanel(){
         },
         {
             name : 'All Projects' ,
-            route : theRoutes.Dashboard.favorite,
+            route : '#',
             Icon : <FileCopy className="md:text-2xl text-3xl text-neutral-700 dark:text-neutral-100 md:w-[40px]"/> ,
             count : 0
         }
@@ -164,7 +164,7 @@ function MyTeamSection(){
     return(
         <div className="w-full h-full relative">
             <Tooltip title={`Add member`}><button className="absolute top-[5px] lg:right-5 right-2 scale-110 hover:rotate-90 transition-all duration-300 p-3 text-neutral-600 dark:text-neutral-100"> <SymbolsAdd /> </button></Tooltip>
-            <div className="w-full h-full border-[3px] border-solid border-neutral-600 dark:border-neutral-100 rounded-md py-2">
+            <div className="w-full h-[99%] border-[3px] border-solid border-neutral-600 dark:border-neutral-100 rounded-md py-2">
                 <h3 style={{fontFamily:'TwCenMt'}} className="text-xl text-center text-neutral-700 dark:text-neutral-100">My team</h3>
                 <div className=" w-full h-[90%] opacity-60 flex flex-col justify-center items-center">
 

@@ -1,7 +1,7 @@
 
 import { JSX } from "react";
 import UploadAvatar from "../page/UploadAvatar";
-import { SocialItem, UserInfo, UserType } from "./MyProfilePages/type";
+import { SocialItem, UserInfo } from "./MyProfilePages/type";
 import { Linkedin } from "@/Icons/socials/Linkedin";
 import { MdiGithub } from "@/Icons/socials/GitHub";
 import { Tag, Tooltip } from "antd";
@@ -14,6 +14,7 @@ import { API } from "@/utils/Api";
 import useSWR from "swr";
 import { GetUserInfo } from "./MyProfilePages/clientAction";
 import { IcOutlineErrorOutline } from "@/Icons/ErrorIcon";
+import { UserType } from "@/Types/UserType";
 
 export default function MyProfile({userInfo}:{userInfo : UserType}){
 

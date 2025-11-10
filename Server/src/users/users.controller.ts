@@ -69,7 +69,6 @@ export class UsersController {
     if (!user) {
       throw new NotFoundException('User not found');
     }
-
     return {
       id: user.id,
       userName: user.userName,
@@ -79,6 +78,8 @@ export class UsersController {
       lastLogin: user.lastLogin,
       createAt: user.createAt,
       updateAt: user.updateAt,
+      inspection : user.inspection,
+      ShowInSearch : user.ShowInSearch
     };
   }
 
@@ -93,5 +94,13 @@ export class UsersController {
     @Param('id' , ParseIntPipe)  userId : number
   ){
     return this.usersService.AddOneInspection(userId)
+  }
+
+  @Patch('SearchShow/:id')
+  ChangeSearchShow(
+    @Param('id' , ParseIntPipe) userId : number ,
+    @Body() body : {showInSearch : boolean}
+  ){
+    return this.usersService.ChangeSearchShow(userId , body.showInSearch)
   }
 }

@@ -19,11 +19,14 @@ export const API = {
     createUserInfo : ()=>`${BACKEND_BASE_URL}/user-info/create-UserInfo`,
     getUserInfo: (id?: number) => `${BACKEND_BASE_URL}/user-info/${id}`,
     UpdateUserInfo : (id?: number) => `${BACKEND_BASE_URL}/user-info/InfoUpdate/${id}`,
-    updateUsername : () => `${BACKEND_BASE_URL}/users/update-Username`
   },
   actions: {
     FavoritePeople : `${BACKEND_BASE_URL}/user-action/GetFavoriteUsers`,
     DeleteFavoritePeople : `${BACKEND_BASE_URL}/user-action/RemoveFavoriteUser`
+  },
+  setting:{
+    updateUsername : () => `${BACKEND_BASE_URL}/users/update-Username`,
+    ChangeSearchShow : (id: number) => `${BACKEND_BASE_URL}/users/SearchShow/${id}`,
 
   }
 };

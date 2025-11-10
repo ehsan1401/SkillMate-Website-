@@ -1,9 +1,9 @@
 import { useModal } from "@/Components/context/ModalContext/ModalContext";
 import { useState } from "react";
 import { useAlert } from "@/Components/elements/Alert/AlertContext";
-import { UserType } from "../MyProfilePages/type";
 import { MaterialSymbolsPerson } from "@/Icons/UserIcon";
 import { updateUsername } from "./action";
+import { UserType } from "@/Types/UserType";
 
 function ChangeUsernameModal({
   initialUsername,

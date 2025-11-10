@@ -97,5 +97,15 @@ export class UsersService {
     // return "inspections plus By 1 !" ;
   }
 
+  async ChangeSearchShow( userId : number , showInSearch : boolean){
+    const pool = this.databaseService.getPool();
+    const CheckUser = await pool.query('SELECT id FROM users WHERE id=$1' , [userId])
+    if(CheckUser.rowCount === 0){
+      throw new BadRequestException(`User with id ${userId} dosent Exist!`);
+    }
+    const result = await pool.query(`UPDATE users SET "ShowInSearch"=$1 WHERE id=$2` , [ showInSearch , userId])
+    if(result.rowCount === 0) throw new BadRequestException("Show status didnt update! try again!")
+    return {message : 'Show status has Changed!'}
+  }
 
 }

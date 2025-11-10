@@ -3,7 +3,7 @@ import { useModal } from "@/Components/context/ModalContext/ModalContext";
 import { Button, DatePicker, Input, Select, Space, Tag } from "antd";
 import { CreateUser } from "./action";
 import { JSX, startTransition, useActionState, useEffect } from "react";
-import { SocialItem, UserInfo, UserType } from "./type";
+import { SocialItem, UserInfo } from "./type";
 import { Linkedin } from "@/Icons/socials/Linkedin";
 import { MdiGithub } from "@/Icons/socials/GitHub";
 import { TelegramCircle } from "@/Icons/socials/TelegramCircle";
@@ -13,6 +13,7 @@ import { useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { useAlert } from "@/Components/elements/Alert/AlertContext";
 import { IcOutlineErrorOutline } from "@/Icons/ErrorIcon";
+import { UserType } from "@/Types/UserType";
 
 const handleSubmit = () => true;
 

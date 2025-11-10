@@ -7,9 +7,9 @@ import { IcRoundVerified } from "@/Icons/verified";
 import { IcBaselineAdminPanelSettings } from "@/Icons/AdminIcon";
 import Link from "next/link";
 import RemoveFavoritePeopleButton from "./Components/RemoveFavoritePeopleButton";
-import { UserType } from "@/Components/context/UserContext/types";
 import useSWR from 'swr';
 import EmptyFavorite from "@/Icons/Vector/EmptyFavorite";
+import { UserType } from "@/Types/UserType";
 
 
 const fetcher = async (listofid: number[]) => {
