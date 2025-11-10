@@ -1,4 +1,4 @@
-import { UserType } from "@/Components/context/UserContext/types";
+import { UserType } from "@/Types/UserType";
 
 export type SocialLink = {
   name: string;

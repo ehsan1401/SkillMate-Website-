@@ -17,18 +17,4 @@ export type UserInfo = {
   social: SocialItem[]; 
 };
 
-
-
-
-export type UserType = {
-  createAt : Date ; 
-  lastLogin : Date ;
-  updateAt : Date ; 
-  email : string ;
-  id : number ;
-  profileImageUrl : string ;
-  type : "NORMAL" | "ADMIN" | "PRO" ; 
-  userName : string ; 
-}
-
 export type UpdateUserState = { ok?: boolean; status?: number; message: string; data?: object };

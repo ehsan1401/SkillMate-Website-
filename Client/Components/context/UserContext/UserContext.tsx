@@ -2,8 +2,9 @@
 
 import { createContext, ReactNode, useContext, useEffect, useState, useCallback } from "react";
 import { API } from "@/utils/Api";
-import { UserType, UserContextType, UserInfo } from "./types";
+import { UserContextType, UserInfo } from "./types";
 import { RefreshUser } from "@/app/Dashboard/pages/clientAction";
+import { UserType } from "@/Types/UserType";
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 

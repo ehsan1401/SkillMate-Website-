@@ -14,8 +14,8 @@ import MainDashboard from "./(userPanelPages)/DrawerPages/MainDashboard";
 import { MaterialSymbolsDashboardOutline } from "@/Icons/DashboardIcon";
 import UploadAvatar from "./(userPanelPages)/page/UploadAvatar";
 import { API } from "@/utils/Api";
-import { UserType } from "./(userPanelPages)/DrawerPages/MyProfilePages/type";
 import { useChangePanelItem } from "@/Components/context/PanelItem/PanelItemsProvider";
+import { UserType } from "@/Types/UserType";
 
 type selectedItem = 'item0'|'item1'|'item2'|'item3'|'item4' ;
 type NavigationItem = {
@@ -97,7 +97,7 @@ export default function UserPanel({userData}:{userData : UserType}){
                             </ul>
                         </div>
 
-                        <div className="w-full h-1/4 justify-center items-end p-4 -ml-2 hidden lg:flex">
+                        <div className="w-full h-1/4 justify-center items-end p-4 -ml-7 hidden lg:flex">
                         <button
                             className="
                             flex items-center gap-2

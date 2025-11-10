@@ -53,6 +53,11 @@ ALTER TABLE users ADD COLUMN RefreshToke TEXT;
 
 ALTER TABLE users ADD COLUMN inspection INTEGER DEFAULT 0;
 
+ALTER TABLE users ADD COLUMN "ShowInSearch" BOOLEAN DEFAULT true;
+
+-- ALTER TABLE users
+-- DROP COLUMN ShowInSearch;
+
 -- INSERT INTO users ("userName", "email", "type", "passCode", "profileImageUrl", "lastLogin")
 -- VALUES
 -- ('Aliiiii', 'Ali11232@gmail.com', 'NORMAL', 'Armin@123456', Null, NOW());
