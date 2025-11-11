@@ -49,12 +49,12 @@ export default function CollaboratorPanel(){
             Icon : <AlternateEmailRounded/>
         },
         {
-            name : 'something',
+            name : 'asd',
             route : '#',
             Icon : <AlternateEmailRounded/>
         },
         {
-            name : 'something',
+            name : 'asdadadad',
             route : '#',
             Icon : <AlternateEmailRounded/>
         }
@@ -76,9 +76,9 @@ export default function CollaboratorPanel(){
                 {
                     boxItems.map((item : boxItem)=>{
                         return(
-                            <Link href={item.route} onClick={item.fn} className={`px-3 flex justify-center items-center py-2 ${item.animateClasses}`}>
-                                <Badge count={item.count ? item.count : 0} color="blue" key={item.name}>
-                                        <div className="border-[3px] border-solid border-neutral-600 w-[90px] h-[90px] justify-center items-center rounded-md hover:rounded-2xl transition-all duration-300 text-neutral-600 dark:text-neutral-100 flex flex-col gap-1 " style={{fontFamily:'vazir'}}>
+                            <Link  key={item.name} href={item.route} onClick={item.fn} className={`px-3 flex justify-center items-center py-2 ${item.animateClasses}`}>
+                                <Badge count={item.count ? item.count : 0} color="orange">
+                                        <div className="border-[3px] border-solid border-neutral-600 dark:border-neutral-300 w-[90px] h-[90px] justify-center items-center rounded-md hover:rounded-2xl transition-all duration-300 text-neutral-600 dark:text-neutral-100 flex flex-col gap-1 " style={{fontFamily:'vazir'}}>
                                             <span className="text-2xl flex justify-center items-center">{item.Icon}</span>
                                             <span className="text-xs font-semibold">{item.name}</span>
                                         </div>
@@ -90,7 +90,7 @@ export default function CollaboratorPanel(){
 
                 </div>
                 <div className=" w-full h-3/6 px-[15px] py-1">
-                    <div className="border-[3px] border-solid border-neutral-600 h-full rounded-md">
+                    <div className="border-[3px] border-solid border-neutral-600 dark:border-neutral-200 h-full rounded-md">
 
                     </div>
                 </div>
