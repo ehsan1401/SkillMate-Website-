@@ -15,6 +15,16 @@ const nextConfig: NextConfig = {
     };
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'myapp.test',
+        port: '4000',
+        pathname: '/uploads/avatars/**',
+      },
+    ],
+  }
 
 // async rewrites() {
 //     return [
