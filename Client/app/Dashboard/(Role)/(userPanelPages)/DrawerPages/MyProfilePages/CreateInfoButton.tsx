@@ -2,7 +2,7 @@
 import { useModal } from "@/Components/context/ModalContext/ModalContext";
 import { Button, DatePicker, Input, Select, Space, Tag } from "antd";
 import { CreateUser } from "./action";
-import { JSX, startTransition, useActionState, useEffect } from "react";
+import { JSX, ReactNode, startTransition, useActionState, useEffect } from "react";
 import { SocialItem, UserInfo } from "./type";
 import { Linkedin } from "@/Icons/socials/Linkedin";
 import { MdiGithub } from "@/Icons/socials/GitHub";
@@ -17,7 +17,7 @@ import { UserType } from "@/Types/UserType";
 
 const handleSubmit = () => true;
 
-export default function CreateInfoButton({ user, userInfo, onUpdated }: { user: UserType; userInfo: UserInfo | null; onUpdated?: () => void }) {
+export default function CreateInfoButton({ user, userInfo, onUpdated , ChangeButton }: { user: UserType; userInfo: UserInfo | null; onUpdated?: () => void ; ChangeButton? : ReactNode }) {
   const { showModal } = useModal();
 
   return (
@@ -41,7 +41,7 @@ export default function CreateInfoButton({ user, userInfo, onUpdated }: { user: 
         )
       }
     >
-      <div className="bg-blue-500 px-3 py-2 rounded-md text-white hover:bg-blue-600 transition-all duration-300">Create Your Profile</div>
+      {ChangeButton ? ChangeButton : <div className="bg-blue-500 px-3 py-2 rounded-md text-white hover:bg-blue-600 transition-all duration-300">Create Your Profile</div>}
     </button>
   );
 }

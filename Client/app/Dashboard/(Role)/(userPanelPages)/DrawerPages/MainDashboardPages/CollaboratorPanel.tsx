@@ -1,45 +1,100 @@
+import { useChangePanelItem } from "@/Components/context/PanelItem/PanelItemsProvider";
 import { useUser } from "@/Components/context/UserContext/UserContext";
+import { AlternateEmailRounded } from "@/Icons/AlternateEmailRounded";
+import { ConnectionPoint } from "@/Icons/ConnectionPoint";
 import { IonHeartCircleOutline } from "@/Icons/FavoriteCircle";
 import { MaterialSymbolsNotificationsOutline } from "@/Icons/NotificationsIcon";
-import { MaterialSymbolsSettingsAccountBoxRounded } from "@/Icons/SettingIcon";
 import { theRoutes } from "@/utils/theRoutes";
-import { Badge } from "antd";
+import { Badge, Tooltip } from "antd";
+import Link from "next/link";
+import { ReactNode } from "react";
+import ProfileCompletion from "./pages/ProfileCompletion";
 
+type boxItem = {
+    name : string , 
+    route : string , 
+    Icon? : ReactNode , 
+    animateClasses? : string , 
+    count? : number , 
+    fn? : ()=>void 
+}
 
 export default function CollaboratorPanel(){
-    const { userInfo } = useUser();       
+    const { userInfo } = useUser();      
+    const {TogglePanelItem} = useChangePanelItem();
+    
+    const boxItems : boxItem[] = [
+        {
+            name : 'Favorite' ,
+            route : theRoutes.Dashboard.favorite,
+            Icon : <IonHeartCircleOutline className="text-4xl"/> ,
+            count : userInfo?.favorite.People.length
+        },
+        {
+            name : 'Notifications' ,
+            route : '#',
+            Icon : <MaterialSymbolsNotificationsOutline className="text-4xl"/> ,
+            count : 0,
+            fn : ()=>{TogglePanelItem('item3')}
+        },
+        {
+            name : 'Connections' ,
+            route : '#',
+            Icon : <ConnectionPoint className="text-4xl"/> ,
+            count : 0
+        },
+        {
+            name : 'something',
+            route : '#',
+            Icon : <AlternateEmailRounded/>
+        },
+        {
+            name : 'something',
+            route : '#',
+            Icon : <AlternateEmailRounded/>
+        },
+        {
+            name : 'something',
+            route : '#',
+            Icon : <AlternateEmailRounded/>
+        }
+    ]
     
     return(
         <div className="w-full lg:h-[86%] h-[80%] mt-8 lg:mt-0 flex md:flex-row flex-col-reverse">
-            <div className=" md:w-4/5 w-full h-full pt-10 pb-3 flex flex-col gap-2 ">
-                <div className="w-full h-1/4 border-[3px] border-solid border-neutral-600 dark:border-neutral-100 rounded-2xl"></div>
-                <div className="w-full h-3/4 border-[3px] border-solid border-neutral-600 dark:border-neutral-100 rounded-2xl"></div>
+            <div className=" md:w-3/5 w-full h-full -mr-[20px]">
+                <div className=" w-full h-3/5 pt-10 pb-8 flex gap-2 ">
+                    <div className="w-1/2 h-full border-[3px] border-solid border-neutral-600 dark:border-neutral-100 rounded-md overflow-hidden">
+                        <ProfileCompletion/>
+                    </div>
+                    <div className="w-1/2 h-full border-[3px] border-solid border-neutral-600 dark:border-neutral-100 rounded-md"></div>
+                </div>
+                <div className="w-full h-2/5 border-[3px] border-solid border-neutral-600 dark:border-neutral-100 rounded-md -mt-4"></div>
             </div>
-            <aside className="md:w-auto w-full px-5 h-full text-center py-3 flex md:flex-col flex-row md:items-center justify-center md:gap-2 gap-5  pt-10">
-                <Badge count={userInfo?.favorite ? userInfo.favorite.People.length : 0} color="magenta">
-                <a href={theRoutes.Dashboard.favorite}>
-                    <button className="flex-col justify-center items-center md:px-5 md:py-3 px-3 py-2 rounded-md hover:rounded-3xl border-[3px] border-solid border-neutral-600 dark:border-neutral-100 transition-all duration-300 w-28">
-                        <IonHeartCircleOutline className="md:text-5xl text-3xl text-neutral-700 dark:text-neutral-100 md:w-[60px] m-auto"/>
-                        <h6 className="text-neutral-700 dark:text-neutral-100 md:text-lg" style={{fontFamily:'TwCenMt'}}>Favorite</h6>
-                    </button>
-                </a>
-                </Badge>
-                <Badge count={0} color="magenta">
-                <a href={`#`}>
-                    <button className="flex-col justify-center items-center md:px-5 md:py-3 px-3 py-2 rounded-md hover:rounded-3xl border-[3px] border-solid border-neutral-600 dark:border-neutral-100 transition-all duration-300 w-28">
-                        <MaterialSymbolsNotificationsOutline className="md:text-5xl text-3xl text-neutral-700 dark:text-neutral-100 md:w-[60px] m-auto"/>
-                        <h6 className="text-neutral-700 dark:text-neutral-100 md:text-lg" style={{fontFamily:'TwCenMt'}}>Empty</h6>
-                    </button>
-                </a>
-                </Badge>
-                <Badge count={0}  color="magenta">
-                <a href={`#`}>
-                    <button className="flex-col justify-center items-center md:px-5 md:py-3 px-3 py-2 rounded-md hover:rounded-3xl border-[3px] border-solid border-neutral-600 dark:border-neutral-100 transition-all duration-300 w-28">
-                        <MaterialSymbolsSettingsAccountBoxRounded className="md:text-5xl text-3xl text-neutral-700 dark:text-neutral-100 md:w-[60px] m-auto"/>
-                        <h6 className="text-neutral-700 dark:text-neutral-100 md:text-lg" style={{fontFamily:'TwCenMt'}}>Empty</h6>
-                    </button>
-                </a>
-                </Badge>
+            <aside className="md:w-2/5 w-full px-5 h-full text-center py-3 flex md:flex-col flex-row md:items-center justify-center md:gap-3 gap-5  pt-8">
+                <div className="w-full h-3/6 grid grid-cols-3">
+                {
+                    boxItems.map((item : boxItem)=>{
+                        return(
+                            <Link href={item.route} onClick={item.fn} className={`px-3 flex justify-center items-center py-2 ${item.animateClasses}`}>
+                                <Badge count={item.count ? item.count : 0} color="blue" key={item.name}>
+                                        <div className="border-[3px] border-solid border-neutral-600 w-[90px] h-[90px] justify-center items-center rounded-md hover:rounded-2xl transition-all duration-300 text-neutral-600 dark:text-neutral-100 flex flex-col gap-1 " style={{fontFamily:'vazir'}}>
+                                            <span className="text-2xl flex justify-center items-center">{item.Icon}</span>
+                                            <span className="text-xs font-semibold">{item.name}</span>
+                                        </div>
+                                </Badge>
+                            </Link>
+                        )
+                    })
+                }
+
+                </div>
+                <div className=" w-full h-3/6 px-[15px] py-1">
+                    <div className="border-[3px] border-solid border-neutral-600 h-full rounded-md">
+
+                    </div>
+                </div>
+
             </aside>
         </div>
     )

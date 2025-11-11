@@ -1,5 +1,7 @@
 "use client";
 
+import DevelopingPage from "@/Components/Developing";
+
 
 export default function Notifications() {
 
@@ -10,6 +12,7 @@ export default function Notifications() {
             style={{fontFamily:"scriptMtbold"}}> 
             Notifications 
         </h1>
+        <DevelopingPage/>
 
     </div>
   );

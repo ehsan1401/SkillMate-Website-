@@ -45,14 +45,14 @@ export default function NavigationBar () {
                 },
             }}
         >
-            <Link href="/" className="px-10 hidden lg:flex w-2/12">
+            <Link href="/" className="px-10 hidden lg:flex w-3/12">
                 <Image src="/Images/TitleLessLogo.png" alt="TitleLessLogo" className="w-14 dark:hidden" width={60} height={60}/>
                 <Image src="/Images/LightTitleLessLogo.png" alt="TitleLessLogo" className="w-14 dark:block hidden" width={60} height={60}/>
                 <h2 className="flex items-center h-full text-3xl text-[#2b80da] dark:bg-gradient-to-tr dark:from-neutral-100 dark:via-blue-300 dark:to-blue-500 bg-clip-text dark:text-transparent" style={{fontFamily:"scriptMtbold"}}>
                     SkillMate
                 </h2>
             </Link>
-            <ul className="flex gap-3 lg:gap-8 justify-center items-center h-full lg:px-10 flex-1 w-7/12">
+            <ul className="flex gap-3 lg:gap-8 justify-center items-center h-full lg:px-10 flex-1 w-6/12">
                 <Link href="/" className="lg:px-10 lg:hidden">
                     <Image src="/Images/LightTitleLessLogo.png" alt="TitleLessLogo" className="w-14 h-14 dark:block hidden" width={60} height={60}/>
                     <Image src="/Images/TitleLessLogo.png" alt="TitleLessLogo" className="w-14 h-14 dark:hidden" width={60} height={60}/>

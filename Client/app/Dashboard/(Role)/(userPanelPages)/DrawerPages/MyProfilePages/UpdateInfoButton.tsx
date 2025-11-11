@@ -18,12 +18,12 @@ import { UserType } from "@/Types/UserType";
 
 const handleSubmit = () => true;
 
-export default function UpdateInfoButton({ user, userInfo, onUpdated }: { user: UserType; userInfo: UserInfo | null; onUpdated?: () => void }) {
+export default function UpdateInfoButton({ user, userInfo, onUpdated , position }: { user: UserType; userInfo: UserInfo | null; onUpdated?: () => void ; position? : string }) {
   const { showModal } = useModal();
 
   return (
     <button
-      className="absolute right-10 lg:right-24 top-20 text-2xl hover:scale-125 transition-all duration-200 text-neutral-800 dark:text-neutral-100"
+      className={`${position ? position  : `absolute right-10 lg:right-24 top-20 `} text-2xl hover:scale-125 transition-all duration-200 text-neutral-800 dark:text-neutral-100`}
       onClick={() =>
         showModal(
           <div className="flex justify-center items-center">
