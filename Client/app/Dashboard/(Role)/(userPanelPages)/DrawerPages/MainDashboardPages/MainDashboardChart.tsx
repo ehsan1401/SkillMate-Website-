@@ -13,7 +13,7 @@ const data = [
 export default function MainDashboardChart() {
   return (
     <div className="w-full h-full p-1">
-      <h2 className="px-5 py-1" style={{fontFamily:'TwCenMt'}}>Project Growth</h2>
+      <h2 className="px-5 py-1 font-TwCenMt">Project Growth</h2>
       <ResponsiveContainer width="90%" height="80%">
         <LineChart data={data}>
           <XAxis dataKey="name" stroke="#000" />

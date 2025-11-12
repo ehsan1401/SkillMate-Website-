@@ -10,14 +10,12 @@ export default function Settings({ user }: { user: UserType }) {
     return (
         <div className="lg:p-5 p-0 w-full h-[100%] select-none">
             <h1
-                className="text-5xl text-neutral-950 dark:text-neutral-50 p-5 lg:p-0"
-                style={{ fontFamily: "scriptMtbold" }}
+                className="text-5xl text-neutral-950 dark:text-neutral-50 p-5 lg:p-0 font-scriptMtbold"  
             >
                 Settings
             </h1>
             <div
-                className="w-full h-[85%] overflow-y-scroll flex flex-col py-5 lg:px-3 px-0"
-                style={{ fontFamily: "vazir" }}
+                className="w-full h-[85%] overflow-y-scroll flex flex-col py-5 lg:px-3 px-0 font-vazir"
             >
                 <div className="h-auto relative">
                     <p className="text-neutral-800 dark:text-neutral-200 pt-3 pl-3 lg:text-xl text-sm font-bold flex">

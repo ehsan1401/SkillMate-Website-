@@ -78,9 +78,9 @@ export default function FavoritePeople(
                                         <div className="flex gap-1">
                                             {person.type === "PRO" ? <IcRoundVerified className="text-blue-500 text-xl mt-[5px] hover:scale-110 transition-all duration-200"/> : <></>}
                                             {person.type === "ADMIN" ? <IcBaselineAdminPanelSettings className="text-yellow-500 text-xl mt-[5px] hover:scale-110 transition-all duration-200"/> : <></>}
-                                            <h2 className="text-xl text-neutral-800 dark:text-neutral-200" style={{fontFamily:"Franklin"}}>{person.userName.length > 15 ? person.userName.slice(0, 15) + "..." : person.userName}</h2>
+                                            <h2 className="text-xl text-neutral-800 dark:text-neutral-200 font-Franklin">{person.userName.length > 15 ? person.userName.slice(0, 15) + "..." : person.userName}</h2>
                                         </div>
-                                        <p className="text-xs text-center text-neutral-600 dark:text-neutral-300 py-2" style={{fontFamily:"Vazir"}}>
+                                        <p className="text-xs text-center text-neutral-600 dark:text-neutral-300 py-2 font-vazir">
                                             {
                                                 person.bio ? 
                                                     (person.bio.length > 85 ? person.bio.slice(0, 85) + "..." : person.bio)
@@ -118,7 +118,7 @@ export default function FavoritePeople(
                 <div className=" w-full h-full flex justify-center items-center relative">
                     <div className=" w-[230px] h-[250px]">
                         <EmptyFavorite/>
-                        <p className="text-center text-lg text-neutral-400" style={{fontFamily: "vazir"}}>No favorites yet!</p>
+                        <p className="text-center text-lg text-neutral-400 font-vazir">No favorites yet!</p>
                         
                     </div>
                 </div>

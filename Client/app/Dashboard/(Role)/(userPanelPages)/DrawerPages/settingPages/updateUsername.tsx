@@ -22,7 +22,7 @@ function ChangeUsernameModal({
 
   return (
     <div>
-        <div className="py-8" style={{fontFamily:"vazir"}}>
+        <div className="py-8 font-vazir">
             <input
                 type="text"
                 value={username}
@@ -35,9 +35,8 @@ function ChangeUsernameModal({
 
         <div className="flex justify-end gap-2 mt-2">
         <button
-            className="px-3 py-1  bg-blue-500 text-neutral-100 hover:bg-blue-600 transition-all duration-300 rounded-md w-full"
+            className="px-3 py-1  bg-blue-500 text-neutral-100 hover:bg-blue-600 transition-all duration-300 rounded-md w-full font-vazir"
             onClick={() => onConfirm(username)}
-            style={{fontFamily:"vazir"}}
         >
             Confirm
         </button>
@@ -93,8 +92,7 @@ export default function UpdateUsername({ user }: { user: UserType }) {
                         <button 
                             key="cancel" 
                             onClick={hideModal}
-                            className="w-full bg-neutral-200 text-neutral-900 hover:bg-neutral-300 transition-all duration-300 py-1 rounded-md"
-                            style={{fontFamily:"vazir"}}
+                            className="w-full bg-neutral-200 text-neutral-900 hover:bg-neutral-300 transition-all duration-300 py-1 rounded-md font-vazir"
                         >
                         Cancel
                         </button>,

@@ -83,12 +83,12 @@ export default function Login() {
                   height={80}
                   className="dark:hidden"
                 />
-                <h2 className="flex text-5xl pt-5 text-[#2b80da] dark:text-neutral-50" style={{fontFamily:"scriptMtbold"}}>
+                <h2 className="flex text-5xl pt-5 text-[#2b80da] dark:text-neutral-50 font-scriptMtbold">
                   SkillMate
                 </h2>
               </div>
 
-              <div className="w-full h-3/5 p-4 flex flex-col gap-5 justify-center" style={{fontFamily:"Vazir"}}>
+              <div className="w-full h-3/5 p-4 flex flex-col gap-5 justify-center font-vazir">
                 <Input placeholder="   Email address" name="email" prefix={<MaterialSymbolsPerson className="scale-150 mx-2" />} />
                 <div className="flex flex-col gap-2 relative">
                   <button onClick={passwordVisibleChange} className="text-xl absolute right-3 top-2 z-30">
@@ -121,7 +121,7 @@ export default function Login() {
                     href={theRoutes.auth.signup}
                     className="text-base hover:text-blue-500 transition-all duration-200"
                   >
-                    <span style={{fontFamily:"Vazir"}} className="pt-1">Sign Up</span>
+                    <span className="pt-1 font-vazir">Sign Up</span>
                   </Button>
                 </p>
               </div>

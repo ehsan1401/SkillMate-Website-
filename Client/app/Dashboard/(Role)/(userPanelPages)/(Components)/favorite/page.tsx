@@ -1,11 +1,19 @@
 'use client';
 import { useUser } from "@/Components/context/UserContext/UserContext";
 import { BackArrow } from "@/Icons/BackArrow";
-import EmptyFavorite from "@/Icons/Vector/EmptyFavorite";
-import { Tooltip } from "antd";
 import { useState } from "react";
 import FavoriteProjects from "./pages/FavoriteProjects";
 import FavoritePeople from "./pages/FavoritePeople";
+import dynamic from "next/dynamic";
+
+const EmptyFavorite = dynamic(()=>import('@/Icons/Vector/EmptyFavorite') , {
+    loading: () => <div className="animate-pulse w-full h-full bg-gray-300 rounded-xl m-auto"></div>
+,
+})
+
+const Tooltip = dynamic(()=>import('antd/es/tooltip/index') , {
+    loading: () => <div className="animate-pulse w-6 h-6 bg-gray-300 rounded-xl m-auto"></div>
+})
 
 
 
@@ -34,7 +42,7 @@ export default function Favorite(){
                         userInfo ? 
                         <>
                             <div className="w-full h-auto flex">
-                                <div className="title h-full w-4/6 flex gap-5 px-6 py-[15px] text-neutral-800 dark:text-neutral-100" style={{fontFamily : "Gothic"}}>
+                                <div className="title h-full w-4/6 flex gap-5 px-6 py-[15px] text-neutral-800 dark:text-neutral-100 font-gothic">
                                     <button 
                                         onClick={()=>{window.history.back()}}
                                         className="hover:scale-110 transition-all duration-200"
@@ -81,9 +89,9 @@ export default function Favorite(){
                                     <BackArrow className="text-2xl" />
                                 </Tooltip>
                             </button>
-                            <div className=" w-[230px] h-[250px]">
+                            <div className=" w-[230px] h-[250px] text-center">
                                 <EmptyFavorite/>
-                                <p className="text-center text-lg text-neutral-400" style={{fontFamily: "vazir"}}>No favorites yet!</p>
+                                <p className="text-center text-lg text-neutral-400 font-vazir">No favorites yet!</p>
                                 
                             </div>
                         </div>

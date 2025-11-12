@@ -50,7 +50,7 @@ export default function ProfileCompletion(){
             <div className="w-full h-1/2 py-1">
             {
                 result?.NotCompleted.length === 0 ?
-                    <div className="flex justify-center items-center w-[80%] h-full bg-lime-200 dark:bg-lime-900 m-auto rounded-xl text-neutral-800 dark:text-neutral-200" style={{fontFamily:"vazir"}}>
+                    <div className="flex justify-center items-center w-[80%] h-full bg-lime-200 dark:bg-lime-900 m-auto rounded-xl text-neutral-800 dark:text-neutral-200 font-vazir">
                         Your profile is complete.
                     </div>
                 : 

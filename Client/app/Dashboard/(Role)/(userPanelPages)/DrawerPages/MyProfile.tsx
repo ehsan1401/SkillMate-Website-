@@ -46,7 +46,7 @@ export default function MyProfile({userInfo}:{userInfo : UserType}){
 
     return(
         <section className="lg:p-5 p-0 w-full lg:h-full h-[200%] select-none relative lg:overflow-y-scroll">
-            <h1 className="text-5xl text-neutral-950 dark:text-neutral-50 lg:sticky top-4 p-5 lg:p-0" style={{fontFamily:"scriptMtbold"}}> 
+            <h1 className="text-5xl text-neutral-950 dark:text-neutral-50 lg:sticky top-4 p-5 lg:p-0 font-scriptMtbold"> 
                 My Profile
             </h1>
             <div className="w-full h-[100%] relative -top-5 lg:-top-10 px-3 lg:px-16 pt-14 pb-8 text-center ">
@@ -84,7 +84,7 @@ export default function MyProfile({userInfo}:{userInfo : UserType}){
                 <div className="w-full h-auto bg-neutral-300 dark:bg-neutral-800 rounded-2xl px-5 lg:pt-8 lg:pb-10 pt-24 pb-4 flex flex-col justify-center items-center">
 
                     <div className="flex flex-col justify-center items-center w-full h-[50%] lg:pt-16">
-                        <h1 className="text-4xl text-neutral-800 dark:text-neutral-100 font-bold " style={{fontFamily:"vazir"}}>{userInfo?.userName}</h1>
+                        <h1 className="text-4xl text-neutral-800 dark:text-neutral-100 font-bold font-vazir">{userInfo?.userName}</h1>
                         <span className="text-neutral-500 dark:text-neutral-200 -mt-5 text-sm">{userInfo?.email}</span>
                         { UserInformation && UserInformation?.phone ? <span className="py-1 text-neutral-500 dark:text-neutral-200">+{UserInformation?.phone}</span> : <span className="py-1 text-red-800 dark:text-red-300 text-xs flex gap-1"><IcOutlineErrorOutline className="mt-[2px]"/>Mobile phone number not entered.</span>}
                     </div>

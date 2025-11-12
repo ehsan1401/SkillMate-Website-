@@ -14,19 +14,19 @@ import { UserType } from "@/Types/UserType";
 import LoadingSpinner from "@/Components/LoadingSpinner";
 import dynamic from "next/dynamic";
 const MyProfile = dynamic(() => import("./(userPanelPages)/DrawerPages/MyProfile"), {
-  loading: () => <LoadingSpinner Text="Loading..." />,
+  loading: () => <LoadingSpinner Text="Profile is Loading..." />,
 });
 const Projects = dynamic(() => import("./(userPanelPages)/DrawerPages/Projects"), {
-  loading: () => <LoadingSpinner Text="Loading..." />,
+  loading: () => <LoadingSpinner Text="Projects is Loading..." />,
 });
 const Notifications = dynamic(() => import("./(userPanelPages)/DrawerPages/Notifications"), {
-  loading: () => <LoadingSpinner Text="Loading..." />,
+  loading: () => <LoadingSpinner Text="Notifications is Loading..." />,
 });
 const Settings = dynamic(() => import("./(userPanelPages)/DrawerPages/Settings"), {
-  loading: () => <LoadingSpinner Text="Loading..." />,
+  loading: () => <LoadingSpinner Text="Setting is Loading..." />,
 });
 const MainDashboard = dynamic(() => import("./(userPanelPages)/DrawerPages/MainDashboard"), {
-  loading: () => <LoadingSpinner Text="Loading..." />,
+  loading: () => <LoadingSpinner Text="Dashboard is Loading..." />,
 });
 
 
@@ -69,7 +69,7 @@ export default function UserPanel({userData}:{userData : UserType}){
                                 <UploadAvatar size={90} avatarUrl={userData?.profileImageUrl ? `${API.base.backend}${userData.profileImageUrl}` : `https://api.dicebear.com/7.x/miniavs/svg?seed=1`} />
                             </div>
                             <div className="w-1/2 h-full lg:w-full lg:pt-14 text-center lg:h-1/4 flex flex-col items-start lg:items-center pt-3">
-                                <h1 className="text-2xl text-neutral-950 dark:text-neutral-100" style={{ fontFamily: "Franklin" }}>
+                                <h1 className="text-2xl text-neutral-950 dark:text-neutral-100 font-Franklin">
                                 {userData?.userName?.length > 15 
                                     ? userData.userName.slice(0, 15) + "..."  
                                     : userData?.userName}

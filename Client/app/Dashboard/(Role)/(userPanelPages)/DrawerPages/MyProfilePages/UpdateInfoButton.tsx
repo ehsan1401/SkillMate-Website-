@@ -162,7 +162,7 @@ export function ProfileForm({
       }}
       className="flex flex-col items-center pb-5 w-[95%]"
     >
-      <h1 className="text-2xl" style={{ fontFamily: "Lalezar" }}>{user?.userName}</h1>
+      <h1 className="text-2xl font-Lalezar">{user?.userName}</h1>
       <span className="flex text-orange-500 py-2">
         <span className="pt-1"><IcOutlineErrorOutline /></span>
         <span>Make sure you press the update button to save the information.</span>

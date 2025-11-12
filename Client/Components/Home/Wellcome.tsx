@@ -10,8 +10,7 @@ export default function Wellcome() {
             
             <div className="absolute w-full h-full flex justify-center items-center">
                 <h1 
-                    className=" text-blue-950 flex"
-                    style={{ fontFamily: "scriptMtbold" }}
+                    className=" text-blue-950 flex font-scriptMtbold"
                 >
                     <SkillmateIcon className="lg:text-8xl text-6xl"/>
                     <span className="lg:text-8xl text-6xl lg:pt-2 -pt-3">skillmate</span>
