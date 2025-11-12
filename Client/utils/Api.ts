@@ -19,6 +19,7 @@ export const API = {
     createUserInfo : ()=>`${BACKEND_BASE_URL}/user-info/create-UserInfo`,
     getUserInfo: (id?: number) => `${BACKEND_BASE_URL}/user-info/${id}`,
     UpdateUserInfo : (id?: number) => `${BACKEND_BASE_URL}/user-info/InfoUpdate/${id}`,
+    ProfilePercentage : (id : number)=> `${BACKEND_BASE_URL}/users/UserProfileCompleted/${id}`
   },
   actions: {
     FavoritePeople : `${BACKEND_BASE_URL}/user-action/GetFavoriteUsers`,

@@ -94,7 +94,6 @@ export class UsersService {
     if(userVisit.rowCount === 0){
       throw new InternalServerErrorException(`There is an Error! Please Try again!`);
     }
-    // return "inspections plus By 1 !" ;
   }
 
   async ChangeSearchShow( userId : number , showInSearch : boolean){
@@ -108,4 +107,49 @@ export class UsersService {
     return {message : 'Show status has Changed!'}
   }
 
+  async UserProfileCompleted(userId : number){
+    const pool = this.databaseService.getPool();
+    const query = `
+      SELECT 
+      u."email",
+      i."phone",
+      i."bio",
+      u."profileImageUrl",
+      u."ShowInSearch",
+      i."dateofbirth",
+      i."social",
+      i."skills",
+      i."learning_skills",
+      i."resume"
+      FROM users u
+      LEFT JOIN userinfo i ON u.id = i.userid
+      WHERE u.id = $1
+    `;
+
+    const result = await pool.query(query, [userId]);
+    const user = result.rows[0];
+
+
+    const UserValues = Object.fromEntries(
+      Object.entries(user).map(([key, value]) => {
+        const isEmpty =
+          value === null ||
+          value === false ||
+          value === "" ||
+          (Array.isArray(value) && value.length === 0) ||
+          (typeof value === "object" && !Array.isArray(value) && Object.keys(value).length === 0);
+
+        return [key, !isEmpty];
+      })
+    );
+
+    return(UserValues)
+    
+  }
+
 }
+
+        
+        
+        
+        

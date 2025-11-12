@@ -103,4 +103,12 @@ export class UsersController {
   ){
     return this.usersService.ChangeSearchShow(userId , body.showInSearch)
   }
+
+  @Get('UserProfileCompleted/:id')
+  UserProfileCompleted(
+    @Param('id' , ParseIntPipe ) userId : number
+  ){
+    return this.usersService.UserProfileCompleted(userId)
+  }
+
 }
