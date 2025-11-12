@@ -5,10 +5,11 @@ import { ConnectionPoint } from "@/Icons/ConnectionPoint";
 import { IonHeartCircleOutline } from "@/Icons/FavoriteCircle";
 import { MaterialSymbolsNotificationsOutline } from "@/Icons/NotificationsIcon";
 import { theRoutes } from "@/utils/theRoutes";
-import { Badge, Tooltip } from "antd";
+import { Badge } from "antd";
 import Link from "next/link";
-import { ReactNode } from "react";
-import ProfileCompletion from "./pages/ProfileCompletion";
+import { lazy, ReactNode, Suspense } from "react";
+import LoadingSpinner from "@/Components/LoadingSpinner";
+const ProfileCompletion = lazy(()=> import('./pages/ProfileCompletion'))
 
 type boxItem = {
     name : string , 
@@ -65,7 +66,7 @@ export default function CollaboratorPanel(){
             <div className=" md:w-3/5 w-full h-full -mr-[20px]">
                 <div className=" w-full h-3/5 pt-10 pb-8 flex gap-2 ">
                     <div className="w-1/2 h-full border-[3px] border-solid border-neutral-600 dark:border-neutral-100 rounded-md overflow-hidden">
-                        <ProfileCompletion/>
+                        <Suspense fallback={<LoadingSpinner Text="Loading..."/>}><ProfileCompletion/></Suspense>
                     </div>
                     <div className="w-1/2 h-full border-[3px] border-solid border-neutral-600 dark:border-neutral-100 rounded-md"></div>
                 </div>
@@ -73,6 +74,7 @@ export default function CollaboratorPanel(){
             </div>
             <aside className="md:w-2/5 w-full px-5 h-full text-center py-3 flex md:flex-col flex-row md:items-center justify-center md:gap-3 gap-5  pt-8">
                 <div className="w-full h-3/6 grid grid-cols-3">
+                
                 {
                     boxItems.map((item : boxItem)=>{
                         return(
