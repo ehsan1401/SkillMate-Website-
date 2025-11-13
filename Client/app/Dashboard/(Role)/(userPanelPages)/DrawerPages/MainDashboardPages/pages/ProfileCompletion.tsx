@@ -1,10 +1,7 @@
 'use client';
 import { useUser } from "@/Components/context/UserContext/UserContext";
-import { ProfileCompletePercentage } from "@/Components/tools/ProfileCompletePercentage";
 import { API } from "@/utils/Api";
 import { Avatar, Progress, Tooltip } from "antd";
-import Image from "next/image";
-import { userValue } from "./type";
 import { ProgressProps } from "antd/lib";
 import UpdateInfoButton from "../../MyProfilePages/UpdateInfoButton";
 import CreateInfoButton from "../../MyProfilePages/CreateInfoButton";
@@ -55,18 +52,18 @@ export default function ProfileCompletion(){
                     </div>
                 : 
                 <>
-                    <div className="w-full h-1/2 flex justify-start items-center px-6 gap-2 text-sm">
+                    <div className="w-full h-1/2 flex justify-start items-center px-4 gap-2 text-sm">
                         {result?.Completed?.slice(0,2).map(item => (
-                            <span className="flex gap-1 text-neutral-900 dark:text-neutral-200" key={item.key}>
+                            <span className="flex gap-[2px] text-neutral-900 dark:text-neutral-200" key={item.key}>
                                 <Completed className="text-lime-500 mt-[3px]"/>
                                 {item.key}
                             </span>
                         ))}
                     </div>
 
-                    <div className="w-full h-1/2 flex justify-start items-center px-6 gap-2 text-sm">
+                    <div className="w-full h-1/2 flex justify-start items-center px-4 gap-2 text-sm">
                         {result?.NotCompleted?.slice(0,2).map(item => (
-                            <span className="flex gap-1 text-neutral-900 dark:text-neutral-200" key={item.key}>
+                            <span className="flex gap-[2px] text-neutral-900 dark:text-neutral-200" key={item.key}>
                                 <CrossCircle className="text-red-500 mt-[3px]"/>
                                 {item.key}
                             </span>

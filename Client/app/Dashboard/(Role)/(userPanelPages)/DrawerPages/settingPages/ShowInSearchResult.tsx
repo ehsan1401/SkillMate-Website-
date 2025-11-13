@@ -22,12 +22,14 @@ export default function ShowInSearchResult({ShowInSearch , userId}:{ShowInSearch
                 e.stopPropagation();
                 showModal(
                     <div className="flex items-center gap-2 py-8 px-5">
-                        <IcOutlineErrorOutline className="text-lg text-yellow-400 mb-[5px]"/>
-                        <h5>{userShow ?  
-                            `Others won't be able to find you if you hide your profile`
+                        <IcOutlineErrorOutline className="text-lg text-yellow-400 -mt-[25px]"/>
+                        <h5 className="flex flex-col gap-2">{userShow ?  
+                            `Others won't be able to find you if you hide your profile!`
                         :
-                            `Let others find and connect with you`
-                        } </h5>
+                            `Let others find and connect with you.`
+                        } 
+                          <br />    <>refresh needed to apply your setting !</>
+                        </h5>
                     </div>,
                     userShow ? "Hide from search?" : "Make profile visible?",
                     handleSubmits,
@@ -42,6 +44,7 @@ export default function ShowInSearchResult({ShowInSearch , userId}:{ShowInSearch
                     onClick={()=>{
                         hideModal();
                         UserSearchVisibility(userId, userShow, setUserShow);
+                        window.location.reload();
                     }}
                     variant="solid" color={userShow ? 'danger' : 'blue'}
                     style={{fontFamily:'vazir' , paddingTop : "3px"}}

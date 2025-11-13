@@ -6,14 +6,19 @@ import Footer from "@/Components/naviagtion/footer";
 import { MaterialSymbolsDashboardOutline } from "@/Icons/DashboardIcon";
 import { LoginIcon } from "@/Icons/LoginIcon";
 import { theRoutes } from "@/utils/theRoutes";
-import { FloatButton } from "antd";
+import dynamic from "next/dynamic";
+
+const FloatButton = dynamic(()=>import('antd/es/float-button/index') ,{
+  ssr : false
+} 
+)
 
 export default function Home() {
   const { user } = useUser();
   return (
     <div className="w-full h-full">
       <Wellcome/>
-      <div className="lg:hidden">
+      <div className="lg:hidden relative">
         {
           user ? 
             <a href={theRoutes.Dashboard.main}>
@@ -23,7 +28,6 @@ export default function Home() {
             <a href={theRoutes.auth.Login}>
               <FloatButton icon={<LoginIcon />} type="default" style={{ insetInlineEnd: 24 }} tooltip={'Login'} />
             </a>
-
         }
       </div>
       <Footer/>

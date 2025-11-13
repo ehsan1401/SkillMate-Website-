@@ -11,7 +11,7 @@ import UploadAvatar from "./(userPanelPages)/page/UploadAvatar";
 import { API } from "@/utils/Api";
 import { useChangePanelItem } from "@/Components/context/PanelItem/PanelItemsProvider";
 import { UserType } from "@/Types/UserType";
-import LoadingSpinner from "@/Components/LoadingSpinner";
+import LoadingSpinner from "@/Components/Loadings/LoadingSpinner";
 import dynamic from "next/dynamic";
 const MyProfile = dynamic(() => import("./(userPanelPages)/DrawerPages/MyProfile"), {
   loading: () => <LoadingSpinner Text="Profile is Loading..." />,

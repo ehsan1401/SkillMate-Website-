@@ -1,7 +1,7 @@
-import LoadingSpinner from "@/Components/LoadingSpinner";
+import LoadingSpinner from "@/Components/Loadings/LoadingSpinner";
 
 export default function Loading() {
   return (
-    <LoadingSpinner Text={`خو یکم واستا مگه شاش دری؟`}/>
+    <LoadingSpinner Text={'Login is Loading...'}/>
   );
 }

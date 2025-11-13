@@ -130,7 +130,6 @@ export function ProfileForm({
 
   const removeSocial = (index: number) => setSocials(socials.filter((_, i) => i !== index));
 
-  // ✅ Only call onUpdated on client
   useEffect(() => {
     if (state.status === 200) {
       onUpdated?.();
@@ -144,7 +143,6 @@ export function ProfileForm({
         e.preventDefault();
         const formData = new FormData(e.currentTarget as HTMLFormElement);
 
-        // Ensure numeric ID is valid
         if (typeof user.id === "number" && !isNaN(user.id)) {
           formData.set("id", user.id.toString());
         } else {
