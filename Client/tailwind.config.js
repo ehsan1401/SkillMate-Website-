@@ -8,7 +8,20 @@ export default {
     "./utils/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+        fontFamily: {
+        gothic: ['Gothic', 'sans-serif'],
+        vazir: ['Vazir', 'sans-serif'],
+        Lalezar: ['Lalezar', 'sans-serif'],
+        Parand: ['Parand', 'sans-serif'],
+        Aban: ['Aban', 'sans-serif'],
+        Homa: ['Homa', 'sans-serif'],
+        Franklin: ['Franklin', 'sans-serif'],
+        scriptMtbold: ['scriptMtbold', 'sans-serif'],
+        Centaur: ['Centaur', 'sans-serif'],
+        TwCenMt: ['TwCenMt', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 };

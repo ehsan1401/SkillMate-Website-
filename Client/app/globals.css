@@ -69,3 +69,21 @@
   src:
     url("/Fonts/Century_Gothic.ttf") format("truetype");
 }
+
+
+@keyframes drop-bounce {
+  0% {
+    transform: translateY(0);
+  }
+
+  60% {
+    transform: translateY(-9px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.drop-bounce {
+  animation: drop-bounce 0.9s ease-in-out infinite;
+}

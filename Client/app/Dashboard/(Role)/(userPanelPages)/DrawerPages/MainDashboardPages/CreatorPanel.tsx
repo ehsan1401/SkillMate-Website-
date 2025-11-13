@@ -117,13 +117,13 @@ export default function CreatorPanel(){
                     <a href={`#`} className="w-full">
                         <button className="w-full flex justify-center items-center md:px-3 md:py-1 px-1 py-2 rounded-md hover:rounded-3xl border-[3px] border-solid border-neutral-600 dark:border-neutral-100 transition-all duration-300 gap-1">
                             <CreateNewFolder className="md:text-2xl text-3xl text-neutral-700 dark:text-neutral-100"/>
-                            <h6 className="text-neutral-700 dark:text-neutral-100 xl:text-lg mt-2" style={{fontFamily:'TwCenMt'}}>New Project</h6>
+                            <h6 className="text-neutral-700 dark:text-neutral-100 xl:text-lg mt-2 font-TwCenMt">New Project</h6>
                         </button>
                     </a>
                 </Badge>
                 <div className="w-full h-full py-1">
                     <div className="w-full h-full border-[3px] border-solid border-neutral-600  dark:border-neutral-100 rounded-md py-2">
-                        <h3 style={{fontFamily:'TwCenMt'}} className="text-xl text-center text-neutral-700 dark:text-neutral-100">Last Projects</h3>
+                        <h3 className="text-xl text-center text-neutral-700 dark:text-neutral-100 font-TwCenMt">Last Projects</h3>
 
                             <div className="w-full h-[80%] opacity-55 flex flex-col justify-center items-center">
                                 <EmptyFolder width={90} height={90} />
@@ -165,7 +165,7 @@ function MyTeamSection(){
         <div className="w-full h-full relative">
             <Tooltip title={`Add member`}><button className="absolute top-[5px] lg:right-5 right-2 scale-110 hover:rotate-90 transition-all duration-300 p-3 text-neutral-600 dark:text-neutral-100"> <SymbolsAdd /> </button></Tooltip>
             <div className="w-full h-[99%] border-[3px] border-solid border-neutral-600 dark:border-neutral-100 rounded-md py-2">
-                <h3 style={{fontFamily:'TwCenMt'}} className="text-xl text-center text-neutral-700 dark:text-neutral-100">My team</h3>
+                <h3 className="text-xl text-center text-neutral-700 dark:text-neutral-100 font-TwCenMt">My team</h3>
                 <div className=" w-full h-[90%] opacity-60 flex flex-col justify-center items-center">
 
                     {/* this is test for now */}
@@ -197,8 +197,7 @@ function ThreeNavigationButton(TopChartBoxesItems : horizentalBoxItem[]){
                 <button className="flex justify-center items-center w-full xl:px-3 md:py-1 px-1 py-2 rounded-md hover:rounded-3xl border-[3px] border-solid border-neutral-600 dark:border-neutral-100 transition-all duration-300">
                 <span className="mr-1 lg:w-8">{item.Icon}</span>
                 <h6
-                    className="text-neutral-700 dark:text-neutral-100 xl:text-lg mt-[7px]"
-                    style={{ fontFamily: "TwCenMt" }}
+                    className="text-neutral-700 dark:text-neutral-100 xl:text-lg mt-[7px] font-TwCenMt"
                 >
                     {item.name}
                 </h6>

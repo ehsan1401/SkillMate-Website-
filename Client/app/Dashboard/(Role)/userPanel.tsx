@@ -6,16 +6,29 @@ import { MaterialSymbolsAccountBoxOutline } from "@/Icons/profileIcon";
 import { SiProjectsLine } from "@/Icons/ProjectsIcon";
 import { MaterialSymbolsNotificationsOutline } from "@/Icons/NotificationsIcon";
 import { MaterialSymbolsSettingsAccountBoxRounded } from "@/Icons/SettingIcon";
-import MyProfile from "./(userPanelPages)/DrawerPages/MyProfile";
-import Projects from "./(userPanelPages)/DrawerPages/Projects";
-import Notifications from "./(userPanelPages)/DrawerPages/Notifications";
-import Settings from "./(userPanelPages)/DrawerPages/Settings";
-import MainDashboard from "./(userPanelPages)/DrawerPages/MainDashboard";
 import { MaterialSymbolsDashboardOutline } from "@/Icons/DashboardIcon";
 import UploadAvatar from "./(userPanelPages)/page/UploadAvatar";
 import { API } from "@/utils/Api";
 import { useChangePanelItem } from "@/Components/context/PanelItem/PanelItemsProvider";
 import { UserType } from "@/Types/UserType";
+import LoadingSpinner from "@/Components/Loadings/LoadingSpinner";
+import dynamic from "next/dynamic";
+const MyProfile = dynamic(() => import("./(userPanelPages)/DrawerPages/MyProfile"), {
+  loading: () => <LoadingSpinner Text="Profile is Loading..." />,
+});
+const Projects = dynamic(() => import("./(userPanelPages)/DrawerPages/Projects"), {
+  loading: () => <LoadingSpinner Text="Projects is Loading..." />,
+});
+const Notifications = dynamic(() => import("./(userPanelPages)/DrawerPages/Notifications"), {
+  loading: () => <LoadingSpinner Text="Notifications is Loading..." />,
+});
+const Settings = dynamic(() => import("./(userPanelPages)/DrawerPages/Settings"), {
+  loading: () => <LoadingSpinner Text="Setting is Loading..." />,
+});
+const MainDashboard = dynamic(() => import("./(userPanelPages)/DrawerPages/MainDashboard"), {
+  loading: () => <LoadingSpinner Text="Dashboard is Loading..." />,
+});
+
 
 type selectedItem = 'item0'|'item1'|'item2'|'item3'|'item4' ;
 type NavigationItem = {
@@ -27,10 +40,11 @@ type NavigationItem = {
 
 export default function UserPanel({userData}:{userData : UserType}){
     const {selectedItem , TogglePanelItem} = useChangePanelItem();
-    const [isDark , setIsDark] = useState<string | null>();
-    const [Ptype , setPtype] = useState<string | null>(localStorage.getItem("Ptype"))
+    const [isDark , setIsDark] = useState<string | null>(null);
+    const [Ptype , setPtype] = useState<string | null>(null)
     
     useEffect(() => {
+        setPtype(localStorage.getItem("Ptype"))
         setIsDark(localStorage.getItem('theme'));
     }, []);
 
@@ -55,7 +69,7 @@ export default function UserPanel({userData}:{userData : UserType}){
                                 <UploadAvatar size={90} avatarUrl={userData?.profileImageUrl ? `${API.base.backend}${userData.profileImageUrl}` : `https://api.dicebear.com/7.x/miniavs/svg?seed=1`} />
                             </div>
                             <div className="w-1/2 h-full lg:w-full lg:pt-14 text-center lg:h-1/4 flex flex-col items-start lg:items-center pt-3">
-                                <h1 className="text-2xl text-neutral-950 dark:text-neutral-100" style={{ fontFamily: "Franklin" }}>
+                                <h1 className="text-2xl text-neutral-950 dark:text-neutral-100 font-Franklin">
                                 {userData?.userName?.length > 15 
                                     ? userData.userName.slice(0, 15) + "..."  
                                     : userData?.userName}
@@ -66,34 +80,34 @@ export default function UserPanel({userData}:{userData : UserType}){
                         <span className="w-[80%] bg-neutral-800 dark:bg-neutral-50 h-1 hidden lg:block"></span>
                         <div className=" py-5 lg:pt-10 h-2/4">
                             <ul className="flex lg:flex-col gap-7 w-fullitems-center justify-center scale-125 lg:scale-100">
-                            {NavigationItems.map((item) => {
-                                const isSelected = selectedItem === item.id;
-                                return (
-                                <li
-                                    key={item.id}
-                                    className={
-                                    isSelected
-                                        ? "text-neutral-950 dark:text-neutral-50"
-                                        : "text-neutral-400 dark:text-neutral-500 dark:hover:text-neutral-50 hover:text-neutral-950 transition-all duration-300"
-                                    }
-                                >
-                                    <button
-                                    className="flex gap-2 cursor-pointer lg:hidden"
-                                    onClick={() => !isSelected && handleSelect(item.id)}
+                                {NavigationItems.map((item) => {
+                                    const isSelected = selectedItem === item.id;
+                                    return (
+                                    <li
+                                        key={item.id}
+                                        className={
+                                        isSelected
+                                            ? "text-neutral-950 dark:text-neutral-50"
+                                            : "text-neutral-400 dark:text-neutral-500 dark:hover:text-neutral-50 hover:text-neutral-950 transition-all duration-300"
+                                        }
                                     >
-                                        {item.icon}
-                                    </button>
+                                        <button
+                                        className="flex gap-2 cursor-pointer lg:hidden"
+                                        onClick={() => !isSelected && handleSelect(item.id)}
+                                        >
+                                            {item.icon}
+                                        </button>
 
-                                    <button
-                                    className="gap-2 cursor-pointer hidden lg:flex"
-                                    onClick={() => !isSelected && handleSelect(item.id)}
-                                    >
-                                    {item.icon}
-                                    {item.label}
-                                    </button>
-                                </li>
-                                );
-                            })}
+                                        <button
+                                        className="gap-2 cursor-pointer hidden lg:flex"
+                                        onClick={() => !isSelected && handleSelect(item.id)}
+                                        >
+                                        {item.icon}
+                                        {item.label}
+                                        </button>
+                                    </li>
+                                    );
+                                })}    
                             </ul>
                         </div>
 

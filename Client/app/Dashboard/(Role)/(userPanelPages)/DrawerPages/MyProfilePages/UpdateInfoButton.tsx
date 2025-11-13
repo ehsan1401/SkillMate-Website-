@@ -130,7 +130,6 @@ export function ProfileForm({
 
   const removeSocial = (index: number) => setSocials(socials.filter((_, i) => i !== index));
 
-  // ✅ Only call onUpdated on client
   useEffect(() => {
     if (state.status === 200) {
       onUpdated?.();
@@ -144,7 +143,6 @@ export function ProfileForm({
         e.preventDefault();
         const formData = new FormData(e.currentTarget as HTMLFormElement);
 
-        // Ensure numeric ID is valid
         if (typeof user.id === "number" && !isNaN(user.id)) {
           formData.set("id", user.id.toString());
         } else {
@@ -162,7 +160,7 @@ export function ProfileForm({
       }}
       className="flex flex-col items-center pb-5 w-[95%]"
     >
-      <h1 className="text-2xl" style={{ fontFamily: "Lalezar" }}>{user?.userName}</h1>
+      <h1 className="text-2xl font-Lalezar">{user?.userName}</h1>
       <span className="flex text-orange-500 py-2">
         <span className="pt-1"><IcOutlineErrorOutline /></span>
         <span>Make sure you press the update button to save the information.</span>

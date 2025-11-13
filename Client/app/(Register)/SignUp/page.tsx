@@ -101,11 +101,11 @@ export default function SignUp() {
                         height={80}
                         className="dark:block hidden"
                       />
-                      <h2 className="flex text-5xl pt-5 text-[#2b80da] dark:text-neutral-50" style={{fontFamily:"scriptMtbold"}}>
+                      <h2 className="flex text-5xl pt-5 text-[#2b80da] dark:text-neutral-50 font-scriptMtbold">
                         SkillMate
                       </h2>
                     </div>
-                    <p className="text-center text-lg text-neutral-700 dark:text-neutral-100" style={{fontFamily:"Centaur"}}>
+                    <p className="text-center text-lg text-neutral-700 dark:text-neutral-100 font-Centaur">
                       Wellcome to our Website.
                     </p>
 
@@ -140,7 +140,7 @@ export default function SignUp() {
                         href={theRoutes.auth.Login}
                         className="text-base hover:text-blue-500 transition-all duration-200"
                       >
-                        <span style={{fontFamily:"Vazir"}} className="pt-1">Login</span>
+                        <span className="pt-1 font-vazir">Login</span>
                         
                       </Button>
                     </p>

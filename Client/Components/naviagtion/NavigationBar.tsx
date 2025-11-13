@@ -48,7 +48,7 @@ export default function NavigationBar () {
             <Link href="/" className="px-10 hidden lg:flex w-3/12">
                 <Image src="/Images/TitleLessLogo.png" alt="TitleLessLogo" className="w-14 dark:hidden" width={60} height={60}/>
                 <Image src="/Images/LightTitleLessLogo.png" alt="TitleLessLogo" className="w-14 dark:block hidden" width={60} height={60}/>
-                <h2 className="flex items-center h-full text-3xl text-[#2b80da] dark:bg-gradient-to-tr dark:from-neutral-100 dark:via-blue-300 dark:to-blue-500 bg-clip-text dark:text-transparent" style={{fontFamily:"scriptMtbold"}}>
+                <h2 className="flex items-center h-full text-3xl text-[#2b80da] dark:bg-gradient-to-tr dark:from-neutral-100 dark:via-blue-300 dark:to-blue-500 bg-clip-text dark:text-transparent font-scriptMtbold">
                     SkillMate
                 </h2>
             </Link>

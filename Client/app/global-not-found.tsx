@@ -19,7 +19,7 @@ export default function GlobalNotFound() {
       <body>
         <div className='bg-blue-400 h-screen flex lg:flex-row flex-col-reverse pt-16 p-10'>
           <div className='lg:w-1/2 w-full lg:h-full h-1/2 flex justify-center items-center flex-col'> 
-            <div className='flex flex-col justify-center items-center' style={{fontFamily:"Centaur"}}>
+            <div className='flex flex-col justify-center items-center font-Centaur'>
               <h1 className='lg:text-9xl text-6xl'>Lost, human?</h1>
               <h2 className='lg:text-6xl text-4xl lg:pl-3'>You took the wrong turn.</h2>
               <h3 className='lg:text-3xl text-2xl pl-5 lg:pt-5 pt-3 pb-10 flex gap-2'>
