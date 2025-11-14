@@ -1,19 +1,4 @@
 
--- CREATE TABLE userInfo (
---     id SERIAL PRIMARY KEY,
---     userId INT NOT NULL,
---     favorite JSONB,
---     phone VARCHAR(20),
---     age INT,
---     createdAt TIMESTAMP DEFAULT NOW(),
---     updatedAt TIMESTAMP DEFAULT NOW(),
---     CONSTRAINT fk_user
---         FOREIGN KEY(userId) 
---         REFERENCES users(id)
---         ON DELETE CASCADE
--- );
-
-
 
 CREATE TABLE userInfo (
     id SERIAL PRIMARY KEY,
@@ -22,11 +7,9 @@ CREATE TABLE userInfo (
     age INT,
     bio TEXT,
     social JSONB DEFAULT '[]'::JSONB,
-    -- مثال محتوا: [{"name": "LinkedIn", "url": "https://linkedin.com/..."}]
     skills JSONB DEFAULT '[]'::JSONB,
     learning_skills JSONB DEFAULT '[]'::JSONB,
     resume JSONB DEFAULT '{}'::JSONB,
-    -- مثال محتوا: {"file": "resume.pdf", "link": "https://linkedin.com/..."}
     favorite JSONB DEFAULT '{}'::JSONB,
     
     "createdAt" TIMESTAMP DEFAULT NOW(),
