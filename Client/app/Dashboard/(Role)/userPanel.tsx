@@ -13,6 +13,8 @@ import { useChangePanelItem } from "@/Components/context/PanelItem/PanelItemsPro
 import { UserType } from "@/Types/UserType";
 import LoadingSpinner from "@/Components/Loadings/LoadingSpinner";
 import dynamic from "next/dynamic";
+import { Tooltip } from "antd";
+import { useDashboardType } from "@/Components/provider/PanelTypeProvider";
 const MyProfile = dynamic(() => import("./(userPanelPages)/DrawerPages/MyProfile"), {
   loading: () => <LoadingSpinner Text="Profile is Loading..." />,
 });
@@ -41,10 +43,10 @@ type NavigationItem = {
 export default function UserPanel({userData}:{userData : UserType}){
     const {selectedItem , TogglePanelItem} = useChangePanelItem();
     const [isDark , setIsDark] = useState<string | null>(null);
-    const [Ptype , setPtype] = useState<string | null>(null)
+    const { panelType, togglePanelType } = useDashboardType();
+
     
     useEffect(() => {
-        setPtype(localStorage.getItem("Ptype"))
         setIsDark(localStorage.getItem('theme'));
     }, []);
 
@@ -62,12 +64,17 @@ export default function UserPanel({userData}:{userData : UserType}){
     return(
         <section className="w-full h-screen bg-neutral-500 dark:bg-neutral-700 lg:pt-20 pt-16 lg:p-5">
             <div className="w-full h-full bg-neutral-200 dark:bg-neutral-800 lg:rounded-3xl lg:overflow-hidden relative overflow-y-scroll pb-5 lg:pb-0">
-                <div className="lg:absolute lg:w-1/5 w-full h-52 lg:h-full p-5">
+                <div className="lg:absolute lg:w-1/5 w-full h-52 lg:h-full lg:p-5 py-5">
                     <aside className="bg-neutral-100 dark:bg-neutral-600 w-full h-full rounded-3xl flex flex-col items-center lg:py-5">
-                        <div className="flex flex-row lg:flex-col items-end w-full h-48 lg:h-full py-3 lg:p-0 justify-center lg:justify-start">
+                        <div className="flex flex-row lg:flex-col items-end w-full h-48 lg:h-full py-3 lg:p-0 justify-center lg:justify-start relative">
                             <div className="text-center h-full lg:h-1/4 w-1/3 lg:w-full">
                                 <UploadAvatar size={90} avatarUrl={userData?.profileImageUrl ? `${API.base.backend}${userData.profileImageUrl}` : `https://api.dicebear.com/7.x/miniavs/svg?seed=1`} />
                             </div>
+                            <button className="absolute top-6 right-5 w-10 h-6 lg:hidden transition-all duration-200 hover:scale-125 cursor-pointer" onClick={logout}>
+                                <Tooltip title="Logout">
+                                    <LogoutIcon className=" text-2xl " />
+                                </Tooltip>
+                            </button>
                             <div className="w-1/2 h-full lg:w-full lg:pt-14 text-center lg:h-1/4 flex flex-col items-start lg:items-center pt-3">
                                 <h1 className="text-2xl text-neutral-950 dark:text-neutral-100 font-Franklin">
                                 {userData?.userName?.length > 15 
@@ -75,10 +82,11 @@ export default function UserPanel({userData}:{userData : UserType}){
                                     : userData?.userName}
                                 </h1>
                                 <h6 className="text-sm text-neutral-950 dark:text-neutral-100">{userData?.email}</h6>
+                                <button onClick={togglePanelType} className={`w-40 py-1 rounded-lg lg:hidden text-neutral-50 text-sm transition-all duration-300 ${panelType === 'Creator' ? `bg-blue-500 hover:bg-blue-600` : `bg-orange-500 hover:bg-orange-600`}`}>{panelType} panel</button>
                             </div>
                         </div>
                         <span className="w-[80%] bg-neutral-800 dark:bg-neutral-50 h-1 hidden lg:block"></span>
-                        <div className=" py-5 lg:pt-10 h-2/4">
+                        <div className=" py-1 lg:pt-10 h-2/4">
                             <ul className="flex lg:flex-col gap-7 w-fullitems-center justify-center scale-125 lg:scale-100">
                                 {NavigationItems.map((item) => {
                                     const isSelected = selectedItem === item.id;

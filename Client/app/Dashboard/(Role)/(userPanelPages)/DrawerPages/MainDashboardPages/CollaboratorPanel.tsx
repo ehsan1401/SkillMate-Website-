@@ -88,61 +88,61 @@ export default function CollaboratorPanel(){
         {
             name : 'Messages',
             route : '#',
-            Icon : <MdiChat className="text-3xl mb-1"/>,
+            Icon : <MdiChat className="xl:text-3xl md:text-2xl text-lg mb-1"/>,
             count : 0
         },
         {
             name : 'Notifications' ,
             route : '#',
-            Icon : <MaterialSymbolsNotificationsOutline className="text-4xl"/> ,
+            Icon : <MaterialSymbolsNotificationsOutline className="xl:text-3xl md:text-2xl text-lg"/> ,
             count : 0,
             fn : ()=>{TogglePanelItem('item3')}
         },
         {
             name : 'Connections' ,
             route : '#',
-            Icon : <ConnectionPoint className="text-3xl mb-1"/> ,
+            Icon : <ConnectionPoint className="xl:text-3xl md:text-2xl text-lg mb-1"/> ,
             count : 0
         },
         {
             name : 'Profile Analyse',
             route : '#',
-            Icon : <GraphNewBroken className="text-3xl mb-1"/>,
+            Icon : <GraphNewBroken className="xl:text-3xl md:text-2xl text-lg mb-1"/>,
             count : 0
         },
         {
             name : 'Favorite' ,
             route : theRoutes.Dashboard.favorite,
-            Icon : <IonHeartCircleOutline className="text-4xl"/> ,
+            Icon : <IonHeartCircleOutline className="xl:text-3xl md:text-2xl text-lg"/> ,
             count : userInfo?.favorite.People.length
         },
         
         {
             name : 'Requests',
             route : '#',
-            Icon : <RequestIcon  className="text-4xl"/>,
+            Icon : <RequestIcon  className="xl:text-3xl md:text-2xl text-lg"/>,
             count : 0
         },
         {
             name : 'Projects',
             route : '#',
-            Icon : <FileCopy className="text-3xl mb-1"/>
+            Icon : <FileCopy className="xl:text-3xl md:text-2xl text-lg mb-1"/>
         },
         {
             name : 'Create Team',
             route : '#',
-            Icon : <TeamIcon className="text-3xl mb-1"/>
+            Icon : <TeamIcon className="xl:text-3xl md:text-2xl text-lg mb-1"/>
         }
     ]
     
     return(
-        <div className="w-full lg:h-[87%] h-[80%] mt-8 lg:mt-0 flex md:flex-row flex-col-reverse justify-center items-center ">
-            <div className=" md:w-3/5 w-full h-[102%] -mr-[20px]">
-                <div className=" w-full h-3/5 pt-5 pb-12 flex gap-2 ">
-                    <div className="w-1/2 h-full border-[3px] border-solid border-neutral-600 dark:border-neutral-100 rounded-md overflow-hidden">
+        <div className="w-full lg:h-[87%] h-[80%] mt-8 lg:mt-0 flex lg:flex-row flex-col justify-center items-center ">
+            <div className=" md:w-3/5 w-full h-[102%] lg:-mr-[20px]">
+                <div className=" w-full h-3/5 pt-5 pb-12 flex lg:flex-row flex-col-reverse  gap-2 ">
+                    <div className="lg:w-1/2 w-full  h-full border-[3px] border-solid border-neutral-600 dark:border-neutral-100 rounded-md overflow-hidden">
                         <ProfileCompletion/>
                     </div>
-                    <div className="w-1/2 h-full border-[3px] border-solid border-neutral-600 dark:border-neutral-100 rounded-md py-3 text-center">
+                    <div className="lg:w-1/2 w-full h-full border-[3px] border-solid border-neutral-600 dark:border-neutral-100 rounded-md py-3 text-center">
                         <h2 className="text-neutral-800 dark:text-neutral-100 font-vazir">My Latest Collaborations</h2>
                         <div className="w-full h-[90%] flex flex-col justify-center items-center opacity-60 gap-2">
                             <EmptyFolder width={90} height={90} />
@@ -162,7 +162,16 @@ export default function CollaboratorPanel(){
                         navigation={{ nextEl: '.next-btn', prevEl: '.prev-btn' }}
                         modules={[FreeMode , Navigation]}
                         spaceBetween={8}
-                        slidesPerView={3}
+                        breakpoints={{
+                            0: {              
+                                slidesPerView: 2,
+                            },
+
+                            1280: {          
+                                slidesPerView: 3,
+                            }
+                        }}
+
                         direction="horizontal"
                         loop={true}
                         pagination={{
@@ -216,19 +225,18 @@ export default function CollaboratorPanel(){
 
                 </div>
             </div>
-            <aside className="md:w-2/5 w-full pl-10 h-[102%] text-center py-[5px] flex md:flex-col flex-row md:items-center justify-center md:gap-2 gap-0 pt-[17px] items-center">
-                <div className="w-full h-3/6 grid grid-cols-4 gap-2">
-                
+            <aside className="md:w-2/5 w-full lg:pl-10 h-[102%] text-center py-[5px] flex flex-col md:items-center justify-center md:gap-2 pt-[17px]">
+                <div className="w-full xl:h-3/6 grid md:grid-cols-3 xl:grid-cols-4 lg:grid-cols-3 justify-center grid-cols-8  xl:gap-2 gap-1 pt-3 pb-5">
                 {
                     boxItems.map((item : boxItem)=>{
                         return(
-                            <Link  key={item.name} href={item.route} onClick={item.fn} className={`px-3 flex justify-center items-center py-2 ${item.animateClasses}`}>
-                                <Badge count={item.count ? item.count : 0} color="orange">
-                                        <div className="border-[3px] border-solid border-neutral-600 dark:border-neutral-300 w-[90px] h-[90px] justify-center items-center rounded-md hover:rounded-2xl transition-all duration-300 text-neutral-600 dark:text-neutral-100 flex flex-col gap-1 font-vazir">
-                                            <span className="text-2xl flex justify-center items-center">{item.Icon}</span>
-                                            <span className="text-xs font-vazir">{item.name}</span>
-                                        </div>
-                                </Badge>
+                            <Link  key={item.name} href={item.route} onClick={item.fn} className={`md:px-3 px-5 flex justify-center items-center py-2${item.animateClasses}`}>
+                                <BadgeProvider item={item}>
+                                    <div className="border-[3px] border-solid border-neutral-600 dark:border-neutral-300 md:w-[90px] w-[50px] md:h-[90px] h-[50px] justify-center items-center rounded-md hover:rounded-2xl transition-all duration-300 text-neutral-600 dark:text-neutral-100 flex flex-col gap-1 font-vazir">
+                                        <span className="text-2xl flex justify-center items-center">{item.Icon}</span>
+                                        <span className="text-xs font-vazir hidden md:inline">{item.name}</span>
+                                    </div>
+                                </BadgeProvider>
                             </Link>
                         )
                     })
@@ -256,3 +264,17 @@ export default function CollaboratorPanel(){
         </div>
     )
 }
+
+export function BadgeProvider ({children , item}: {children : ReactNode , item : boxItem}){
+    return(
+        <>
+            <Badge count={0} color="orange" className="md:hidden">
+                {children}
+            </Badge>
+            <Badge count={item.count ? item.count : 0} color="orange" className="hidden md:inline-block">
+                {children}
+            </Badge>
+        </>
+    )
+}
+

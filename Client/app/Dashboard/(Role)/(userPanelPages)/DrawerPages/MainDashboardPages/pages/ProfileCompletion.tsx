@@ -31,7 +31,7 @@ export default function ProfileCompletion(){
                 
             }
             <div className="w-full h-full flex flex-col justify-center items-center gap-2 ">
-                <div className="w-[84px] hover:w-48 relative overflow-hidden transform transition-all duration-300 rounded-full cursor-pointer hover:bg-neutral-200 hover:dark:bg-neutral-500 text-neutral-800 dark:text-neutral-100">
+                <div className="w-[84px] lg:hover:w-48 hover:w-[84px] relative overflow-hidden transform transition-all duration-300 rounded-full lg:cursor-pointer hover:bg-neutral-200 hover:dark:bg-neutral-500 text-neutral-800 dark:text-neutral-100">
                     
                     <Avatar
                         size={80}
@@ -47,7 +47,7 @@ export default function ProfileCompletion(){
             <div className="w-full h-1/2 py-1">
             {
                 result?.NotCompleted.length === 0 ?
-                    <div className="flex justify-center items-center w-[80%] h-full bg-lime-200 dark:bg-lime-900 m-auto rounded-xl text-neutral-800 dark:text-neutral-200 font-vazir">
+                    <div className="flex justify-center items-center w-[80%] lg:h-full h-10 bg-lime-200 dark:bg-lime-900 m-auto rounded-xl text-neutral-800 dark:text-neutral-200 font-vazir">
                         Your profile is complete.
                     </div>
                 : 
