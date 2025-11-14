@@ -3,7 +3,7 @@ import "@ant-design/compatible";
 import { Geist, Geist_Mono } from "next/font/google";
 import './globals.css';
 import 'swiper/css';
-import 'swiper/css/free-mode';
+import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'antd/dist/reset.css';
 import { Suspense} from "react";

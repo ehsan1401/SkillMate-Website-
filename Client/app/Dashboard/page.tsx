@@ -4,10 +4,10 @@ import UserPanel from "./(Role)/userPanel";
 import ProUserPanel from "./(Role)/ProUserPanel";
 import { useUser } from "@/Components/context/UserContext/UserContext";
 import { PanelItemsProvider } from "@/Components/context/PanelItem/PanelItemsProvider";
+import { useTest } from "@/Components/hooks/useTest";
 
 export default function Dashboard() {
   const { user } = useUser();
-
   let PanelComponent;
 
   switch (user?.type) {
@@ -20,7 +20,6 @@ export default function Dashboard() {
     default:
       PanelComponent = <PanelItemsProvider><UserPanel userData={user!} /></PanelItemsProvider>;
   }
-
   return (
     <div>
       {PanelComponent}

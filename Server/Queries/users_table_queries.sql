@@ -12,11 +12,9 @@ CREATE TABLE users (
     "updateAt" TIMESTAMP DEFAULT NOW()
 );
 
--- ⚙️ تابع جدید برای کنترل updateAt
 CREATE OR REPLACE FUNCTION update_updateAt_column()
 RETURNS TRIGGER AS $$
 BEGIN
-  -- فقط زمانی updateAt رو تغییر بده که فیلدهای مهم تغییر کرده باشند
   IF (
     OLD."userName" IS DISTINCT FROM NEW."userName"
     OR OLD."email" IS DISTINCT FROM NEW."email"
@@ -39,7 +37,6 @@ BEFORE UPDATE ON users
 FOR EACH ROW
 EXECUTE FUNCTION update_updateAt_column();
 
--- نمونه داده
 INSERT INTO users ("userName", "email", "type", "passCode", "profileImageUrl", "lastLogin")
 VALUES
 ('ehsan', 'ehsan.good1382@gmail.com', 'ADMIN', 'Armin@123456', Null, NOW()),

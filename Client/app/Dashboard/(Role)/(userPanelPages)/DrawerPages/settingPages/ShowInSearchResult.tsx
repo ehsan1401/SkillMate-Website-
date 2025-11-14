@@ -1,7 +1,7 @@
 import { useModal } from "@/Components/context/ModalContext/ModalContext";
 import { SearchRounded } from "@/Icons/SearchRounded";
 import { Button } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UserSearchVisibility } from "./action";
 import { IcOutlineErrorOutline } from "@/Icons/ErrorIcon";
 
@@ -43,8 +43,7 @@ export default function ShowInSearchResult({ShowInSearch , userId}:{ShowInSearch
                     <Button key="ok" 
                     onClick={()=>{
                         hideModal();
-                        UserSearchVisibility(userId, userShow, setUserShow);
-                        window.location.reload();
+                        UserSearchVisibility(userId, userShow, setUserShow)
                     }}
                     variant="solid" color={userShow ? 'danger' : 'blue'}
                     style={{fontFamily:'vazir' , paddingTop : "3px"}}

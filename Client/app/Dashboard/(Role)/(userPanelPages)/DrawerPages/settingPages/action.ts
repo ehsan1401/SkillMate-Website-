@@ -26,7 +26,7 @@ export const UserSearchVisibility = async (
     const res = await fetch(API.setting.ChangeSearchShow(userId), {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ showInSearch: newShow }),
+      body: JSON.stringify({ showInSearch: newShow })
     });
 
     if (!res.ok) {
