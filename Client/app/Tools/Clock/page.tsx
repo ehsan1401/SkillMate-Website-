@@ -15,7 +15,6 @@ export default function ClockFullScreen() {
   const [selectedSound, setSelectedSound] = useState("/music/rain1.mp3");
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // 🎵 Toggle music play/pause
   const togglePlay = () => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -26,7 +25,6 @@ export default function ClockFullScreen() {
     setIsPlaying(!isPlaying);
   };
 
-  // 🎧 Change sound
   const handleSoundChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newSound = e.target.value;
     setSelectedSound(newSound);
@@ -35,13 +33,11 @@ export default function ClockFullScreen() {
     if (audio) {
       audio.src = newSound;
       if (isPlaying) {
-        // if already playing, auto play the new one
         audio.play();
       }
     }
   };
 
-  // 🖥️ Toggle fullscreen
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen().catch((err) => {
@@ -56,16 +52,12 @@ export default function ClockFullScreen() {
 
   return (
     <div className="z-[100] relative h-screen bg-gray-100 dark:bg-gray-900 overflow-hidden">
-      {/* 🕒 Clock Center */}
       <Clock />
-
-      {/* 🔻 Bottom Control Bar */}
       <div
         className={`absolute bottom-0 bg-neutral-600 hover:opacity-100 opacity-25 h-12 z-[110] transition-all duration-300 ease-in-out ${
           expanded ? "lg:w-[30%] md:w-[50%] w-full rounded-2xl" : "w-12 rounded-full overflow-hidden"
         }`}
       >
-        {/* 🎵 Music Play/Pause */}
         <div className="absolute left-[215px] top-[6px] text-neutral-100">
           <button
             onClick={togglePlay}
@@ -75,11 +67,9 @@ export default function ClockFullScreen() {
             {isPlaying ? <Pause size={35} /> : <Play size={35} className="pl-1" />}
           </button>
 
-          {/* Hidden Audio */}
           <audio ref={audioRef} src={selectedSound} preload="auto" />
         </div>
 
-        {/* 🎧 Sound Selector */}
         <select
           value={selectedSound}
           onChange={handleSoundChange}
@@ -93,7 +83,6 @@ export default function ClockFullScreen() {
           <option value="/music/waves.mp3">Ocean Waves</option>
         </select>
 
-        {/* 🏠 Home Button */}
         <button
           className="absolute left-32 top-[6px] text-neutral-100 hover:text-neutral-400 text-4xl"
           onClick={() => {
@@ -104,12 +93,10 @@ export default function ClockFullScreen() {
           <IcBaselineHome />
         </button>
 
-        {/* 🌙 Dark Mode */}
         <span className="absolute left-14 top-2">
           <DarkModeToggle />
         </span>
 
-        {/* ⛶ Fullscreen */}
         <button
           onClick={toggleFullscreen}
           className="absolute left-44 top-[9px] text-neutral-100 hover:text-neutral-400 text-3xl active:scale-95"
@@ -118,7 +105,6 @@ export default function ClockFullScreen() {
           {isFullscreen ? <Minimize size={30} /> : <Maximize size={30} />}
         </button>
 
-        {/* ⬅️➡️ Expand/Collapse */}
         <button
           onClick={() => setExpanded((prev) => !prev)}
           className="fixed bottom-0 left-0 text-white active:scale-95 transition-all duration-200 z-[200] p-4"
