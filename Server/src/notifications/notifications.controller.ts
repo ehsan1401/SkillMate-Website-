@@ -7,7 +7,7 @@ export class NotificationsController {
   constructor(private readonly notificationsService: NotificationsService) {}
     @Get('there')
     Something(){
-      console.log("This is a fucking Test!!!!!!!!")
+      console.log("This is a fucking Test!!!!!!!!");
     }
 
 }
