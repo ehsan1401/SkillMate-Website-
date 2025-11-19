@@ -6,6 +6,7 @@ import { CheapData, panelType } from "./type";
 const CheapDataContext = createContext<CheapData | undefined>(undefined)
 export function CheapDataProvider({children} : {children : ReactNode}){
     const [panelType, setPanelType] = useState<panelType>('Collaborator'); 
+    const [Notifications , setNotifications] = useState()
 
     return(
 
