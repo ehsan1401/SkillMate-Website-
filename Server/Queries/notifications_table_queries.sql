@@ -32,6 +32,10 @@ EXECUTE FUNCTION update_timestamp();
 ALTER TABLE notifications ADD COLUMN is_Seen BOOLEAN DEFAULT false 
 
 
+ALTER TABLE notifications DROP COLUMN is_removed 
+
+
+
 
 
 

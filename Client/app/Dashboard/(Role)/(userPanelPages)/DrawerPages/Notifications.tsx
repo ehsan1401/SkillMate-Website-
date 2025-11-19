@@ -11,8 +11,6 @@ export default function Notifications() {
             className="text-5xl text-neutral-950 dark:text-neutral-50 font-scriptMtbold"> 
             Notifications 
         </h1>
-        <DevelopingPage/>
-
     </div>
   );
 }
