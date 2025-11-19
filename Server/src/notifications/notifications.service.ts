@@ -1,37 +1,36 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
+import { NotificationsTypes } from './dto/type';
 
 
 @Injectable()
 export class NotificationsService {
     constructor(private readonly databaseService : DatabaseService){}
 
-    async Allnotifications(id : number){
+    async Allnotifications(id : number , type? : NotificationsTypes){
         const pool = this.databaseService.getPool();
         // const Notifications = []
         const checkUserExist = await pool.query(`SELECT * FROM users WHERE id=$1` , [id])
         if(checkUserExist.rowCount === 0 ) throw new BadRequestException('User dose not exist!')
 
+        const query = `SELECT notifications.type ,
+        notifications.is_none_reply,
+        notifications.is_seen,
+        notifications.message,
+        notifications.update_at,
+        notifications.create_at,
+        users."userName",
+        users."profileImageUrl",
+        users."id" AS "UserID"
+        FROM notifications INNER JOIN users ON notifications.sender = users.id
+        WHERE notifications.receiver = $1 ${type ? `AND notifications.type =$2 ` : ``}`
+        const params = type ? [id, type] : [id];
+
         const Notifications = await pool.query(
-            `SELECT notifications.type ,
-            notifications.is_none_reply,
-            notifications.is_removed,
-            notifications.is_seen,
-            notifications.message,
-            notifications.update_at,
-            notifications.create_at,
-            users."userName",
-            users."profileImageUrl",
-            users."id" AS "UserID"
-            FROM notifications INNER JOIN users ON notifications.sender = users.id
-            WHERE 
-            notifications.receiver = $1` , [id])
+            query , params
+        )
 
         return Notifications.rows
-        
-        
-        // const User = await pool.query(`SELECT * FROM notifications WHERE receiver=$1` , [id])
-        // return{Data : User.rows}
     }
 
     async ChangeSeenStatus(NotifId : number){
