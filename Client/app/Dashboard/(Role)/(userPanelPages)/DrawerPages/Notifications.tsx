@@ -1,23 +1,24 @@
 'use client';
 
 import { useEffect, useState } from "react";
+import MapNotifications from "./NotificationPages/MapNotifications";
 
 
 export default function Notifications() {
-  const [notificationFilter , setNotificationFilter] = useState<string | undefined>("All-Notifications")
+  const [notificationFilter , setNotificationFilter] = useState<NotificationFilter>("All-Notifications")
 
   useEffect(() => {
     const stored = localStorage.getItem("NotificationsFilter");
-    if (stored) setNotificationFilter(stored);
+    if (stored) setNotificationFilter(stored as NotificationFilter);
   }, []);
 
-  const buttons = [
+  const buttons: NotificationsFilterButtons[] = [
     { name: "All Notifications", value: "All-Notifications" },
     { name: "Unread Only", value: "Unread-Only" },
     { name: "Important", value: "Important" },
     { name: "System Alerts", value: "System-Alerts" },
   ];
-  const HandleFilterNotifications = (Filter : string)=>{
+  const HandleFilterNotifications = (Filter : NotificationFilter)=>{
     setNotificationFilter(Filter);
     localStorage.setItem("NotificationsFilter" , Filter)
   }
@@ -39,9 +40,8 @@ export default function Notifications() {
           ))}
         </section>
       </header>
-      <div>
-          {notificationFilter}
-          {/* <MapNotifications/> */}
+      <div className="h-[90%] p-3 overflow-y-scroll">
+          <MapNotifications filter={notificationFilter}/>
       </div>
     </div>
   );

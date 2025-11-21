@@ -10,6 +10,8 @@ import { Suspense} from "react";
 import Loading from "./Loading"
 import NavigationBar from "@/Components/naviagtion/NavigationBar";
 import AllProviders from "@/Components/provider/AllProviders";
+import 'aos/dist/aos.css';
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

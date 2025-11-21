@@ -29,6 +29,10 @@ export const API = {
     updateUsername : () => `${BACKEND_BASE_URL}/users/update-Username`,
     ChangeSearchShow : (id: number) => `${BACKEND_BASE_URL}/users/SearchShow/${id}`,
 
+  },
+  Notifications :{
+    GetFilteredNotifications : (id : number , query : string)=>`${BACKEND_BASE_URL}/notifications/All/${id}?filter=${query}`,
+    SeenNotification : (NotifId : number)=>`${BACKEND_BASE_URL}/notifications/Seen/${NotifId}`
   }
 };
 

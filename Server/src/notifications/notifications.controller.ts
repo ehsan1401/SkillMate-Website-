@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
 import { NotificationsService } from './notifications.service';
-import type { NotificationsTypes } from './dto/type';
+import type { NewNotificationsTypes, NotificationsTypes } from './dto/type';
 
 
 @Controller('notifications')
@@ -9,9 +9,9 @@ export class NotificationsController {
     @Get('All/:id')
     Allnotifications(
       @Param('id', ParseIntPipe) id : number,
-      @Query('type') type?: NotificationsTypes
+      @Query('filter') filter?: NewNotificationsTypes
     ){
-      return this.notificationsService.Allnotifications(id , type)
+      return this.notificationsService.Allnotifications(id , filter)
     }
 
     @Patch('Seen/:NotifId')

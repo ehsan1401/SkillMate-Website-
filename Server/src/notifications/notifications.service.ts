@@ -1,20 +1,36 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
-import { NotificationsTypes } from './dto/type';
+import { NewNotificationsTypes } from './dto/type';
 
 
 @Injectable()
 export class NotificationsService {
     constructor(private readonly databaseService : DatabaseService){}
 
-    async Allnotifications(id : number , type? : NotificationsTypes){
+    async Allnotifications(id : number , filter? : NewNotificationsTypes){
         const pool = this.databaseService.getPool();
-        // const Notifications = []
         const checkUserExist = await pool.query(`SELECT * FROM users WHERE id=$1` , [id])
         if(checkUserExist.rowCount === 0 ) throw new BadRequestException('User dose not exist!')
+        let Option : string  = ``;
+
+        switch(filter){
+            case "Super" :
+                Option = `AND notifications.type = 'Super' `
+                break;
+            case "System":
+                Option = `AND notifications.type = 'System' `
+                break;
+            case "Seen":
+                Option = `AND notifications.is_seen = false `
+                break;
+            default :
+                Option = ``
+                break;
+        }
 
         const query = `SELECT notifications.type ,
         notifications.is_none_reply,
+        notifications.notif_id,
         notifications.is_seen,
         notifications.message,
         notifications.update_at,
@@ -23,11 +39,11 @@ export class NotificationsService {
         users."profileImageUrl",
         users."id" AS "UserID"
         FROM notifications INNER JOIN users ON notifications.sender = users.id
-        WHERE notifications.receiver = $1 ${type ? `AND notifications.type =$2 ` : ``}`
-        const params = type ? [id, type] : [id];
+        WHERE notifications.receiver = $1 ${filter ? Option : ``}
+        ORDER BY notifications.is_seen ASC, notifications.create_at DESC`
 
         const Notifications = await pool.query(
-            query , params
+            query , [id]
         )
 
         return Notifications.rows
