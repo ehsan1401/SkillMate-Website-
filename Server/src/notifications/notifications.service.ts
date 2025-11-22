@@ -78,14 +78,11 @@ export class NotificationsService {
         `, [userID]);
 
         const row = result.rows[0];
-
-        const All = Number(row.Super) + Number(row.System) + Number(row.Seen);
-
         return {
             Super: Number(row.Super),
             System: Number(row.System),
             Seen: Number(row.Seen),
-            All: All
+            All: Number(row.Seen)
         };
     }
 

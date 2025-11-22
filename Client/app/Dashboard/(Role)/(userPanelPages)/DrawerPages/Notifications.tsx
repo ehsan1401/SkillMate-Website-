@@ -17,7 +17,7 @@ export default function Notifications() {
   }, []);
 
   const buttons: NotificationsFilterButtons[] = [
-    { name: "All Notifications", value: "All-Notifications" , count : (GetNumberOfNotification!.Seen + GetNumberOfNotification!.Super + GetNumberOfNotification!.System) },
+    { name: "All Notifications", value: "All-Notifications" , count : (GetNumberOfNotification!.All) },
     { name: "Unread Only", value: "Unread-Only", count : GetNumberOfNotification!.Seen },
     { name: "Important", value: "Important" , count : GetNumberOfNotification!.Super},
     { name: "System Alerts", value: "System-Alerts", count : GetNumberOfNotification!.System },

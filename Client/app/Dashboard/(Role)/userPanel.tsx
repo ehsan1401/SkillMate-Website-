@@ -112,7 +112,7 @@ export default function UserPanel({userData}:{userData : UserType}){
                                             className="gap-2 cursor-pointer hidden lg:flex"
                                             onClick={() => !isSelected && handleSelect(item.id)}
                                             >
-                                            <span className="mt-[3px]">{item.icon}</span>
+                                            <span className="mt-[5px]">{item.icon}</span>
                                             {item.label}
                                             </button>
                                         </li>
