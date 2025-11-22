@@ -37,7 +37,7 @@ export default function Notifications() {
              <Badge count={item.count} color="blue">
                 <button
                   key={item.value}
-                  className={`md:px-4 md:py-2 px-2 py-1 border-[3px] border-solid border-neutral-600 hover:rounded-md transition-all duration-500 text-xs md:text-base ${notificationFilter === item.value ? `bg-neutral-300 rounded-md`: ``}`}
+                  className={`md:px-4 md:py-2 px-2 py-1 border-[3px] border-solid border-neutral-600 dark:border-neutral-300 hover:rounded-md transition-all duration-500 text-xs md:text-base ${notificationFilter === item.value ? `bg-neutral-300 dark:bg-neutral-800 rounded-md`: ``}`}
                   onClick={()=>{HandleFilterNotifications(item.value)}}
                 >
                   {item.name}

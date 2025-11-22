@@ -96,16 +96,15 @@ export default function MapNotifications({ filter }:{ filter : NotificationFilte
                                 return(
                                     <div key={Notif.notif_id}>
                                         <li
-                                            className={`border-[3px] border-solid border-neutral-600 p-3 rounded-lg lg:flex hidden  items-center gap-3 ${Notif.is_seen ? ``: `${Notif.type === "Super" ? `bg-red-100  hover:bg-red-200` : `bg-blue-100  hover:bg-blue-200`} hover:cursor-pointer`}`} 
+                                            className={`border-[3px] border-solid border-neutral-600 p-3 rounded-lg lg:flex hidden  items-center gap-3 ${Notif.is_seen ? `dark:bg-neutral-700`: `${Notif.type === "Super" ? `bg-red-100 dark:bg-rose-950  hover:bg-red-200 dark:hover:bg-rose-900` : `bg-blue-100 dark:bg-neutral-800  hover:bg-blue-200 dark:hover:bg-neutral-700`} hover:cursor-pointer`}`} 
                                             onClick={()=>{Notif.is_seen ? null : handleSeenClick(Notif.notif_id)}}
                                         >
                                             <Link href={``} className="hover:scale-105 transition-all duration-200">
-                                                <Avatar src={imageUrl(Notif.profileImageUrl)} shape="square" size={40} className="shadow-md md:hidden" />
                                                 <Avatar src={imageUrl(Notif.profileImageUrl)} shape="square" size={64} className="shadow-md hidden md:inline-block" />
                                             </Link>
-                                            <p className="md:w-8/12 md:px-4 px-2 h-12 md:pt-6 pt-3 md:text-base text-sm">{Notif.message}</p>
+                                            <p className="md:w-8/12 md:px-4 px-2 h-12 md:pt-6 pt-3 md:text-base text-sm text-neutral-800 dark:text-neutral-200">{Notif.message}</p>
                                             <div className="tools md:w-4/12 h-12 flex justify-end items-center gap-5 md:pr-5">
-                                                <span className="md:text-sm text-xs flex md:flex-row flex-col gap-1">
+                                                <span className="md:text-sm text-xs flex md:flex-row flex-col gap-1 text-neutral-800 dark:text-neutral-200">
                                                     <ClockOutline className="text-lg"/>
                                                     {dayjs(Notif.create_at).fromNow()}
                                                 </span>
@@ -116,13 +115,13 @@ export default function MapNotifications({ filter }:{ filter : NotificationFilte
                                                         :
                                                         (
                                                             Notif.type === "System" ? 
-                                                            <SkillmateIcon className="text-2xl text-blue-500"/>
+                                                            <SkillmateIcon className="text-2xl text-blue-500 dark:text-neutral-200"/>
                                                             :
                                                             (
                                                                 Notif.type === "Super" ?
-                                                                <Importatnt className="text-2xl text-red-500"/>
+                                                                <Importatnt className="text-2xl text-red-500 dark:text-red-200"/>
                                                                     :
-                                                                <AlertRounded className="text-2xl text-yellow-500"/> 
+                                                                <AlertRounded className="text-2xl text-yellow-500 dark:text-yellow-700 "/> 
 
                                                             )   
                                                         )
@@ -131,7 +130,7 @@ export default function MapNotifications({ filter }:{ filter : NotificationFilte
                                                 {
                                                     Notif.is_seen && 
                                                     <button 
-                                                        className="text-2xl text-neutral-800 hover:text-red-500 hover:scale-125 transition-all duration-200 p-3 cursor-pointer"
+                                                        className="text-2xl text-neutral-800 dark:text-neutral-200 hover:text-red-500 dark:hover:text-red-500 hover:scale-125 transition-all duration-200 p-3 cursor-pointer"
                                                         onClick={()=>{handleDeleteNotification(Notif.notif_id)}}
                                                     >
                                                         <TrashBin/>
@@ -139,9 +138,9 @@ export default function MapNotifications({ filter }:{ filter : NotificationFilte
                                                 }
                                             </div>
                                         </li>
-                                        <li className="lg:hidden">
+                                        <div className="lg:hidden">
                                             {ResponsiveNotification(Notif , handleSeenClick , handleDeleteNotification )}
-                                        </li>
+                                        </div>
                                     </div>
                                 )
                             })}
@@ -149,10 +148,13 @@ export default function MapNotifications({ filter }:{ filter : NotificationFilte
                     :
 
                     <div className="w-full h-full flex flex-col gap-5 justify-center items-center">
-                        <div className="opacity-50">
+                        <div className="opacity-50 hidden lg:inline-block">
                             <EmptyFolder width={200}/>
                         </div>
-                        <p className="font-vazir text-xl text-neutral-800">There is no Notifications!</p>
+                        <div className="opacity-50 lg:hidden pt-10">
+                            <EmptyFolder width={100}/>
+                        </div>
+                        <p className="font-vazir lg:text-xl text-sm text-neutral-800 dark:text-neutral-200">There is no Notifications!</p>
                     </div>
                 )
             }
@@ -168,12 +170,12 @@ function SkelletonNotification() {
           key={index}
           className="w-full bg-gray-200 h-20 rounded-md py-3 px-5 animate-pulse flex gap-4 justify-center items-center"
         >
-          <div className="bg-gray-100 w-14 h-14 rounded-md"></div>
-          <div className="message bg-gray-300 w-[80%] h-6 rounded-lg"></div>
-          <div className="w-[20%] h-10 flex px-5 gap-3">
-            <span className="bg-gray-300 rounded-full w-10 h-10"></span>
-            <span className="bg-gray-300 rounded-full w-10 h-10"></span>
-            <span className="bg-gray-300 rounded-full w-10 h-10"></span>
+          <div className="bg-gray-100 lg:w-14 lg:h-14 h-10 w-10 rounded-md"></div>
+          <div className="message bg-gray-300 lg:w-[80%] w-[50%] lg:h-6 h-3 rounded-lg"></div>
+          <div className="lg:w-[20%] w-[30%] h-10 flex lg:px-5 gap-3 justify-center items-center">
+            <span className="bg-gray-300 rounded-full lg:w-10 lg:h-10 w-5 h-5"></span>
+            <span className="bg-gray-300 rounded-full lg:w-10 lg:h-10 w-5 h-5"></span>
+            <span className="bg-gray-300 rounded-full lg:w-10 lg:h-10 w-5 h-5"></span>
           </div>
         </div>
       ))}
@@ -182,36 +184,40 @@ function SkelletonNotification() {
 }
 
 
-function ResponsiveNotification(Notif : NotificationData , handleSeenClick : (Notif : number)=>void , handleDeleteNotification : (Notif : number)=>void){
+export function ResponsiveNotification(Notif : NotificationData , handleSeenClick : (Notif : number)=>void , handleDeleteNotification : (Notif : number)=>void){
     return(<>
         <li 
         key={Notif.notif_id}
-        className={`border-[3px] border-solid border-neutral-600 p-3 rounded-lg flex items-center gap-3 ${Notif.is_seen ? ``: `${Notif.type === "Super" ? `bg-red-100  hover:bg-red-200` : `bg-blue-100  hover:bg-blue-200`} hover:cursor-pointer`}`} 
+        className={`border-[3px] border-solid border-neutral-600 p-3 rounded-lg flex items-center gap-3 ${Notif.is_seen ? `dark:bg-neutral-700`: `${Notif.type === "Super" ? `bg-red-100 dark:bg-rose-950  hover:bg-red-200 dark:hover:bg-rose-900` : `bg-blue-100 dark:bg-neutral-800  hover:bg-blue-200 dark:hover:bg-neutral-700`} hover:cursor-pointer`}`} 
         onClick={()=>{Notif.is_seen ? null : handleSeenClick(Notif.notif_id)}}
         >
+        <li
+            className={`border-[3px] border-solid border-neutral-600 p-3 rounded-lg lg:flex hidden items-center gap-3 ${Notif.is_seen ? `dark:bg-neutral-700`: `${Notif.type === "Super" ? `bg-red-100 dark:bg-rose-950  hover:bg-red-200 dark:hover:bg-rose-900` : `bg-blue-100 dark:bg-neutral-800  hover:bg-blue-200 dark:hover:bg-neutral-700`} hover:cursor-pointer`}`} 
+            onClick={()=>{Notif.is_seen ? null : handleSeenClick(Notif.notif_id)}}
+        ></li>
         <Link href={``} className="hover:scale-105 transition-all duration-200">
             <Avatar src={imageUrl(Notif.profileImageUrl)} shape="square" size={40} className="shadow-md" />
         </Link>
         <div className="flex flex-col w-full">
             <div className=" w-full h-1/3 text-xs py-1 flex gap-3">
-                <span className="flex text-[10px] gap-[2px]">
+                <span className="flex text-[10px] gap-[2px] text-neutral-800 dark:text-neutral-200">
                     <ClockOutline className="mt-[1.5px]"/>
                     {dayjs(Notif.create_at).fromNow()}
                 </span>
                 <span className="">
                     {
                         Notif.is_seen ?
-                        <HugeiconsTickDouble className="text-base text-lime-600"/>
+                        <HugeiconsTickDouble className="text-base text-lime-600 "/>
                         :
                         (
                             Notif.type === "System" ? 
-                            <SkillmateIcon className="text-base text-blue-500"/>
+                            <SkillmateIcon className="text-base text-blue-500 dark:text-neutral-200"/>
                             :
                             (
                                 Notif.type === "Super" ?
-                                <Importatnt className="text-base text-red-500"/>
+                                <Importatnt className="text-base text-red-500 dark:text-red-200"/>
                                     :
-                                <AlertRounded className="text-base text-yellow-500"/> 
+                                <AlertRounded className="text-base text-yellow-500 dark:text-yellow-700"/> 
 
                             )   
                         )
@@ -219,14 +225,14 @@ function ResponsiveNotification(Notif : NotificationData , handleSeenClick : (No
                 </span>
             </div>
             <div className=" w-full h-2/3 text-xs">
-                <p className="font-vazir">{Notif.message}</p>
+                <p className="font-vazir text-neutral-800 dark:text-neutral-200">{Notif.message}</p>
             </div>
         </div>
         <span>
         {
             Notif.is_seen && 
             <button 
-                className="text-2xl text-neutral-800 hover:text-red-500 hover:scale-125 transition-all duration-200 p-3 cursor-pointer"
+                className="text-2xl text-neutral-800 dark:text-neutral-200 hover:text-red-500 dark:hover:text-red-500  hover:scale-125 transition-all duration-200 p-3 cursor-pointer"
                 onClick={()=>{handleDeleteNotification(Notif.notif_id)}}
             >
                 <TrashBin/>

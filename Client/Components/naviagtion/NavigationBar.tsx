@@ -14,7 +14,8 @@ import { useDashboardType } from "../provider/PanelTypeProvider";
 import { useCheapData } from "../context/CheapData/CheapDataContext";
 import { MaterialSymbolsNotificationsOutline } from "@/Icons/NotificationsIcon";
 import { PanelItemsProvider, useChangePanelItem } from "../context/PanelItem/PanelItemsProvider";
-import MapNotifications from "@/app/Dashboard/(Role)/(userPanelPages)/DrawerPages/NotificationPages/MapNotifications";
+import MapNotifications, { ResponsiveNotification } from "@/app/Dashboard/(Role)/(userPanelPages)/DrawerPages/NotificationPages/MapNotifications";
+import NotificationsOnNavigationBar from "./pages/NotificationsOnNavigationBar";
 
 
 export default function NavigationBar () {
@@ -43,7 +44,7 @@ export default function NavigationBar () {
     const router = useRouter();
 
     const items = [
-        { key: "1", label: <MapNotifications filter="Unread-Only"/> },
+        { key: "1" ,icon: null, label: <NotificationsOnNavigationBar/> },
     ];
 
 
@@ -112,7 +113,7 @@ export default function NavigationBar () {
                                         <div className="flex gap-2">
                                             <Button type="primary" href={theRoutes.Dashboard.main}>Dashboard</Button>
                                             <Badge count={GetNumberOfNotification?.All}>
-                                                <Dropdown menu={{items}} >
+                                                <Dropdown menu={{items , selectable: false}} >
 
                                                 <Button 
                                                 type="primary" 
