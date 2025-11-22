@@ -92,50 +92,57 @@ export default function MapNotifications({ filter }:{ filter : NotificationFilte
                 (
                     Notifications!.length > 0 ? 
                         <ul className="flex flex-col gap-2 py-5">
-                            {Notifications?.map((Notif)=>{
+                            {Notifications?.map((Notif:NotificationData)=>{
                                 return(
-                                    <li 
-                                        key={Notif.notif_id}
-                                        className={`border-[3px] border-solid border-neutral-600 p-3 rounded-lg flex items-center gap-3 ${Notif.is_seen ? ``: `${Notif.type === "Super" ? `bg-red-100  hover:bg-red-200` : `bg-blue-100  hover:bg-blue-200`} hover:cursor-pointer`}`} 
-                                        onClick={()=>{Notif.is_seen ? null : handleSeenClick(Notif.notif_id)}}
-                                    >
-                                        <Link href={``} className="hover:scale-105 transition-all duration-200"><Avatar src={imageUrl(Notif.profileImageUrl)} shape="square" size={64} className="shadow-md" /></Link>
-                                        <p className="w-8/12 px-4 h-12 pt-6">{Notif.message}</p>
-                                        <div className="tools w-4/12 h-12 flex justify-end items-center gap-5 pr-5">
-                                            <span className="text-sm flex gap-1">
-                                                <ClockOutline className="text-lg"/>
-                                                {dayjs(Notif.create_at).fromNow()}
-                                            </span>
-                                            <span className="text-sm">
-                                                {
-                                                    Notif.is_seen ?
-                                                    <HugeiconsTickDouble className="text-2xl text-lime-600"/>
-                                                    :
-                                                    (
-                                                        Notif.type === "System" ? 
-                                                         <SkillmateIcon className="text-2xl text-blue-500"/>
+                                    <div key={Notif.notif_id}>
+                                        <li
+                                            className={`border-[3px] border-solid border-neutral-600 p-3 rounded-lg lg:flex hidden  items-center gap-3 ${Notif.is_seen ? ``: `${Notif.type === "Super" ? `bg-red-100  hover:bg-red-200` : `bg-blue-100  hover:bg-blue-200`} hover:cursor-pointer`}`} 
+                                            onClick={()=>{Notif.is_seen ? null : handleSeenClick(Notif.notif_id)}}
+                                        >
+                                            <Link href={``} className="hover:scale-105 transition-all duration-200">
+                                                <Avatar src={imageUrl(Notif.profileImageUrl)} shape="square" size={40} className="shadow-md md:hidden" />
+                                                <Avatar src={imageUrl(Notif.profileImageUrl)} shape="square" size={64} className="shadow-md hidden md:inline-block" />
+                                            </Link>
+                                            <p className="md:w-8/12 md:px-4 px-2 h-12 md:pt-6 pt-3 md:text-base text-sm">{Notif.message}</p>
+                                            <div className="tools md:w-4/12 h-12 flex justify-end items-center gap-5 md:pr-5">
+                                                <span className="md:text-sm text-xs flex md:flex-row flex-col gap-1">
+                                                    <ClockOutline className="text-lg"/>
+                                                    {dayjs(Notif.create_at).fromNow()}
+                                                </span>
+                                                <span className="text-sm hidden md:inline-block">
+                                                    {
+                                                        Notif.is_seen ?
+                                                        <HugeiconsTickDouble className="text-2xl text-lime-600"/>
                                                         :
                                                         (
-                                                            Notif.type === "Super" ?
-                                                            <Importatnt className="text-2xl text-red-500"/>
-                                                                :
-                                                            <AlertRounded className="text-2xl text-yellow-500"/> 
+                                                            Notif.type === "System" ? 
+                                                            <SkillmateIcon className="text-2xl text-blue-500"/>
+                                                            :
+                                                            (
+                                                                Notif.type === "Super" ?
+                                                                <Importatnt className="text-2xl text-red-500"/>
+                                                                    :
+                                                                <AlertRounded className="text-2xl text-yellow-500"/> 
 
-                                                        )   
-                                                    )
+                                                            )   
+                                                        )
+                                                    }
+                                                </span>
+                                                {
+                                                    Notif.is_seen && 
+                                                    <button 
+                                                        className="text-2xl text-neutral-800 hover:text-red-500 hover:scale-125 transition-all duration-200 p-3 cursor-pointer"
+                                                        onClick={()=>{handleDeleteNotification(Notif.notif_id)}}
+                                                    >
+                                                        <TrashBin/>
+                                                    </button>
                                                 }
-                                            </span>
-                                            {
-                                                Notif.is_seen && 
-                                                <button 
-                                                    className="text-2xl text-neutral-800 hover:text-red-500 hover:scale-125 transition-all duration-200 p-3 cursor-pointer"
-                                                    onClick={()=>{handleDeleteNotification(Notif.notif_id)}}
-                                                >
-                                                    <TrashBin/>
-                                                </button>
-                                            }
-                                        </div>
-                                    </li>
+                                            </div>
+                                        </li>
+                                        <li className="lg:hidden">
+                                            {ResponsiveNotification(Notif , handleSeenClick , handleDeleteNotification )}
+                                        </li>
+                                    </div>
                                 )
                             })}
                         </ul>
@@ -172,4 +179,60 @@ function SkelletonNotification() {
       ))}
     </div>
   );
+}
+
+
+function ResponsiveNotification(Notif : NotificationData , handleSeenClick : (Notif : number)=>void , handleDeleteNotification : (Notif : number)=>void){
+    return(<>
+        <li 
+        key={Notif.notif_id}
+        className={`border-[3px] border-solid border-neutral-600 p-3 rounded-lg flex items-center gap-3 ${Notif.is_seen ? ``: `${Notif.type === "Super" ? `bg-red-100  hover:bg-red-200` : `bg-blue-100  hover:bg-blue-200`} hover:cursor-pointer`}`} 
+        onClick={()=>{Notif.is_seen ? null : handleSeenClick(Notif.notif_id)}}
+        >
+        <Link href={``} className="hover:scale-105 transition-all duration-200">
+            <Avatar src={imageUrl(Notif.profileImageUrl)} shape="square" size={40} className="shadow-md" />
+        </Link>
+        <div className="flex flex-col w-full">
+            <div className=" w-full h-1/3 text-xs py-1 flex gap-3">
+                <span className="flex text-[10px] gap-[2px]">
+                    <ClockOutline className="mt-[1.5px]"/>
+                    {dayjs(Notif.create_at).fromNow()}
+                </span>
+                <span className="">
+                    {
+                        Notif.is_seen ?
+                        <HugeiconsTickDouble className="text-base text-lime-600"/>
+                        :
+                        (
+                            Notif.type === "System" ? 
+                            <SkillmateIcon className="text-base text-blue-500"/>
+                            :
+                            (
+                                Notif.type === "Super" ?
+                                <Importatnt className="text-base text-red-500"/>
+                                    :
+                                <AlertRounded className="text-base text-yellow-500"/> 
+
+                            )   
+                        )
+                    }
+                </span>
+            </div>
+            <div className=" w-full h-2/3 text-xs">
+                <p className="font-vazir">{Notif.message}</p>
+            </div>
+        </div>
+        <span>
+        {
+            Notif.is_seen && 
+            <button 
+                className="text-2xl text-neutral-800 hover:text-red-500 hover:scale-125 transition-all duration-200 p-3 cursor-pointer"
+                onClick={()=>{handleDeleteNotification(Notif.notif_id)}}
+            >
+                <TrashBin/>
+            </button>
+        }
+        </span>
+        </li>
+    </>)
 }

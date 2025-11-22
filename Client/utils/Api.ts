@@ -10,8 +10,8 @@ export const API = {
     login: `${BACKEND_BASE_URL}/auth/login`,
     register: `${BACKEND_BASE_URL}/auth/SignUp`,
     logout : `${BACKEND_BASE_URL}/auth/Logout`,
-    Refresh : `${BACKEND_BASE_URL}/auth/refresh-token`
-
+    Refresh : `${BACKEND_BASE_URL}/auth/refresh-token`,
+    WellcomeNotification : (userID : number)=> `${BACKEND_BASE_URL}/auth/Wellcome/${userID}`,
   },
   user : {
     info : `${BACKEND_BASE_URL}/users/protected`,

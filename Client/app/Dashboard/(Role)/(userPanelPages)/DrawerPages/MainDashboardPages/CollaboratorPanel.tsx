@@ -235,7 +235,7 @@ export default function CollaboratorPanel(){
                         return(
                             <Link  key={item.name} href={item.route} onClick={item.fn} className={`md:px-3 px-5 flex justify-center items-center py-2${item.animateClasses}`}>
                                 <BadgeProvider item={item}>
-                                    <div className="-mx-4 -mt-1 border-[3px] border-solid border-neutral-600 dark:border-neutral-300 md:w-[90px] w-[50px] md:h-[90px] h-[50px] justify-center items-center rounded-md hover:rounded-2xl transition-all duration-300 text-neutral-600 dark:text-neutral-100 flex flex-col gap-1 font-vazir">
+                                    <div className="md:-mx-4 md:-mt-1 -mx-2 border-[3px] border-solid border-neutral-600 dark:border-neutral-300 md:w-[90px] w-[50px] md:h-[90px] h-[50px] justify-center items-center rounded-md hover:rounded-2xl transition-all duration-300 text-neutral-600 dark:text-neutral-100 flex flex-col gap-1 font-vazir">
                                         <span className="text-2xl flex justify-center items-center">{item.Icon}</span>
                                         <span className="text-xs font-vazir hidden md:inline">{item.name}</span>
                                     </div>
@@ -271,7 +271,7 @@ export default function CollaboratorPanel(){
 export function BadgeProvider ({children , item}: {children : ReactNode , item : boxItem}){
     return(
         <>
-            <Badge count={0} color="orange" className="md:hidden">
+            <Badge count={item.count ?? 0} color="orange" className="md:hidden" size="small">
                 {children}
             </Badge>
             <Badge count={item.count ? item.count : 0} color="orange" className="hidden md:inline-block">

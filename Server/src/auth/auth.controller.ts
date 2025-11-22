@@ -6,6 +6,9 @@ import {
   Req,
   UnauthorizedException,
   HttpStatus,
+  Get,
+  ParseIntPipe,
+  Param,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import type { Response, Request, response } from 'express';
@@ -107,40 +110,40 @@ export class AuthController {
   }
 
   
-@Post('refresh-token')
-async refreshToken(@Req() req: Request, @Res() res: Response) {
-  const token = req.cookies['refresh_token'];
-  if (!token) return res.sendStatus(HttpStatus.UNAUTHORIZED);
+  @Post('refresh-token')
+  async refreshToken(@Req() req: Request, @Res() res: Response) {
+    const token = req.cookies['refresh_token'];
+    if (!token) return res.sendStatus(HttpStatus.UNAUTHORIZED);
 
-  try {
-    const payload = await this.authService.verifyRefreshToken(token);
-    if(!payload.email) {
-      res.status(HttpStatus.NO_CONTENT).json({ message: 'Payload is not correct!!!' })
+    try {
+      const payload = await this.authService.verifyRefreshToken(token);
+      if(!payload.email) {
+        res.status(HttpStatus.NO_CONTENT).json({ message: 'Payload is not correct!!!' })
+      }
+      const user = await this.authService.GetUserWithEmail(payload.email);
+      const { access_token } = await this.authService.login(user);
+      res.cookie('access_token', access_token, {
+        domain: 'myapp.test',
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 60 * 60 * 1000,
+      });
+      res.cookie('refresh_token', token, {
+        domain: 'myapp.test',
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      });
+
+      res.status(HttpStatus.OK).json({ message: 'Access token refreshed' });
+    } catch {
+      res.sendStatus(HttpStatus.FORBIDDEN);
     }
-    const user = await this.authService.GetUserWithEmail(payload.email);
-    const { access_token } = await this.authService.login(user);
-    res.cookie('access_token', access_token, {
-      domain: 'myapp.test',
-      httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
-      path: '/',
-      maxAge: 60 * 60 * 1000,
-    });
-    res.cookie('refresh_token', token, {
-      domain: 'myapp.test',
-      httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
-      path: '/',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
-
-    res.status(HttpStatus.OK).json({ message: 'Access token refreshed' });
-  } catch {
-    res.sendStatus(HttpStatus.FORBIDDEN);
   }
-}
 
-  
+    
 }

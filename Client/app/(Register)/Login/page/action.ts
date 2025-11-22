@@ -52,3 +52,14 @@ export async function loginUser(formData: FormData) {
   return { ok: false, status: 500, message: 'Unexpected error' }
 }
 
+export async function WellcomeNotification(url: string) {
+  const res = await fetch(url, {
+    method: 'GET',
+    credentials: 'include',
+  });
+
+  if (!res.ok) {
+    console.log(Error , `${res.statusText}`)
+  }
+  return res.status;
+}

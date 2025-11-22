@@ -11,6 +11,8 @@ import Loading from "./Loading"
 import NavigationBar from "@/Components/naviagtion/NavigationBar";
 import AllProviders from "@/Components/provider/AllProviders";
 import 'aos/dist/aos.css';
+import { PanelItemsProvider } from "@/Components/context/PanelItem/PanelItemsProvider";
+import NavigationProvider from "@/Components/naviagtion/NavigationProvider";
 
 
 const geistSans = Geist({
@@ -42,7 +44,10 @@ export default function RootLayout({
         <AllProviders>
           <main className="overflow-hidden">
             <Suspense fallback={<Loading/>}>
+            <NavigationProvider>
               <NavigationBar />
+            </NavigationProvider>
+            
               {children}
             </Suspense>
           </main>

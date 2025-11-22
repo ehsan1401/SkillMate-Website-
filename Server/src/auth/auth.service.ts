@@ -62,13 +62,6 @@ export class AuthService {
       email: user.email,
       type: user.type,
     };
-    const Message = 'Login successful. Welcome back!'
-    await this.databaseService.query(
-      `INSERT INTO notifications 
-      ("sender", "receiver", "type", "is_none_reply", "is_seen", "create_at", "update_at", "message", "replay")
-      VALUES ($3, $1, 'System', true, false, NOW(), NOW(), $2, '')`,
-      [user.id , Message , 10000]
-    );
     return {
       access_token: this.jwtService.sign(payload),
     };
@@ -100,6 +93,14 @@ export class AuthService {
     await this.databaseService.query(
       'UPDATE users SET "refreshtoke" = $1 WHERE email = $2' ,
       [REFToken , user.email ]
+    );
+
+    const Message = 'Login successful. Welcome back!'
+    await this.databaseService.query(
+      `INSERT INTO notifications 
+      ("sender", "receiver", "type", "is_none_reply", "is_seen", "create_at", "update_at", "message", "replay")
+      VALUES ($3, $1, 'System', true, false, NOW(), NOW(), $2, '')`,
+      [user.id , Message , 10000]
     );
 
     return {

@@ -28,16 +28,16 @@ export default function Notifications() {
   }
   return (
     <div className="p-5 w-full h-full select-none">
-      <header className="h-16 flex">
+      <header className="md:h-16 h-auto flex md:flex-row flex-col">
         <h1 className="text-5xl text-neutral-950 dark:text-neutral-50 font-scriptMtbold w-1/3 h-full">
           Notifications
         </h1>
-        <section className="w-2/3 h-full flex justify-center items-center gap-3">
+        <section className="md:w-2/3 w-full h-full flex justify-center items-center gap-3">
           {buttons.map((item) => (
              <Badge count={item.count} color="blue">
                 <button
                   key={item.value}
-                  className={`px-4 py-2 border-[3px] border-solid border-neutral-600 hover:rounded-md transition-all duration-500 ${notificationFilter === item.value ? `bg-neutral-300 rounded-md`: ``}`}
+                  className={`md:px-4 md:py-2 px-2 py-1 border-[3px] border-solid border-neutral-600 hover:rounded-md transition-all duration-500 text-xs md:text-base ${notificationFilter === item.value ? `bg-neutral-300 rounded-md`: ``}`}
                   onClick={()=>{HandleFilterNotifications(item.value)}}
                 >
                   {item.name}
@@ -46,7 +46,7 @@ export default function Notifications() {
           ))}
         </section>
       </header>
-      <div className="h-[90%] p-3 overflow-y-scroll">
+      <div className="md:h-[90%] p-3 overflow-y-scroll py-1 md:py-0 ">
           <MapNotifications filter={notificationFilter}/>
       </div>
     </div>
