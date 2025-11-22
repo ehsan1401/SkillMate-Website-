@@ -93,9 +93,8 @@ export default function UserPanel({userData}:{userData : UserType}){
                                 {NavigationItems.map((item) => {
                                     const isSelected = selectedItem === item.id;
                                     return (
-                                    <Badge count={item.id === "item3" ? `${GetNumberOfNotification?.All}` : 0 } size="small">
+                                    <Badge key={item.id} count={item.id === "item3" ? `${GetNumberOfNotification?.All}` : 0 } size="small">
                                         <li
-                                            key={item.id}
                                             className={
                                             isSelected
                                                 ? "text-neutral-950 dark:text-neutral-50 md:px-5 text-base"

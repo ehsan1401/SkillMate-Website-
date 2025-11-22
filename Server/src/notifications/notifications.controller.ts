@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
 import { NotificationsService } from './notifications.service';
 import type { NewNotificationsTypes, NotificationsTypes } from './dto/type';
 
@@ -26,6 +26,13 @@ export class NotificationsController {
       @Param('userId', ParseIntPipe)  userID : number
     ){
       return this.notificationsService.NumberOfNotifications(userID)
+    }
+
+    @Delete('DeleteNotification/:NotifId')
+    DeleteNotification(
+      @Param('NotifId' , ParseIntPipe) NotifId : number
+    ){
+      return this.notificationsService.DeleteNotifications(NotifId)
     }
 
 

@@ -17,6 +17,8 @@ import { useAlert } from "@/Components/elements/Alert/AlertContext";
 import dynamic from "next/dynamic";
 import { BouncedDots } from "@/Components/Loadings/BouncedDots";
 import { useCheapData } from "@/Components/context/CheapData/CheapDataContext";
+import { SkillmateIcon } from "@/Icons/SkillmateIcon";
+import { Importatnt } from "@/Icons/Importatnt";
 const EmptyFolder = dynamic(() => import("@/Icons/Vector/EmptyFolder"), {
   loading: () => <BouncedDots/>,
 });
@@ -27,6 +29,7 @@ export default function MapNotifications({ filter }:{ filter : NotificationFilte
     const [notifFilter , setNotifFilter] = useState<GetNotifications>('All')
     const {user} = useUser() 
     const {NumbersNotificationsMutate } = useCheapData() 
+    const {showAlert} = useAlert()
 
 
     dayjs.extend(relativeTime);
@@ -66,6 +69,20 @@ export default function MapNotifications({ filter }:{ filter : NotificationFilte
         }
         setLoading(false)
     }
+
+    const handleDeleteNotification = async (NotifId : number)=>{
+        setLoading(true)
+        const Result = await fetch(API.Notifications.DeleteNotification(NotifId) , {
+            method : "DELETE",
+            cache : "no-store",
+        })
+        const data = await Result.json(); 
+        if(Result.status === 200) {
+            showAlert(data.message, "success");
+            mutate()
+        }
+        setLoading(false)
+    }
     return(
         <>
             {
@@ -79,7 +96,7 @@ export default function MapNotifications({ filter }:{ filter : NotificationFilte
                                 return(
                                     <li 
                                         key={Notif.notif_id}
-                                        className={`border-[3px] border-solid border-neutral-600 p-3 rounded-lg flex items-center gap-3 ${Notif.is_seen ? ``: `bg-blue-100 hover:cursor-pointer hover:bg-blue-200`}`} 
+                                        className={`border-[3px] border-solid border-neutral-600 p-3 rounded-lg flex items-center gap-3 ${Notif.is_seen ? ``: `${Notif.type === "Super" ? `bg-red-100  hover:bg-red-200` : `bg-blue-100  hover:bg-blue-200`} hover:cursor-pointer`}`} 
                                         onClick={()=>{Notif.is_seen ? null : handleSeenClick(Notif.notif_id)}}
                                     >
                                         <Link href={``} className="hover:scale-105 transition-all duration-200"><Avatar src={imageUrl(Notif.profileImageUrl)} shape="square" size={64} className="shadow-md" /></Link>
@@ -94,14 +111,25 @@ export default function MapNotifications({ filter }:{ filter : NotificationFilte
                                                     Notif.is_seen ?
                                                     <HugeiconsTickDouble className="text-2xl text-lime-600"/>
                                                     :
-                                                    <AlertRounded className="text-2xl text-yellow-500"/>
+                                                    (
+                                                        Notif.type === "System" ? 
+                                                         <SkillmateIcon className="text-2xl text-blue-500"/>
+                                                        :
+                                                        (
+                                                            Notif.type === "Super" ?
+                                                            <Importatnt className="text-2xl text-red-500"/>
+                                                                :
+                                                            <AlertRounded className="text-2xl text-yellow-500"/> 
+
+                                                        )   
+                                                    )
                                                 }
                                             </span>
                                             {
                                                 Notif.is_seen && 
                                                 <button 
                                                     className="text-2xl text-neutral-800 hover:text-red-500 hover:scale-125 transition-all duration-200 p-3 cursor-pointer"
-                                                    onClick={()=>{console.log("Remove :" , Notif.notif_id)}}
+                                                    onClick={()=>{handleDeleteNotification(Notif.notif_id)}}
                                                 >
                                                     <TrashBin/>
                                                 </button>

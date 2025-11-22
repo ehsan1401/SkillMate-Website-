@@ -88,4 +88,14 @@ export class NotificationsService {
             All: All
         };
     }
+
+    async DeleteNotifications(NotifId : number){
+        const pool = this.databaseService.getPool();
+        const checkNotifExist = await pool.query(`SELECT * FROM notifications WHERE notif_id=$1` , [NotifId])
+        if(checkNotifExist.rowCount === 0 ) throw new BadRequestException('This Notification Dosent Exist!')
+
+        const Result = await pool.query(`DELETE FROM notifications WHERE notif_id=$1` , [NotifId])
+        if(Result.rowCount === 0 ) throw new BadRequestException("There is Some Error on Deleting Notification")
+        return {status : 200  , message : "Notification Deleted!"};
+    }
 }

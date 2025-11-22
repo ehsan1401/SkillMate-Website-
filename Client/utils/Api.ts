@@ -33,8 +33,8 @@ export const API = {
   Notifications :{
     GetFilteredNotifications : (id : number , query : string)=>`${BACKEND_BASE_URL}/notifications/All/${id}?filter=${query}`,
     SeenNotification : (NotifId : number)=>`${BACKEND_BASE_URL}/notifications/Seen/${NotifId}`,
-    NumberOfNotifications : (userID : number)=>`${BACKEND_BASE_URL}/notifications/All/Number/${userID}`
-
+    NumberOfNotifications : (userID : number)=>`${BACKEND_BASE_URL}/notifications/All/Number/${userID}`,
+    DeleteNotification : (NotifID : number)=>`${BACKEND_BASE_URL}/notifications/DeleteNotification/${NotifID}`,
   }
 };
 
