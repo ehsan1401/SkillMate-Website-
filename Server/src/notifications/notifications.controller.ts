@@ -21,5 +21,12 @@ export class NotificationsController {
       return this.notificationsService.ChangeSeenStatus(NotifId)
     }
 
+    @Get('All/Number/:userId')
+    NumberOfNotifications(
+      @Param('userId', ParseIntPipe)  userID : number
+    ){
+      return this.notificationsService.NumberOfNotifications(userID)
+    }
+
 
 }

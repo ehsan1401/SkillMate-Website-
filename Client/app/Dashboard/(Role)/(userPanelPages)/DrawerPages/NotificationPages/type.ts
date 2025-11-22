@@ -2,7 +2,8 @@ type NotificationFilter = "System-Alerts" | "Important" | "Unread-Only" | "All-N
 
 type NotificationsFilterButtons = {
     name : string , 
-    value : NotificationFilter
+    value : NotificationFilter,
+    count : number
 }
 
 type GetNotifications = 'Super'| 'Seen'| 'System'| 'All' ;
@@ -22,4 +23,12 @@ type NotificationData = {
 interface GetNotificationsFormat {
     status : number ,
     data : NotificationData[]
+}
+
+
+type GetNumberOfNotification = {
+    "Super" : number ,
+    "System": number ,
+    "Seen"  : number ,
+    "All" : number
 }

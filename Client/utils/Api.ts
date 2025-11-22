@@ -32,7 +32,9 @@ export const API = {
   },
   Notifications :{
     GetFilteredNotifications : (id : number , query : string)=>`${BACKEND_BASE_URL}/notifications/All/${id}?filter=${query}`,
-    SeenNotification : (NotifId : number)=>`${BACKEND_BASE_URL}/notifications/Seen/${NotifId}`
+    SeenNotification : (NotifId : number)=>`${BACKEND_BASE_URL}/notifications/Seen/${NotifId}`,
+    NumberOfNotifications : (userID : number)=>`${BACKEND_BASE_URL}/notifications/All/Number/${userID}`
+
   }
 };
 

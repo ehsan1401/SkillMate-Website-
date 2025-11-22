@@ -2,10 +2,14 @@
 
 import { useEffect, useState } from "react";
 import MapNotifications from "./NotificationPages/MapNotifications";
+import { useCheapData } from "@/Components/context/CheapData/CheapDataContext";
+import { Badge } from "antd";
 
 
 export default function Notifications() {
   const [notificationFilter , setNotificationFilter] = useState<NotificationFilter>("All-Notifications")
+  const {GetNumberOfNotification } = useCheapData() 
+
 
   useEffect(() => {
     const stored = localStorage.getItem("NotificationsFilter");
@@ -13,10 +17,10 @@ export default function Notifications() {
   }, []);
 
   const buttons: NotificationsFilterButtons[] = [
-    { name: "All Notifications", value: "All-Notifications" },
-    { name: "Unread Only", value: "Unread-Only" },
-    { name: "Important", value: "Important" },
-    { name: "System Alerts", value: "System-Alerts" },
+    { name: "All Notifications", value: "All-Notifications" , count : (GetNumberOfNotification!.Seen + GetNumberOfNotification!.Super + GetNumberOfNotification!.System) },
+    { name: "Unread Only", value: "Unread-Only", count : GetNumberOfNotification!.Seen },
+    { name: "Important", value: "Important" , count : GetNumberOfNotification!.Super},
+    { name: "System Alerts", value: "System-Alerts", count : GetNumberOfNotification!.System },
   ];
   const HandleFilterNotifications = (Filter : NotificationFilter)=>{
     setNotificationFilter(Filter);
@@ -30,13 +34,15 @@ export default function Notifications() {
         </h1>
         <section className="w-2/3 h-full flex justify-center items-center gap-3">
           {buttons.map((item) => (
-            <button
-              key={item.value}
-              className={`px-4 py-2 border-[3px] border-solid border-neutral-600 hover:rounded-xl transition-all duration-500 ${notificationFilter === item.value ? `bg-neutral-300 rounded-xl`: ``}`}
-              onClick={()=>{HandleFilterNotifications(item.value)}}
-            >
-              {item.name}
-            </button>
+             <Badge count={item.count} color="blue">
+                <button
+                  key={item.value}
+                  className={`px-4 py-2 border-[3px] border-solid border-neutral-600 hover:rounded-md transition-all duration-500 ${notificationFilter === item.value ? `bg-neutral-300 rounded-md`: ``}`}
+                  onClick={()=>{HandleFilterNotifications(item.value)}}
+                >
+                  {item.name}
+                </button>
+              </Badge>
           ))}
         </section>
       </header>

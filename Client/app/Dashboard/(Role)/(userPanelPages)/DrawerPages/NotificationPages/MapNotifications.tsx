@@ -9,15 +9,14 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { Avatar } from "antd";
 import { imageUrl } from "@/utils/imageUrl";
 import Link from "next/link";
-import AOS from 'aos';
 import { ClockOutline } from "@/Icons/ClockOutline";
 import { AlertRounded } from "@/Icons/AlertRounded";
 import { HugeiconsTickDouble } from "@/Icons/HugeiconsTickDouble";
-import { StreamlineDelete1Solid } from "@/Icons/RemoveIcon";
 import { TrashBin } from "@/Icons/TrashBin";
 import { useAlert } from "@/Components/elements/Alert/AlertContext";
 import dynamic from "next/dynamic";
 import { BouncedDots } from "@/Components/Loadings/BouncedDots";
+import { useCheapData } from "@/Components/context/CheapData/CheapDataContext";
 const EmptyFolder = dynamic(() => import("@/Icons/Vector/EmptyFolder"), {
   loading: () => <BouncedDots/>,
 });
@@ -27,7 +26,7 @@ export default function MapNotifications({ filter }:{ filter : NotificationFilte
     const [Loading , setLoading] = useState<boolean>(false)
     const [notifFilter , setNotifFilter] = useState<GetNotifications>('All')
     const {user} = useUser() 
-    const { showAlert } = useAlert();
+    const {NumbersNotificationsMutate } = useCheapData() 
 
 
     dayjs.extend(relativeTime);
@@ -54,17 +53,19 @@ export default function MapNotifications({ filter }:{ filter : NotificationFilte
     );
 
 
+
     const handleSeenClick= async (NotifId : number)=>{
         setLoading(true)
         const Result = await fetch(API.Notifications.SeenNotification(NotifId) , {
             method : "PATCH",
             cache : "no-store",
         })
-        if(Result.status === 200) mutate()
+        if(Result.status === 200) {
+            NumbersNotificationsMutate()
+            mutate()
+        }
         setLoading(false)
     }
-
-
     return(
         <>
             {

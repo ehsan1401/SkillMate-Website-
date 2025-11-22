@@ -58,4 +58,34 @@ export class NotificationsService {
         if(Result.rowCount !== 0) return {status: 200 , message : "notification has Read!"}
         return {status : 500 , message : "there is an Error!"}
     }
+
+    async NumberOfNotifications(userID: number) {
+        const pool = this.databaseService.getPool();
+        const checkUserExist = await pool.query(
+            `SELECT id FROM users WHERE id = $1`,
+            [userID]
+        );
+        if (checkUserExist.rowCount === 0) {
+            throw new BadRequestException("User does not exist!");
+        }
+        const result = await pool.query(`
+            SELECT 
+                COUNT(*) FILTER (WHERE type = 'Super'  AND is_seen = false) AS "Super",
+                COUNT(*) FILTER (WHERE type = 'System' AND is_seen = false) AS "System",
+                COUNT(*) FILTER (WHERE is_seen = false)                   AS "Seen"
+            FROM notifications
+            WHERE receiver = $1
+        `, [userID]);
+
+        const row = result.rows[0];
+
+        const All = Number(row.Super) + Number(row.System) + Number(row.Seen);
+
+        return {
+            Super: Number(row.Super),
+            System: Number(row.System),
+            Seen: Number(row.Seen),
+            All: All
+        };
+    }
 }
