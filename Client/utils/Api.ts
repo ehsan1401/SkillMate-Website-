@@ -35,6 +35,9 @@ export const API = {
     SeenNotification : (NotifId : number)=>`${BACKEND_BASE_URL}/notifications/Seen/${NotifId}`,
     NumberOfNotifications : (userID : number)=>`${BACKEND_BASE_URL}/notifications/All/Number/${userID}`,
     DeleteNotification : (NotifID : number)=>`${BACKEND_BASE_URL}/notifications/DeleteNotification/${NotifID}`,
+  },
+  Peoples : {
+    GetPeopleInfo : (userName : string)=>`${BACKEND_BASE_URL}/peoples/PeopleInfo/${userName}`
   }
 };
 

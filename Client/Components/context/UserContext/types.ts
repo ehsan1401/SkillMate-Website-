@@ -27,4 +27,5 @@ export type UserContextType = {
   refreshUser: () => Promise<void>;
   refreshUserInfo? : ()=> Promise<void>
   logout: () => void;
+  mutate :()=>void
 };

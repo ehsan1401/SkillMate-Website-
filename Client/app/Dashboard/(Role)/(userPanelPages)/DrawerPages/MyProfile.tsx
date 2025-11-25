@@ -15,6 +15,9 @@ import useSWR from "swr";
 import { GetUserInfo } from "./MyProfilePages/clientAction";
 import { IcOutlineErrorOutline } from "@/Icons/ErrorIcon";
 import { UserType } from "@/Types/UserType";
+import Link from "next/link";
+import { MaterialSymbolsPerson } from "@/Icons/UserIcon";
+import { useUser } from "@/Components/context/UserContext/UserContext";
 
 export default function MyProfile({userInfo}:{userInfo : UserType}){
 
@@ -30,7 +33,7 @@ export default function MyProfile({userInfo}:{userInfo : UserType}){
     const tagLabel = [
         "magenta", "red", "volcano", "orange", "gold","lime", "green","cyan", "blue", "geekblue", "purple"
     ];
-
+    const{user} = useUser()
     const {data : items , error , mutate} = useSWR(API.user.getUserInfo(userInfo.id) , GetUserInfo);
     const UserInformation : UserInfo = items?.data ;
 
@@ -81,6 +84,12 @@ export default function MyProfile({userInfo}:{userInfo : UserType}){
                     UserInformation &&
                     <UpdateInfoButton user={userInfo} userInfo={UserInformation ? UserInformation : null} onUpdated={() => mutate()}/>
                 }
+                <Tooltip title={`Show my profile`} placement="left">
+                <Link href={`/peoples/${user?.userName}`} className=" absolute right-24 top-28 text-2xl text-neutral-800 dark:text-neutral-100 transition-all duration-200 hover:scale-125">
+                    <MaterialSymbolsPerson/>
+                </Link>
+                </Tooltip>
+
                 <div className="w-full h-auto bg-neutral-300 dark:bg-neutral-800 rounded-2xl px-5 lg:pt-8 lg:pb-10 pt-24 pb-4 flex flex-col justify-center items-center">
 
                     <div className="flex flex-col justify-center items-center w-full h-[50%] lg:pt-16">

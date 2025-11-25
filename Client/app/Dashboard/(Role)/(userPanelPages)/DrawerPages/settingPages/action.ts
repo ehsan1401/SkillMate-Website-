@@ -1,13 +1,15 @@
+import { ResponseType } from "@/Types/ResponseType";
 import { API } from "@/utils/Api";
 import { fetcher } from "@/utils/fetcher";
 
 export async function updateUsername(email: string, newUsername: string) {
   try {
-    const result = await fetcher(API.setting.updateUsername(), {
+    const result = await fetcher<ResponseType>(API.setting.updateUsername(), {
       method: 'PATCH',
       body: { email, newUsername },
     });
-    return result ;
+    const data = result.data;
+    return data ;
   } catch (err) {
     console.error(err);
   }
