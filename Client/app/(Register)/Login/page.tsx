@@ -4,7 +4,7 @@ import { MaterialSymbolsPerson } from "@/Icons/UserIcon";
 import { Button, Input, message } from "antd";
 import Image from "next/image";
 import { useState } from "react";
-import { loginUser } from "./page/action";
+import { loginUser, WellcomeNotification } from "./page/action";
 import { useRouter } from 'next/navigation';
 import AccessDenied from "@/Components/AceessDenied";
 import { LoadingIcon } from "@/Icons/LoadingIcon";
@@ -12,6 +12,7 @@ import { MdiEye } from "@/Icons/VisibleEye";
 import { MdiEyeOff } from "@/Icons/NotVisibleEye";
 import { useUser } from "@/Components/context/UserContext/UserContext";
 import { theRoutes } from "@/utils/theRoutes";
+import { API } from "@/utils/Api";
 
 
 export default function Login() {
@@ -54,9 +55,6 @@ export default function Login() {
 
                 const formData = new FormData(e.currentTarget);
                 const res = await loginUser(formData);
-                console.log(res.status)
-                console.log(res.data)
-
                 if (!res.ok) {
                   HandelError(res?.message)
                   setLoading(false);

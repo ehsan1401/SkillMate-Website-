@@ -66,9 +66,15 @@ export class UsersService {
       body.email,
     ]);
     if (userCheck.rowCount === 0) {
-      throw new BadRequestException(
-          `User with email: ${body.email} does not exist`,
-      );
+      return {status : 401 , message : `User with email: ${body.email} does not exist`};
+      
+    }
+
+    const UsernameRepeat = await pool.query(`SELECT id FROM users WHERE "userName" = $1`, [
+      body.newUsername,
+    ]);
+    if (UsernameRepeat.rows.length > 0) {
+      return {status : 401 , message : "This username has already been used!"};
     }
 
     const result = await pool.query(
@@ -79,7 +85,7 @@ export class UsersService {
       [body.newUsername, body.email]
     );
 
-    return result.rows[0];
+    return {status : 200 , message : "Username updated successfully!"};
   }
 
   async AddOneInspection(userId : number){

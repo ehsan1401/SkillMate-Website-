@@ -67,7 +67,7 @@ export default function FavoritePeople(
                         data?.map((person : User)=>{
                             return (
                                 <div className="relative" key={person.email}>
-                                    <Link href={`/People/${person.id}`} className="w-[40vh] h-[40vh] bg-gradient-to-b from-purple-300 via-purple-100 to-neutral-50 dark:via-[#424769] dark:from-[#2D3250] dark:to-[#7077A1]  rounded-2xl p-5 flex flex-col items-center relative overflow-hidden shadow-lg">
+                                    <Link href={`/peoples/${person.userName}`} className="w-[40vh] h-[40vh] bg-gradient-to-b from-purple-300 via-purple-100 to-neutral-50 dark:via-[#424769] dark:from-[#2D3250] dark:to-[#7077A1]  rounded-2xl p-5 flex flex-col items-center relative overflow-hidden shadow-lg">
                                     <Avatar
                                         size={100}
                                         src={person.profileImageUrl ? `${API.base.backend}${person.profileImageUrl}` : 'https://api.dicebear.com/7.x/miniavs/svg?seed=1'}

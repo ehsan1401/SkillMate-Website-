@@ -65,6 +65,11 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
   }, [user?.id, logout]);
 
+  const mutate = useCallback(async () => {
+    await refreshUser();
+    await refreshUserInfo();
+  }, [refreshUser, refreshUserInfo]);
+
   useEffect(() => {
     refreshUser();
   }, [refreshUser]);
@@ -74,7 +79,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
   }, [refreshUserInfo]);
 
   return (
-    <UserContext.Provider value={{ user, userInfo, refreshUser, refreshUserInfo, logout }}>
+    <UserContext.Provider value={{ user, userInfo, refreshUser, refreshUserInfo, logout , mutate  }}>
       {children}
     </UserContext.Provider>
   );

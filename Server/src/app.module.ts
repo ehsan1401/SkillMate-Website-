@@ -7,11 +7,12 @@ import { AuthModule } from './auth/auth.module';
 import { UserInfoModule } from './user-info/user-info.module';
 import { UserActionModule } from './user-action/user-action.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { PeoplesModule } from './peoples/peoples.module';
 
 @Module({
   imports: [
     UsersModule, DatabaseModule, AuthModule, UserInfoModule,
-    UserActionModule, NotificationsModule
+    UserActionModule, NotificationsModule, PeoplesModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -17,6 +17,7 @@ import { ForwardMessage } from "@/Icons/ForwardMessage";
 import UserNotFound from "@/Icons/Vector/UserNotFound";
 import EmptyFolder from "@/Icons/Vector/EmptyFolder";
 import { FileCopy } from "@/Icons/FileCopy";
+import { useCheapData } from "@/Components/context/CheapData/CheapDataContext";
 
 
 type horizentalBoxItem = {name : string , route : string , Icon? : ReactNode , animateClasses? : string , count? : number , fn? : ()=>void }
@@ -25,6 +26,8 @@ export default function CreatorPanel(){
 
     const { userInfo } = useUser();       
     const {TogglePanelItem} = useChangePanelItem();
+    const {GetNumberOfNotification} = useCheapData()
+    
     
 
     const horizentalBoxItems : horizentalBoxItem[]  = [
@@ -40,7 +43,7 @@ export default function CreatorPanel(){
             route : '#',
             Icon : <MaterialSymbolsNotificationsOutline className="text-4xl"/> ,
             animateClasses : `hover:scale-125 transition-all duration-200`,
-            count : 0,
+            count : GetNumberOfNotification?.All,
             fn : ()=>{TogglePanelItem('item3')}
         },
         {

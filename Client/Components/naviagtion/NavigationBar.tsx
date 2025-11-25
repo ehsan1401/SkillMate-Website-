@@ -1,9 +1,9 @@
 'use client';
 import { UserOutlined } from "@/Icons/UserOutlined";
 import { logout } from "@/utils/logout";
-import { Avatar, Button, ConfigProvider } from "antd";
+import { Avatar, Badge, Button, ConfigProvider, Dropdown } from "antd";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { API } from "@/utils/Api";
 import Image from "next/image";
@@ -11,6 +11,11 @@ import { useUser } from "../context/UserContext/UserContext";
 import { theRoutes } from "@/utils/theRoutes";
 import DashboardTypeToggle from "../elements/Toggles/DashboardTypeToggle";
 import { useDashboardType } from "../provider/PanelTypeProvider";
+import { useCheapData } from "../context/CheapData/CheapDataContext";
+import { MaterialSymbolsNotificationsOutline } from "@/Icons/NotificationsIcon";
+import { PanelItemsProvider, useChangePanelItem } from "../context/PanelItem/PanelItemsProvider";
+import MapNotifications, { ResponsiveNotification } from "@/app/Dashboard/(Role)/(userPanelPages)/DrawerPages/NotificationPages/MapNotifications";
+import NotificationsOnNavigationBar from "./pages/NotificationsOnNavigationBar";
 
 
 export default function NavigationBar () {
@@ -19,6 +24,7 @@ export default function NavigationBar () {
     const { panelType, togglePanelType } = useDashboardType();
 
     const pathname = usePathname();
+    const {GetNumberOfNotification} = useCheapData()
     const firstSegment = "/" + pathname.split("/")[1];
     const AltAvatar = "https://api.dicebear.com/7.x/miniavs/svg?seed=1"
     const { user } = useUser();
@@ -34,6 +40,13 @@ export default function NavigationBar () {
     const NavigationItems = [
         "Dashboard" , "Login" , "SignUp" , "Route"
     ]
+    const {TogglePanelItem} = useChangePanelItem();
+    const router = useRouter();
+
+    const items = [
+        { key: "1" ,icon: null, label: <NotificationsOnNavigationBar/> },
+    ];
+
 
 
     return(
@@ -97,7 +110,19 @@ export default function NavigationBar () {
                                             <Button variant="solid" color="danger" onClick={logout}>Logout</Button>
                                         </>
                                     :
-                                        <Button type="primary" href={theRoutes.Dashboard.main}>Dashboard</Button>
+                                        <div className="flex gap-2">
+                                            <Button type="primary" href={theRoutes.Dashboard.main}>Dashboard</Button>
+                                            <Badge count={GetNumberOfNotification?.All}>
+                                                <Dropdown menu={{items , selectable: false}} >
+
+                                                <Button 
+                                                type="primary" 
+                                                >
+                                                    <MaterialSymbolsNotificationsOutline className="text-xl"/>
+                                                </Button>
+                                                </Dropdown>
+                                            </Badge>
+                                        </div>
                                 }
 
                                 
