@@ -21,6 +21,17 @@ export default {
         Centaur: ['Centaur', 'sans-serif'],
         TwCenMt: ['TwCenMt', 'sans-serif'],
       },
+            animation: {
+        "spin-slow": "spin 2s linear infinite",
+        "pulse-soft": "pulseSoft 1.8s ease-in-out infinite",
+      },
+      keyframes: {
+        pulseSoft: {
+          "0%": { transform: "scale(1)", opacity: "0.75" },
+          "50%": { transform: "scale(1.08)", opacity: "1" },
+          "100%": { transform: "scale(1)", opacity: "0.75" },
+        },
+      }
     },
   },
   plugins: [],

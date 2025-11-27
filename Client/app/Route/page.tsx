@@ -9,6 +9,9 @@ import Education from "./steps/Education";
 import ExperienceAndProjects from "./steps/Experience_&_Projects";
 
 export default function Route() {
+  const [formData , setFormData] = useState({
+
+  })
 
   const steps = [
     {
@@ -33,7 +36,7 @@ export default function Route() {
     },
   ];
   const items = steps.map((item) => ({ key: item.title, title: item.title }));
-  const [current, setCurrent] = useState(3);
+  const [current, setCurrent] = useState(0);
 
   return (
     <div className="w-full h-screen pt-16 flex justify-center items-center bg-red-100">

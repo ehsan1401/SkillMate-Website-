@@ -11,25 +11,25 @@ import UploadAvatar from "./(userPanelPages)/page/UploadAvatar";
 import { API } from "@/utils/Api";
 import { useChangePanelItem } from "@/Components/context/PanelItem/PanelItemsProvider";
 import { UserType } from "@/Types/UserType";
-import LoadingSpinner from "@/Components/Loadings/LoadingSpinner";
 import dynamic from "next/dynamic";
 import { Badge, Tooltip } from "antd";
 import { useDashboardType } from "@/Components/provider/PanelTypeProvider";
 import { useCheapData } from "@/Components/context/CheapData/CheapDataContext";
+import SkillmateLogoLoading from "@/Components/Loadings/SkillmateLogoLoading";
 const MyProfile = dynamic(() => import("./(userPanelPages)/DrawerPages/MyProfile"), {
-  loading: () => <LoadingSpinner Text="Profile is Loading..." />,
+  loading: () => <SkillmateLogoLoading />,
 });
 const Projects = dynamic(() => import("./(userPanelPages)/DrawerPages/Projects"), {
-  loading: () => <LoadingSpinner Text="Projects is Loading..." />,
+  loading: () => <SkillmateLogoLoading />,
 });
 const Notifications = dynamic(() => import("./(userPanelPages)/DrawerPages/Notifications"), {
-  loading: () => <LoadingSpinner Text="Notifications is Loading..." />,
+  loading: () => <SkillmateLogoLoading />,
 });
 const Settings = dynamic(() => import("./(userPanelPages)/DrawerPages/Settings"), {
-  loading: () => <LoadingSpinner Text="Setting is Loading..." />,
+  loading: () => <SkillmateLogoLoading />,
 });
 const MainDashboard = dynamic(() => import("./(userPanelPages)/DrawerPages/MainDashboard"), {
-  loading: () => <LoadingSpinner Text="Dashboard is Loading..." />,
+  loading: () => <SkillmateLogoLoading />,
 });
 
 
