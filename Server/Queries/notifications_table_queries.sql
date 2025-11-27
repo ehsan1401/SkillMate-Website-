@@ -57,4 +57,13 @@ VALUES
 
 
 
+
+
+
+INSERT INTO notifications (
+    sender, receiver, type, is_none_reply, is_Seen, create_at, update_at, message, replay
+)
+VALUES
+(11, 7, 'System', true, false, NOW(), NOW(), 'Test notification 7777', '')
+
 -- UPDATE notifications SET message='SAdSAdAsdADSAD a sad ad adad' WHERE notif_id = 1 ;

@@ -4,6 +4,8 @@ import { useAlert } from "@/Components/elements/Alert/AlertContext";
 import { MaterialSymbolsPerson } from "@/Icons/UserIcon";
 import { updateUsername } from "./action";
 import { UserType } from "@/Types/UserType";
+import { ResponseType } from "@/Types/ResponseType";
+import { useUser } from "@/Components/context/UserContext/UserContext";
 
 function ChangeUsernameModal({
   initialUsername,
@@ -12,7 +14,9 @@ function ChangeUsernameModal({
   initialUsername?: string;
   onConfirm: (username: string) => void;
 }) {
-  const [username, setUsername] = useState(initialUsername || "");
+  const{user , mutate} = useUser()
+  const [username, setUsername] = useState<string>(initialUsername || user!.userName);
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -49,6 +53,7 @@ export default function UpdateUsername({ user }: { user: UserType }) {
   const { showModal } = useModal();
   const { showAlert } = useAlert();
   const [newUsername, setNewUsername] = useState<string>("");
+  const{mutate} = useUser()
 
   const handleOk = async (username: string) => {
     if (username.length < 3) {
@@ -57,10 +62,15 @@ export default function UpdateUsername({ user }: { user: UserType }) {
     }
 
     try {
-      const updatedUser = await updateUsername(user.email, username);
-      showAlert("Username updated successfully!", "success");
-      setNewUsername(""); // optional: clear parent state
-      console.log("Updated user:", updatedUser);
+      const updatedUser  = await updateUsername(user.email, username);
+      console.log(updatedUser?.message)
+      if(updatedUser?.status === 200){
+        showAlert(updatedUser?.message ?? '', "success");
+        mutate()
+      }else{
+        showAlert(updatedUser?.message ?? '', "Error");
+      }
+      setNewUsername("");
     } catch (err) {
       console.error(err);
       showAlert("Failed to update username. Try again.", "Error");

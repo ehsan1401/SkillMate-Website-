@@ -10,8 +10,8 @@ export const API = {
     login: `${BACKEND_BASE_URL}/auth/login`,
     register: `${BACKEND_BASE_URL}/auth/SignUp`,
     logout : `${BACKEND_BASE_URL}/auth/Logout`,
-    Refresh : `${BACKEND_BASE_URL}/auth/refresh-token`
-
+    Refresh : `${BACKEND_BASE_URL}/auth/refresh-token`,
+    WellcomeNotification : (userID : number)=> `${BACKEND_BASE_URL}/auth/Wellcome/${userID}`,
   },
   user : {
     info : `${BACKEND_BASE_URL}/users/protected`,
@@ -29,6 +29,15 @@ export const API = {
     updateUsername : () => `${BACKEND_BASE_URL}/users/update-Username`,
     ChangeSearchShow : (id: number) => `${BACKEND_BASE_URL}/users/SearchShow/${id}`,
 
+  },
+  Notifications :{
+    GetFilteredNotifications : (id : number , query : string)=>`${BACKEND_BASE_URL}/notifications/All/${id}?filter=${query}`,
+    SeenNotification : (NotifId : number)=>`${BACKEND_BASE_URL}/notifications/Seen/${NotifId}`,
+    NumberOfNotifications : (userID : number)=>`${BACKEND_BASE_URL}/notifications/All/Number/${userID}`,
+    DeleteNotification : (NotifID : number)=>`${BACKEND_BASE_URL}/notifications/DeleteNotification/${NotifID}`,
+  },
+  Peoples : {
+    GetPeopleInfo : (userName : string)=>`${BACKEND_BASE_URL}/peoples/PeopleInfo/${userName}`
   }
 };
 

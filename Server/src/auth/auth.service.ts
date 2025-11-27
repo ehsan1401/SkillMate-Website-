@@ -95,6 +95,14 @@ export class AuthService {
       [REFToken , user.email ]
     );
 
+    const Message = 'Login successful. Welcome back!'
+    await this.databaseService.query(
+      `INSERT INTO notifications 
+      ("sender", "receiver", "type", "is_none_reply", "is_seen", "create_at", "update_at", "message", "replay")
+      VALUES ($3, $1, 'System', true, false, NOW(), NOW(), $2, '')`,
+      [user.id , Message , 10000]
+    );
+
     return {
       refresh_token: REFToken,
     };
@@ -158,6 +166,15 @@ export class AuthService {
     );
     if (existing.rows.length > 0)
       throw new ConflictException('This email is already in use!');
+
+    const RepeatUserName = await this.databaseService.query(
+      'SELECT id FROM users WHERE "userName" = $1 LIMIT 1',
+      [userName],
+    );
+
+    if (RepeatUserName.rows.length > 0)
+      throw new BadRequestException('This username has already been used.');
+
 
     if (passCode !== RepassCode)
       throw new BadRequestException(
