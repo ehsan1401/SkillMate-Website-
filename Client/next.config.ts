@@ -23,6 +23,12 @@ const nextConfig: NextConfig = {
         port: '4000',
         pathname: '/uploads/avatars/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'api.dicebear.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   }
 

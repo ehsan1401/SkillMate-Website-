@@ -58,7 +58,7 @@ export default function People({params}: {params : Promise<{ userName: string }>
         <div
             className="absolute inset-0"
             style={{
-            backgroundImage: `url(${imageUrl(userInformationProfile?.profileImageUrl)})`,
+            backgroundImage: `url(${imageUrl(userInformationProfile.profileImageUrl , "Header")})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             filter: "blur(12px)",
@@ -70,10 +70,10 @@ export default function People({params}: {params : Promise<{ userName: string }>
         
         <div className="relative z-10 flex items-center justify-center h-full" data-aos="fade-left">
             <div className="w-96 h-0 absolute left-10 lg:-top-52 -top-[280px] bg-lime-500 rounded-full" >
-                <Image alt={userInformationProfile.userName} src={imageUrl(userInformationProfile.profileImageUrl)}
-                width={300} height={300} className="rounded-full shadow-inner hidden lg:inline-block border-2 border-solid border-neutral-500" />
-                <Image alt={userInformationProfile.userName} src={imageUrl(userInformationProfile.profileImageUrl)}
-                width={200} height={200} className="rounded-full shadow-inner lg:hidden border-2 border-solid border-neutral-800" />
+                <Image alt={userInformationProfile.userName} src={imageUrl(userInformationProfile.profileImageUrl??null)}
+                width={300} height={300} unoptimized className="rounded-full shadow-inner hidden lg:inline-block border-2 border-solid border-neutral-500" />
+                <Image alt={userInformationProfile.userName} src={imageUrl(userInformationProfile.profileImageUrl??null)}
+                width={200} height={200} unoptimized className="rounded-full shadow-inner lg:hidden border-2 border-solid border-neutral-800" />
             </div>
         </div>
         <div className="w-full h-[800px]">
