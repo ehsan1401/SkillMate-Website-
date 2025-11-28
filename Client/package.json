@@ -15,6 +15,7 @@
     "antd": "^5.27.4",
     "aos": "^2.3.4",
     "core-js": "^3.45.1",
+    "country-region-data": "^4.0.0",
     "dayjs": "^1.11.19",
     "framer-motion": "^12.23.12",
     "js-cookie": "^3.0.5",

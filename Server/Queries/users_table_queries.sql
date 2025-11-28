@@ -1,4 +1,6 @@
 CREATE TYPE user_type AS ENUM ('ADMIN', 'PRO', 'NORMAL');
+CREATE TYPE gender AS ENUM ('Male', 'Female', 'Other');
+
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -51,6 +53,9 @@ ALTER TABLE users ADD COLUMN RefreshToke TEXT;
 ALTER TABLE users ADD COLUMN inspection INTEGER DEFAULT 0;
 
 ALTER TABLE users ADD COLUMN "ShowInSearch" BOOLEAN DEFAULT true;
+
+ALTER TABLE users ADD COLUMN "Gender" gender  DEFAULT 'Other';
+
 
 -- ALTER TABLE users
 -- DROP COLUMN ShowInSearch;

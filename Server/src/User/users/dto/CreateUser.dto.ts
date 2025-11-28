@@ -1,5 +1,10 @@
-import { IsEmail, IsString } from 'class-validator';
+import { IsEmail, IsEnum, IsString } from 'class-validator';
 
+export enum GenderType {
+  Male = 'Male',
+  Female = 'Female',
+  Other = 'Other',
+}
 export class CreateUser {
   @IsString()
   userName: string;
@@ -9,4 +14,8 @@ export class CreateUser {
 
   @IsString()
   passCode: string;
+
+  @IsEnum(GenderType)
+  Gender : GenderType
+
 }

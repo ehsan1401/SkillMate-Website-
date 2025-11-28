@@ -30,8 +30,8 @@ export class UserInfoService {
     }
 
     const query = `
-        INSERT INTO userInfo ("userid", "phone", "dateofbirth", "bio", "social", "skills", "learning_skills", "resume", "favorite", "createdAt", "updatedAt")
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NOW(), NOW())
+        INSERT INTO userInfo ("userid", "phone", "dateofbirth", "bio", "social", "skills", "learning_skills", "resume", "favorite", "createdAt", "updatedAt" , "headerImage" , "Location")
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NOW(), NOW() , $10 , $11)
         RETURNING *;
       `;
     const values = [
@@ -46,6 +46,17 @@ export class UserInfoService {
       JSON.stringify({
         "People": [],
         "Projects": []
+      }),
+      JSON.stringify({
+        "headerImageURL": "",
+        "headerImageALT": "",
+        "Position": "",
+        "overlayOpacity": "",
+        "overlayColor": "",
+      }),
+      JSON.stringify({
+        "country": "",
+        "City": "",
       }),
     ];
     const result = await pool.query(query, values);

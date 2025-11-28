@@ -12,14 +12,15 @@ export class UsersService {
     const pool = this.databaseService.getPool();
 
     const query = `
-      INSERT INTO users ("userName", "email", "passCode", "type", "profileImageUrl", "lastLogin", "createAt", "updateAt")
-      VALUES ($1, $2, $3, 'NORMAL', '', NOW(), NOW(), NOW())
+      INSERT INTO users ("userName", "email", "passCode", "type", "profileImageUrl", "lastLogin", "createAt", "updateAt" , "Gender")
+      VALUES ($1, $2, $3, 'NORMAL', '', NOW(), NOW(), NOW() , $4)
       RETURNING *;
     `;
     const values = [
       createUserDto.userName,
       createUserDto.email,
       createUserDto.passCode,
+      createUserDto.Gender
     ];
     const result = await pool.query(query, values);
 

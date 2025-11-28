@@ -28,6 +28,31 @@ export class ResumeDto {
   link?: string;
 }
 
+export class headerImageDto {
+  @IsString()
+  headerImageURL: string;
+
+  @IsString()
+  headerImageALT: string;
+
+  @IsString()
+  Position: string;
+
+  @IsOptional()
+  overlayOpacity : string ;
+
+  @IsOptional()
+  overlayColor : string
+}
+
+export class LoactionDto {
+  @IsString()
+  country: string; 
+
+  @IsString()
+  City: string;
+}
+
 export class CreateUserInfoDto {
   @IsInt()
   @IsPositive()
@@ -62,4 +87,12 @@ export class CreateUserInfoDto {
 
   @IsOptional()
   favorite: object;
+
+  @ValidateNested()
+  @Type(()=> LoactionDto)
+  Location : LoactionDto
+  
+  @ValidateNested()
+  @Type(()=> headerImageDto)
+  headerImage : headerImageDto
 }

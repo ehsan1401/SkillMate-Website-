@@ -1,4 +1,5 @@
-import React from "react";
+'use client';
+import React, { useEffect, useState } from "react";
 
 type Props = {
   size?: number;
@@ -10,8 +11,22 @@ type Props = {
 export default function SkillmateLogoLoading({
   lineWidth = 6,
   lineColor = "#2F8FEA",
-  logoSrc = "/Images/TitleLessLogo.png",
 }: Props) {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const media = window.matchMedia("(prefers-color-scheme: dark)");
+      setIsDarkMode(media.matches);
+
+      // برای اینکه اگر یوزر وسط کار تم رو تغییر داد آپدیت بشه
+      const handler = (e: MediaQueryListEvent) => setIsDarkMode(e.matches);
+      media.addEventListener("change", handler);
+
+      return () => media.removeEventListener("change", handler);
+    }
+  }, []);
+
   return (
     <div className="fixed inset-0 flex flex-col items-center justify-center w-full h-screen bg-neutral-50 dark:bg-neutral-800 z-50">
       <div
@@ -21,20 +36,21 @@ export default function SkillmateLogoLoading({
           overflow: "visible",
         }}
       >
-        <img
-          src={logoSrc}
-          alt="logo"
-          draggable={false}
-          className="object-contain"
-          style={{
-            width: "200px",
-            height: "200px",
-            display: "block",
-          }}
-        />
+      <img
+        src="/Images/DarkMainLogo.png"
+        alt="logo"
+        draggable={false}
+        className="object-contain hidden dark:inline-block w-[200px] h-[200px]"
+      />
+
+      <img
+        src="/Images/MainLogo.png"
+        alt="logo"
+        draggable={false}
+        className="object-contain dark:hidden w-[200px] h-[200px]"
+      />
       </div>
 
-      {/* نوار لودینگ ساده */}
       <div
         style={{
           width: "20%",

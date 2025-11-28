@@ -79,7 +79,8 @@ export class UsersController {
       createAt: user.createAt,
       updateAt: user.updateAt,
       inspection : user.inspection,
-      ShowInSearch : user.ShowInSearch
+      ShowInSearch : user.ShowInSearch,
+      Gender : user.Gender
     };
   }
 

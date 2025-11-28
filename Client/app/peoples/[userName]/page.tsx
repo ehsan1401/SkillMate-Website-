@@ -14,6 +14,7 @@ import { FacebookTag } from "@/Icons/socials/FacebookTag";
 import { GetPeopleInfoType, SocialsItem } from "./pages/types";
 import { MdiChat } from "@/Icons/ChatIcon";
 import { MessageIcon } from "@/Icons/MessageIcon";
+import SkillmateLogoLoading from "@/Components/Loadings/SkillmateLogoLoading";
 
 export default function People({params}: {params : Promise<{ userName: string }>}) {
   const resolvedParams = use(params);
@@ -35,6 +36,9 @@ export default function People({params}: {params : Promise<{ userName: string }>
     { value: "Instagram", label: <span className="flex items-center gap-2"><BiInstagram /> Instagram</span>, EmptyIcon :  <BiInstagram />},
     { value: "Facebook", label: <span className="flex items-center gap-2"><FacebookTag /> Facebook</span>, EmptyIcon :  <FacebookTag />},
   ];
+  if(isLoading){
+    return <SkillmateLogoLoading/>
+  }
   if(!userInformationProfile) return <>
     <div className="w-full h-screen bg-red-300 flex justify-center items-center">
       <p>
