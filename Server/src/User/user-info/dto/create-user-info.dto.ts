@@ -95,4 +95,8 @@ export class CreateUserInfoDto {
   @ValidateNested()
   @Type(()=> headerImageDto)
   headerImage : headerImageDto
+
+
+  @IsString()
+  jobTitle: string;
 }

@@ -16,6 +16,7 @@ export type ResumeType = {
 }
 
 export type UserInfo = {
+  jobTitle : string ;
   dateofbirth: string;
   bio: string;
   favorite: FavoriteType;

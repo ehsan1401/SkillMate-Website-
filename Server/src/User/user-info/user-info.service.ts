@@ -30,8 +30,8 @@ export class UserInfoService {
     }
 
     const query = `
-        INSERT INTO userInfo ("userid", "phone", "dateofbirth", "bio", "social", "skills", "learning_skills", "resume", "favorite", "createdAt", "updatedAt" , "headerImage" , "Location")
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NOW(), NOW() , $10 , $11)
+        INSERT INTO userInfo ("userid", "phone", "dateofbirth", "bio", "social", "skills", "learning_skills", "resume", "favorite", "createdAt", "updatedAt" , "headerImage" , "Location" , "jobTitle"
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NOW(), NOW() , $10 , $11 , $12)
         RETURNING *;
       `;
     const values = [
@@ -58,6 +58,8 @@ export class UserInfoService {
         "country": "",
         "City": "",
       }),
+      createUserInfoDto.jobTitle,
+
     ];
     const result = await pool.query(query, values);
 

@@ -1,4 +1,4 @@
-import SkillmateLogoLoading from "@/Components/Loadings/SkillmateLogoLoading";
+'use client';
 import { UserInfo } from "../pages/type";
 import { DatePicker, Input, Select, Space } from "antd";
 import dayjs from "dayjs";
@@ -29,8 +29,8 @@ export default function PersonalInformation(
 ) {
   const { user } = useUser();
 
-  const [country, setCountry] = useState<string | undefined>(undefined);
-  const [region, setRegion] = useState<string| undefined>(undefined);
+  const [country, setCountry] = useState<string | undefined>(formData.Location.country);
+  const [region, setRegion] = useState<string| undefined>(formData.Location.City);
 
   const countryOptions = allCountries.map(c => ({
     value: c.countryName,
@@ -120,7 +120,7 @@ export default function PersonalInformation(
                     placeholder="Select country"
                     optionFilterProp="label"
                     filterSort={(a, b) => (a.label ?? '').toLowerCase().localeCompare((b.label ?? '').toLowerCase())}
-                    value={country}
+                    value={country || null}
                     onChange={val => { setCountry(val); setRegion(undefined); }}
                     options={countryOptions}
                 />
@@ -130,7 +130,7 @@ export default function PersonalInformation(
                     placeholder="Select region"
                     optionFilterProp="label"
                     filterSort={(a, b) => (a.label ?? '').toLowerCase().localeCompare((b.label ?? '').toLowerCase())}
-                    value={region}
+                    value={region || null}
                     onChange={val => setRegion(val)}
                     options={regionOptions}
                     disabled={!country}
@@ -183,11 +183,6 @@ export default function PersonalInformation(
             />
         </div>
         </div>
-
-
-
-
-
       </div>
     </div>
   );

@@ -13,9 +13,9 @@ export default function AllProviders({children} : {children : ReactNode}){
 
     return(
         <>
+        <AlertProvider> 
         <UserProvider>
         <ThemeProvider>
-        <AlertProvider>  
         <ModalProvider>
         <CheapDataProvider>
         <DashboardTypeProvider>
@@ -23,10 +23,10 @@ export default function AllProviders({children} : {children : ReactNode}){
         </DashboardTypeProvider>
         </CheapDataProvider>
         </ModalProvider>
-        <CustomAlert />
-        </AlertProvider>
         </ThemeProvider>
         </UserProvider>
+        <CustomAlert />
+        </AlertProvider>
 
         </>
     )

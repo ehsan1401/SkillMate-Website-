@@ -20,7 +20,7 @@ export const AlertProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
   const showAlert = (message: string, type: AlertType = "Info") => {
     setAlert({ message, type, visible: true });
-    setTimeout(() => setAlert((a) => ({ ...a, visible: false })), 3000);
+    setTimeout(() => setAlert((a) => ({ ...a, visible: false })), 5000);
   };
 
   const hideAlert = () => setAlert((a) => ({ ...a, visible: false }));
