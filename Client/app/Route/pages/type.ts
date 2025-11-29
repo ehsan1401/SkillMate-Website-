@@ -35,5 +35,13 @@ export type UserInfo = {
   Location : {
     City : string,
     country : string
-  }
+  };
+  profileImage : string
 };
+
+
+export type HeaderImagesType = {
+    headerName : string ,
+    headerURL : string,
+    headerALT : string
+}

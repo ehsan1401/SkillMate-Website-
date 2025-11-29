@@ -7,7 +7,7 @@ import SkillsAndLearning from "./steps/Skills_&_Learning";
 import ProfileAndCoverPhoto from "./steps/Profile_&_CoverPhoto";
 import Education from "./steps/Education";
 import ExperienceAndProjects from "./steps/Experience_&_Projects";
-import { number } from "framer-motion";
+import SocialsMedia from "./steps/Socials_Media";
 
 export default function Route() {
   const [formData, setFormData] = useState({
@@ -40,6 +40,7 @@ export default function Route() {
       City : "",
       country : ""
     },
+    profileImage : ""
   });
   const steps = [
     {
@@ -61,6 +62,10 @@ export default function Route() {
     {
       title: 'Experience / Projects',
       content: <ExperienceAndProjects formData={formData} setFormData={setFormData}/>,
+    },
+    {
+      title: 'Social Media',
+      content: <SocialsMedia formData={formData} setFormData={setFormData}/>,
     },
   ];
   const items = steps.map((item) => ({ key: item.title, title: item.title }));

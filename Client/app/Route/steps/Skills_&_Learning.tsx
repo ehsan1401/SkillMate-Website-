@@ -92,7 +92,7 @@ export default function SkillsAndLearning(
                 value={formData.jobTitle || ""}
                 options={JobTitleOptions}
                 placeholder="Type or select your main role"
-                onChange={(val) => setFormData(prev => ({ ...prev, mainRole: val }))}
+                onChange={(val) => setFormData(prev => ({ ...prev, jobTitle: val }))}
             />
 
           </div>

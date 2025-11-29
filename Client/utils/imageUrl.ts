@@ -19,7 +19,7 @@ function getRandomAvatar(gender?: "male" | "female") {
   return `https://api.dicebear.com/7.x/miniavs/svg?seed=${seed}&backgroundColor=${backgroundColor}${genderParams}`;
 }
 
-export function imageUrl(path: string | null , ImageType? : ImageTypes) {
+export function imageUrl(path: string | undefined , ImageType? : ImageTypes) {
   const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   if (!path) {
     if(ImageType === "Header"){
@@ -30,7 +30,7 @@ export function imageUrl(path: string | null , ImageType? : ImageTypes) {
   }
 
   const base = process.env.NEXT_PUBLIC_API_URL || "";
-  if (path === "null") {
+  if (path === "undefined") {
     if(ImageType === "Header"){
       if(!isDarkMode) return "/Images/DarkHeaderDashboard.jpg"
       return "/Images/HeaderDashboard.jpg"

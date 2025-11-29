@@ -17,9 +17,9 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
   placeholder = "",
   onChange,
 }) => {
-  const [InputData, SetInputData] = useState<string>("");
+  const [InputData, SetInputData] = useState<string>(value?? "");
 
-  // فقط ۱۰ مورد اول فیلتر شده رو نشون بده
+
   const filteredOptions = options
     .filter(opt => opt.toLowerCase().includes(InputData.toLowerCase()))
     .slice(0, 10);
