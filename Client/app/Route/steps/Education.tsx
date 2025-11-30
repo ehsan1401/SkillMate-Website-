@@ -44,8 +44,21 @@ type Props = {
 };
 
 export default function Education({ formData, setFormData }: Props) {
-  const [country, setCountry] = useState<string | undefined>(formData.Location?.country);
-  const [region, setRegion] = useState<string | undefined>(formData.Location?.City);
+    const [eduForm, setEduForm] = useState({
+        id: generateId(),
+        degree: "High School" as degree,
+        fieldOfStudy: "",
+        school: "",
+        country: "",
+        city: "",
+        startDate: "",
+        endDate: "",
+        isCurrent: false,
+        grade: "",
+        description: "",
+    });
+  const [country, setCountry] = useState<string | undefined>(eduForm.country);
+  const [region, setRegion] = useState<string | undefined>(eduForm.city);
     const { showAlert } = useAlert();
   
 
@@ -72,19 +85,7 @@ export default function Education({ formData, setFormData }: Props) {
     { value: "Certificate", label: "Certificate" },
   ];
 
-  const [eduForm, setEduForm] = useState({
-    id: generateId(),
-    degree: "High School" as degree,
-    fieldOfStudy: "",
-    school: "",
-    country: "",
-    city: "",
-    startDate: "",
-    endDate: "",
-    isCurrent: false,
-    grade: "",
-    description: "",
-  });
+
 
   useEffect(() => {
     setEduForm(prev => ({
@@ -262,11 +263,6 @@ export default function Education({ formData, setFormData }: Props) {
             }}
             className="font-vazir"
         />
-
-
-
-
-
         <div className="relative">
           <TextArea
             value={eduForm.description}
@@ -288,7 +284,7 @@ export default function Education({ formData, setFormData }: Props) {
         </Button>
       </div>
 
-      <div className="w-1/2 h-[90%] overflow-y-auto overflow-x-hidden px-2 pb-2">
+      <div className="w-1/2 h-[88%] overflow-y-auto overflow-x-hidden px-2 pb-2">
         {formData.Education.length === 0 ? (
           <div className="flex flex-col justify-center items-center gap-3 w-full h-full">
             <EmptyFolder width={200} opacity={0.5}/>
