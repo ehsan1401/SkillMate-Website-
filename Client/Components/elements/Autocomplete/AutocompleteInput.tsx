@@ -9,6 +9,7 @@ type AutocompleteInputProps = {
   options: string[];
   placeholder?: string;
   onChange: (val: string) => void;
+  LetterLimit : number
 };
 
 const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
@@ -16,6 +17,7 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
   options,
   placeholder = "",
   onChange,
+  LetterLimit
 }) => {
   const [InputData, SetInputData] = useState<string>(value?? "");
 
@@ -33,6 +35,7 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
       key: index.toString(),
       label: (
         <span
+          className="font-vazir pt-1"
           onMouseDown={e => {
             e.preventDefault();
             SetInputData(opt);
@@ -49,7 +52,7 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
             key: "custom",
             label: (
               <span
-                className="italic text-gray-500"
+                className="italic text-gray-500 font-vazir"
                 onMouseDown={e => {
                   e.preventDefault();
                   SetInputData(InputData);
@@ -66,19 +69,21 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
 
   return (
     <div className="relative w-full">
-      <Dropdown menu={{ items }} trigger={['click']}>
+      <Dropdown menu={{ items }} trigger={['click']} className="font-vazir pt-1">
         <Input
           style={{ width: "100%", height: "32px" }}
+          className="font-vazir pt-1"
           value={InputData}
           placeholder={placeholder}
           onChange={e =>{
             const val = e.target.value;
-            if (val.length <= 50) {
+            if (val.length <= LetterLimit) {
               SetInputData(val);
               onChange(val);
             }
           }}
-          suffix={<span>{InputData.length}/50</span>}
+          
+          suffix={<span className="font-vazir pt-1">{InputData.length}/{LetterLimit}</span>}
         />
       </Dropdown>
     </div>

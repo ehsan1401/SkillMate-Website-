@@ -15,6 +15,31 @@ export type ResumeType = {
   link: string;
 }
 
+
+export type Education = {
+  id: string;
+  degree:
+    | "High School"
+    | "Diploma"
+    | "Associate"
+    | "Bachelor"
+    | "Master"
+    | "Doctorate"
+    | "Bootcamp"
+    | "Certificate";
+  fieldOfStudy: string;
+  school: string;
+  country?: string;
+  city?: string;
+  startDate: string;
+  endDate?: string | null;
+  isCurrent?: boolean;
+  grade?: string | null;
+  description?: string | null;
+};
+
+
+
 export type UserInfo = {
   jobTitle : string ;
   dateofbirth: string;
@@ -36,7 +61,8 @@ export type UserInfo = {
     City : string,
     country : string
   };
-  profileImage : string
+  profileImage : string ,
+  Education : Education[]
 };
 
 

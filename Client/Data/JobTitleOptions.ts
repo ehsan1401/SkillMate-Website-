@@ -1,4 +1,3 @@
-// src/data/JobTitleOptions.ts
 
 const JobTitleOptions: string[] = [
   "Front-end Developer",

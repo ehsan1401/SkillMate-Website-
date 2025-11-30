@@ -1,13 +1,14 @@
 // components/CustomIllustration.tsx
 import React from "react";
 
-export default function EmptyFolder({width , height} : {width? : number , height? : number}){
+export default function EmptyFolder({width , height , opacity} : {width? : number , height? : number , opacity? : number}){
     return(
         <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 1837.19 1564.25"
             width={width}
             height={height}
+            opacity={opacity}
         >
         <defs>
             <style>

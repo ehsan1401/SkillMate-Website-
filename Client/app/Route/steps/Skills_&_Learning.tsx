@@ -71,16 +71,6 @@ export default function SkillsAndLearning(
         setFormData(prev => ({ ...prev, learning_skills : learningSkills}))
     } , [learningSkills])
 
-    const [role, setRole] = useState<string>("");
-    const roles = [
-        "Front-end Developer",
-        "Back-end Developer",
-        "Full-stack Developer",
-        "UI/UX Designer",
-        "Industrial Engineer",
-        "Other"
-    ];
-
     return(
     <div className="w-full h-[450px] flex flex-col gap-4 px-5 pt-5">
       <div className="grid grid-cols-2 gap-x-5 gap-y-4 w-full">
@@ -89,14 +79,13 @@ export default function SkillsAndLearning(
           <label className="font-bold w-[20%] text-right">Your Main Role / Job Title :</label>
           <div className="w-[80%] flex gap-3">
             <AutocompleteInput
-                value={formData.jobTitle || ""}
-                options={JobTitleOptions}
-                placeholder="Type or select your main role"
-                onChange={(val) => setFormData(prev => ({ ...prev, jobTitle: val }))}
+              LetterLimit={50}
+              value={formData.jobTitle || ""}
+              options={JobTitleOptions}
+              placeholder="Type or select your main role"
+              onChange={(val) => setFormData(prev => ({ ...prev, jobTitle: val }))}
             />
-
           </div>
-          {role}
         </div>
         <div className="flex items-center gap-2 col-span-2">
           <label className="font-bold w-[10%] text-right">Your Skills:</label>

@@ -1,5 +1,4 @@
 'use client'
-
 import { Button, Modal, Steps } from "antd";
 import { useState } from "react";
 import PersonalInformation from "./steps/Personal_Information";
@@ -8,40 +7,55 @@ import ProfileAndCoverPhoto from "./steps/Profile_&_CoverPhoto";
 import Education from "./steps/Education";
 import ExperienceAndProjects from "./steps/Experience_&_Projects";
 import SocialsMedia from "./steps/Socials_Media";
+import { UserInfo } from "./pages/type";
+
+
 
 export default function Route() {
-  const [formData, setFormData] = useState({
-    jobTitle : "",
-    dateofbirth: "",
-    bio: "",
-    favorite: {
-      People: [] as number[],
-      Projects: [] as number[],
-    },
-    learning_skills: [] as string[],
-    phone: "",
-    resume: {
-      file: "",
-      link: ""
-    },
-    skills: [] as string[],
-    social: [] as {
-      name: string;
-      url: string;
-    }[],
-    headerImage: {
-      headerImageURL: "",
-      headerImageALT: "",
-      Position: "Center" as "Top" | "Center" | "Bottom",
-      overlayOpacity: "0.3",
-      overlayColor: "#000000",
-    },
-    Location: {
-      City : "",
-      country : ""
-    },
-    profileImage : ""
-  });
+const [formData, setFormData] = useState<UserInfo>({
+  jobTitle : "",
+  dateofbirth: "",
+  bio: "",
+  favorite: {
+    People: [],
+    Projects: [],
+  },
+  learning_skills: [],
+  phone: "",
+  resume: {
+    file: "",
+    link: ""
+  },
+  skills: [],
+  social: [],
+  headerImage: {
+    headerImageURL: "",
+    headerImageALT: "",
+    Position: "Center",
+    overlayOpacity: "0.3",
+    overlayColor: "#000000",
+  },
+  Location: {
+    City : "",
+    country : ""
+  },
+  profileImage : "",
+  Education: [],
+  // Education : {
+  //   id: generateId(),
+  //   degree: "High School",
+  //   fieldOfStudy: "",
+  //   school: "",
+  //   country: "",
+  //   city: "",
+  //   startDate: "",
+  //   endDate: "",
+  //   isCurrent: false,
+  //   grade: "",
+  //   description: ""
+  // }
+});
+
   const steps = [
     {
       title: 'Personal Information',

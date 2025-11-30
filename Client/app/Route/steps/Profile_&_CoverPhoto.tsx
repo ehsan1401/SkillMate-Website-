@@ -54,7 +54,11 @@ export default function ProfileAndCoverPhoto({
                 setImageName={setImageName}
             />
             <h2 className="text-2xl font-vazir pt-3 text-center">Profile Image</h2>
-            <p className="text-center">Image selected: {imageName}</p>
+            {
+                imageName
+                &&
+                <p className="text-center">Image selected: {}</p>
+            }
         </div>
         <div className="pt-7 w-[60%] h-[90%]">
             <Header
