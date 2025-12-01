@@ -10,6 +10,7 @@ type AutocompleteInputProps = {
   placeholder?: string;
   onChange: (val: string) => void;
   LetterLimit : number
+  width? : string
 };
 
 const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
@@ -17,7 +18,8 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
   options,
   placeholder = "",
   onChange,
-  LetterLimit
+  LetterLimit,
+  width
 }) => {
   const [InputData, SetInputData] = useState<string>(value?? "");
 
@@ -68,10 +70,10 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
   ];
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full" style={{width :  width?? "100%"}}>
       <Dropdown menu={{ items }} trigger={['click']} className="font-vazir pt-1">
         <Input
-          style={{ width: "100%", height: "32px" }}
+          style={{ width:"100%", height: "32px" }}
           className="font-vazir pt-1"
           value={InputData}
           placeholder={placeholder}

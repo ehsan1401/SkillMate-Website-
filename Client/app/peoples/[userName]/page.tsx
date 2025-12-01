@@ -12,7 +12,6 @@ import { TelegramCircle } from "@/Icons/socials/TelegramCircle";
 import { BiInstagram } from "@/Icons/socials/BiInstagram";
 import { FacebookTag } from "@/Icons/socials/FacebookTag";
 import { GetPeopleInfoType, SocialsItem } from "./pages/types";
-import { MdiChat } from "@/Icons/ChatIcon";
 import { MessageIcon } from "@/Icons/MessageIcon";
 import SkillmateLogoLoading from "@/Components/Loadings/SkillmateLogoLoading";
 

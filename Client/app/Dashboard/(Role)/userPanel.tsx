@@ -2,11 +2,11 @@
 import { ReactNode, useEffect, useState } from "react";
 import { LogoutIcon } from "@/Icons/LogoutIcon";
 import { logout } from "@/utils/logout";
-import { MaterialSymbolsAccountBoxOutline } from "@/Icons/profileIcon";
-import { SiProjectsLine } from "@/Icons/ProjectsIcon";
-import { MaterialSymbolsNotificationsOutline } from "@/Icons/NotificationsIcon";
-import { MaterialSymbolsSettingsAccountBoxRounded } from "@/Icons/SettingIcon";
-import { MaterialSymbolsDashboardOutline } from "@/Icons/DashboardIcon";
+import { ProfileIcon } from "@/Icons/profileIcon";
+import { ProjectsIcon } from "@/Icons/ProjectsIcon";
+import { NotificationsIcon } from "@/Icons/NotificationsIcon";
+import { SettingIcon } from "@/Icons/SettingIcon";
+import { DashboardIcon } from "@/Icons/DashboardIcon";
 import UploadAvatar from "./(userPanelPages)/page/UploadAvatar";
 import { API } from "@/utils/Api";
 import { useChangePanelItem } from "@/Components/context/PanelItem/PanelItemsProvider";
@@ -53,11 +53,11 @@ export default function UserPanel({userData}:{userData : UserType}){
     }, []);
 
     const NavigationItems : NavigationItem[] = [
-    { id: "item0", label: "Dashboard", icon: <MaterialSymbolsDashboardOutline /> , Component : <MainDashboard/> },
-    { id: "item1", label: "My Profile", icon: <MaterialSymbolsAccountBoxOutline /> , Component : <MyProfile userInfo={userData}/> },
-    { id: "item2", label: "Projects", icon: <SiProjectsLine /> ,  Component : <Projects/>  },
-    { id: "item3", label: "Notifications", icon: <MaterialSymbolsNotificationsOutline /> ,  Component :  <Notifications/> },
-    { id: "item4", label: "Settings", icon: <MaterialSymbolsSettingsAccountBoxRounded /> , Component : <Settings  user={userData} />  },
+    { id: "item0", label: "Dashboard", icon: <DashboardIcon /> , Component : <MainDashboard/> },
+    { id: "item1", label: "My Profile", icon: <ProfileIcon /> , Component : <MyProfile userInfo={userData}/> },
+    { id: "item2", label: "Projects", icon: <ProjectsIcon /> ,  Component : <Projects/>  },
+    { id: "item3", label: "Notifications", icon: <NotificationsIcon /> ,  Component :  <Notifications/> },
+    { id: "item4", label: "Settings", icon: <SettingIcon /> , Component : <Settings  user={userData} />  },
     ];
     const handleSelect = (e : selectedItem)=>{
         TogglePanelItem(e)

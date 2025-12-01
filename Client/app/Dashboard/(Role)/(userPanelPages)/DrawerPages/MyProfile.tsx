@@ -13,11 +13,11 @@ import CreateInfoButton from "./MyProfilePages/CreateInfoButton";
 import { API } from "@/utils/Api";
 import useSWR from "swr";
 import { GetUserInfo } from "./MyProfilePages/clientAction";
-import { IcOutlineErrorOutline } from "@/Icons/ErrorIcon";
+import { ErrorIcon } from "@/Icons/ErrorIcon";
 import { UserType } from "@/Types/UserType";
 import Link from "next/link";
-import { MaterialSymbolsPerson } from "@/Icons/UserIcon";
 import { useUser } from "@/Components/context/UserContext/UserContext";
+import { UserIcon } from "lucide-react";
 
 export default function MyProfile({userInfo}:{userInfo : UserType}){
 
@@ -86,7 +86,7 @@ export default function MyProfile({userInfo}:{userInfo : UserType}){
                 }
                 <Tooltip title={`Show my profile`} placement="left">
                 <Link href={`/peoples/${user?.userName}`} className=" absolute right-24 top-28 text-2xl text-neutral-800 dark:text-neutral-100 transition-all duration-200 hover:scale-125">
-                    <MaterialSymbolsPerson/>
+                    <UserIcon/>
                 </Link>
                 </Tooltip>
 
@@ -95,7 +95,7 @@ export default function MyProfile({userInfo}:{userInfo : UserType}){
                     <div className="flex flex-col justify-center items-center w-full h-[50%] lg:pt-16">
                         <h1 className="text-4xl text-neutral-800 dark:text-neutral-100 font-bold font-vazir">{userInfo?.userName}</h1>
                         <span className="text-neutral-500 dark:text-neutral-200 -mt-5 text-sm">{userInfo?.email}</span>
-                        { UserInformation && UserInformation?.phone ? <span className="py-1 text-neutral-500 dark:text-neutral-200">+{UserInformation?.phone}</span> : <span className="py-1 text-red-800 dark:text-red-300 text-xs flex gap-1"><IcOutlineErrorOutline className="mt-[2px]"/>Mobile phone number not entered.</span>}
+                        { UserInformation && UserInformation?.phone ? <span className="py-1 text-neutral-500 dark:text-neutral-200">+{UserInformation?.phone}</span> : <span className="py-1 text-red-800 dark:text-red-300 text-xs flex gap-1"><ErrorIcon className="mt-[2px]"/>Mobile phone number not entered.</span>}
                     </div>
                     {
                         UserInformation &&

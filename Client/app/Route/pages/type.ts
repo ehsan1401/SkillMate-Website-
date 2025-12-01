@@ -15,6 +15,11 @@ export type ResumeType = {
   link: string;
 }
 
+export type HeaderImagesType = {
+    headerName : string ,
+    headerURL : string,
+    headerALT : string
+}
 
 export type Education = {
   id: string;
@@ -37,6 +42,20 @@ export type Education = {
   grade?: string | null;
   description?: string | null;
 };
+
+export type workExperience = {
+  jobTitle : string ;
+  companyName : string ;
+  employmentType : "full-time" | "part-time" | "contract" | "internship" | "freelance";
+  location? : string  ;
+  startDate: string ;
+  endDate? : string ;
+  stillWorking: boolean ;
+  description? : string ;
+  techStack? : string[];
+  achievements?: string[];
+  projectLinks?: string
+}
 
 
 
@@ -61,13 +80,7 @@ export type UserInfo = {
     City : string,
     country : string
   };
-  profileImage : string ,
-  Education : Education[]
+  profileImage : string ;
+  Education : Education[];
+  workExperience: workExperience[]
 };
-
-
-export type HeaderImagesType = {
-    headerName : string ,
-    headerURL : string,
-    headerALT : string
-}

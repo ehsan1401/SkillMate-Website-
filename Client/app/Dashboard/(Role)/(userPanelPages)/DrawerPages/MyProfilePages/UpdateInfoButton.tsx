@@ -13,7 +13,7 @@ import { FacebookTag } from "@/Icons/socials/FacebookTag";
 import { useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { useAlert } from "@/Components/elements/Alert/AlertContext";
-import { IcOutlineErrorOutline } from "@/Icons/ErrorIcon";
+import { ErrorIcon } from "@/Icons/ErrorIcon";
 import { UserType } from "@/Types/UserType";
 
 const handleSubmit = () => true;
@@ -162,7 +162,7 @@ export function ProfileForm({
     >
       <h1 className="text-2xl font-Lalezar">{user?.userName}</h1>
       <span className="flex text-orange-500 py-2">
-        <span className="pt-1"><IcOutlineErrorOutline /></span>
+        <span className="pt-1"><ErrorIcon /></span>
         <span>Make sure you press the update button to save the information.</span>
       </span>
       <div className="w-full h-auto py-5 px-10 flex flex-col gap-5">

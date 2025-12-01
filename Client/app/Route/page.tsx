@@ -41,19 +41,7 @@ const [formData, setFormData] = useState<UserInfo>({
   },
   profileImage : "",
   Education: [],
-  // Education : {
-  //   id: generateId(),
-  //   degree: "High School",
-  //   fieldOfStudy: "",
-  //   school: "",
-  //   country: "",
-  //   city: "",
-  //   startDate: "",
-  //   endDate: "",
-  //   isCurrent: false,
-  //   grade: "",
-  //   description: ""
-  // }
+  workExperience : []
 });
 
   const steps = [
@@ -115,7 +103,5 @@ const [formData, setFormData] = useState<UserInfo>({
             </div>
         </Modal>
       </div>
-
-
   )
 }

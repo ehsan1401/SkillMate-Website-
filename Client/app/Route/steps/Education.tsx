@@ -12,20 +12,13 @@ import EmptyFolder from "@/Icons/Vector/EmptyFolder";
 import { EducationIcon } from "@/Icons/EducationIcon";
 import { useAlert } from "@/Components/elements/Alert/AlertContext";
 import { CityIcon } from "@/Icons/CityIcon";
+import { useModal } from "@/Components/context/ModalContext/ModalContext";
+import { TrashBin } from "@/Icons/TrashBin";
 
 type Country = {
   countryName: string;
   countryShortCode: string;
   regions: { name: string; shortCode: string }[];
-}
-const allCountries = countryList as Country[];
-
-function countryCodeToEmoji(code: string) {
-  return code
-    .toUpperCase()
-    .replace(/./g, char =>
-      String.fromCodePoint(127397 + char.charCodeAt(0))
-    );
 }
 
 type degree =
@@ -42,24 +35,35 @@ type Props = {
   formData: UserInfo;
   setFormData: React.Dispatch<React.SetStateAction<UserInfo>>;
 };
+const allCountries = countryList as Country[];
+
+function countryCodeToEmoji(code: string) {
+  return code
+    .toUpperCase()
+    .replace(/./g, char =>
+      String.fromCodePoint(127397 + char.charCodeAt(0))
+    );
+}
+
 
 export default function Education({ formData, setFormData }: Props) {
-    const [eduForm, setEduForm] = useState({
-        id: generateId(),
-        degree: "High School" as degree,
-        fieldOfStudy: "",
-        school: "",
-        country: "",
-        city: "",
-        startDate: "",
-        endDate: "",
-        isCurrent: false,
-        grade: "",
-        description: "",
-    });
+  const [eduForm, setEduForm] = useState({
+      id: generateId(),
+      degree: "High School" as degree,
+      fieldOfStudy: "",
+      school: "",
+      country: "",
+      city: "",
+      startDate: "",
+      endDate: "",
+      isCurrent: false,
+      grade: "",
+      description: "",
+  });
   const [country, setCountry] = useState<string | undefined>(eduForm.country);
   const [region, setRegion] = useState<string | undefined>(eduForm.city);
-    const { showAlert } = useAlert();
+  const { showAlert } = useAlert();
+  const { showModal } = useModal();
   
 
   const countryOptions = allCountries.map(c => ({
@@ -96,7 +100,7 @@ export default function Education({ formData, setFormData }: Props) {
   }, [country, region]);
 
 
-    const handleAddEducation = () => {
+  const handleAddEducation = () => {
 
 
     if (!eduForm.fieldOfStudy ) {
@@ -138,7 +142,15 @@ export default function Education({ formData, setFormData }: Props) {
     });
     setCountry(undefined);
     setRegion(undefined);
+  };
+
+    const HandleDeleteEducation = (id: string) => {
+        setFormData(prev => ({
+            ...prev,
+            Education: prev.Education.filter(exp => exp.id !== id)
+        }));
     };
+
 
 
   return (
@@ -293,11 +305,39 @@ export default function Education({ formData, setFormData }: Props) {
         ) : (
           formData.Education.map(item => (
             <div key={item.id} className="p-4 shadow-md rounded-lg bg-neutral-50 mb-4">
-                <h2 className="flex gap-2">
+                <h2 className="flex gap-2 relative">
                     <EducationIcon className="text-xl mt-[0px] text-blue-400 "/>
                     <span className="font-vazir">
                         <span className="font-bold">{item.fieldOfStudy}</span> at <span className="text-sm">{item.school}</span>
                     </span>
+                    <button 
+                        className="absolute right-0 top-0 hover:text-red-500 transition-all duration-100"
+                        onClick={() =>
+                            showModal(
+                            <div className="flex justify-center items-center">
+                              Are you sure you want to delete this education entry? This action cannot be undone.
+                            </div>,
+                            "Confirm Delete",
+                            ()=>{return false},
+                            "❌ Error!",
+                            500,
+                            200,
+                            ({ hideModal }) => [
+                                <Button key="cancel" onClick={hideModal} type="default" className="font-vazir pt-1">
+                                    Cancel
+                                </Button>,
+                                <Button key="ok" onClick={()=>{
+                                    hideModal() ;
+                                    HandleDeleteEducation(item.id)
+                                }} type="primary" variant="solid" color="danger" className="font-vazir pt-1">
+                                    Delete
+                                </Button>,
+                            ]
+                            )
+                        }
+                    >
+                        <TrashBin className="text-xl"/>
+                    </button>
                 </h2>
                 <p className="pl-8">
                     <span className="flex">

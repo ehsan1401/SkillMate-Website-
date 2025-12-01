@@ -2,11 +2,11 @@
 
 import { useState, useRef } from "react";
 import Clock from "@/Components/elements/Clock";
-import { LetsIconsExpandRightDouble } from "@/Icons/expandToRight";
-import { LetsIconsExpandLeftDouble } from "@/Icons/expandToLeft";
+import { ExpandToRight } from "@/Icons/expandToRight";
 import DarkModeToggle from "@/Components/elements/Toggles/DarkModeToggle";
-import { IcBaselineHome } from "@/Icons/HomeIcon";
+import { HomeIcon } from "@/Icons/HomeIcon";
 import { Play, Pause, Maximize, Minimize } from "lucide-react";
+import { ExpandToLeftIcon } from "@/Icons/expandToLeftIcon";
 
 export default function ClockFullScreen() {
   const [expanded, setExpanded] = useState(false);
@@ -90,7 +90,7 @@ export default function ClockFullScreen() {
           }}
           title="Go Home"
         >
-          <IcBaselineHome />
+          <HomeIcon />
         </button>
 
         <span className="absolute left-14 top-2">
@@ -110,7 +110,7 @@ export default function ClockFullScreen() {
           className="fixed bottom-0 left-0 text-white active:scale-95 transition-all duration-200 z-[200] p-4"
           title={expanded ? "Collapse" : "Expand"}
         >
-          {expanded ? <LetsIconsExpandLeftDouble /> : <LetsIconsExpandRightDouble />}
+          {expanded ? <ExpandToLeftIcon /> : <ExpandToRight />}
         </button>
       </div>
     </div>

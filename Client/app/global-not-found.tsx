@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import IButton from '@/Components/elements/IButton'
-import { FluentAnimalPawPrint24Regular } from '@/Icons/FluentAnimalPawPrint24Regular'
+import { AnimalPaw } from '@/Icons/FluentAnimalPawPrint24Regular'
  
 const inter = Inter({ subsets: ['latin'] })
  
@@ -23,7 +23,7 @@ export default function GlobalNotFound() {
               <h1 className='lg:text-9xl text-6xl'>Lost, human?</h1>
               <h2 className='lg:text-6xl text-4xl lg:pl-3'>You took the wrong turn.</h2>
               <h3 className='lg:text-3xl text-2xl pl-5 lg:pt-5 pt-3 pb-10 flex gap-2'>
-                <FluentAnimalPawPrint24Regular/>
+                <AnimalPaw/>
                 Now feed me and go back
               </h3>
               <span className='w-96'>
