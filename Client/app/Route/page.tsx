@@ -72,8 +72,9 @@ const [formData, setFormData] = useState<UserInfo>({
   ];
   const items = steps.map((item) => ({ key: item.title, title: item.title }));
   const [current, setCurrent] = useState(0);
-  console.log("Form data on Page : " , formData) ;
-
+  const HandleSubmitFormData = ()=>{
+    console.log("Form data on Page After submit : " , formData) ;
+  }
   return (
 
     <div className="w-full h-screen pt-16 flex justify-center items-center bg-red-100">
@@ -92,7 +93,7 @@ const [formData, setFormData] = useState<UserInfo>({
                   <Button type="default" disabled={current === 0} onClick={() => setCurrent(current - 1)} className="font-vazir pt-1">Previous</Button>
                   
                   {current === steps.length - 1 ?  
-                    <Button type="primary" variant="solid" color="green" onClick={()=>{console.log("done")}} className="font-vazir pt-1">Done</Button>
+                    <Button type="primary" variant="solid" color="green" onClick={HandleSubmitFormData} className="font-vazir pt-1">Done</Button>
                   :
                     <Button type="primary" onClick={() => setCurrent(current + 1)} className="font-vazir pt-1">Next</Button>
                   }

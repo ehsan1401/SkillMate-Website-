@@ -178,7 +178,7 @@ export default function PersonalInformation(
                 style={{ resize: "none", maxHeight: 200 }}
                 count={{
                     show: true,
-                    max: 600,
+                    max: 800,
                 }}
             />
         </div>
