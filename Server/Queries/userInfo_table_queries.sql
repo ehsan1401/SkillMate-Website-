@@ -46,3 +46,7 @@ ALTER TABLE userInfo DROP COLUMN "Location"
 
 ALTER TABLE userinfo ADD COLUMN "jobTitle" TEXT DEFAULT NULL
 
+ALTER TABLE userinfo ADD COLUMN "Education" JSONB DEFAULT '[]'::JSONB
+
+ALTER TABLE userinfo ADD COLUMN "workExperience" JSONB DEFAULT '[]'::JSONB
+

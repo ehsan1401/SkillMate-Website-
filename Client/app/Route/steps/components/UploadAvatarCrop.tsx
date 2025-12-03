@@ -5,7 +5,8 @@ import { Avatar, Modal, Button } from "antd";
 import { CameraOutlined } from "@ant-design/icons";
 import { Cropper, CropperRef } from "react-advanced-cropper";
 import "react-advanced-cropper/dist/style.css";
-import { UserInfo } from "../pages/type";
+import { UserInfo } from "../../pages/type";
+import { dataURLtoFile } from "@/utils/dataURLtoFile";
 
 type UploadAvatarCropProps = {
   avatarUrl: string;
@@ -49,20 +50,35 @@ export default function UploadAvatarCrop({
     if (!canvas) return;
 
     const croppedDataUrl = canvas.toDataURL("image/png");
-    setFormData((prev: any) => ({ ...prev, profileImage: croppedDataUrl }));
-    setUrl(croppedDataUrl);
+    const file = dataURLtoFile(croppedDataUrl, "avatar.png");
+
+    // setFormData((prev: any) => ({ ...prev, profileImage: croppedDataUrl }));
+    setFormData((prev: any) => ({ ...prev, profileImage: file }));
+    // setUrl(croppedDataUrl);
+    setUrl(URL.createObjectURL(file));
     setOpen(false);
   };
 
   return (
     <>
       <div className={`relative w-fit mx-auto text-center group`}>
-        <Avatar
+        {/* <Avatar
           size={size}
           src={formData.profileImage!=="" ? formData.profileImage : url}
           onClick={handleClick}
           className="cursor-pointer transition-all duration-300"
+        /> */}
+        <Avatar
+          size={size}
+          src={
+            formData.profileImage instanceof File
+              ? URL.createObjectURL(formData.profileImage)
+              : url
+          }
+          onClick={handleClick}
+          className="cursor-pointer transition-all duration-300"
         />
+
         <div
           onClick={handleClick}
           className="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"

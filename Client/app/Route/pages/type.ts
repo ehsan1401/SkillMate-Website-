@@ -80,7 +80,7 @@ export type UserInfo = {
     City : string,
     country : string
   };
-  profileImage : string ;
+  profileImage: string | File;
   Education : Education[];
   workExperience: workExperience[]
 };
