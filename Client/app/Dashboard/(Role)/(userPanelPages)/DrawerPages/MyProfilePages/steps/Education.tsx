@@ -14,6 +14,7 @@ import { useAlert } from "@/Components/elements/Alert/AlertContext";
 import { CityIcon } from "@/Icons/CityIcon";
 import { useModal } from "@/Components/context/ModalContext/ModalContext";
 import { TrashBin } from "@/Icons/TrashBin";
+import { useBreakpoint } from "@/Components/hooks/useBreakpoint";
 
 type Country = {
   countryName: string;
@@ -64,6 +65,8 @@ export default function Education({ formData, setFormData }: Props) {
   const [region, setRegion] = useState<string | undefined>(eduForm.city);
   const { showAlert } = useAlert();
   const { showModal } = useModal();
+  const breakPoint = useBreakpoint();
+  const breakPointRec = breakPoint === "base" || breakPoint === "sm" || breakPoint === "md"
   
 
   const countryOptions = allCountries.map(c => ({
@@ -154,8 +157,8 @@ export default function Education({ formData, setFormData }: Props) {
 
 
   return (
-    <div className="w-full h-[450px] flex gap-4">
-      <div className="w-1/2 h-full flex flex-col gap-4">
+    <div className="w-full lg:h-[450px] h-auto flex flex-col lg:flex-row gap-4">
+      <div className="lg:w-1/2 w-full h-full flex flex-col gap-4">
         <div className="flex w-full gap-2">
           <AutocompleteInput
             value={eduForm.fieldOfStudy}
@@ -296,7 +299,7 @@ export default function Education({ formData, setFormData }: Props) {
         </Button>
       </div>
 
-      <div className="w-1/2 h-[88%] overflow-y-auto overflow-x-hidden px-2 pb-2">
+      <div className="lg:w-1/2 w-full lg:h-[88%] h-auto overflow-y-auto overflow-x-hidden px-2 pb-2">
         {formData.Education.length === 0 ? (
           <div className="flex flex-col justify-center items-center gap-3 w-full h-full">
             <EmptyFolder width={200} opacity={0.5}/>

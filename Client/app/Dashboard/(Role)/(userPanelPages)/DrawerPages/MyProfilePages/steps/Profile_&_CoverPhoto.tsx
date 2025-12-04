@@ -8,6 +8,7 @@ import { useUser } from "@/Components/context/UserContext/UserContext";
 import { imageUrl } from "@/utils/imageUrl";
 import UploadAvatarCrop from "./components/UploadAvatarCrop";
 import Header from "./components/Header";
+import { useBreakpoint } from "@/Components/hooks/useBreakpoint";
 
 export default function ProfileAndCoverPhoto({
   formData,
@@ -19,6 +20,8 @@ export default function ProfileAndCoverPhoto({
 
     const {user} = useUser()
     const[imageName , setImageName] = useState<string>('')
+    const breakPoint = useBreakpoint();
+    const breakPointRec = breakPoint === "base" || breakPoint === "sm" || breakPoint === "md"
     const[HeaderImage , setHeaderImage] = useState<HeaderImagesType>(formData.headerImage.headerImageURL ?
         {
             headerName : formData.headerImage.headerImageALT ,
@@ -44,11 +47,11 @@ export default function ProfileAndCoverPhoto({
 
 
   return (
-    <div className="w-full h-[450px] flex flex-row gap-4 items-start">
-        <div className="pt-2 w-[40%]">
+    <div className="w-full lg:h-[450px] h-auto flex flex-col lg:flex-row lg:gap-4 items-start">
+        <div className="pt-2 lg:w-[40%] w-full">
             <UploadAvatarCrop 
                 avatarUrl={imageUrl(user?.profileImageUrl)}
-                size={300}
+                size={breakPointRec ? 150 : 300}
                 formData={formData}
                 setFormData={setFormData}
                 setImageName={setImageName}
@@ -60,7 +63,7 @@ export default function ProfileAndCoverPhoto({
                 <p className="text-center">Image selected: {}</p>
             }
         </div>
-        <div className="pt-7 w-[60%] h-[90%]">
+        <div className="pt-7 lg:w-[60%] w-full h-[90%]">
             <Header
                 HeaderImage={HeaderImage}
                 setHeaderImage={setHeaderImage}

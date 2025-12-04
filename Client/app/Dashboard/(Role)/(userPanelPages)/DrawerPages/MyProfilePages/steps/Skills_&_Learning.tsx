@@ -72,12 +72,12 @@ export default function SkillsAndLearning(
     } , [learningSkills])
 
     return(
-    <div className="w-full h-[450px] flex flex-col gap-4 px-5 pt-5">
-      <div className="grid grid-cols-2 gap-x-5 gap-y-4 w-full">
+    <div className="w-full lg:h-[450px] h-auto flex flex-col gap-4 px-5 pt-5">
+      <div className="lg:grid flex flex-col grid-cols-2 gap-x-5 gap-y-4 w-full">
 
-        <div className="flex items-center gap-2 col-span-2 py-4">
-          <label className="font-bold w-[20%] text-right">Your Main Role / Job Title :</label>
-          <div className="w-[80%] flex gap-3">
+        <div className="flex lg:flex-row flex-col lg:items-center gap-2 col-span-2 py-4">
+          <label className="font-bold lg:w-[20%] w-full lg:text-right">Your Main Role / Job Title :</label>
+          <div className="lg:w-[80%] w-[100%] flex gap-3">
             <AutocompleteInput
               LetterLimit={50}
               value={formData.jobTitle || ""}
@@ -87,9 +87,9 @@ export default function SkillsAndLearning(
             />
           </div>
         </div>
-        <div className="flex items-center gap-2 col-span-2">
-          <label className="font-bold w-[10%] text-right">Your Skills:</label>
-          <div className="w-[90%] flex gap-3">
+        <div className="flex flex-col lg:flex-row items-center gap-2 col-span-2">
+          <label className="font-bold lg:w-[10%] w-full lg:text-right">Your Skills:</label>
+          <div className="lg:w-[90%] w-full flex lg:gap-3 gap-1">
             <Input
               style={{ width: "80%", height: "32px" }}
               value={skill}
@@ -104,8 +104,8 @@ export default function SkillsAndLearning(
           </div>
         </div>
 
-        <div className="flex items-center gap-2 col-span-2 px-6">
-          <div className="w-[100%] flex flex-wrap gap-3">
+        <div className="flex items-center gap-2 col-span-2 lg:px-6">
+          <div className="w-[100%] flex flex-wrap lg:gap-3 gap-1">
             {Skills.map((selectedSkill : string)=>{
                 return(
                 <Tag
@@ -123,9 +123,9 @@ export default function SkillsAndLearning(
         </div>
 
         
-        <div className="flex items-center gap-2 col-span-2">
-          <label className="font-bold w-[20%] text-right">What your curently learning:</label>
-          <div className="w-[80%] flex gap-3">
+        <div className="flex flex-col lg:flex-row items-center gap-2 col-span-2">
+          <label className="font-bold lg:w-[20%] w-full lg:text-right">What your curently learning:</label>
+          <div className="lg:w-[80%] w-full flex lg:gap-3 gap-1">
             <Input
               style={{ width: "78%", height: "32px" }}
               value={learningskill}
@@ -140,8 +140,8 @@ export default function SkillsAndLearning(
           </div>
         </div>
 
-        <div className="flex items-center gap-2 col-span-2 px-6">
-          <div className="w-[100%] flex flex-wrap gap-3">
+        <div className="flex items-center gap-2 col-span-2 lg:px-6">
+          <div className="w-[100%] flex flex-wrap lg:gap-3 gap-1">
             {learningSkills.map((selectedSkill : string)=>{
                 return(
                 <Tag

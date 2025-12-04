@@ -121,8 +121,8 @@ export default function ExperienceAndProjects(
 
 
     return(
-        <div className="w-full h-[450px] flex">
-            <div className="w-1/2 h-full p-2 flex flex-col gap-2">
+        <div className="w-full lg:h-[450px] h-auto flex lg:flex-row flex-col">
+            <div className="lg:w-1/2 w-full h-full p-2 flex flex-col gap-2">
                 <div className="w-full flex gap-2">
                     <Input
                         className="font-vazir pt-1 w-[60%]"
@@ -307,7 +307,7 @@ export default function ExperienceAndProjects(
                     Add Experience
                 </Button>
             </div>
-            <div className="w-1/2 h-[88%] overflow-y-auto overflow-x-hidden px-2 pb-2">
+            <div className="lg:w-1/2 w-full lg:h-[88%] h-auto overflow-y-auto overflow-x-hidden px-2 pb-2">
                 {formData.workExperience.length === 0 ? (
                 <div className="flex flex-col justify-center items-center gap-3 w-full h-full">
                     <EmptyFolder width={200} opacity={0.5}/>
