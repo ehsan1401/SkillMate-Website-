@@ -8,12 +8,13 @@ import {
   ValidateNested,
   IsUrl,
   IsOptional,
+  IsNotEmpty,
+  IsBoolean,
 } from 'class-validator';
 
 export class SocialDto {
   @IsString()
   name: string;
-
   @IsUrl()
   url: string;
 }
@@ -22,7 +23,6 @@ export class ResumeDto {
   @IsOptional()
   @IsString()
   file?: string;
-
   @IsOptional()
   @IsUrl()
   link?: string;
@@ -31,16 +31,12 @@ export class ResumeDto {
 export class headerImageDto {
   @IsString()
   headerImageURL: string;
-
   @IsString()
   headerImageALT: string;
-
   @IsString()
   Position: string;
-
   @IsOptional()
   overlayOpacity : string ;
-
   @IsOptional()
   overlayColor : string
 }
@@ -48,10 +44,63 @@ export class headerImageDto {
 export class LoactionDto {
   @IsString()
   country: string; 
-
   @IsString()
   City: string;
 }
+
+export class EducationDto {
+  @IsString()
+  @IsNotEmpty()
+  id: string; 
+  @IsString()
+  degree: "High School" | "Diploma" | "Associate" | "Bachelor"| "Master"| "Doctorate"| "Bootcamp"| "Certificate";
+  @IsString()
+  fieldOfStudy : string;
+  @IsString()
+  school : string ;
+  @IsString()
+  country : string ;
+  @IsString()
+  city : string ;
+  @IsString()
+  startDate : string ;
+  @IsString()
+  endDate : string ;
+  @IsBoolean()
+  isCurrent : boolean ;
+  @IsString()
+  grade : string | null ;
+  @IsString()
+  description : string | null ;
+}
+
+export class workExperienceDto {
+  @IsString()
+  jobTitle : string ;
+  @IsString()
+  companyName : string ;
+  @IsString()
+  employmentType : "full-time" |"part-time" |"contract" |"internship" |"freelance";
+  @IsString()
+  location : string ;
+  @IsString()
+  startDate : string ;
+  @IsString()
+  endDate : string ;
+  @IsBoolean()
+  stillWorking : boolean ;
+  @IsString()
+  description : string ;
+  @IsArray()
+  @IsString({ each: true })
+  techStack: string[];
+  @IsArray()
+  @IsString({ each: true })
+  achievements: string[];
+  @IsString()
+  projectLinks : string ;
+}
+
 
 export class CreateUserInfoDto {
   @IsInt()
@@ -61,9 +110,8 @@ export class CreateUserInfoDto {
   @IsPhoneNumber('IR')
   phone: string;
 
-  @IsInt()
-  @IsPositive()
-  age: number;
+  @IsString()
+  dateofbirth: string;
 
   @IsString()
   bio: string;
@@ -99,4 +147,12 @@ export class CreateUserInfoDto {
 
   @IsString()
   jobTitle: string;
+
+  @ValidateNested()
+  @Type(()=> EducationDto)
+  Education : EducationDto[]
+
+  @ValidateNested()
+  @Type(()=> workExperienceDto)
+  workExperience : workExperienceDto[]
 }

@@ -17,6 +17,7 @@ export class PeoplesService {
         const query = `
             SELECT 
                 users."userName",
+                users."Gender",
                 users."type",
                 users."profileImageUrl",
                 users."createAt",
@@ -28,6 +29,11 @@ export class PeoplesService {
                 userinfo."skills",
                 userinfo."learning_skills",
                 userinfo."resume",
+                userinfo."headerImage",
+                userinfo."Location",
+                userinfo."jobTitle",
+                userinfo."Education",
+                userinfo."workExperience",
                 (userinfo.userid IS NOT NULL) AS has_userinfo
             FROM users
             LEFT JOIN userinfo ON userinfo.userid = users.id

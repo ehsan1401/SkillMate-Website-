@@ -45,6 +45,8 @@ export default function People({params}: {params : Promise<{ userName: string }>
       </p>
     </div>
   </>
+  const isDark = document.documentElement.classList.contains("dark");
+
   return (
     <section className="w-full h-auto pt-14">
         <header className="relative w-full h-[350px] overflow-hidden">
@@ -61,11 +63,19 @@ export default function People({params}: {params : Promise<{ userName: string }>
         <div
             className="absolute inset-0"
             style={{
-            backgroundImage: `url(${imageUrl(userInformationProfile.profileImageUrl , "Header")})`,
+            backgroundImage: `url(${
+              userInformationProfile.has_userinfo?
+                userInformationProfile.headerImage.headerImageURL
+              :
+                (
+                  isDark ? 
+                    "/Images/DarkHeaderDashboard.jpg"
+                  : 
+                    "/Images/HeaderDashboard.jpg"
+                )
+            })`,
             backgroundSize: "cover",
             backgroundPosition: "center",
-            filter: "blur(12px)",
-            transform: "scale(1.1)"
             }}
         ></div>
         <div className="absolute inset-0 bg-black/60 dark:bg-black/70"></div>

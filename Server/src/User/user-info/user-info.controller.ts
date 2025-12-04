@@ -38,4 +38,12 @@ export class UserInfoController {
     return this.userInfoService.update(userid, updateDto);
   }
 
+  @Patch('updateUserInfo/:id')
+  updateUserInfo(
+    @Param('id', ParseIntPipe) userid: number,
+    @Body() updateDto: UpdateUserInfoDto,
+  ) {
+    return this.userInfoService.updateUserInfo(userid, updateDto);
+  }
+
 }

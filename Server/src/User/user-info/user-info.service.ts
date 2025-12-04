@@ -30,14 +30,36 @@ export class UserInfoService {
     }
 
     const query = `
-        INSERT INTO userInfo ("userid", "phone", "dateofbirth", "bio", "social", "skills", "learning_skills", "resume", "favorite", "createdAt", "updatedAt" , "headerImage" , "Location" , "jobTitle"
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NOW(), NOW() , $10 , $11 , $12)
-        RETURNING *;
-      `;
+      INSERT INTO userInfo (
+        "userid",
+        "phone",
+        "dateofbirth",
+        "bio",
+        "social",
+        "skills",
+        "learning_skills",
+        "resume",
+        "favorite",
+        "createdAt",
+        "updatedAt",
+        "headerImage",
+        "Location",
+        "jobTitle",
+        "Education",
+        "workExperience"
+      )
+      VALUES (
+        $1, $2, $3, $4, $5, $6, $7, $8, $9,
+        NOW(), NOW(),
+        $10, $11, $12, $13, $14
+      )
+      RETURNING *;
+    `;
+
     const values = [
       createUserInfoDto.userid,
       createUserInfoDto.phone,
-      createUserInfoDto.age,
+      createUserInfoDto.dateofbirth,
       createUserInfoDto.bio,
       JSON.stringify(createUserInfoDto.social),
       JSON.stringify(createUserInfoDto.skills),
@@ -55,12 +77,15 @@ export class UserInfoService {
         "overlayColor": "",
       }),
       JSON.stringify({
-        "country": "",
+        "country":"",
         "City": "",
       }),
-      createUserInfoDto.jobTitle,
-
+      JSON.stringify(createUserInfoDto.jobTitle),
+      JSON.stringify([]),
+      JSON.stringify([])
     ];
+
+
     const result = await pool.query(query, values);
 
     return result.rows[0];
@@ -94,7 +119,17 @@ export class UserInfoService {
       );
     }
     const result = await pool.query(
-      `SELECT phone, dateofbirth, bio, social, skills, learning_skills, resume, favorite FROM userInfo WHERE userid = $1`,
+      `SELECT 
+      "phone", 
+      "dateofbirth", 
+      "bio", 
+      "social", 
+      "skills", 
+      "learning_skills", 
+      "resume", 
+      "favorite" ,
+      "headerImage", "Location" ,"jobTitle" , "Education", "workExperience"
+      FROM userInfo WHERE userid = $1`,
       [userID],
     );
 
@@ -144,5 +179,115 @@ export class UserInfoService {
 
     const result = await pool.query(query, values);
     return result.rows[0];
+  }
+
+  async updateUserInfo(userId : number , updateDto : UpdateUserInfoDto){
+    const pool = this.databaseService.getPool()
+
+    const userCheck = await pool.query(`SELECT id FROM users WHERE id = $1`, [
+      userId,
+    ]);
+    if (userCheck.rowCount === 0) {
+      throw new BadRequestException(
+        `User with id ${userId} does not exist`,
+      );
+    }
+    const exists = await this.InfoExist(userId);
+    if (!exists) {
+      const query = `
+        INSERT INTO userInfo (
+          "userid",
+          "phone",
+          "dateofbirth",
+          "bio",
+          "social",
+          "skills",
+          "learning_skills",
+          "resume",
+          "favorite",
+          "createdAt",
+          "updatedAt",
+          "headerImage",
+          "Location",
+          "jobTitle",
+          "Education",
+          "workExperience"
+        )
+        VALUES (
+          $1, $2, $3, $4, $5, $6, $7, $8, $9,
+          NOW(), NOW(),
+          $10, $11, $12, $13, $14
+        )
+        RETURNING *;
+      `;
+
+      const values = [
+        userId,
+        updateDto.phone,
+        updateDto.dateofbirth,
+        updateDto.bio,
+        JSON.stringify(updateDto.social),
+        JSON.stringify(updateDto.skills),
+        JSON.stringify(updateDto.learning_skills),
+        JSON.stringify(updateDto.resume),
+        JSON.stringify(updateDto.favorite),
+        JSON.stringify(updateDto.headerImage),
+        JSON.stringify(updateDto.Location),
+        JSON.stringify(updateDto.jobTitle),
+        JSON.stringify(updateDto.Education),
+        JSON.stringify(updateDto.workExperience)
+      ];
+    const result = await pool.query(query, values);
+    if(result.rowCount === 0 ) return {status : 500 , message : "Internal Server Error!!"}
+    return {status : 200 , message : "User Info Successfuly Created!"}
+
+    }
+    else {
+      const fields: string[] = [];
+      const values: any[] = [];
+      let index = 1;
+
+      const jsonFields = [
+        "social",
+        "skills",
+        "learning_skills",
+        "resume",
+        "favorite",
+        "headerImage",
+        "Location",
+        "jobTitle",
+        "Education",
+        "workExperience"
+      ];
+
+      for (const key of Object.keys(updateDto)) {
+        let value: any = updateDto[key as keyof UpdateUserInfoDto];
+        if (value !== undefined) {
+          // فقط فیلدهای JSON stringify شوند
+          if (jsonFields.includes(key)) {
+            value = JSON.stringify(value);
+          }
+          fields.push(`"${key}" = $${index++}`);
+          values.push(value);
+        }
+      }
+      fields.push(`"updatedAt" = NOW()`);
+
+      const query = `
+        UPDATE userInfo
+        SET ${fields.join(', ')}
+        WHERE "userid" = $${index}
+        RETURNING *;
+      `;
+      values.push(userId);
+      const result = await pool.query(query, values);
+      if (result.rowCount === 0) {
+        return { status: 500, message: "Internal Server Error!!" };
+      }
+
+      return { status: 200, message: "User Info Successfully Updated!" };
+    }
+
+    
   }
 }

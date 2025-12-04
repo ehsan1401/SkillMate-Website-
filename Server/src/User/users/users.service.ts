@@ -49,7 +49,9 @@ export class UsersService {
       [`/uploads/avatars/${filename}`, email],
     );
 
-    return updateResult.rows[0];
+    if(updateResult.rowCount === 0 ) return { status: 500, message: "Internal Server Error!" }
+
+    return { status: 200, message: "User avatar successfully uploaded!" };
   }
 
   async findByEmail(email: string) {
@@ -154,6 +156,13 @@ export class UsersService {
     
   }
 
+  async SetUserGender(userId : number , Gender : "Male" | "Female" |"Other"){
+    const pool = this.databaseService.getPool();
+    const Result = await pool.query(`
+      UPDATE users SET "Gender" = $1 , "updateAt" = NOW() WHERE id = $2
+      ` , [Gender , userId])
+
+  }
 }
 
         

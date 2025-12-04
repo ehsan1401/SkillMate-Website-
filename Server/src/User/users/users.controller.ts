@@ -112,4 +112,13 @@ export class UsersController {
     return this.usersService.UserProfileCompleted(userId)
   }
 
+
+  @Post('SetUserGender/:id')
+  SetUserGender(
+    @Param('id' , ParseIntPipe ) userId : number ,
+    @Body() body : {Gender : "Male" | "Female" |"Other"}
+  ){
+    return this.usersService.SetUserGender(userId , body.Gender)
+  }
+
 }

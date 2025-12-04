@@ -47,6 +47,7 @@ export default function CollaboratorPanel(){
     const swiper = useSwiper();
     const {GetNumberOfNotification} = useCheapData()
     
+    console.log("userInfo : " , userInfo)
 
     const Suggestes : Suggeste[] = [
         {    
@@ -117,7 +118,7 @@ export default function CollaboratorPanel(){
             name : 'Favorite' ,
             route : theRoutes.Dashboard.favorite,
             Icon : <FavoriteCircle className="xl:text-3xl md:text-2xl text-lg"/> ,
-            count : userInfo?.favorite.People.length
+            count : userInfo?.favorite ? userInfo?.favorite.People.length : 0
         },
         
         {

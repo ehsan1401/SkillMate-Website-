@@ -54,7 +54,7 @@ export default function UserPanel({userData}:{userData : UserType}){
 
     const NavigationItems : NavigationItem[] = [
     { id: "item0", label: "Dashboard", icon: <DashboardIcon /> , Component : <MainDashboard/> },
-    { id: "item1", label: "My Profile", icon: <ProfileIcon /> , Component : <MyProfile userInfo={userData}/> },
+    { id: "item1", label: "My Profile", icon: <ProfileIcon /> , Component : <MyProfile/> },
     { id: "item2", label: "Projects", icon: <ProjectsIcon /> ,  Component : <Projects/>  },
     { id: "item3", label: "Notifications", icon: <NotificationsIcon /> ,  Component :  <Notifications/> },
     { id: "item4", label: "Settings", icon: <SettingIcon /> , Component : <Settings  user={userData} />  },

@@ -57,7 +57,13 @@ export type workExperience = {
   projectLinks?: string
 }
 
-
+export type headerImageType = {
+    Position: string
+    overlayColor: string
+    headerImageALT: string
+    headerImageURL: string
+    overlayOpacity: string
+  }
 
 export type UserInfo = {
   jobTitle : string ;
@@ -69,18 +75,13 @@ export type UserInfo = {
   resume: ResumeType;
   skills: string[];
   social: SocialItem[]; 
-  headerImage : {
-    headerImageURL: string,
-    headerImageALT: string,
-    Position: "Top" | "Center" | "Bottom",
-    overlayOpacity: string,
-    overlayColor: string,
-  };
+  headerImage : headerImageType ;
   Location : {
     City : string,
     country : string
   };
-  profileImage: string | File;
+  profileImage: undefined | File | string;
   Education : Education[];
-  workExperience: workExperience[]
+  workExperience: workExperience[] ;
+  Gender : "Male" | "Female" |"Other"
 };
