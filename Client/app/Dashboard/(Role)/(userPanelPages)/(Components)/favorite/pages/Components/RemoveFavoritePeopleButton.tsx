@@ -1,8 +1,8 @@
 import { useModal } from "@/Components/context/ModalContext/ModalContext";
-import { StreamlineDelete1Solid } from "@/Icons/RemoveIcon";
+import { RemoveIcon } from "@/Icons/RemoveIcon";
 import { Button, Tooltip } from "antd";
 import { RemoveFavoritePeopleButtonProps, User } from "../action/type";
-import { IcOutlineErrorOutline } from "@/Icons/ErrorIcon";
+import { ErrorIcon } from "@/Icons/ErrorIcon";
 import { DeleteFavoritePeople } from "../action/clientAction";
 import { API } from "@/utils/Api";
 import { useAlert } from "@/Components/elements/Alert/AlertContext";
@@ -37,7 +37,7 @@ export default function RemoveFavoritePeopleButton( { user , DeleteUserID , list
         e.stopPropagation();
         showModal(
             <div className="flex justify-center items-center gap-2 py-8">
-                <IcOutlineErrorOutline className="text-lg text-yellow-400 mb-[7px]"/>
+                <ErrorIcon className="text-lg text-yellow-400 mb-[7px]"/>
                 <h5>Are you sure you want to remove this user from favorites?</h5>
             </div>,
             "Confirm Remove From Favorite",
@@ -63,7 +63,7 @@ export default function RemoveFavoritePeopleButton( { user , DeleteUserID , list
       }
     >
       <Tooltip title="Remove" placement="right">
-        <StreamlineDelete1Solid/>
+        <RemoveIcon/>
       </Tooltip>
     </button>
     )

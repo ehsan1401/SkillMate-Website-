@@ -39,7 +39,7 @@ export default function Favorite(){
                 <section className="w-[100%] h-full p-5">
                     <div className="h-full w-full rounded-2xl border-2 border-solid border-neutral-500 flex flex-col overflow-hidden">
                     {
-                        userInfo ? 
+                        userInfo?.favorite ? 
                         <>
                             <div className="w-full h-auto flex">
                                 <div className="title h-full w-4/6 flex gap-5 px-6 py-[15px] text-neutral-800 dark:text-neutral-100 font-gothic">

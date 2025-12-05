@@ -1,7 +1,7 @@
 import { useModal } from "@/Components/context/ModalContext/ModalContext";
 import { useState } from "react";
 import { useAlert } from "@/Components/elements/Alert/AlertContext";
-import { MaterialSymbolsPerson } from "@/Icons/UserIcon";
+import { UserIcon } from "@/Icons/UserIcon";
 import { updateUsername } from "./action";
 import { UserType } from "@/Types/UserType";
 import { ResponseType } from "@/Types/ResponseType";
@@ -81,7 +81,7 @@ export default function UpdateUsername({ user }: { user: UserType }) {
     <div className="w-full h-[100%]">
         <div className="h-auto relative">
           <p className="text-neutral-800 dark:text-neutral-200 pt-4 pl-3 lg:text-xl text-sm font-bold flex">
-            <span className="pt-[3px] px-2 text-3xl text-neutral-700 dark:text-neutral-200" ><MaterialSymbolsPerson/></span>
+            <span className="pt-[3px] px-2 text-3xl text-neutral-700 dark:text-neutral-200" ><UserIcon/></span>
             <span className="pt-[7px]">Change Username</span>
           </p>
           <span className="absolute top-4 right-3 lg:scale-100 scale-75">

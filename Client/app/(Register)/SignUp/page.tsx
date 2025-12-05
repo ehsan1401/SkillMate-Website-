@@ -1,19 +1,18 @@
 'use client';
 
-import { IcOutlineErrorOutline } from "@/Icons/ErrorIcon";
 import { LoadingIcon } from "@/Icons/LoadingIcon";
-import { MaterialSymbolsLockOutline } from "@/Icons/PasswordIcon";
+import { PasswordIcon } from "@/Icons/PasswordIcon";
 import { Button, Input, message } from "antd";
 import Image from "next/image";
 import { useState } from "react";
 import { SignUpUser } from "./action";
 import { useRouter } from "next/navigation";
-import { MaterialSymbolsPerson } from "@/Icons/UserIcon";
+import { UserIcon } from "@/Icons/UserIcon";
 import { RepasscodeIcon } from "@/Icons/RepasscodeIcon";
 import { AlternateEmailRounded } from "@/Icons/AlternateEmailRounded";
 import AccessDenied from "@/Components/AceessDenied";
-import { MdiEyeOff } from "@/Icons/NotVisibleEye";
-import { MdiEye } from "@/Icons/VisibleEye";
+import { NotVisibleEye } from "@/Icons/NotVisibleEye";
+import { VisibleEye } from "@/Icons/VisibleEye";
 import { useUser } from "@/Components/context/UserContext/UserContext";
 import { theRoutes } from "@/utils/theRoutes";
 
@@ -111,14 +110,14 @@ export default function SignUp() {
 
                     <div className="flex flex-col gap-5 px-5 py-5 relative">
                       <button onClick={passwordVisibleChange} className="text-xl absolute right-8 top-[128px] z-30">
-                        {passChecker ? <MdiEye /> : <MdiEyeOff />}
+                        {passChecker ? <VisibleEye /> : <NotVisibleEye />}
                       </button>
                       <button onClick={RepasswordVisibleChange} className="text-xl absolute right-8 top-[180px] z-30">
-                        {rePassChecker ? <MdiEye /> : <MdiEyeOff />}
+                        {rePassChecker ? <VisibleEye /> : <NotVisibleEye />}
                       </button>
-                      <Input placeholder="   User Name" type="text" name="userName" className="px-5" prefix={<MaterialSymbolsPerson className="scale-150 mx-2" />} required />
+                      <Input placeholder="   User Name" type="text" name="userName" className="px-5" prefix={<UserIcon className="scale-150 mx-2" />} required />
                       <Input placeholder="   Email" type="email" name="email" className="px-5" prefix={<AlternateEmailRounded className="scale-150 mx-2" />} required/>
-                      <Input placeholder="   Password" type={passChecker ? "password" : "text"} name="passCode" className="px-5" prefix={<MaterialSymbolsLockOutline className="scale-150 mx-2" />} required/>
+                      <Input placeholder="   Password" type={passChecker ? "password" : "text"} name="passCode" className="px-5" prefix={<PasswordIcon className="scale-150 mx-2" />} required/>
                       <Input placeholder="   Repeat Password" type={rePassChecker ? "password" : "text"} name="RepassCode" className="px-5" prefix={<RepasscodeIcon className="scale-150 mx-2" />} required/>
                       <div className="flex flex-col">
                         <button

@@ -3,7 +3,7 @@ import { SearchRounded } from "@/Icons/SearchRounded";
 import { Button } from "antd";
 import { useEffect, useState } from "react";
 import { UserSearchVisibility } from "./action";
-import { IcOutlineErrorOutline } from "@/Icons/ErrorIcon";
+import { ErrorIcon } from "@/Icons/ErrorIcon";
 
 export default function ShowInSearchResult({ShowInSearch , userId}:{ShowInSearch : boolean , userId : number}){
     const [userShow , setUserShow] = useState<boolean>(ShowInSearch)
@@ -22,7 +22,7 @@ export default function ShowInSearchResult({ShowInSearch , userId}:{ShowInSearch
                 e.stopPropagation();
                 showModal(
                     <div className="flex items-center gap-2 py-8 px-5">
-                        <IcOutlineErrorOutline className="text-lg text-yellow-400 -mt-[25px]"/>
+                        <ErrorIcon className="text-lg text-yellow-400 -mt-[25px]"/>
                         <h5 className="flex flex-col gap-2">{userShow ?  
                             `Others won't be able to find you if you hide your profile!`
                         :

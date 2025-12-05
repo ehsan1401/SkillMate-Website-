@@ -12,8 +12,8 @@ import { TelegramCircle } from "@/Icons/socials/TelegramCircle";
 import { BiInstagram } from "@/Icons/socials/BiInstagram";
 import { FacebookTag } from "@/Icons/socials/FacebookTag";
 import { GetPeopleInfoType, SocialsItem } from "./pages/types";
-import { MdiChat } from "@/Icons/ChatIcon";
 import { MessageIcon } from "@/Icons/MessageIcon";
+import SkillmateLogoLoading from "@/Components/Loadings/SkillmateLogoLoading";
 
 export default function People({params}: {params : Promise<{ userName: string }>}) {
   const resolvedParams = use(params);
@@ -35,6 +35,9 @@ export default function People({params}: {params : Promise<{ userName: string }>
     { value: "Instagram", label: <span className="flex items-center gap-2"><BiInstagram /> Instagram</span>, EmptyIcon :  <BiInstagram />},
     { value: "Facebook", label: <span className="flex items-center gap-2"><FacebookTag /> Facebook</span>, EmptyIcon :  <FacebookTag />},
   ];
+  if(isLoading){
+    return <SkillmateLogoLoading/>
+  }
   if(!userInformationProfile) return <>
     <div className="w-full h-screen bg-red-300 flex justify-center items-center">
       <p>
@@ -42,6 +45,8 @@ export default function People({params}: {params : Promise<{ userName: string }>
       </p>
     </div>
   </>
+  const isDark = document.documentElement.classList.contains("dark");
+
   return (
     <section className="w-full h-auto pt-14">
         <header className="relative w-full h-[350px] overflow-hidden">
@@ -58,11 +63,19 @@ export default function People({params}: {params : Promise<{ userName: string }>
         <div
             className="absolute inset-0"
             style={{
-            backgroundImage: `url(${imageUrl(userInformationProfile?.profileImageUrl)})`,
+            backgroundImage: `url(${
+              userInformationProfile.has_userinfo?
+                userInformationProfile.headerImage.headerImageURL
+              :
+                (
+                  isDark ? 
+                    "/Images/DarkHeaderDashboard.jpg"
+                  : 
+                    "/Images/HeaderDashboard.jpg"
+                )
+            })`,
             backgroundSize: "cover",
             backgroundPosition: "center",
-            filter: "blur(12px)",
-            transform: "scale(1.1)"
             }}
         ></div>
         <div className="absolute inset-0 bg-black/60 dark:bg-black/70"></div>
@@ -70,10 +83,10 @@ export default function People({params}: {params : Promise<{ userName: string }>
         
         <div className="relative z-10 flex items-center justify-center h-full" data-aos="fade-left">
             <div className="w-96 h-0 absolute left-10 lg:-top-52 -top-[280px] bg-lime-500 rounded-full" >
-                <Image alt={userInformationProfile.userName} src={imageUrl(userInformationProfile.profileImageUrl)}
-                width={300} height={300} className="rounded-full shadow-inner hidden lg:inline-block border-2 border-solid border-neutral-500" />
-                <Image alt={userInformationProfile.userName} src={imageUrl(userInformationProfile.profileImageUrl)}
-                width={200} height={200} className="rounded-full shadow-inner lg:hidden border-2 border-solid border-neutral-800" />
+                <Image alt={userInformationProfile.userName} src={imageUrl(userInformationProfile.profileImageUrl??null)}
+                width={300} height={300} unoptimized className="rounded-full shadow-inner hidden lg:inline-block border-2 border-solid border-neutral-500" />
+                <Image alt={userInformationProfile.userName} src={imageUrl(userInformationProfile.profileImageUrl??null)}
+                width={200} height={200} unoptimized className="rounded-full shadow-inner lg:hidden border-2 border-solid border-neutral-800" />
             </div>
         </div>
         <div className="w-full h-[800px]">

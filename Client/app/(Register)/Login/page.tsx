@@ -1,6 +1,6 @@
 'use client';
-import { MaterialSymbolsLockOutline } from "@/Icons/PasswordIcon";
-import { MaterialSymbolsPerson } from "@/Icons/UserIcon";
+import { PasswordIcon } from "@/Icons/PasswordIcon";
+import { UserIcon } from "@/Icons/UserIcon";
 import { Button, Input, message } from "antd";
 import Image from "next/image";
 import { useState } from "react";
@@ -8,11 +8,10 @@ import { loginUser, WellcomeNotification } from "./page/action";
 import { useRouter } from 'next/navigation';
 import AccessDenied from "@/Components/AceessDenied";
 import { LoadingIcon } from "@/Icons/LoadingIcon";
-import { MdiEye } from "@/Icons/VisibleEye";
-import { MdiEyeOff } from "@/Icons/NotVisibleEye";
+import { VisibleEye } from "@/Icons/VisibleEye";
+import { NotVisibleEye } from "@/Icons/NotVisibleEye";
 import { useUser } from "@/Components/context/UserContext/UserContext";
 import { theRoutes } from "@/utils/theRoutes";
-import { API } from "@/utils/Api";
 
 
 export default function Login() {
@@ -87,12 +86,12 @@ export default function Login() {
               </div>
 
               <div className="w-full h-3/5 p-4 flex flex-col gap-5 justify-center font-vazir">
-                <Input placeholder="   Email address" name="email" prefix={<MaterialSymbolsPerson className="scale-150 mx-2" />} />
+                <Input placeholder="   Email address" name="email" prefix={<UserIcon className="scale-150 mx-2" />} />
                 <div className="flex flex-col gap-2 relative">
                   <button onClick={passwordVisibleChange} className="text-xl absolute right-3 top-2 z-30">
-                    {passChecker ? <MdiEye /> : <MdiEyeOff />}
+                    {passChecker ? <VisibleEye /> : <NotVisibleEye />}
                   </button>
-                  <Input placeholder="   Password" type={passChecker ? `password` : `text`} name="passCode" className="px-5" prefix={<MaterialSymbolsLockOutline className="scale-150 mx-2" />} />
+                  <Input placeholder="   Password" type={passChecker ? `password` : `text`} name="passCode" className="px-5" prefix={<PasswordIcon className="scale-150 mx-2" />} />
                   <a href="#" className="px-3 py-2 text-xs text-left hover:text-blue-500 dark:text-neutral-50 dark:hover:text-neutral-400 transition-all duration-200">
                     Did you forget your password?
                   </a>

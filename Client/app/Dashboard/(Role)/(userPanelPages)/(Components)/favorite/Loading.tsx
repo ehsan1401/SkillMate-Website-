@@ -1,8 +1,8 @@
-import LoadingSpinner from "@/Components/Loadings/LoadingSpinner";
+import SkillmateLogoLoading from "@/Components/Loadings/SkillmateLogoLoading";
 
 
 export default function Loading() {
   return (
-    <LoadingSpinner Text={`Favorite Page is Loading...`}/>
+    <SkillmateLogoLoading />
   );
 }

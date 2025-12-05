@@ -1,5 +1,5 @@
 'use client';
-import { Suspense } from "react";
+import { Suspense, useState, useEffect } from "react";
 import Loading from "../Loading";
 import { useUser } from "@/Components/context/UserContext/UserContext";
 import AccessDenied from "@/Components/AceessDenied";
@@ -13,15 +13,29 @@ export default function DashboardClientLayout({
   children: React.ReactNode;
 }>) {
     const { user } = useUser();
+    const [isReady, setIsReady] = useState(false);
+
+    // شبیه‌سازی تاخیر 2 ثانیه‌ای برای تست لودینگ
+    useEffect(() => {
+      const timer = setTimeout(() => setIsReady(true), 2000); 
+      return () => clearTimeout(timer);
+    }, []);
+
+    if (!isReady) return <Loading />;
+
     return (
-        <Suspense fallback={<Loading/>}>
-            {user ? 
-                <section>
-                    {children}
-                </section>
-            :
-                <AccessDenied type="Unauthorized" ButtonHref={theRoutes.auth.Login} Button={<Button variant="solid" color="volcano">Login Page</Button>}/>
-            }
-        </Suspense>
+        <>
+          {user ? 
+              <section>
+                  {children}
+              </section>
+          :
+              <AccessDenied 
+                type="Unauthorized" 
+                ButtonHref={theRoutes.auth.Login} 
+                Button={<Button variant="solid" color="volcano">Login Page</Button>}
+              />
+          }
+        </>
     );
 }

@@ -12,7 +12,7 @@ import { theRoutes } from "@/utils/theRoutes";
 import DashboardTypeToggle from "../elements/Toggles/DashboardTypeToggle";
 import { useDashboardType } from "../provider/PanelTypeProvider";
 import { useCheapData } from "../context/CheapData/CheapDataContext";
-import { MaterialSymbolsNotificationsOutline } from "@/Icons/NotificationsIcon";
+import { NotificationsIcon } from "@/Icons/NotificationsIcon";
 import { PanelItemsProvider, useChangePanelItem } from "../context/PanelItem/PanelItemsProvider";
 import MapNotifications, { ResponsiveNotification } from "@/app/Dashboard/(Role)/(userPanelPages)/DrawerPages/NotificationPages/MapNotifications";
 import NotificationsOnNavigationBar from "./pages/NotificationsOnNavigationBar";
@@ -118,7 +118,7 @@ export default function NavigationBar () {
                                                 <Button 
                                                 type="primary" 
                                                 >
-                                                    <MaterialSymbolsNotificationsOutline className="text-xl"/>
+                                                    <NotificationsIcon className="text-xl"/>
                                                 </Button>
                                                 </Dropdown>
                                             </Badge>

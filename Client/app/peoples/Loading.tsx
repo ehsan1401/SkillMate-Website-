@@ -1,14 +1,7 @@
-import { Metadata } from "next";
-import { ReactNode } from "react";
+import SkillmateLogoLoading from "@/Components/Loadings/SkillmateLogoLoading";
 
-
-export const metadata: Metadata = {
-  title: "SkillMate | Peoples",
-  description: "Browse People For Create Your own team!",
-};
-
-export default function PeoplesLayout({children}:{children : ReactNode}){
+export default function PeoplesLoading(){
     return(
-        {children}
+        <SkillmateLogoLoading/>
     )
 }

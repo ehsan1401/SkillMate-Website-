@@ -3,13 +3,13 @@ import { API } from "@/utils/Api"
 import { GetFavoritePeople } from "./action/clientAction";
 import { User } from "./action/type";
 import { Avatar, Spin, Tooltip } from "antd";
-import { IcRoundVerified } from "@/Icons/verified";
-import { IcBaselineAdminPanelSettings } from "@/Icons/AdminIcon";
 import Link from "next/link";
 import RemoveFavoritePeopleButton from "./Components/RemoveFavoritePeopleButton";
 import useSWR from 'swr';
 import EmptyFavorite from "@/Icons/Vector/EmptyFavorite";
 import { UserType } from "@/Types/UserType";
+import { AdminIcon } from "@/utils/IConIndex";
+import { VerifiedIcon } from "lucide-react";
 
 
 const fetcher = async (listofid: number[]) => {
@@ -76,8 +76,8 @@ export default function FavoritePeople(
                                     />
                                     <div className="py-4 flex flex-col items-center">
                                         <div className="flex gap-1">
-                                            {person.type === "PRO" ? <IcRoundVerified className="text-blue-500 text-xl mt-[5px] hover:scale-110 transition-all duration-200"/> : <></>}
-                                            {person.type === "ADMIN" ? <IcBaselineAdminPanelSettings className="text-yellow-500 text-xl mt-[5px] hover:scale-110 transition-all duration-200"/> : <></>}
+                                            {person.type === "PRO" ? <VerifiedIcon className="text-blue-500 text-xl mt-[5px] hover:scale-110 transition-all duration-200"/> : <></>}
+                                            {person.type === "ADMIN" ? <AdminIcon className="text-yellow-500 text-xl mt-[5px] hover:scale-110 transition-all duration-200"/> : <></>}
                                             <h2 className="text-xl text-neutral-800 dark:text-neutral-200 font-Franklin">{person.userName.length > 15 ? person.userName.slice(0, 15) + "..." : person.userName}</h2>
                                         </div>
                                         <p className="text-xs text-center text-neutral-600 dark:text-neutral-300 py-2 font-vazir">
