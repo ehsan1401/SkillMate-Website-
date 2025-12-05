@@ -15,9 +15,8 @@ export default function DashboardClientLayout({
     const { user } = useUser();
     const [isReady, setIsReady] = useState(false);
 
-    // شبیه‌سازی تاخیر 2 ثانیه‌ای برای تست لودینگ
     useEffect(() => {
-      const timer = setTimeout(() => setIsReady(true), 2000); 
+      const timer = setTimeout(() => setIsReady(true), 0); 
       return () => clearTimeout(timer);
     }, []);
 

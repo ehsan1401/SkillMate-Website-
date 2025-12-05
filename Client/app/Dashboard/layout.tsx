@@ -3,9 +3,12 @@
 import { Metadata } from "next";
 import DashboardClientLayout from "./layout.client";
 
-export const metadata: Metadata = {
-  title: "SkillMate - Dashboard"
-};
+export function generateMetadata(): Metadata {
+  return {
+    title:"Dashboard",
+    description: "Browse People For Create Your own team!",
+  };
+}
 
 export default async function DashboardLayout({
   children,

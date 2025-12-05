@@ -107,7 +107,7 @@ export default function SocialsMedia(
 
                 <section className="lg:w-1/2 w-full h-[80%] flex flex-wrap gap-2 px-10 pt-5 lg:py-0">
                     {formData.social.map((social: SocialItem) => (
-                        <div key={social.name} className="lg:w-52 w-full bg-neutral-100 shadow-md rounded-lg lg:h-32 h-auto flex lg:flex-col flex-row  lg:justify-center justify-start items-center px-3 py-3 relative gap-4 lg:gap-0">
+                        <div key={social.name} className="lg:w-52 w-full bg-neutral-100 dark:bg-neutral-800 shadow-md rounded-lg lg:h-32 h-auto flex lg:flex-col flex-row  lg:justify-center justify-start items-center px-3 py-3 relative gap-4 lg:gap-0">
                             <button className="absolute w-3 h-3 right-4 top-4 hover:scale-125 transition-all duration-300 hover:text-red-500" onClick={()=>{handleRemoveSocial(social.name)}}>
                                 <RemoveIcon className="text-[10px]" />
                             </button>

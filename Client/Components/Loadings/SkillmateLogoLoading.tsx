@@ -12,21 +12,6 @@ export default function SkillmateLogoLoading({
   lineWidth = 6,
   lineColor = "#2F8FEA",
 }: Props) {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const media = window.matchMedia("(prefers-color-scheme: dark)");
-      setIsDarkMode(media.matches);
-
-      // برای اینکه اگر یوزر وسط کار تم رو تغییر داد آپدیت بشه
-      const handler = (e: MediaQueryListEvent) => setIsDarkMode(e.matches);
-      media.addEventListener("change", handler);
-
-      return () => media.removeEventListener("change", handler);
-    }
-  }, []);
-
   return (
     <div className="fixed inset-0 flex flex-col items-center justify-center w-full h-screen bg-neutral-50 dark:bg-neutral-800 z-50">
       <div

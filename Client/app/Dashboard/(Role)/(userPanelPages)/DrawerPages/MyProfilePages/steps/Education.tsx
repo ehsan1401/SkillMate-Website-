@@ -307,7 +307,7 @@ export default function Education({ formData, setFormData }: Props) {
           </div>
         ) : (
           formData.Education.map(item => (
-            <div key={item.id} className="p-4 shadow-md rounded-lg bg-neutral-50 mb-4">
+            <div key={item.id} className="p-4 shadow-md rounded-lg bg-neutral-50 dark:bg-neutral-800 mb-4">
                 <h2 className="flex gap-2 relative">
                     <EducationIcon className="text-xl mt-[0px] text-blue-400 "/>
                     <span className="font-vazir">

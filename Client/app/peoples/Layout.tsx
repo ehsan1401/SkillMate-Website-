@@ -1,14 +1,19 @@
+import { div } from "framer-motion/client";
 import { Metadata } from "next";
 import { ReactNode } from "react";
 
+export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
-  title: "SkillMate | Peoples",
-  description: "Browse People For Create Your own team!",
-};
+export function generateMetadata(): Metadata {
+  return {
+    title: {
+      default: "SkillMate | Peoples",
+      template: "SkillMate | %s"
+    },
+    description: "Browse People For Create Your own team!",
+  };
+}
 
 export default function PeoplesLayout({children}:{children : ReactNode}){
-    return(
-        {children}
-    )
+    return {children}
 }

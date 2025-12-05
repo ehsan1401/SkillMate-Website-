@@ -103,6 +103,7 @@ export default function NavigationBar () {
                                                 style={{
                                                     backgroundColor: panelType === "Collaborator" ? "#fa541c" : "#2f54eb",
                                                 }}
+                                                className="pt-1"
                                                 onClick={togglePanelType}
                                                 >
                                                 {panelType}
@@ -111,7 +112,7 @@ export default function NavigationBar () {
                                         </>
                                     :
                                         <div className="flex gap-2">
-                                            <Button type="primary" href={theRoutes.Dashboard.main}>Dashboard</Button>
+                                            <Button type="primary" href={theRoutes.Dashboard.main} className="pt-1">Dashboard</Button>
                                             <Badge count={GetNumberOfNotification?.All}>
                                                 <Dropdown menu={{items , selectable: false}} >
 

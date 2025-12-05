@@ -3,7 +3,7 @@ import { API } from "@/utils/Api";
 import { imageUrl } from "@/utils/imageUrl";
 import Image from "next/image";
 import useSWR from "swr";
-import { GetPeopleInformation } from "./pages/action";
+import { GetPeopleInformation } from "./actions/action";
 import { use, useEffect } from "react";
 import Aos from "aos";
 import { Linkedin } from "@/Icons/socials/Linkedin";
@@ -11,7 +11,7 @@ import { MdiGithub } from "@/Icons/socials/GitHub";
 import { TelegramCircle } from "@/Icons/socials/TelegramCircle";
 import { BiInstagram } from "@/Icons/socials/BiInstagram";
 import { FacebookTag } from "@/Icons/socials/FacebookTag";
-import { GetPeopleInfoType, SocialsItem } from "./pages/types";
+import { GetPeopleInfoType, SocialsItem } from "./actions/types";
 import { MessageIcon } from "@/Icons/MessageIcon";
 import SkillmateLogoLoading from "@/Components/Loadings/SkillmateLogoLoading";
 
@@ -48,8 +48,8 @@ export default function People({params}: {params : Promise<{ userName: string }>
   const isDark = document.documentElement.classList.contains("dark");
 
   return (
-    <section className="w-full h-auto pt-14">
-        <header className="relative w-full h-[350px] overflow-hidden">
+    <section className="w-full h-auto pt-14 bg-neutral-50 dark:bg-neutral-700">
+        <header className="relative w-full h-[550px] overflow-hidden">
         {userInformationProfile.has_userinfo ? Socialsmap(userInformationProfile , SocialsLogo) 
         :
           <span 
@@ -64,7 +64,7 @@ export default function People({params}: {params : Promise<{ userName: string }>
             className="absolute inset-0"
             style={{
             backgroundImage: `url(${
-              userInformationProfile.has_userinfo?
+              userInformationProfile.headerImage.headerImageURL?
                 userInformationProfile.headerImage.headerImageURL
               :
                 (
@@ -79,13 +79,26 @@ export default function People({params}: {params : Promise<{ userName: string }>
             }}
         ></div>
         <div className="absolute inset-0 bg-black/60 dark:bg-black/70"></div>
+        <div className="w-full h-full absolute flex justify-center items-center">
+            <div className="w-[500px] h-1/5 flex flex-col">
+              <h1 className="text-8xl text-neutral-50 font-vazir select-none">
+                {userInformationProfile.userName}
+              </h1>
+              <h5 className="text-neutral-50 text-2xl -mt-11 pl-6 select-none">
+                {userInformationProfile.jobTitle}
+              </h5>
+              <div className="buttons ">
+                
+              </div>
+            </div>
+        </div>
         </header>
         
         <div className="relative z-10 flex items-center justify-center h-full" data-aos="fade-left">
-            <div className="w-96 h-0 absolute left-10 lg:-top-52 -top-[280px] bg-lime-500 rounded-full" >
-                <Image alt={userInformationProfile.userName} src={imageUrl(userInformationProfile.profileImageUrl??null)}
+            <div className="w-96 h-0 absolute left-[160px] lg:-top-[420px] -top-[280px] bg-lime-500 rounded-full" >
+                <Image alt={userInformationProfile.userName} src={imageUrl(userInformationProfile.profileImageUrl)}
                 width={300} height={300} unoptimized className="rounded-full shadow-inner hidden lg:inline-block border-2 border-solid border-neutral-500" />
-                <Image alt={userInformationProfile.userName} src={imageUrl(userInformationProfile.profileImageUrl??null)}
+                <Image alt={userInformationProfile.userName} src={imageUrl(userInformationProfile.profileImageUrl)}
                 width={200} height={200} unoptimized className="rounded-full shadow-inner lg:hidden border-2 border-solid border-neutral-800" />
             </div>
         </div>
@@ -105,9 +118,8 @@ function Socialsmap(userInformationProfile: GetPeopleInfoType , SocialsLogo : So
             {userInformationProfile.social.map((social) => {
               const found = SocialsLogo.find(s => s.value === social.name);
               return found ? 
-              <a href={social.url}>
+              <a href={social.url} key={social.name} >
                 <li 
-                  key={social.name} 
                   className="flex px-3 cursor-pointer hover:text-blue-300 text-white lg:hidden text-2xl"
                 >
                   {found.EmptyIcon}

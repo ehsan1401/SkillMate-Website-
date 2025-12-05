@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "This is test"
-};
+// export const metadata: Metadata = {
+//   title: "This is test"
+// };
 
 export default function RouteLayout({
   children,

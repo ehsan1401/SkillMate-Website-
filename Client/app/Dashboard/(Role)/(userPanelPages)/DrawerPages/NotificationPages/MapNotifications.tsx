@@ -87,7 +87,7 @@ export default function MapNotifications({ filter }:{ filter : NotificationFilte
         <>
             {
                 NotificationsLoading || Loading ?
-                    SkelletonNotification()
+                    null
                 :
                 (
                     Notifications!.length > 0 ? 
@@ -160,27 +160,6 @@ export default function MapNotifications({ filter }:{ filter : NotificationFilte
             }
         </>
     )
-}
-
-function SkelletonNotification() {
-  return (
-    <div className="flex flex-col gap-4 pt-5">
-      {Array.from({ length: 4 }).map((_, index) => (
-        <div
-          key={index}
-          className="w-full bg-gray-200 h-20 rounded-md py-3 px-5 animate-pulse flex gap-4 justify-center items-center"
-        >
-          <div className="bg-gray-100 lg:w-14 lg:h-14 h-10 w-10 rounded-md"></div>
-          <div className="message bg-gray-300 lg:w-[80%] w-[50%] lg:h-6 h-3 rounded-lg"></div>
-          <div className="lg:w-[20%] w-[30%] h-10 flex lg:px-5 gap-3 justify-center items-center">
-            <span className="bg-gray-300 rounded-full lg:w-10 lg:h-10 w-5 h-5"></span>
-            <span className="bg-gray-300 rounded-full lg:w-10 lg:h-10 w-5 h-5"></span>
-            <span className="bg-gray-300 rounded-full lg:w-10 lg:h-10 w-5 h-5"></span>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
 }
 
 

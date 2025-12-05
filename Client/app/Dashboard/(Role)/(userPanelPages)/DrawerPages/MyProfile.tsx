@@ -7,17 +7,19 @@ import { Button, Tag, Tooltip } from "antd";
 import { TelegramCircle } from "@/Icons/socials/TelegramCircle";
 import { BiInstagram } from "@/Icons/socials/BiInstagram";
 import { FacebookTag } from "@/Icons/socials/FacebookTag";
-import { API } from "@/utils/Api";
-import useSWR from "swr";
 import { ErrorIcon } from "@/Icons/ErrorIcon";
-import { UserType } from "@/Types/UserType";
 import Link from "next/link";
 import { useUser } from "@/Components/context/UserContext/UserContext";
 import { UserIcon } from "lucide-react";
 import { SocialItem } from "./MyProfilePages/pages/type";
-import UserProfile from "./MyProfilePages/UserProfile";
 import { EditeIcon } from "@/Icons/EditeIcon";
+import dynamic from "next/dynamic";
+import { BouncedDots } from "@/Components/Loadings/BouncedDots";
+import SkillmateLogoLoadingNonFullScreen from "@/Components/Loadings/SkillmateLogoLoadingNonFullScreen";
 
+const UserProfile = dynamic(()=>import('./MyProfilePages/UserProfile') , {
+    loading : ()=> <SkillmateLogoLoadingNonFullScreen />
+})
 export default function MyProfile(){
     const {user , userInfo} = useUser();
     console.log("userInfo :",userInfo)
@@ -72,13 +74,13 @@ export default function MyProfile(){
                         }
                     </div>
 
-                    <Tooltip title={`Show my profile`} placement="left">
+                    <Tooltip title={`View profile`} placement="left">
                     <Link href={`/peoples/${user?.userName}`} className=" absolute lg:right-24 right-10 top-28 text-2xl text-neutral-800 dark:text-neutral-100 transition-all duration-200 hover:scale-125">
                         <UserIcon/>
                     </Link>
                     </Tooltip>
                     
-                    <Tooltip title={`Edite Your profile`} placement="left">
+                    <Tooltip title={`Update profile`} placement="left">
                         <button onClick={()=>setShowModal(true)} className=" absolute lg:right-24 right-10 top-[75px] text-2xl text-neutral-800 dark:text-neutral-100 transition-all duration-200 hover:scale-125">
                             <EditeIcon />
                         </button>

@@ -255,7 +255,6 @@ export class UserInfoService {
         "favorite",
         "headerImage",
         "Location",
-        "jobTitle",
         "Education",
         "workExperience"
       ];

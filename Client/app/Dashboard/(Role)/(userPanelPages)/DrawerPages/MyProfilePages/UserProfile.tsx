@@ -124,8 +124,6 @@ export default function UserProfile(
   }
 
   return (
-
-    <div className="w-full lg:h-screen h-auto pt-16 flex justify-center items-center">
         <Modal
           title={<h2 className="text-xl">{steps[current].title}</h2>}
           closable={{ 'aria-label': 'Custom Close Button' }}
@@ -134,7 +132,6 @@ export default function UserProfile(
           width={1200}
           style={{marginTop : "-50px"}}
           footer={null}
-          zIndex={1100} 
         >
             <div className="w-full h-full lg:p-7 py-5 px-0 relative">
               <div className="w-full h-[95%] py-5 relative">
@@ -153,6 +150,5 @@ export default function UserProfile(
               <Steps current={current} items={items} className="font-vazir" size="small" />
             </div>
         </Modal>
-      </div>
   )
 }

@@ -315,7 +315,7 @@ export default function ExperienceAndProjects(
                 </div>
                 ) : (
                 formData.workExperience.map(item => (
-                    <div key={item.jobTitle} className="p-4 shadow-md rounded-lg bg-neutral-50 mb-4">
+                    <div key={item.jobTitle} className="p-4 shadow-md rounded-lg bg-neutral-50 dark:bg-neutral-800 mb-4">
                         <h2 className="flex gap-2 relative">
                             <EmployeeIcon className="text-xl mt-[0px] text-blue-400 "/>
                             <span className="font-vazir">
@@ -373,7 +373,7 @@ export default function ExperienceAndProjects(
                                     <a className="text-xs flex gap-1 py-2" href={item.projectLinks}>
                                     <LinkIcon className="text-base" />
                                     <span>
-                                        {item.projectLinks}
+                                        {item.projectLinks.length > 70 ? `${item.projectLinks.slice(0 , 70)}...` : item.projectLinks}
                                     </span>
                                     </a>
                                 }

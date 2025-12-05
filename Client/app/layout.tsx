@@ -25,10 +25,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "SkillMate.team",
-  description: "I'm testing my NextJs and NestJS skill in this project",
-};
+export function generateMetadata(): Metadata {
+  return {
+    title: {
+      default: "SkillMate.team",
+      template: "SkillMate | %s"
+    },
+    description: "I'm testing my NextJs and NestJS skill in this project",
+  };
+}
+
 
 export default function RootLayout({
   children,
