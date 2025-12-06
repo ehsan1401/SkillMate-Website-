@@ -40,6 +40,9 @@ export const API = {
   },
   Peoples : {
     GetPeopleInfo : (userName : string)=>`${BACKEND_BASE_URL}/peoples/PeopleInfo/${userName}`
+  },
+  Connections : {
+    AcceptSyncConnection : ()=>`${BACKEND_BASE_URL}/connection/Sync/AcceptSync`
   }
 };
 

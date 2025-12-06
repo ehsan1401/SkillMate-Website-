@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
-import { SyncRequest } from './dto/Connections.dto';
+import { AcceptSyncConnectionDTO, SyncRequest } from './dto/Connections.dto';
 
 @Injectable()
 export class ConnectionService {
@@ -41,16 +41,16 @@ export class ConnectionService {
             now
           ]
         );
-
         if(result.rowCount === 0 ) throw new BadRequestException(`There is an Error in Syncing With ${SyncBody.receiverId}`)
         const Message = `${SyncBody.SenderUserName} is looking to sync with you!`
+        const id = result.rows[0].id
         const action = {
           type : "sync",
           HTML : "button",
           actionName: "accept",
-          payload : {}
+          payload : { ConnectionID : id }
         }
-        await this.databaseService.query(
+        const Notif = await this.databaseService.query(
           `INSERT INTO notifications 
           ("sender", "receiver", "type", "is_none_reply", "is_seen", "create_at", "update_at", "message", "replay", "actions")
           VALUES ($1, $2, 'Normal', true, false, NOW(), NOW(), $3, '' , $4)`,
@@ -63,5 +63,25 @@ export class ConnectionService {
       }
       throw err;
     }
+  }
+
+  async AcceptSyncUserToAnother(AcceptSyncBody : {ConnectionID : number , NotifId : number}){
+    const pool = this.databaseService.getPool();
+    const HandleConnectionStatus = await pool.query(
+      `
+        UPDATE connections SET "status"='accepted', "seen" = true WHERE id=$1 
+      `
+      ,[AcceptSyncBody.ConnectionID]
+    )
+    const NewNotifMessage = `You are now connected!`
+    const NotificationActionHandler = await pool.query(
+      `UPDATE notifications 
+      SET "actions" = '{}' , message = $2
+      WHERE "notif_id" = $1;
+      ` , [AcceptSyncBody.NotifId , NewNotifMessage]
+    )
+    if(HandleConnectionStatus.rowCount === 0 && NotificationActionHandler.rowCount === 0) throw new BadRequestException("There is no such Connection!")
+    return {status : 200 , message : "Sync Accepted!"}
+    
   }
 } 

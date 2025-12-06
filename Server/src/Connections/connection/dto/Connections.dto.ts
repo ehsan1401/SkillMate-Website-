@@ -53,3 +53,14 @@ export class InviteRequest extends BaseConnectionDTO {
     @IsNotEmpty()
     projectId: number;
 }
+
+export class AcceptSyncConnectionDTO {
+
+    @IsInt()
+    @IsNotEmpty()
+    senderId : number
+
+    @IsInt()
+    @IsNotEmpty()
+    receiverId : number
+}

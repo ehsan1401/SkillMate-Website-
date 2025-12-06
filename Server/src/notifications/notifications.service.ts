@@ -54,7 +54,6 @@ export class NotificationsService {
         const pool = this.databaseService.getPool();
         const checkNotifExist = await pool.query(`SELECT * FROM notifications WHERE notif_id=$1` , [NotifId])
         if(checkNotifExist.rowCount === 0 ) throw new BadRequestException('This Notification Dosent Exist!')
-        console.log(checkNotifExist.rows)
         const Result = await pool.query(`UPDATE notifications SET is_seen = true WHERE notif_id=$1` , [NotifId])
         if(Result.rowCount !== 0) return {status: 200 , message : "notification has Read!"}
         return {status : 500 , message : "there is an Error!"}
@@ -91,7 +90,6 @@ export class NotificationsService {
         const pool = this.databaseService.getPool();
         const checkNotifExist = await pool.query(`SELECT * FROM notifications WHERE notif_id=$1` , [NotifId])
         if(checkNotifExist.rowCount === 0 ) throw new BadRequestException('This Notification Dosent Exist!')
-
         const Result = await pool.query(`DELETE FROM notifications WHERE notif_id=$1` , [NotifId])
         if(Result.rowCount === 0 ) throw new BadRequestException("There is Some Error on Deleting Notification")
         return {status : 200  , message : "Notification Deleted!"};

@@ -6,6 +6,15 @@ type NotificationsFilterButtons = {
     count : number
 }
 
+type ActionButtons = {
+    HTML: "button" | "Link" | "Text",
+    type: "sync" | "Login" | "Invite" | "Request" | "",
+    payload: {
+        ConnectionID? : number
+    },
+    actionName: "accept" | "reject" | "cancel"
+}
+
 type GetNotifications = 'Super'| 'Seen'| 'System'| 'All' ;
 type NotificationData = {
     UserID : number ,
@@ -17,7 +26,8 @@ type NotificationData = {
     profileImageUrl : string,
     userName : string,
     type : "System" | "Normal" | "Super",
-    notif_id : number
+    notif_id : number,
+    actions : ActionButtons
 }
 
 interface GetNotificationsFormat {

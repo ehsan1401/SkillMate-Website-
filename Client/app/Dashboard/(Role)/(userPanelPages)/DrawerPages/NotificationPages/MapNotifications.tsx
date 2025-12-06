@@ -1,12 +1,12 @@
 'use client';
-import { useEffect, useState } from "react"
+import { ReactNode, useEffect, useState } from "react"
 import useSWR from "swr";
 import { API } from "@/utils/Api";
 import { useUser } from "@/Components/context/UserContext/UserContext";
 import { fetcher } from "@/utils/fetcher";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { Avatar } from "antd";
+import { Avatar, Button } from "antd";
 import { imageUrl } from "@/utils/imageUrl";
 import Link from "next/link";
 import { ClockOutline } from "@/Icons/ClockOutline";
@@ -19,10 +19,10 @@ import { BouncedDots } from "@/Components/Loadings/BouncedDots";
 import { useCheapData } from "@/Components/context/CheapData/CheapDataContext";
 import { SkillmateIcon } from "@/Icons/SkillmateIcon";
 import { Importatnt } from "@/Icons/Importatnt";
+import { AcceptSyncUserToAnother } from "./action";
 const EmptyFolder = dynamic(() => import("@/Icons/Vector/EmptyFolder"), {
   loading: () => <BouncedDots/>,
 });
-
 
 export default function MapNotifications({ filter }:{ filter : NotificationFilter }){
     const [Loading , setLoading] = useState<boolean>(false)
@@ -103,6 +103,7 @@ export default function MapNotifications({ filter }:{ filter : NotificationFilte
                                                 <Avatar src={imageUrl(Notif.profileImageUrl)} shape="square" size={64} className="shadow-md hidden md:inline-block" />
                                             </Link>
                                             <p className="md:w-8/12 md:px-4 px-2 h-12 md:pt-6 pt-3 md:text-base text-sm text-neutral-800 dark:text-neutral-200">{Notif.message}</p>
+                                            {Notif.actions.actionName && DecideOnAction(Notif.actions , Notif.actions.payload.ConnectionID , Notif.notif_id )}
                                             <div className="tools md:w-4/12 h-12 flex justify-end items-center gap-5 md:pr-5">
                                                 <span className="md:text-sm text-xs flex md:flex-row flex-col gap-1 text-neutral-800 dark:text-neutral-200">
                                                     <ClockOutline className="text-lg"/>
@@ -220,4 +221,29 @@ export function ResponsiveNotification(Notif : NotificationData , handleSeenClic
         </span>
         </li>
     </>)
+}
+
+export function DecideOnAction (action : ActionButtons , ConnectionID? : number , NotifID? : number){
+    const {showAlert} = useAlert()
+
+    const HandleAcceptSync = async ()=>{
+        if(ConnectionID && NotifID){
+            const Result = await AcceptSyncUserToAnother(ConnectionID , NotifID)
+            if(Result.status === 200){
+                showAlert("Sync Request Accepted!", "success")
+            }
+        }else{
+            showAlert("Cant Accept this Sync!", "Error")
+        }
+    }
+    if(action.type === "sync" && action.actionName === "accept" ) {
+        return (
+            <div className="w-36 h-full">
+                <Button type="default" onClick={HandleAcceptSync} className="font-vazir pt-1">
+                    Accept
+                </Button>
+            </div>
+        )
+    }
+    return null
 }
