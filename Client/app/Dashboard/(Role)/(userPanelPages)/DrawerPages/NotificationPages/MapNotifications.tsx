@@ -171,10 +171,10 @@ export function ResponsiveNotification(Notif : NotificationData , handleSeenClic
         className={`border-[3px] border-solid border-neutral-600 p-3 rounded-lg flex items-center gap-3 ${Notif.is_seen ? `dark:bg-neutral-700`: `${Notif.type === "Super" ? `bg-red-100 dark:bg-rose-950  hover:bg-red-200 dark:hover:bg-rose-900` : `bg-blue-100 dark:bg-neutral-800  hover:bg-blue-200 dark:hover:bg-neutral-700`} hover:cursor-pointer`}`} 
         onClick={()=>{Notif.is_seen ? null : handleSeenClick(Notif.notif_id)}}
         >
-        <li
+        <span
             className={`border-[3px] border-solid border-neutral-600 p-3 rounded-lg lg:flex hidden items-center gap-3 ${Notif.is_seen ? `dark:bg-neutral-700`: `${Notif.type === "Super" ? `bg-red-100 dark:bg-rose-950  hover:bg-red-200 dark:hover:bg-rose-900` : `bg-blue-100 dark:bg-neutral-800  hover:bg-blue-200 dark:hover:bg-neutral-700`} hover:cursor-pointer`}`} 
             onClick={()=>{Notif.is_seen ? null : handleSeenClick(Notif.notif_id)}}
-        ></li>
+        ></span>
         <Link href={``} className="hover:scale-105 transition-all duration-200">
             <Avatar src={imageUrl(Notif.profileImageUrl)} shape="square" size={40} className="shadow-md" />
         </Link>

@@ -46,8 +46,6 @@ export default function CollaboratorPanel(){
     const {TogglePanelItem} = useChangePanelItem();
     const swiper = useSwiper();
     const {GetNumberOfNotification} = useCheapData()
-    
-    console.log("userInfo : " , userInfo)
 
     const Suggestes : Suggeste[] = [
         {    

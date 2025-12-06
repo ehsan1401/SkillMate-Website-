@@ -22,8 +22,6 @@ const UserProfile = dynamic(()=>import('./MyProfilePages/UserProfile') , {
 })
 export default function MyProfile(){
     const {user , userInfo} = useUser();
-    console.log("userInfo :",userInfo)
-    console.log("user :", user)
 
     const [showModal , setShowModal] = useState<boolean>(false)
     const SocialIcons: Record<string, JSX.Element> = {
