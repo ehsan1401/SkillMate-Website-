@@ -33,3 +33,6 @@ CREATE TRIGGER Set_updatedAt
 BEFORE UPDATE ON Connections
 FOR EACH ROW
 EXECUTE FUNCTION Update_updatedAt();
+
+ALTER TABLE connections
+ADD CONSTRAINT unique_sync UNIQUE ("senderId", "receiverId", "type");

@@ -67,3 +67,5 @@ VALUES
 (11, 7, 'System', true, false, NOW(), NOW(), 'Test notification 7777', '')
 
 -- UPDATE notifications SET message='SAdSAdAsdADSAD a sad ad adad' WHERE notif_id = 1 ;
+
+ALTER TABLE notifications ADD COLUMN actions JSONB DEFAULT '{}'::JSONB ;

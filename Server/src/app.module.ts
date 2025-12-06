@@ -8,11 +8,12 @@ import { UserInfoModule } from './User/user-info/user-info.module';
 import { UserActionModule } from './User/user-action/user-action.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { PeoplesModule } from './peoples/peoples.module';
+import { ConnectionModule } from './Connections/connection/connection.module';
 
 @Module({
   imports: [
     UsersModule, DatabaseModule, AuthModule, UserInfoModule,
-    UserActionModule, NotificationsModule, PeoplesModule
+    UserActionModule, NotificationsModule, PeoplesModule, ConnectionModule
   ],
   controllers: [AppController],
   providers: [AppService],

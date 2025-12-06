@@ -35,6 +35,7 @@ export class NotificationsService {
         notifications.message,
         notifications.update_at,
         notifications.create_at,
+        notifications.actions,
         users."userName",
         users."profileImageUrl",
         users."id" AS "UserID"
@@ -53,7 +54,7 @@ export class NotificationsService {
         const pool = this.databaseService.getPool();
         const checkNotifExist = await pool.query(`SELECT * FROM notifications WHERE notif_id=$1` , [NotifId])
         if(checkNotifExist.rowCount === 0 ) throw new BadRequestException('This Notification Dosent Exist!')
-
+        console.log(checkNotifExist.rows)
         const Result = await pool.query(`UPDATE notifications SET is_seen = true WHERE notif_id=$1` , [NotifId])
         if(Result.rowCount !== 0) return {status: 200 , message : "notification has Read!"}
         return {status : 500 , message : "there is an Error!"}
