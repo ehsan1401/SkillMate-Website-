@@ -66,7 +66,7 @@ export default function People({params}: {params : Promise<{ userName: string }>
             backgroundImage: `url(${
               userInformationProfile.headerImage.headerImageURL?
                 userInformationProfile.headerImage.headerImageURL
-              :
+              : 
                 (
                   isDark ? 
                     "/Images/DarkHeaderDashboard.jpg"
@@ -109,9 +109,6 @@ export default function People({params}: {params : Promise<{ userName: string }>
     </section>
   );
 }
-
-
-
 function Socialsmap(userInformationProfile: GetPeopleInfoType , SocialsLogo : SocialsItem[] ){
   return(
           <ul className="absolute bottom-0 left-0 z-10 flex w-full justify-center gap-3">

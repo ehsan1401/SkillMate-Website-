@@ -57,6 +57,8 @@ ALTER TABLE users ADD COLUMN "ShowInSearch" BOOLEAN DEFAULT true;
 ALTER TABLE users ADD COLUMN "Gender" gender  DEFAULT 'Other';
 
 
+
+
 -- ALTER TABLE users
 -- DROP COLUMN ShowInSearch;
 

@@ -262,7 +262,6 @@ export class UserInfoService {
       for (const key of Object.keys(updateDto)) {
         let value: any = updateDto[key as keyof UpdateUserInfoDto];
         if (value !== undefined) {
-          // فقط فیلدهای JSON stringify شوند
           if (jsonFields.includes(key)) {
             value = JSON.stringify(value);
           }

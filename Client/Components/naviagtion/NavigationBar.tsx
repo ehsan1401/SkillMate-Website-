@@ -75,7 +75,7 @@ export default function NavigationBar () {
                 const href = `/${item}`;
                 const isActive = href === itemSelected;
                 return (
-                    <li key={item} className="text-sm lg:text-base">
+                    <span key={item} className="text-sm lg:text-base">
                     <Link
                         href={href}
                         className={
@@ -86,7 +86,7 @@ export default function NavigationBar () {
                     >
                         {item}
                     </Link>
-                    </li>
+                    </span>
                 );
                 })}
             </ul>
