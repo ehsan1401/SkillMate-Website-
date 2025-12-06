@@ -1,4 +1,3 @@
-import { div } from "framer-motion/client";
 import { Metadata } from "next";
 import { ReactNode } from "react";
 

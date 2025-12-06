@@ -4,7 +4,6 @@ import { useAlert } from "@/Components/elements/Alert/AlertContext";
 import { UserIcon } from "@/Icons/UserIcon";
 import { updateUsername } from "./action";
 import { UserType } from "@/Types/UserType";
-import { ResponseType } from "@/Types/ResponseType";
 import { useUser } from "@/Components/context/UserContext/UserContext";
 
 function ChangeUsernameModal({
@@ -14,7 +13,7 @@ function ChangeUsernameModal({
   initialUsername?: string;
   onConfirm: (username: string) => void;
 }) {
-  const{user , mutate} = useUser()
+  const{user} = useUser()
   const [username, setUsername] = useState<string>(initialUsername || user!.userName);
 
 

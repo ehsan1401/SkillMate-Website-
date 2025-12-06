@@ -14,7 +14,6 @@ import { useAlert } from "@/Components/elements/Alert/AlertContext";
 import { CityIcon } from "@/Icons/CityIcon";
 import { useModal } from "@/Components/context/ModalContext/ModalContext";
 import { TrashBin } from "@/Icons/TrashBin";
-import { useBreakpoint } from "@/Components/hooks/useBreakpoint";
 
 type Country = {
   countryName: string;
@@ -65,10 +64,7 @@ export default function Education({ formData, setFormData }: Props) {
   const [region, setRegion] = useState<string | undefined>(eduForm.city);
   const { showAlert } = useAlert();
   const { showModal } = useModal();
-  const breakPoint = useBreakpoint();
-  const breakPointRec = breakPoint === "base" || breakPoint === "sm" || breakPoint === "md"
   
-
   const countryOptions = allCountries.map(c => ({
     value: c.countryName,
     label: `${countryCodeToEmoji(c.countryShortCode)} ${c.countryName}`
@@ -225,7 +221,7 @@ export default function Education({ formData, setFormData }: Props) {
           }
           className="font-vazir"
         >
-          I'm still studying this field.
+          Im still studying this field.
         </Checkbox>
 
         <div className="-my-4">

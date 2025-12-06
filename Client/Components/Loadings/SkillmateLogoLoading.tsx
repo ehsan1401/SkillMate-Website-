@@ -1,5 +1,6 @@
 'use client';
-import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import React from "react";
 
 type Props = {
   size?: number;
@@ -21,14 +22,13 @@ export default function SkillmateLogoLoading({
           overflow: "visible",
         }}
       >
-      <img
+      <Image 
         src="/Images/DarkMainLogo.png"
         alt="logo"
         draggable={false}
         className="object-contain hidden dark:inline-block w-[200px] h-[200px]"
       />
-
-      <img
+      <Image 
         src="/Images/MainLogo.png"
         alt="logo"
         draggable={false}

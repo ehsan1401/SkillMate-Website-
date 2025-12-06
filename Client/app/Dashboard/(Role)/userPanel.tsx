@@ -1,5 +1,5 @@
 'use client';
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 import { LogoutIcon } from "@/Icons/LogoutIcon";
 import { logout } from "@/utils/logout";
 import { ProfileIcon } from "@/Icons/profileIcon";
@@ -43,14 +43,8 @@ type NavigationItem = {
 
 export default function UserPanel({userData}:{userData : UserType}){
     const {selectedItem , TogglePanelItem} = useChangePanelItem();
-    const [isDark , setIsDark] = useState<string | null>(null);
     const { panelType, togglePanelType } = useDashboardType();
     const {GetNumberOfNotification} = useCheapData()
-
-    
-    useEffect(() => {
-        setIsDark(localStorage.getItem('theme'));
-    }, []);
 
     const NavigationItems : NavigationItem[] = [
     { id: "item0", label: "Dashboard", icon: <DashboardIcon /> , Component : <MainDashboard/> },

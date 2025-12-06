@@ -6,8 +6,6 @@ import { MdiGithub } from "@/Icons/socials/GitHub";
 import { DeviconLinkedin } from "@/Icons/socials/colorfull/DeviconLinkedin";
 import { LogosFacebook } from "@/Icons/socials/colorfull/LogosFacebook";
 import { LogosTelegram } from "@/Icons/socials/colorfull/LogosTelegram";
-import { Importatnt } from "@/Icons/Importatnt";
-import { LinkIcon } from "@/Icons/LinkIcon";
 import { RemoveIcon } from "@/Icons/RemoveIcon";
 
 type SocialItemsPreviewType = {

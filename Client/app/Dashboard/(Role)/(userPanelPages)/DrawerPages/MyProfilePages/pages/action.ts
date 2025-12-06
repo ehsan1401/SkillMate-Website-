@@ -8,6 +8,8 @@ export type UploadStatus = {
   skills?: boolean | "skip";
 };
 
+type JSONValue = string | number | boolean | null | JSONValue[] | { [key: string]: JSONValue };
+
 export async function UploadUserProfileData(
   userData: UserInfo,
   userId: number,
@@ -19,7 +21,6 @@ export async function UploadUserProfileData(
   if (userAvatar instanceof File) {
     const formData = new FormData();
     formData.append("file", userAvatar);
-    console.log("userAvatar converted to formdata");
 
     const response = await fetch(API.user.Upload_avatar, {
       method: "POST",
@@ -31,7 +32,6 @@ export async function UploadUserProfileData(
     UploadProcess.avatar = success;
     if (onStep) onStep("avatar", success);
   } else {
-    console.log("No file selected or avatar is not a File, skipping upload");
     UploadProcess.avatar = "skip";
     if (onStep) onStep("avatar", "skip");
   }
@@ -48,12 +48,12 @@ export async function UploadUserProfileData(
     UploadProcess.gender = success;
     if (onStep) onStep("gender", success);
   } else {
-    console.log("Gender not provided, skipping");
     UploadProcess.gender = "skip";
     if (onStep) onStep("gender", "skip");
   }
-  const generalInfoPayload: any = {};
-  const fields = [
+
+  const generalInfoPayload: { [key: string]: JSONValue } = {};
+  const fields: (keyof UserInfo)[] = [
     "jobTitle",
     "dateofbirth",
     "bio",
@@ -69,9 +69,9 @@ export async function UploadUserProfileData(
   ];
 
   for (const key of fields) {
-    const value = userData[key as keyof UserInfo];
+    const value = userData[key];
     if (value !== undefined && value !== null) {
-      generalInfoPayload[key] = value;
+      generalInfoPayload[key] = value as unknown as JSONValue;
     }
   }
 
@@ -87,7 +87,6 @@ export async function UploadUserProfileData(
     UploadProcess.generalInfo = success;
     if (onStep) onStep("generalInfo", success);
   } else {
-    console.log("No general info to update, skipping");
     UploadProcess.generalInfo = "skip";
     if (onStep) onStep("generalInfo", "skip");
   }

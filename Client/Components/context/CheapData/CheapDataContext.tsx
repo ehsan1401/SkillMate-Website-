@@ -1,10 +1,11 @@
 'use client';
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 import { CheapData, panelType } from "./type";
 import { GetNumbersOfNotifications } from "./action";
 import { API } from "@/utils/Api";
 import { useUser } from "../UserContext/UserContext";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
+import { GetNumberOfNotification } from "@/app/Dashboard/(Role)/(userPanelPages)/DrawerPages/NotificationPages/type";
 
 const CheapDataContext = createContext<CheapData | undefined>(undefined)
 
@@ -14,8 +15,6 @@ export function CheapDataProvider({ children }: { children: ReactNode }) {
 
     const {
         data: GetNumberOfNotification,
-        error: GetNumberOfNotificationError,
-        isLoading: NumberOfNotificationLoading,
         mutate : NumbersNotificationsMutate
     } = useSWR<GetNumberOfNotification>(
         user?.id ? API.Notifications.NumberOfNotifications(user.id) : null, 

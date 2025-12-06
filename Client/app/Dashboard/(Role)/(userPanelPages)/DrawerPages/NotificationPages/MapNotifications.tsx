@@ -1,5 +1,5 @@
 'use client';
-import { ReactNode, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import useSWR from "swr";
 import { API } from "@/utils/Api";
 import { useUser } from "@/Components/context/UserContext/UserContext";
@@ -20,6 +20,7 @@ import { useCheapData } from "@/Components/context/CheapData/CheapDataContext";
 import { SkillmateIcon } from "@/Icons/SkillmateIcon";
 import { Importatnt } from "@/Icons/Importatnt";
 import { AcceptSyncUserToAnother } from "./action";
+import { ActionButtons, GetNotifications, GetNotificationsFormat, NotificationData, NotificationFilter } from "./type";
 const EmptyFolder = dynamic(() => import("@/Icons/Vector/EmptyFolder"), {
   loading: () => <BouncedDots/>,
 });
@@ -50,7 +51,7 @@ export default function MapNotifications({ filter }:{ filter : NotificationFilte
         }
     }, [filter])
 
-    const {data : GetNotification , error : GetNotificationsError , isLoading : NotificationsLoading , mutate} = useSWR<GetNotificationsFormat>(API.Notifications.GetFilteredNotifications(user!.id ,  notifFilter) , fetcher)
+    const {data : GetNotification , isLoading : NotificationsLoading , mutate} = useSWR<GetNotificationsFormat>(API.Notifications.GetFilteredNotifications(user!.id ,  notifFilter) , fetcher)
     const Notifications: NotificationData[] | undefined = GetNotification?.data?.sort((a, b) =>
         dayjs(b.create_at).diff(dayjs(a.create_at))
     );
@@ -97,7 +98,10 @@ export default function MapNotifications({ filter }:{ filter : NotificationFilte
                                     <div key={Notif.notif_id}>
                                         <li
                                             className={`border-[3px] border-solid border-neutral-600 p-3 rounded-lg lg:flex hidden  items-center gap-3 ${Notif.is_seen ? `dark:bg-neutral-700`: `${Notif.type === "Super" ? `bg-red-100 dark:bg-rose-950  hover:bg-red-200 dark:hover:bg-rose-900` : `bg-blue-100 dark:bg-neutral-800  hover:bg-blue-200 dark:hover:bg-neutral-700`} hover:cursor-pointer`}`} 
-                                            onClick={()=>{Notif.is_seen ? null : handleSeenClick(Notif.notif_id)}}
+                                            onClick={() => {
+                                                if (!Notif.is_seen) handleSeenClick(Notif.notif_id);
+                                            }}
+
                                         >
                                             <Link href={``} className="hover:scale-105 transition-all duration-200">
                                                 <Avatar src={imageUrl(Notif.profileImageUrl)} shape="square" size={64} className="shadow-md hidden md:inline-block" />
@@ -169,11 +173,19 @@ export function ResponsiveNotification(Notif : NotificationData , handleSeenClic
         <li 
         key={Notif.notif_id}
         className={`border-[3px] border-solid border-neutral-600 p-3 rounded-lg flex items-center gap-3 ${Notif.is_seen ? `dark:bg-neutral-700`: `${Notif.type === "Super" ? `bg-red-100 dark:bg-rose-950  hover:bg-red-200 dark:hover:bg-rose-900` : `bg-blue-100 dark:bg-neutral-800  hover:bg-blue-200 dark:hover:bg-neutral-700`} hover:cursor-pointer`}`} 
-        onClick={()=>{Notif.is_seen ? null : handleSeenClick(Notif.notif_id)}}
+        onClick={()=>{
+            if(!Notif.is_seen){
+                handleSeenClick(Notif.notif_id)
+            }
+        }}
         >
         <span
             className={`border-[3px] border-solid border-neutral-600 p-3 rounded-lg lg:flex hidden items-center gap-3 ${Notif.is_seen ? `dark:bg-neutral-700`: `${Notif.type === "Super" ? `bg-red-100 dark:bg-rose-950  hover:bg-red-200 dark:hover:bg-rose-900` : `bg-blue-100 dark:bg-neutral-800  hover:bg-blue-200 dark:hover:bg-neutral-700`} hover:cursor-pointer`}`} 
-            onClick={()=>{Notif.is_seen ? null : handleSeenClick(Notif.notif_id)}}
+            onClick={()=>{
+                if(!Notif.is_seen){
+                    handleSeenClick(Notif.notif_id)
+                }
+            }}
         ></span>
         <Link href={``} className="hover:scale-105 transition-all duration-200">
             <Avatar src={imageUrl(Notif.profileImageUrl)} shape="square" size={40} className="shadow-md" />

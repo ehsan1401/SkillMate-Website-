@@ -4,7 +4,6 @@ import UserPanel from "./(Role)/userPanel";
 import ProUserPanel from "./(Role)/ProUserPanel";
 import { useUser } from "@/Components/context/UserContext/UserContext";
 import { PanelItemsProvider } from "@/Components/context/PanelItem/PanelItemsProvider";
-import { useTest } from "@/Components/hooks/useTest";
 
 export default function Dashboard() {
   const { user } = useUser();

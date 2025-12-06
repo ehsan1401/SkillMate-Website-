@@ -11,7 +11,6 @@ import Loading from "./Loading"
 import NavigationBar from "@/Components/naviagtion/NavigationBar";
 import AllProviders from "@/Components/provider/AllProviders";
 import 'aos/dist/aos.css';
-import { PanelItemsProvider } from "@/Components/context/PanelItem/PanelItemsProvider";
 import NavigationProvider from "@/Components/naviagtion/NavigationProvider";
 
 

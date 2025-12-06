@@ -1,5 +1,5 @@
 'use client';
-import { Suspense, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Loading from "../Loading";
 import { useUser } from "@/Components/context/UserContext/UserContext";
 import AccessDenied from "@/Components/AceessDenied";

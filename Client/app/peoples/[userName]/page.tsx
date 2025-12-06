@@ -17,7 +17,7 @@ import SkillmateLogoLoading from "@/Components/Loadings/SkillmateLogoLoading";
 
 export default function People({params}: {params : Promise<{ userName: string }>}) {
   const resolvedParams = use(params);
-  const { data: userInformationProfile, error, isLoading } = useSWR(
+  const { data: userInformationProfile, isLoading } = useSWR(
     resolvedParams.userName ? `user-${resolvedParams.userName}` : null,
     () => GetPeopleInformation(API.Peoples.GetPeopleInfo(resolvedParams.userName))
   );

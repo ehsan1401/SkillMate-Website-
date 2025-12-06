@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import MapNotifications from "./NotificationPages/MapNotifications";
 import { useCheapData } from "@/Components/context/CheapData/CheapDataContext";
 import { Badge } from "antd";
+import { NotificationFilter, NotificationsFilterButtons } from "./NotificationPages/type";
 
 
 export default function Notifications() {
@@ -34,9 +35,8 @@ export default function Notifications() {
         </h1>
         <section className="md:w-2/3 w-full h-full flex justify-center items-center gap-3">
           {buttons.map((item) => (
-             <Badge count={item.count} color="blue">
+             <Badge count={item.count} color="blue" key={item.value}>
                 <button
-                  key={item.value}
                   className={`md:px-4 md:py-2 px-2 py-1 border-[3px] border-solid border-neutral-600 dark:border-neutral-300 hover:rounded-md transition-all duration-500 text-xs md:text-base ${notificationFilter === item.value ? `bg-neutral-300 dark:bg-neutral-800 rounded-md`: ``}`}
                   onClick={()=>{HandleFilterNotifications(item.value)}}
                 >

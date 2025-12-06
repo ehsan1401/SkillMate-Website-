@@ -1,7 +1,7 @@
 import { useModal } from "@/Components/context/ModalContext/ModalContext";
 import { SearchRounded } from "@/Icons/SearchRounded";
 import { Button } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { UserSearchVisibility } from "./action";
 import { ErrorIcon } from "@/Icons/ErrorIcon";
 

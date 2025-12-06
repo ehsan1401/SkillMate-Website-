@@ -3,15 +3,9 @@
 import { Dropdown, Input } from "antd";
 import { MenuProps } from "antd/lib";
 import React, { useState } from "react";
+import { AutocompleteInputProps } from "./type";
 
-type AutocompleteInputProps = {
-  value: string;
-  options: string[];
-  placeholder?: string;
-  onChange: (val: string) => void;
-  LetterLimit : number
-  width? : string
-};
+
 
 const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
   value,
@@ -61,7 +55,7 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
                   onChange(InputData);
                 }}
               >
-                Add "{InputData}"
+                Add &quot;{InputData}&ldquo;
               </span>
             ),
           },

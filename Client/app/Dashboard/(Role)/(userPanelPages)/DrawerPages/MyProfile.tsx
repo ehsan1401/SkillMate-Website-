@@ -14,7 +14,6 @@ import { UserIcon } from "lucide-react";
 import { SocialItem } from "./MyProfilePages/pages/type";
 import { EditeIcon } from "@/Icons/EditeIcon";
 import dynamic from "next/dynamic";
-import { BouncedDots } from "@/Components/Loadings/BouncedDots";
 import SkillmateLogoLoadingNonFullScreen from "@/Components/Loadings/SkillmateLogoLoadingNonFullScreen";
 
 const UserProfile = dynamic(()=>import('./MyProfilePages/UserProfile') , {

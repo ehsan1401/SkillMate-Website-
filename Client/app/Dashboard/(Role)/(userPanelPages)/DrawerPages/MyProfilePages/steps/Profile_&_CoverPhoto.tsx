@@ -35,15 +35,19 @@ export default function ProfileAndCoverPhoto({
         }
     )
 
-    useEffect(()=>{
-        setFormData(prev => ({ ...prev,  headerImage : {
-            headerImageURL: HeaderImage?.headerURL ,
+useEffect(() => {
+    setFormData(prev => ({
+        ...prev,
+        headerImage: {
+            headerImageURL: HeaderImage?.headerURL,
             headerImageALT: HeaderImage?.headerALT,
-            Position: formData.headerImage.Position,
-            overlayOpacity: formData.headerImage.overlayOpacity,
-            overlayColor: formData.headerImage.overlayColor,
-        }}))
-    } , [HeaderImage])
+            Position: prev.headerImage.Position,
+            overlayOpacity: prev.headerImage.overlayOpacity,
+            overlayColor: prev.headerImage.overlayColor,
+        }
+    }))
+}, [HeaderImage, setFormData])
+
 
 
   return (

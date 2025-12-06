@@ -34,12 +34,13 @@ export function ProfileCompletePercentage(userValues: userValue): ProfileComplet
   const entries = Object.entries(userValues) as [keyof userValue, boolean][];
 
   const NotCompleted = entries
-    .filter(([_, value]) => !value)
+    .filter(([, value]) => !value)
     .map(([key, value]) => ({ key: keyMap[key], value }));
 
   const Completed = entries
-    .filter(([_, value]) => value)
+    .filter(([, value]) => value)
     .map(([key, value]) => ({ key: keyMap[key], value }));
+
 
   const Percentage = ((entries.length - NotCompleted.length) / entries.length) * 100;
 

@@ -76,7 +76,7 @@ export default function UserProfile(
         Gender : user.Gender
       }
     )
-  }, [])
+  }, [user , userInfo])
 
   const steps = [
     {

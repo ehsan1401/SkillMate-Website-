@@ -1,12 +1,12 @@
-type NotificationFilter = "System-Alerts" | "Important" | "Unread-Only" | "All-Notifications" ;
+export type NotificationFilter = "System-Alerts" | "Important" | "Unread-Only" | "All-Notifications" ;
 
-type NotificationsFilterButtons = {
+export type NotificationsFilterButtons = {
     name : string , 
     value : NotificationFilter,
     count : number
 }
 
-type ActionButtons = {
+export type ActionButtons = {
     HTML: "button" | "Link" | "Text",
     type: "sync" | "Login" | "Invite" | "Request" | "",
     payload: {
@@ -15,8 +15,8 @@ type ActionButtons = {
     actionName: "accept" | "reject" | "cancel"
 }
 
-type GetNotifications = 'Super'| 'Seen'| 'System'| 'All' ;
-type NotificationData = {
+export type GetNotifications = 'Super'| 'Seen'| 'System'| 'All' ;
+export type NotificationData = {
     UserID : number ,
     create_at : Date,
     update_at : Date ,
@@ -30,13 +30,13 @@ type NotificationData = {
     actions : ActionButtons
 }
 
-interface GetNotificationsFormat {
+export interface GetNotificationsFormat {
     status : number ,
     data : NotificationData[]
 }
 
 
-type GetNumberOfNotification = {
+export type GetNumberOfNotification = {
     "Super" : number ,
     "System": number ,
     "Seen"  : number ,

@@ -52,9 +52,7 @@ export default function UploadAvatarCrop({
     const croppedDataUrl = canvas.toDataURL("image/png");
     const file = dataURLtoFile(croppedDataUrl, "avatar.png");
 
-    // setFormData((prev: any) => ({ ...prev, profileImage: croppedDataUrl }));
-    setFormData((prev: any) => ({ ...prev, profileImage: file }));
-    // setUrl(croppedDataUrl);
+    setFormData((prev) => ({ ...prev, profileImage: file }));
     setUrl(URL.createObjectURL(file));
     setOpen(false);
   };

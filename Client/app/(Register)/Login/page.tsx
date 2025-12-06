@@ -4,7 +4,7 @@ import { UserIcon } from "@/Icons/UserIcon";
 import { Button, Input, message } from "antd";
 import Image from "next/image";
 import { useState } from "react";
-import { loginUser, WellcomeNotification } from "./page/action";
+import { loginUser } from "./page/action";
 import { useRouter } from 'next/navigation';
 import AccessDenied from "@/Components/AceessDenied";
 import { LoadingIcon } from "@/Icons/LoadingIcon";

@@ -63,7 +63,11 @@ export default function Header({
                         <div
                             className={`w-[190px] h-[100px] bg-cover bg-center rounded-lg shadow-lg ${header.headerName === HeaderImage.headerName ? ` border-[3px] border-solid border-blue-500` : `cursor-pointer`}`} 
                             style={{backgroundImage : `url(${header.headerURL})`}}
-                            onClick={()=>{header.headerName === HeaderImage.headerName ? null : setHeaderImage(header)}}
+                            onClick={() => {
+                                if (header.headerName !== HeaderImage.headerName) {
+                                    setHeaderImage(header);
+                                }
+                            }}
                             key={header.headerALT}
                         >
 

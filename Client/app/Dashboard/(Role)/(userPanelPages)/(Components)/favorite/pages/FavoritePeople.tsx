@@ -2,7 +2,7 @@
 import { API } from "@/utils/Api"
 import { GetFavoritePeople } from "./action/clientAction";
 import { User } from "./action/type";
-import { Avatar, Spin, Tooltip } from "antd";
+import { Avatar, Spin } from "antd";
 import Link from "next/link";
 import RemoveFavoritePeopleButton from "./Components/RemoveFavoritePeopleButton";
 import useSWR from 'swr';

@@ -6,8 +6,6 @@ import dayjs from "dayjs";
 import { useAlert } from "@/Components/elements/Alert/AlertContext";
 import TextArea from "antd/es/input/TextArea";
 import EmptyFolder from "@/Icons/Vector/EmptyFolder";
-import { EducationIcon } from "@/Icons/EducationIcon";
-import { CityIcon } from "@/Icons/CityIcon";
 import { EmployeeIcon } from "@/Icons/EmployeeIcon";
 import { LinkIcon } from "@/Icons/LinkIcon";
 import { BuildIcon } from "@/Icons/BuildIcon";
@@ -197,7 +195,7 @@ export default function ExperienceAndProjects(
                         className="pt-[5px]"
                     >
                         <span className=" font-vazir text-xs">
-                            I'm still Working at this Position.
+                            Im still Working at this Position.
                         </span>
                     </Checkbox>
                 </div>
@@ -402,7 +400,7 @@ export default function ExperienceAndProjects(
                                            <span className="flex flex-col">
                                                 {item.achievements?.map((achievementItem)=>{
                                                     return(
-                                                        <p className="text-[12px] pl-5 mb-1">
+                                                        <p className="text-[12px] pl-5 mb-1" key={achievementItem}>
                                                             • {achievementItem}
                                                         </p>
                                                     )

@@ -3,8 +3,8 @@ import { useState } from "react";
 
 
 export function useTest(){
-    let fffn = Array.from({length : 20} , (_ , index)=> 5 + index)
-    let something = fffn.reduce((acc , cur)=>{
+    const fffn = Array.from({length : 20} , (_ , index)=> 5 + index)
+    const something = fffn.reduce((acc , cur)=>{
         acc += cur ;
         console.log(acc)
         return acc;

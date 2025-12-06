@@ -1,4 +1,7 @@
 'use client'
+
+import Image from "next/image";
+
 type Props = {
   size?: number;
   lineWidth?: number;
@@ -18,14 +21,13 @@ export default function SkillmateLogoLoadingNonFullScreen({
             overflow: "visible",
             }}
         >
-        <img
-            src="/Images/DarkMainLogo.png"
-            alt="logo"
-            draggable={false}
-            className="object-contain hidden dark:inline-block w-[200px] h-[200px]"
+        <Image
+          src="/Images/DarkMainLogo.png"
+          alt="logo"
+          draggable={false}
+          className="object-contain hidden dark:inline-block w-[200px] h-[200px]"
         />
-
-        <img
+        <Image
             src="/Images/MainLogo.png"
             alt="logo"
             draggable={false}

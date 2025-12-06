@@ -1,5 +1,5 @@
 'use client';
-import { Button, Input, Select, Tag } from "antd"
+import { Button, Input, Tag } from "antd"
 import { UserInfo } from "../pages/type"
 import { useEffect, useState } from "react"
 import { useAlert } from "@/Components/elements/Alert/AlertContext";
@@ -28,7 +28,7 @@ export default function SkillsAndLearning(
     useEffect(()=>{
         setSkills(formData.skills)
         setLearningSkills(formData.learning_skills)
-    } , [])
+    } , [formData.skills, formData.learning_skills, setSkills, setLearningSkills])
 
     const HandleAddSkill = () => {
         if (!skill.trim()) return;
@@ -48,7 +48,7 @@ export default function SkillsAndLearning(
 
     useEffect(()=>{
         setFormData(prev => ({ ...prev, skills : Skills  }))
-    } , [Skills])
+    } , [Skills , setFormData])
 
 
     const HandleAddLearningSkill = () => {
@@ -67,9 +67,13 @@ export default function SkillsAndLearning(
         setLearningSkills(prev => prev.filter(s => s !== skillToRemove));
     };
 
-    useEffect(()=>{
-        setFormData(prev => ({ ...prev, learning_skills : learningSkills}))
-    } , [learningSkills])
+    useEffect(() => {
+    setFormData(prev => ({
+        ...prev,
+        learning_skills: learningSkills
+    }))
+}, [learningSkills, setFormData])
+
 
     return(
     <div className="w-full lg:h-[450px] h-auto flex flex-col gap-4 px-5 pt-5">

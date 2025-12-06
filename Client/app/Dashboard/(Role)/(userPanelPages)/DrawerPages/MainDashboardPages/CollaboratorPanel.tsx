@@ -10,8 +10,8 @@ import { ReactNode } from "react";
 import EmptyFolder from "@/Icons/Vector/EmptyFolder";
 import dynamic from "next/dynamic";
 import { BouncedDots } from "@/Components/Loadings/BouncedDots";
-import { SwiperSlide , Swiper, useSwiper } from "swiper/react";
-import { FreeMode, Navigation, Pagination } from "swiper/modules";
+import { SwiperSlide , Swiper } from "swiper/react";
+import { FreeMode, Navigation } from "swiper/modules";
 import { RightSideArrow } from "@/Icons/RightSideArrow";
 import { RemoveIcon } from "@/Icons/RemoveIcon";
 import { TrashBin } from "@/Icons/TrashBin";
@@ -44,7 +44,6 @@ type Suggeste = {
 export default function CollaboratorPanel(){
     const { userInfo } = useUser();      
     const {TogglePanelItem} = useChangePanelItem();
-    const swiper = useSwiper();
     const {GetNumberOfNotification} = useCheapData()
 
     const Suggestes : Suggeste[] = [

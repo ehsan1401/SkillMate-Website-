@@ -6,7 +6,6 @@ import { theRoutes } from "@/utils/theRoutes";
 import { Badge, Tooltip } from "antd";
 import Link from "next/link";
 import { ReactNode } from "react";
-import MainDashboardChart from "./MainDashboardChart";
 import { SymbolsAdd } from "@/Icons/SymbolsAdd";
 import { useChangePanelItem } from "@/Components/context/PanelItem/PanelItemsProvider";
 import { NotificationsIcon } from "@/Icons/NotificationsIcon";

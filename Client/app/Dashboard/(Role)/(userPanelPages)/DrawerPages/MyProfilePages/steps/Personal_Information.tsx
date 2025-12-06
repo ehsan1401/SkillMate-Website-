@@ -50,7 +50,7 @@ export default function PersonalInformation(
         if(country && region ){
             setFormData(prev => ({ ...prev, Location: { City : region , country : country} }))
         }
-    } , [country , region])
+    } , [country , region , setFormData])
 
   return (
     <div className="w-full lg:h-[450px] h-auto flex flex-col lg:pr-10 lg:pt-5">

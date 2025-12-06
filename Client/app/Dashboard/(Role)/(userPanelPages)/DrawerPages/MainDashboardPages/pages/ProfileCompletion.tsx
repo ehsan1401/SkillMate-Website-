@@ -1,9 +1,8 @@
 'use client';
 import { useUser } from "@/Components/context/UserContext/UserContext";
 import { API } from "@/utils/Api";
-import { Avatar, Progress, Tooltip } from "antd";
+import { Avatar, Progress } from "antd";
 import { ProgressProps } from "antd/lib";
-import { AddDiamond } from "@/Icons/AddDiamond";
 import { Completed } from "@/Icons/Completed";
 import { CrossCircle } from "@/Icons/CrossCircle";
 import useSWR from "swr";
@@ -11,9 +10,13 @@ import { GetProfileCompletePercentage } from "./action";
 
 
 export default function ProfileCompletion(){
-    const { user , userInfo  } = useUser();    
+    const { user  } = useUser();    
     
-    const {data : result , error , mutate} = useSWR(API.user.ProfilePercentage(user?.id!) , GetProfileCompletePercentage)
+    const { data: result } = useSWR(
+        user ? API.user.ProfilePercentage(user.id) : null,
+        GetProfileCompletePercentage
+    );
+
     const twoColors: ProgressProps['strokeColor'] = {
         '0%': '#896C6C',
         '100%': '#F7A5A5',
@@ -21,13 +24,6 @@ export default function ProfileCompletion(){
 
     return(
         <div className=" w-full h-full flex flex-col p-2 py-3 relative">
-            {/* {
-                userInfo ? 
-                <UpdateInfoButton user={user!} userInfo={userInfo!} position={`absolute top-3 right-5`} onUpdated={mutate}/>
-                    :
-                <CreateInfoButton user={user!} userInfo={userInfo!} onUpdated={mutate} ChangeButton={<Tooltip placement="left" title="Create Your Profile"><AddDiamond className="absolute top-3 right-5 text-2xl text-neutral-600 hover:rotate-90 transition-all duration-200" /></Tooltip>}/>
-                
-            } */}
             <div className="w-full h-full flex flex-col justify-center items-center gap-2 ">
                 <div className="w-[84px] lg:hover:w-48 hover:w-[84px] relative overflow-hidden transform transition-all duration-300 rounded-full lg:cursor-pointer hover:bg-neutral-200 hover:dark:bg-neutral-500 text-neutral-800 dark:text-neutral-100">
                     
@@ -67,12 +63,8 @@ export default function ProfileCompletion(){
                             </span>
                         ))}
                     </div>
-
-
                 </>
             }
-
-
             </div>
         </div>
     )
