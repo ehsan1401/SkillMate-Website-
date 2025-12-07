@@ -5,6 +5,7 @@ import { UserIcon } from "@/Icons/UserIcon";
 import { updateUsername } from "./action";
 import { UserType } from "@/Types/UserType";
 import { useUser } from "@/Components/context/UserContext/UserContext";
+import { toUsernameSlug } from "@/utils/toUsernameSlug";
 
 function ChangeUsernameModal({
   initialUsername,
@@ -19,23 +20,27 @@ function ChangeUsernameModal({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    const onlyLetters = /^[a-zA-Z_-]*$/;
-    if (onlyLetters.test(value)) setUsername(value);
+    const usernameRegex = /^[\p{L}0-9 .'’-]{3,}$/u;
+    if (usernameRegex.test(value)) setUsername(value);
   };
 
   return (
     <div>
-        <div className="py-8 font-vazir">
+        <div className="pt-8 pb-4 font-vazir">
             <input
                 type="text"
-                value={username}
+                value={toUsernameSlug(username , true)!}
                 onChange={handleChange}
-                maxLength={20}
+                maxLength={50}
                 placeholder="Enter new username"
                 className="border p-2 rounded w-full"
             />
         </div>
-
+        <div>
+          <p className="px-4 font-vazir text-red-300 text-sm">
+            Changing your username is risky. Your profile URL and personal links will also change. Saved links or references may no longer work, and people might not be able to find you.
+          </p>
+        </div>
         <div className="flex justify-end gap-2 mt-2">
         <button
             className="px-3 py-1  bg-blue-500 text-neutral-100 hover:bg-blue-600 transition-all duration-300 rounded-md w-full font-vazir"
@@ -49,7 +54,7 @@ function ChangeUsernameModal({
 }
 
 export default function UpdateUsername({ user }: { user: UserType }) {
-  const { showModal } = useModal();
+  const { showModal , hideModal } = useModal();
   const { showAlert } = useAlert();
   const [newUsername, setNewUsername] = useState<string>("");
   const{mutate} = useUser()
@@ -66,10 +71,12 @@ export default function UpdateUsername({ user }: { user: UserType }) {
       if(updatedUser?.status === 200){
         showAlert(updatedUser?.message ?? '', "success");
         mutate()
+        hideModal()
       }else{
         showAlert(updatedUser?.message ?? '', "Error");
       }
       setNewUsername("");
+      
     } catch (err) {
       console.error(err);
       showAlert("Failed to update username. Try again.", "Error");
@@ -92,7 +99,7 @@ export default function UpdateUsername({ user }: { user: UserType }) {
                     initialUsername={newUsername}
                     onConfirm={(username) => handleOk(username)}
                   />,
-                  `Change Your Username - ${user.userName || ""}`,
+                  `Change Your Username - ${toUsernameSlug(user.userName , true)! || ""}`,
                     undefined,
                     undefined,
                     700,

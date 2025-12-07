@@ -26,13 +26,17 @@ export default function SkillmateLogoLoading({
         src="/Images/DarkMainLogo.png"
         alt="logo"
         draggable={false}
-        className="object-contain hidden dark:inline-block w-[200px] h-[200px]"
+        className="object-contain hidden dark:inline-block"
+        width={200}
+        height={200}
       />
       <Image 
         src="/Images/MainLogo.png"
         alt="logo"
         draggable={false}
-        className="object-contain dark:hidden w-[200px] h-[200px]"
+        className="object-contain dark:hidden"
+        width={200}
+        height={200}
       />
       </div>
 

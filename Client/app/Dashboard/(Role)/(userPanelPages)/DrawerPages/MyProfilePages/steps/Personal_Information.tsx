@@ -31,8 +31,8 @@ export default function PersonalInformation(
   const { user } = useUser();
   const breakPoint = useBreakpoint();
   const breakPointRec = breakPoint === "base" || breakPoint === "sm" || breakPoint === "md"
-  const [country, setCountry] = useState<string | undefined>(formData.Location.country);
-  const [region, setRegion] = useState<string| undefined>(formData.Location.City);
+  const [country, setCountry] = useState<string | undefined>(undefined);
+  const [region, setRegion] = useState<string| undefined>(undefined);
 
   const countryOptions = allCountries.map(c => ({
     value: c.countryName,
@@ -45,6 +45,10 @@ export default function PersonalInformation(
         label: r.name
       })) ?? []
     : [];
+    useEffect(() => {
+      setCountry(formData.Location.country);
+      setRegion(formData.Location.City);
+    }, [formData.Location.country, formData.Location.City]);
 
     useEffect(()=>{
         if(country && region ){

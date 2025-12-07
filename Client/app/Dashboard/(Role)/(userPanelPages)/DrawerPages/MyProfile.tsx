@@ -1,5 +1,5 @@
 
-import { JSX, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import UploadAvatar from "../page/UploadAvatar";
 import { Linkedin } from "@/Icons/socials/Linkedin";
 import { MdiGithub } from "@/Icons/socials/GitHub";
@@ -15,14 +15,22 @@ import { SocialItem } from "./MyProfilePages/pages/type";
 import { EditeIcon } from "@/Icons/EditeIcon";
 import dynamic from "next/dynamic";
 import SkillmateLogoLoadingNonFullScreen from "@/Components/Loadings/SkillmateLogoLoadingNonFullScreen";
+import { toUsernameSlug } from "@/utils/toUsernameSlug";
+import { useAlert } from "@/Components/elements/Alert/AlertContext";
+import { uploadAvatar } from "../page/clientAction";
+import UploadAvatarCropModule from "@/Components/elements/UploadAvatarCropModule";
+import { imageUrl } from "@/utils/imageUrl";
 
 const UserProfile = dynamic(()=>import('./MyProfilePages/UserProfile') , {
     loading : ()=> <SkillmateLogoLoadingNonFullScreen />
 })
 export default function MyProfile(){
-    const {user , userInfo} = useUser();
+    const {user , userInfo , mutate} = useUser();
 
     const [showModal , setShowModal] = useState<boolean>(false)
+    const [imageFile , setImageFile] = useState< File | undefined >(undefined)
+    const [imageName , setImageName] = useState<string>("")
+    const { showAlert } = useAlert();
     const SocialIcons: Record<string, JSX.Element> = {
         LinkedIn: <Linkedin />,
         GitHub: <MdiGithub />,
@@ -35,6 +43,21 @@ export default function MyProfile(){
     const tagLabel = [
         "magenta", "red", "volcano", "orange", "gold","lime", "green","cyan", "blue", "geekblue", "purple"
     ];
+
+    
+    useEffect(()=>{
+
+        if(!imageFile) return ;
+        const UploadImage = async ()=>{
+            const Result = await uploadAvatar(imageFile)
+            if(Result.status === 200){
+                showAlert(Result.message, "success")
+                mutate()
+            }
+        }
+        UploadImage()
+    },[imageFile])
+    
     return(
         <>
             {showModal && <UserProfile showModal={showModal} setShowModal={setShowModal} />  }
@@ -44,11 +67,21 @@ export default function MyProfile(){
                 </h1>
                 <div className="w-full h-[100%] relative -top-5 lg:-top-10 px-3 lg:px-16 pt-14 pb-8 text-center ">
                     <div className="flex w-full left-0 flex-col items-center gap-2 absolute top-3 lg:top-0">
-                        <UploadAvatar 
+                        {/* <UploadAvatar 
                             size={130} 
                             avatarUrl={user?.profileImageUrl ? `http://localhost:4000${user.profileImageUrl}` : `https://api.dicebear.com/7.x/miniavs/svg?seed=1`} 
                             border={`border-2 border-solid border-black rounded-full`}
+                        /> */}
+                        <UploadAvatarCropModule
+                            Size={
+                                130
+                            }
+                            avatarURl={imageUrl(user?.profileImageUrl)}
+                            setCropedImage={setImageFile}
+                            setImageName={setImageName}
+                            AvatarStyles={`border-2 border-solid border-black rounded-full`}
                         />
+
                     </div>
                     <div className="absolute p-5 gap-2 flex flex-col text-xl text-neutral-800 dark:text-neutral-100">
                         {
@@ -72,7 +105,7 @@ export default function MyProfile(){
                     </div>
 
                     <Tooltip title={`View profile`} placement="left">
-                    <Link href={`/peoples/${user?.userName}`} className=" absolute lg:right-24 right-10 top-28 text-2xl text-neutral-800 dark:text-neutral-100 transition-all duration-200 hover:scale-125">
+                    <Link href={`/peoples/${toUsernameSlug(user?.userName)}`} className=" absolute lg:right-24 right-10 top-28 text-2xl text-neutral-800 dark:text-neutral-100 transition-all duration-200 hover:scale-125">
                         <UserIcon/>
                     </Link>
                     </Tooltip>
@@ -86,7 +119,7 @@ export default function MyProfile(){
                     <div className="w-full h-auto bg-neutral-300 dark:bg-neutral-800 rounded-2xl px-5 lg:pt-8 lg:pb-10 pt-24 pb-4 flex flex-col justify-center items-center">
 
                         <div className="flex flex-col justify-center items-center w-full h-[50%] lg:pt-16">
-                            <h1 className="text-4xl text-neutral-800 dark:text-neutral-100 font-bold font-vazir">{user?.userName}</h1>
+                            <h1 className="text-4xl text-neutral-800 dark:text-neutral-100 font-bold font-vazir">{toUsernameSlug(user?.userName , true)}</h1>
                             <span className="text-neutral-500 dark:text-neutral-200 -mt-5 text-sm">{user?.email}</span>
                             { userInfo && userInfo.phone ? <span className="py-1 text-neutral-500 dark:text-neutral-200">+{userInfo?.phone}</span> : <span className="py-1 text-red-800 dark:text-red-300 text-xs flex gap-1"><ErrorIcon className="mt-[2px]"/>Mobile phone number not entered.</span>}
                         </div>

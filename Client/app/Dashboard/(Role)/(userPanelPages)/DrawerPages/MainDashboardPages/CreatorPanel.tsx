@@ -35,7 +35,7 @@ export default function CreatorPanel(){
             route : theRoutes.Dashboard.favorite,
             Icon : <FavoriteCircle className="text-4xl"/> ,
             animateClasses : `hover:scale-125 transition-all duration-200`,
-            count : userInfo?.favorite.People.length
+            count : userInfo?.favorite?.People?.length ?? 0
         },
         {
             name : 'Notifications' ,

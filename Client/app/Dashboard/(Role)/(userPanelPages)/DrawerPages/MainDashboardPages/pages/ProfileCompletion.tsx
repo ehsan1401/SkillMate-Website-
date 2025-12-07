@@ -7,6 +7,7 @@ import { Completed } from "@/Icons/Completed";
 import { CrossCircle } from "@/Icons/CrossCircle";
 import useSWR from "swr";
 import { GetProfileCompletePercentage } from "./action";
+import { toUsernameSlug } from "@/utils/toUsernameSlug";
 
 
 export default function ProfileCompletion(){
@@ -32,7 +33,7 @@ export default function ProfileCompletion(){
                         src={user?.profileImageUrl ? `${API.base.backend}${user.profileImageUrl}` : `https://api.dicebear.com/7.x/miniavs/svg?seed=1`}
                         className="z-10 mx-[0px] border-2 border-solid border-neutral-600 shadow-md"
                     />
-                    <p className="text-lg flex justify-center items-center absolute top-0 left-[90px] z-0 h-full">{user?.userName}</p>
+                    <p className="text-lg flex justify-center items-center absolute top-0 left-[90px] z-0 h-full">{ toUsernameSlug(user?.userName , true)}</p>
                 </div>
                 <span className="w-3/4 text-center">
                     <Progress type="line" percent={result?.Percentage || 0} strokeColor={twoColors} />

@@ -5,34 +5,34 @@ import { Avatar, Modal, Button } from "antd";
 import { CameraOutlined } from "@ant-design/icons";
 import { Cropper, CropperRef } from "react-advanced-cropper";
 import "react-advanced-cropper/dist/style.css";
-import { UserInfo } from "../../pages/type";
 import { dataURLtoFile } from "@/utils/dataURLtoFile";
+import { UserInfo } from "../context/UserContext/types";
 
 type UploadAvatarCropProps = {
-  avatarUrl: string;
-  size: number;
-  formData: UserInfo;
-  setFormData: React.Dispatch<React.SetStateAction<UserInfo>>;
+  avatarURl: string;
+  Size: number;
+  setCropedImage: React.Dispatch<React.SetStateAction<File | undefined>>;
   setImageName: React.Dispatch<React.SetStateAction<string>>
+  AvatarStyles? : string
 };
 
-export default function UploadAvatarCrop({
-  avatarUrl,
-  size,
-  formData,
-  setFormData,
+export default function UploadAvatarCropModule({
+  avatarURl ,
+  Size ,
+  setCropedImage,
   setImageName,
+  AvatarStyles
 }: UploadAvatarCropProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const cropperRef = useRef<CropperRef | null>(null);
 
-  const [url, setUrl] = useState(avatarUrl);
+  const [url, setUrl] = useState<string | undefined>(undefined);
   const [tempImage, setTempImage] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    setUrl(avatarUrl);
-  }, [avatarUrl]);
+    setUrl(avatarURl);
+  }, [avatarURl]);
 
   const handleClick = () => inputRef.current?.click();
 
@@ -52,7 +52,7 @@ export default function UploadAvatarCrop({
     const croppedDataUrl = canvas.toDataURL("image/png");
     const file = dataURLtoFile(croppedDataUrl, "avatar.png");
 
-    setFormData((prev) => ({ ...prev, profileImage: file }));
+    setCropedImage(file);
     setUrl(URL.createObjectURL(file));
     setOpen(false);
   };
@@ -67,14 +67,12 @@ export default function UploadAvatarCrop({
           className="cursor-pointer transition-all duration-300"
         /> */}
         <Avatar
-          size={size}
+          size={Size}
           src={
-            formData.profileImage instanceof File
-              ? URL.createObjectURL(formData.profileImage)
-              : url
+            url
           }
           onClick={handleClick}
-          className="cursor-pointer transition-all duration-300"
+          className={`cursor-pointer transition-all duration-300 ${AvatarStyles}`}
         />
 
         <div

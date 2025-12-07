@@ -1,4 +1,3 @@
-
 'use client';
 
 import { API } from "@/utils/Api";

@@ -3,6 +3,7 @@ import { DatabaseService } from 'src/database/database.service';
 import { CreateUser } from './dto/CreateUser.dto';
 import { unlink } from 'fs';
 import { join } from 'path';
+import { toUsernameSlug } from 'src/utils/toUsernameSlug';
 
 @Injectable()
 export class UsersService {
@@ -64,17 +65,17 @@ export class UsersService {
 
   async updateUsername(body: { email: string; newUsername: string }) {
     const pool = this.databaseService.getPool();
+    const ConvertedUserName = toUsernameSlug(body.newUsername)
 
     const userCheck = await pool.query(`SELECT * FROM users WHERE email = $1`, [
       body.email,
     ]);
     if (userCheck.rowCount === 0) {
       return {status : 401 , message : `User with email: ${body.email} does not exist`};
-      
     }
 
     const UsernameRepeat = await pool.query(`SELECT id FROM users WHERE "userName" = $1`, [
-      body.newUsername,
+      ConvertedUserName,
     ]);
     if (UsernameRepeat.rows.length > 0) {
       return {status : 401 , message : "This username has already been used!"};
@@ -85,7 +86,7 @@ export class UsersService {
       SET "userName" = $1, "updateAt" = NOW()
       WHERE email = $2
       RETURNING *`,
-      [body.newUsername, body.email]
+      [ConvertedUserName, body.email]
     );
 
     return {status : 200 , message : "Username updated successfully!"};
@@ -123,7 +124,11 @@ export class UsersService {
       u."email",
       i."phone",
       i."bio",
+      i."jobTitle",
+      i."Education",
+      i."workExperience",
       u."profileImageUrl",
+      u."Gender",
       u."ShowInSearch",
       i."dateofbirth",
       i."social",

@@ -14,20 +14,14 @@ import { FacebookTag } from "@/Icons/socials/FacebookTag";
 import { GetPeopleInfoType, SocialsItem } from "./actions/types";
 import { MessageIcon } from "@/Icons/MessageIcon";
 import SkillmateLogoLoading from "@/Components/Loadings/SkillmateLogoLoading";
+import { toUsernameSlug } from "@/utils/toUsernameSlug";
 
 export default function People({params}: {params : Promise<{ userName: string }>}) {
   const resolvedParams = use(params);
   const { data: userInformationProfile, isLoading } = useSWR(
     resolvedParams.userName ? `user-${resolvedParams.userName}` : null,
-    () => GetPeopleInformation(API.Peoples.GetPeopleInfo(resolvedParams.userName))
+    () => GetPeopleInformation(API.Peoples.GetPeopleInfo(resolvedParams.userName!))
   );
-  useEffect(() => {
-    Aos.init({
-      duration: 1000,
-      once: true,
-    });
-  }, []);
-
   const SocialsLogo : SocialsItem[]= [
     { value: "LinkedIn", label: <span className="flex items-center gap-2"><Linkedin /> LinkedIn</span>, EmptyIcon :  <Linkedin />},
     { value: "GitHub", label: <span className="flex items-center gap-2"><MdiGithub /> GitHub</span>, EmptyIcon :  <MdiGithub />},
@@ -64,7 +58,7 @@ export default function People({params}: {params : Promise<{ userName: string }>
             className="absolute inset-0"
             style={{
             backgroundImage: `url(${
-              userInformationProfile.headerImage.headerImageURL?
+              userInformationProfile?.headerImage?.headerImageURL ?
                 userInformationProfile.headerImage.headerImageURL
               : 
                 (
@@ -79,13 +73,13 @@ export default function People({params}: {params : Promise<{ userName: string }>
             }}
         ></div>
         <div className="absolute inset-0 bg-black/60 dark:bg-black/70"></div>
-        <div className="w-full h-full absolute flex justify-center items-center">
-            <div className="w-[500px] h-1/5 flex flex-col">
-              <h1 className="text-8xl text-neutral-50 font-vazir select-none">
-                {userInformationProfile.userName}
+        <div className="w-full h-full absolute flex justify-start items-center left-[480px]">
+            <div className="min-w-[500px] h-1/5 flex flex-col justify-end">
+              <h1 className="text-8xl text-neutral-50 font-vazir select-none w-auto text-left">
+                {userInformationProfile.userName.length > 18 ? `${toUsernameSlug(userInformationProfile.userName , true)?.slice(0,18)}...` : toUsernameSlug(userInformationProfile.userName , true)}
               </h1>
               <h5 className="text-neutral-50 text-2xl -mt-11 pl-6 select-none">
-                {userInformationProfile.jobTitle}
+                {userInformationProfile.jobTitle !== "" ? userInformationProfile.jobTitle : null}
               </h5>
               <div className="buttons ">
                 
@@ -94,7 +88,7 @@ export default function People({params}: {params : Promise<{ userName: string }>
         </div>
         </header>
         
-        <div className="relative z-10 flex items-center justify-center h-full" data-aos="fade-left">
+        <div className="relative z-10 flex items-center justify-center h-full">
             <div className="w-96 h-0 absolute left-[160px] lg:-top-[420px] -top-[280px] bg-lime-500 rounded-full" >
                 <Image alt={userInformationProfile.userName} src={imageUrl(userInformationProfile.profileImageUrl)}
                 width={300} height={300} unoptimized className="rounded-full shadow-inner hidden lg:inline-block border-2 border-solid border-neutral-500" />

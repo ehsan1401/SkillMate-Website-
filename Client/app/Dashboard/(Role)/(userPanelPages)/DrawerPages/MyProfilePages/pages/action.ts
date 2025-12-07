@@ -68,12 +68,26 @@ export async function UploadUserProfileData(
     "workExperience",
   ];
 
+  // for (const key of fields) {
+  //   const value = userData[key];
+  //   if (value !== undefined && value !== null) {
+  //     generalInfoPayload[key] = value as unknown as JSONValue;
+  //   }
+  // }
   for (const key of fields) {
     const value = userData[key];
-    if (value !== undefined && value !== null) {
-      generalInfoPayload[key] = value as unknown as JSONValue;
+    const isEmptyString = value === "";
+
+    if (
+      value !== undefined &&
+      value !== null &&
+      !isEmptyString
+
+    ) {
+      generalInfoPayload[key] = value as JSONValue;
     }
   }
+
 
   if (Object.keys(generalInfoPayload).length > 0) {
     const response = await fetch(API.user.UserInfoProfile(userId), {

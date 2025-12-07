@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
+import { toUsernameSlug } from 'src/utils/toUsernameSlug';
 
 
 @Injectable()
@@ -9,7 +10,6 @@ export class PeoplesService {
 
     async GetPeopleInformation(peopleUsername: string){
         const pool = this.databaseService.getPool();
-
         const CheckUserExist = await pool.query(`SELECT id FROM users WHERE "userName" = $1` , [peopleUsername])
         if(CheckUserExist.rowCount === 0 ) throw new BadRequestException('User Dosent Exist! ')
 

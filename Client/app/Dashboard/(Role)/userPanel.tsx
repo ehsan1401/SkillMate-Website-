@@ -1,5 +1,5 @@
 'use client';
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { LogoutIcon } from "@/Icons/LogoutIcon";
 import { logout } from "@/utils/logout";
 import { ProfileIcon } from "@/Icons/profileIcon";
@@ -16,6 +16,13 @@ import { Badge, Tooltip } from "antd";
 import { useDashboardType } from "@/Components/provider/PanelTypeProvider";
 import { useCheapData } from "@/Components/context/CheapData/CheapDataContext";
 import SkillmateLogoLoading from "@/Components/Loadings/SkillmateLogoLoading";
+import { toUsernameSlug } from "@/utils/toUsernameSlug";
+import UploadAvatarCrop from "./(userPanelPages)/DrawerPages/MyProfilePages/steps/components/UploadAvatarCrop";
+import UploadAvatarCropModule from "@/Components/elements/UploadAvatarCropModule";
+import { imageUrl } from "@/utils/imageUrl";
+import { uploadAvatar } from "./(userPanelPages)/page/clientAction";
+import { useUser } from "@/Components/context/UserContext/UserContext";
+import { useAlert } from "@/Components/elements/Alert/AlertContext";
 const MyProfile = dynamic(() => import("./(userPanelPages)/DrawerPages/MyProfile"), {
   loading: () => <SkillmateLogoLoading />,
 });
@@ -42,9 +49,28 @@ type NavigationItem = {
 }
 
 export default function UserPanel({userData}:{userData : UserType}){
+    const {mutate} = useUser()
     const {selectedItem , TogglePanelItem} = useChangePanelItem();
     const { panelType, togglePanelType } = useDashboardType();
     const {GetNumberOfNotification} = useCheapData()
+    const [imageFile , setImageFile] = useState< File | undefined >(undefined)
+    const [imageName , setImageName] = useState<string>("")
+    const { showAlert } = useAlert();
+
+    useEffect(()=>{
+
+        if(!imageFile) return ;
+        const UploadImage = async ()=>{
+            const Result = await uploadAvatar(imageFile)
+            if(Result.status === 200){
+                showAlert(Result.message, "success")
+                mutate()
+            }
+        }
+        UploadImage()
+    },[imageFile])
+
+
 
     const NavigationItems : NavigationItem[] = [
     { id: "item0", label: "Dashboard", icon: <DashboardIcon /> , Component : <MainDashboard/> },
@@ -64,7 +90,18 @@ export default function UserPanel({userData}:{userData : UserType}){
                     <aside className="bg-neutral-100 dark:bg-neutral-600 w-full h-full rounded-3xl flex flex-col items-center lg:py-5">
                         <div className="flex flex-row lg:flex-col items-end w-full h-48 lg:h-full py-3 lg:p-0 justify-center lg:justify-start relative">
                             <div className="text-center h-full lg:h-1/4 w-1/3 lg:w-full">
-                                <UploadAvatar size={90} avatarUrl={userData?.profileImageUrl ? `${API.base.backend}${userData.profileImageUrl}` : `https://api.dicebear.com/7.x/miniavs/svg?seed=1`} />
+                                {/* <UploadAvatar 
+                                    size={90} 
+                                    avatarUrl={userData?.profileImageUrl ? `${API.base.backend}${userData.profileImageUrl}` : `https://api.dicebear.com/7.x/miniavs/svg?seed=1`} 
+                                /> */}
+                                <UploadAvatarCropModule
+                                    Size={
+                                        110
+                                    }
+                                    avatarURl={imageUrl(userData?.profileImageUrl)}
+                                    setCropedImage={setImageFile}
+                                    setImageName={setImageName}
+                                />
                             </div>
                             <button className="absolute top-6 right-5 w-10 h-6 lg:hidden transition-all duration-200 hover:scale-125 cursor-pointer" onClick={logout}>
                                 <Tooltip title="Logout">
@@ -73,9 +110,9 @@ export default function UserPanel({userData}:{userData : UserType}){
                             </button>
                             <div className="w-1/2 h-full lg:w-full lg:pt-14 text-center lg:h-1/4 flex flex-col items-start lg:items-center pt-3">
                                 <h1 className="text-2xl text-neutral-950 dark:text-neutral-100 font-Franklin">
-                                {userData?.userName?.length > 15 
-                                    ? userData.userName.slice(0, 15) + "..."  
-                                    : userData?.userName}
+                                {toUsernameSlug(userData?.userName , true)!.length > 19 
+                                    ? toUsernameSlug(userData?.userName , true)!.slice(0, 19) + "..."  
+                                    : toUsernameSlug(userData?.userName , true)}
                                 </h1>
                                 <h6 className="text-sm text-neutral-950 dark:text-neutral-100">{userData?.email}</h6>
                                 <button onClick={togglePanelType} className={`w-40 py-1 rounded-lg lg:hidden text-neutral-50 text-sm transition-all duration-300 ${panelType === 'Creator' ? `bg-blue-500 hover:bg-blue-600` : `bg-orange-500 hover:bg-orange-600`}`}>{panelType} panel</button>

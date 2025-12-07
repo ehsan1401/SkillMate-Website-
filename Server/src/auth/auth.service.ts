@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { DatabaseService } from 'src/database/database.service';
+import { toUsernameSlug } from 'src/utils/toUsernameSlug';
 
 
 @Injectable()
@@ -185,13 +186,14 @@ export class AuthService {
         'Password is too weak! It must contain at least 8 characters, including uppercase, lowercase, number, and special character.',
       );
     }
+    const convertedUserName = toUsernameSlug(userName)
 
     const result = await this.databaseService.query(
       `INSERT INTO users ("userName", "email", "passCode", "type", "profileImageUrl", "lastLogin", "createAt", "updateAt")
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
        RETURNING *`,
       [
-        userName,
+        convertedUserName,
         email,
         passCode,
         'NORMAL',

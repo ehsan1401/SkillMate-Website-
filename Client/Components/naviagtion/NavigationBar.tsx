@@ -75,7 +75,7 @@ export default function NavigationBar () {
                         href={href}
                         className={
                         isActive
-                            ? "dark:bg-white bg-neutral-700 lg:p-3 px-3 py-2 lg:py-3  rounded-3xl dark:text-black text-white "
+                            ? "dark:bg-white bg-neutral-700 lg:p-3 px-3 py-2 lg:py-3 font-vazir rounded-3xl dark:text-black text-white "
                             : "dark:text-white text-neutral-900"
                         }
                     >

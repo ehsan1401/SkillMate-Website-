@@ -9,7 +9,12 @@ type userValue = {
     skills: boolean;
     learning_skills: boolean;
     resume: boolean;
+    Gender: boolean;
+    workExperience: boolean;
+    Education: boolean;
+    jobTitle: boolean;
 };
+
 
 type ProfileCompletionResult = {
   Percentage: number;
@@ -29,6 +34,10 @@ export function ProfileCompletePercentage(userValues: userValue): ProfileComplet
     skills: "Skills",
     learning_skills: "Learning Skills",
     resume: "Resume",
+    Gender: "Gender",
+    workExperience: "work experience",
+    Education: "Education",
+    jobTitle: "Main Job Title",
   };
 
   const entries = Object.entries(userValues) as [keyof userValue, boolean][];
@@ -41,8 +50,7 @@ export function ProfileCompletePercentage(userValues: userValue): ProfileComplet
     .filter(([, value]) => value)
     .map(([key, value]) => ({ key: keyMap[key], value }));
 
-
-  const Percentage = ((entries.length - NotCompleted.length) / entries.length) * 100;
+  const Percentage = Math.round(((entries.length - NotCompleted.length) / entries.length) * 100);
 
   return { Percentage, NotCompleted, Completed };
 }
