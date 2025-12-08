@@ -1,8 +1,8 @@
 import { useChangePanelItem } from "@/Components/context/PanelItem/PanelItemsProvider";
 import { useUser } from "@/Components/context/UserContext/UserContext";
 import { ConnectionPoint } from "@/Icons/ConnectionPoint";
-import { IonHeartCircleOutline } from "@/Icons/FavoriteCircle";
-import { MaterialSymbolsNotificationsOutline } from "@/Icons/NotificationsIcon";
+import { FavoriteCircle } from "@/Icons/FavoriteCircle";
+import { NotificationsIcon } from "@/Icons/NotificationsIcon";
 import { theRoutes } from "@/utils/theRoutes";
 import { Avatar, Badge, Button } from "antd";
 import Link from "next/link";
@@ -13,15 +13,15 @@ import { BouncedDots } from "@/Components/Loadings/BouncedDots";
 import { SwiperSlide , Swiper, useSwiper } from "swiper/react";
 import { FreeMode, Navigation, Pagination } from "swiper/modules";
 import { RightSideArrow } from "@/Icons/RightSideArrow";
-import { StreamlineDelete1Solid } from "@/Icons/RemoveIcon";
+import { RemoveIcon } from "@/Icons/RemoveIcon";
 import { TrashBin } from "@/Icons/TrashBin";
 import { GraphNewBroken } from "@/Icons/GraphNewBroken";
 import { RequestIcon } from "@/Icons/RequestIcon";
-import { MdiChat } from "@/Icons/ChatIcon";
 import { FileCopy } from "@/Icons/FileCopy";
 import { TeamIcon } from "@/Icons/TeamIcon";
 import Image from "next/image";
 import { useCheapData } from "@/Components/context/CheapData/CheapDataContext";
+import { ChatIcon } from "@/utils/IConIndex";
 
 const ProfileCompletion = dynamic(()=>import('./pages/ProfileCompletion') , {
     loading : ()=> <div className="w-full h-full bg-gray-300 animate-pulse flex justify-center items-center"><BouncedDots/></div>
@@ -47,6 +47,7 @@ export default function CollaboratorPanel(){
     const swiper = useSwiper();
     const {GetNumberOfNotification} = useCheapData()
     
+    console.log("userInfo : " , userInfo)
 
     const Suggestes : Suggeste[] = [
         {    
@@ -91,13 +92,13 @@ export default function CollaboratorPanel(){
         {
             name : 'Messages',
             route : '#',
-            Icon : <MdiChat className="xl:text-3xl md:text-2xl text-lg mb-1"/>,
+            Icon : <ChatIcon className="xl:text-3xl md:text-2xl text-lg mb-1"/>,
             count : 0
         },
         {
             name : 'Notifications' ,
             route : '#',
-            Icon : <MaterialSymbolsNotificationsOutline className="xl:text-3xl md:text-2xl text-lg"/> ,
+            Icon : <NotificationsIcon className="xl:text-3xl md:text-2xl text-lg"/> ,
             count : GetNumberOfNotification?.All,
             fn : ()=>{TogglePanelItem('item3')}
         },
@@ -116,8 +117,8 @@ export default function CollaboratorPanel(){
         {
             name : 'Favorite' ,
             route : theRoutes.Dashboard.favorite,
-            Icon : <IonHeartCircleOutline className="xl:text-3xl md:text-2xl text-lg"/> ,
-            count : userInfo?.favorite.People.length
+            Icon : <FavoriteCircle className="xl:text-3xl md:text-2xl text-lg"/> ,
+            count : userInfo?.favorite ? userInfo?.favorite.People.length : 0
         },
         
         {
@@ -207,7 +208,7 @@ export default function CollaboratorPanel(){
                                         <Button type="primary" size="small" className="px-14 font-Homa">Sync</Button>
                                     </div>
                                     <button className="absolute top-3 right-4 group w-6 h-6">
-                                        <StreamlineDelete1Solid
+                                        <RemoveIcon
                                             className="text-xs absolute inset-0 transition-opacity duration-300 group-hover:opacity-0 ml-[5px] mt-[4px] text-neutral-800 dark:text-neutral-100"
                                         />
                                         <TrashBin

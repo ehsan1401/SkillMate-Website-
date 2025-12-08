@@ -9,5 +9,5 @@ export type UserType = {
   userName : string ; 
   inspection : number;
   ShowInSearch : boolean ;
-  
+  Gender : "Male" |"Female" |"Other" ;
 }

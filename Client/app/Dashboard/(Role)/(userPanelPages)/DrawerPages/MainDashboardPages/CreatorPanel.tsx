@@ -1,6 +1,6 @@
 import { useUser } from "@/Components/context/UserContext/UserContext";
 import { CreateNewFolder } from "@/Icons/CreateNewFolder";
-import { IonHeartCircleOutline } from "@/Icons/FavoriteCircle";
+import { FavoriteCircle } from "@/Icons/FavoriteCircle";
 import { SearchRounded } from "@/Icons/SearchRounded";
 import { theRoutes } from "@/utils/theRoutes";
 import { Badge, Tooltip } from "antd";
@@ -9,7 +9,7 @@ import { ReactNode } from "react";
 import MainDashboardChart from "./MainDashboardChart";
 import { SymbolsAdd } from "@/Icons/SymbolsAdd";
 import { useChangePanelItem } from "@/Components/context/PanelItem/PanelItemsProvider";
-import { MaterialSymbolsNotificationsOutline } from "@/Icons/NotificationsIcon";
+import { NotificationsIcon } from "@/Icons/NotificationsIcon";
 import { TeamIcon } from "@/Icons/TeamIcon";
 import { GraphNewBroken } from "@/Icons/GraphNewBroken";
 import { ConnectionPoint } from "@/Icons/ConnectionPoint";
@@ -34,14 +34,14 @@ export default function CreatorPanel(){
         {
             name : 'Favorite' ,
             route : theRoutes.Dashboard.favorite,
-            Icon : <IonHeartCircleOutline className="text-4xl"/> ,
+            Icon : <FavoriteCircle className="text-4xl"/> ,
             animateClasses : `hover:scale-125 transition-all duration-200`,
             count : userInfo?.favorite.People.length
         },
         {
             name : 'Notifications' ,
             route : '#',
-            Icon : <MaterialSymbolsNotificationsOutline className="text-4xl"/> ,
+            Icon : <NotificationsIcon className="text-4xl"/> ,
             animateClasses : `hover:scale-125 transition-all duration-200`,
             count : GetNumberOfNotification?.All,
             fn : ()=>{TogglePanelItem('item3')}

@@ -3,7 +3,7 @@
 CREATE TABLE userInfo (
     id SERIAL PRIMARY KEY,
     userid INT NOT NULL,
-    phone VARCHAR(11) CHECK (char_length(phone) = 11),
+    phone VARCHAR(11) CHECK (char_length(phone) = 11) DEFAULT NULL,
     age INT,
     bio TEXT,
     social JSONB DEFAULT '[]'::JSONB,
@@ -36,4 +36,17 @@ ALTER COLUMN age TYPE VARCHAR;
 
 ALTER TABLE userInfo
 RENAME COLUMN age TO DateOfBirth;
+
+
+ALTER TABLE userInfo ADD COLUMN "headerImage" JSONB DEFAULT '{}'::JSONB
+
+ALTER TABLE userInfo ADD COLUMN "Location" JSONB DEFAULT '{}'::JSONB
+
+ALTER TABLE userInfo DROP COLUMN "Location"
+
+ALTER TABLE userinfo ADD COLUMN "jobTitle" TEXT DEFAULT NULL
+
+ALTER TABLE userinfo ADD COLUMN "Education" JSONB DEFAULT '[]'::JSONB
+
+ALTER TABLE userinfo ADD COLUMN "workExperience" JSONB DEFAULT '[]'::JSONB
 

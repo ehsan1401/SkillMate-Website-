@@ -1,6 +1,6 @@
 "use client";
 
-import { MaterialSymbolsNotificationsOutline } from "@/Icons/NotificationsIcon";
+import { NotificationsIcon } from "@/Icons/NotificationsIcon";
 import { ConfigProvider, notification } from "antd";
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 
@@ -20,7 +20,7 @@ export function DashboardTypeProvider({ children }: { children: ReactNode }) {
     const openNotification = () => {
     api.open({
       message: <div className="flex gap-1">
-         <MaterialSymbolsNotificationsOutline className="text-yellow-600 text-xl mt-[3px]"/> 
+         <NotificationsIcon className="text-yellow-600 text-xl mt-[3px]"/> 
          <h3 className="text-neutral-700">Panel Mode changed!</h3>
       </div>,
       description:<div className="text-neutral-700">
